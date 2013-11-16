@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= content_for?(:title) ? yield(:title) : "Test5" %></title>
+    <title><%= content_for?(:title) ? yield(:title) : "caicai" %></title>
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag "application", :media => "all" %>
     <%= javascript_include_tag "application" %>
@@ -39,25 +39,39 @@
 
     <div class="container">
         <div class="row">
+          <div class="span3 ">
+						
+						<ul class="nav nav-list category bs-docs-sidenav">
+							<li class="">
+                <%= link_to "蔬菜品种", products_path  %>
+							</li>
+						  	<li class="active">
+									<a style="padding-left: 44px;" href="/product_categories?brand=Forme">Forme</a>
+								</li>
+						  	<li class="">
+									<a style="padding-left: 44px;" href="/product_categories?brand=koobee">koobee</a>
+								</li>
+						</ul>
+						
+						
+<!--             <div class="well sidebar-nav">
+              <h3>Sidebar</h3>
+              <ul class="nav nav-list">
+                <li class="nav-header">Sidebar</li>
+                <li><%= link_to "蔬菜品种", products_path  %></li>
+              </ul>
+            </div>
+						 -->
+          </div>
           <div class="span9">
             <%= bootstrap_flash %>
             <%= yield %>
           </div>
-          <div class="span3">
-            <div class="well sidebar-nav">
-              <h3>Sidebar</h3>
-              <ul class="nav nav-list">
-                <li class="nav-header">Sidebar</li>
-                <li><%= link_to "Link1", "/path1"  %></li>
-                <li><%= link_to "Link2", "/path2"  %></li>
-                <li><%= link_to "Link3", "/path3"  %></li>
-              </ul>
-            </div>
-          </div>
+          
         </div>
 
       <footer>
-        <p>&copy; Company 2013</p>
+        <!-- <p>&copy; Company 2013</p> -->
       </footer>
 
     </div>
