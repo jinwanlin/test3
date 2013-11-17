@@ -2,20 +2,28 @@
 
 <table>
   <tr>
-    <th>Name</th>
-    <th>Des</th>
-    <th></th>
-    <th></th>
+    <th>名称</th>
+    <th>最低价</th>
+    <th>最高价</th>
+    <th>平均价</th>
+    <th>卖价</th>
+    <th>利润</th>
     <th></th>
   </tr>
 
 <% @products.each do |product| %>
   <tr>
     <td><%= product.name %></td>
-    <td><%= product.des %></td>
-    <td><%= link_to 'Show', product %></td>
-    <td><%= link_to 'Edit', edit_product_path(product) %></td>
-    <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= price_format product.last_purchase_low_price %></td>
+    <td><%= price_format product.last_purchase_price %></td>
+    <td><%= price_format product.last_purchase_heigh_price %></td>
+    <td><%= price_format product.last_selling_price %></td>
+    <td><%= price_format product.rofit %></td>
+    <td>
+			<%= link_to 'Show', product %>
+    	<%= link_to 'Edit', edit_product_path(product) %>
+    	<%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %>
+		</td>
   </tr>
 <% end %>
 </table>

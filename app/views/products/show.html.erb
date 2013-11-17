@@ -1,15 +1,92 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <b>Name:</b>
-  <%= @product.name %>
+<p style="overflow:hidden;">
+<%= link_to @product.next.name, @product.next, class: 'pull-right btn' if @product.next %>
+<%= link_to @product.previous.name, @product.previous, class: 'btn' if @product.previous %>
 </p>
 
-<p>
-  <b>Des:</b>
-  <%= @product.des %>
-</p>
+<p id="prices"></p>
 
 
 <%= link_to 'Edit', edit_product_path(@product) %> |
 <%= link_to 'Back', products_path %>
+
+<script type="text/javascript">
+Highcharts.setOptions({
+	lang: {
+		months: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',  'Juillet', '八月', '九月', '10', 'Novembre', 'Décembre'],
+		weekdays: ['星期一', '星期二', '星期三', '星期', '星期', '星期', '星期']
+	}
+});
+$(function () {
+
+
+	
+        $('#prices').highcharts({
+            chart: {
+                zoomType: 'x',
+                spacingRight: 20
+            },
+            title: {
+                text: '<%= @product.name %>'
+            },
+            // subtitle: {
+            //     text: document.ontouchstart === undefined ?
+            //         'Click and drag in the plot area to zoom in' :
+            //         'Pinch the chart to zoom in'
+            // },
+            xAxis: {
+                type: 'datetime',
+                maxZoom: 14 * 24 * 3600000, // fourteen days
+                title: {
+                    text: null
+                }
+            },
+            yAxis: {
+                title: {
+                    text: 'Exchange rate'
+                }
+            },
+            tooltip: {
+                shared: true
+            },
+            legend: {
+                enabled: false
+            },
+            plotOptions: {
+                area: {
+                    fillColor: {
+                        linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1},
+                        stops: [
+                            [0, Highcharts.getOptions().colors[0]],
+                            [1, Highcharts.Color(Highcharts.getOptions().colors[0]).setOpacity(0).get('rgba')]
+                        ]
+                    },
+                    lineWidth: 1,
+                    marker: {
+                        enabled: false
+                    },
+                    shadow: false,
+                    states: {
+                        hover: {
+                            lineWidth: 1
+                        }
+                    },
+                    threshold: null
+                }
+            },
+    
+            series: [{
+                type: 'area',
+                name: '每斤',
+                pointInterval: 24 * 3600 * 1000,
+                pointStart: Date.UTC(2013, 11, 11),
+								data: [
+											<% @product.prices.each_with_index do |price, index| %>
+												<%= "," if index != 0 %>[Date.UTC(<%= price.date.strftime("%Y, %m, %d") %>), <%= price.purchase_price %>]
+											<% end %>
+											]
+            }]
+        });
+    });
+</script>
