@@ -83,7 +83,7 @@ $(function () {
                 pointStart: Date.UTC(2013, 11, 11),
 								data: [
 											<% @product.prices.each_with_index do |price, index| %>
-												<%= "," if index != 0 %>[Date.UTC(<%= price.date.strftime("%Y, %m, %d") %>), <%= price.purchase_price %>]
+												<%= "," if index != 0 %>[Date.UTC(<%= price.date.strftime("%Y, %m-1, %d") %>), <%= price.purchase_price %>]
 											<% end %>
 											]
             }]
