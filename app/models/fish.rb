@@ -1,0 +1,3 @@
+class Fish < Product
+  
+end

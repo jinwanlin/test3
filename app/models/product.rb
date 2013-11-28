@@ -1,6 +1,8 @@
+# encoding: utf-8
 class Product < ActiveRecord::Base
   attr_accessible :des, :name
   
+  PRODUCT_TYPES = ['Vegetable', 'Fruit', 'Meat', 'Fish', 'Agri']
   
   has_many :prices, :order => 'date'
   
@@ -33,25 +35,27 @@ class Product < ActiveRecord::Base
   end
     
   def self.a
-    total = 0
-    (607..814).each do |index| 
-      url = "http://www.xinfadi.com.cn/marketanalysis/1/list/#{index}.shtml"
-      doc = Nokogiri::HTML(open(url))
-      doc.css('table.hq_table').to_s
-    
-      data = doc.css('table.hq_table tr').each_with_index.map do |row, index|
-        next if index == 0
-        tds = row.xpath('./td').map(&:text)
-        # p "#{tds[0]}, #{tds[1]}, #{tds[2]}, #{tds[3]}, #{tds[4]}, #{tds[5]}, #{tds[6]}"
-        # 香葱, 3.00, 4.00, 5.00, 普通, 斤, 2013-11-15"
-        
-        product = Product.find_by_name(tds[0]) || Product.create(name: tds[0])
-        if Price.where(product_id: product).where(date: tds[6].to_date).empty?
-          Price.create product: product, purchase_low_price: tds[1].to_f, purchase_price: tds[2].to_f, purchase_heigh_price: tds[3].to_f, date: tds[6].to_date
+    PRODUCT_TYPES.each_with_index do |product_type, type_index|
+      page = 1
+      has_next_item = true
+      while has_next_item do
+        url = "http://www.xinfadi.com.cn/marketanalysis/#{type_index+1}/list/#{page}.shtml"
+        doc = Nokogiri::HTML(open(url))
+        doc.css('table.hq_table').to_s
+        data = doc.css('table.hq_table tr').each_with_index.map do |row, index|
+          next if index == 0
+          tds = row.xpath('./td').map(&:text)
+          product = Product.find_by_name(tds[0]) || product_type.constantize.create(name: tds[0])
+          if Price.where(product_id: product).where(date: tds[6].to_date).empty?
+            Price.create product: product, purchase_low_price: tds[1].to_f, purchase_price: tds[2].to_f, purchase_heigh_price: tds[3].to_f, date: tds[6].to_date
+          else
+            has_next_item = false
+            break;
+          end
         end
+        page += 1
       end
     end
-    p total
   end
   
 end

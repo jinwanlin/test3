@@ -1,0 +1,3 @@
+class Agri < Product
+  
+end

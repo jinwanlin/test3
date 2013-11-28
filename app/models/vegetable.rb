@@ -1,0 +1,3 @@
+class Vegetable < Product
+  
+end
