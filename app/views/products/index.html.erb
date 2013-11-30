@@ -13,14 +13,14 @@
 
 <% @products.each do |product| %>
   <tr>
-    <td><%= product.name %></td>
+    <td><%= link_to product.name, product_path(product) %></td>
     <td><%= price_format product.last_purchase_low_price %></td>
     <td><%= price_format product.last_purchase_price %></td>
     <td><%= price_format product.last_purchase_heigh_price %></td>
     <td><%= price_format product.last_selling_price %></td>
     <td><%= price_format product.rofit %></td>
     <td>
-			<%= link_to 'Show', product %>
+			
     	<%= link_to 'Edit', edit_product_path(product) %>
     	<%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %>
 		</td>
