@@ -58,37 +58,40 @@ class Product < ActiveRecord::Base
     end
   end
   
+  
+  
   def self.b(food_type, p, page)
-      url = "http://www.xinfadi.com.cn/marketanalysis/#{p}/list/#{page}.shtml"
-      doc = Nokogiri::HTML(open(url))
-      doc.css('table.hq_table').to_s
-      data = doc.css('table.hq_table tr').each_with_index.map do |row, index|
-        next if index == 0
-        tds = row.xpath('./td').map(&:text)
-        product = Product.find_by_name(tds[0]) || food_type.constantize.create(name: tds[0])
-        if Price.where(product_id: product).where(date: tds[6].to_date).empty?
-          Price.create product: product, purchase_low_price: tds[1].to_f, purchase_price: tds[2].to_f, purchase_heigh_price: tds[3].to_f, date: tds[6].to_date
-        end
+    p "page:----#{food_type}-------#{page}-------"
+    url = "http://www.xinfadi.com.cn/marketanalysis/#{p}/list/#{page}.shtml"
+    doc = Nokogiri::HTML(open(url))
+    doc.css('table.hq_table').to_s
+    data = doc.css('table.hq_table tr').each_with_index.map do |row, index|
+      next if index == 0
+      tds = row.xpath('./td').map(&:text)
+      product = Product.find_by_name(tds[0]) || food_type.constantize.create(name: tds[0])
+      if Price.where(product_id: product).where(date: tds[6].to_date).empty?
+        Price.create product: product, purchase_low_price: tds[1].to_f, purchase_price: tds[2].to_f, purchase_heigh_price: tds[3].to_f, date: tds[6].to_date
       end
+    end
   end
 
   # 蔬菜
   def self.a1
-    (1..887).each do |page|
+    (1..892).each do |page|
       b("Vegetable", 1, page)
     end
   end
 
   # 水果
   def self.a2
-    (1..612).each do |page|
+    (1..616).each do |page|
       b("Fruit", 2, page)
     end
   end
 
   # 肉禽蛋
   def self.a3
-    (1..1031).each do |page|
+    (601..1037).each do |page|
       b("Meat", 3, page)
     end
   end
@@ -107,4 +110,11 @@ class Product < ActiveRecord::Base
     end
   end
   
+  def self.aa
+    a1
+    a2
+    a3
+    a4
+    a5
+  end
 end
