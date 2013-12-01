@@ -9,6 +9,7 @@ gem 'simple_form'
 gem "paperclip", "~> 3.0"
 gem 'psych'
 gem 'state_machine'
+gem 'will_paginate', '~> 3.0'
 gem 'bootstrap-will_paginate'
 gem "rails_config"
 

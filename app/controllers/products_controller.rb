@@ -2,7 +2,10 @@ class ProductsController < ApplicationController
   # GET /products
   # GET /products.json
   def index
-    @products = Product.all
+    @products = Product
+    @products = @products.where(type: params[:type]) if params[:type].present?
+    @products = @products.order("created_at")
+    # @products = @products.paginate(:page => params[:page])#.order("orders.created_at").reverse_order
 
     respond_to do |format|
       format.html # index.html.erb

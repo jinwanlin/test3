@@ -1,10 +1,14 @@
 <div class="navbar navbar-fixed-top">
   <div class="navbar-inner">
     <div class="container">
-      <a class="brand" href="#">caicai</a>
+      <a class="brand" href="/">caicai</a>
       <div class="container nav-collapse">
         <ul class="nav">
-          <li><%= link_to "蔬菜品种", products_path  %></li>
+          <li><%= link_to "蔬菜", products_path(type: 'Vegetable')  %></li>
+          <li><%= link_to "水果", products_path(type: 'Fruit')  %></li>
+          <li><%= link_to "肉禽蛋", products_path(type: 'Meat')  %></li>
+          <li><%= link_to "水产", products_path(type: 'Fish')  %></li>
+          <li><%= link_to "粮油", products_path(type: 'Agri')  %></li>
         </ul>
       </div>
     </div>
