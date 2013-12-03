@@ -4,7 +4,11 @@ Test5::Application.routes.draw do
 
   resources :products
 
-
+  namespace :api, defaults: {format: 'json'} do
+    scope module: :v1 do#, constraints: ApiConstraints.new(version: 1, default: :true) do
+      resources :products
+    end
+  end
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

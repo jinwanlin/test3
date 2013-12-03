@@ -12,6 +12,7 @@ gem 'state_machine'
 gem 'will_paginate', '~> 3.0'
 gem 'bootstrap-will_paginate'
 gem "rails_config"
+gem "jbuilder"
 
 
 group :assets do
