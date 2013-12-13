@@ -77,35 +77,35 @@ class Product < ActiveRecord::Base
 
   # 蔬菜
   def self.a1
-    (1..892).each do |page|
+    (1..959).each do |page|
       b("Vegetable", 1, page)
     end
   end
 
   # 水果
   def self.a2
-    (1..616).each do |page|
+    (1..662).each do |page|
       b("Fruit", 2, page)
     end
   end
 
   # 肉禽蛋
   def self.a3
-    (601..1037).each do |page|
+    (601..1108).each do |page|
       b("Meat", 3, page)
     end
   end
 
   # 水产
   def self.a4
-    (1..746).each do |page|
+    (1..797).each do |page|
       b("Fish", 4, page)
     end
   end
 
   # 粮油
   def self.a5
-    (1..75).each do |page|
+    (1..84).each do |page|
       b("Agri", 5, page)
     end
   end
