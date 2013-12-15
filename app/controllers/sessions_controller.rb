@@ -2,42 +2,33 @@
 class SessionsController < ApplicationController
   
   # 登录
-  def sign_in
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @user }
-    end
+  def new
+    
   end
   
-
   # 登录
   def create
-    @user = User.where(phone: params[:user][:phone]).first
-    if @user.password == password_md5(@user.id, params[:user][:password])
-      state = true
-    else
-      state = false
-    end
-
+    @user = User.find_by_phone params[:user][:phone]
+    
     respond_to do |format|
-      if state
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
+      if @user.password == password_md5(@user.id, params[:user][:password])
+        sign_in(@user)
+        
+        format.html { redirect_to products_path }
         format.json { render json: @user, status: :created, location: @user }
       else
-        format.html { render action: "new" }
+        format.html { render action: "new"}
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
   end
   
   # 退出
-  def destroy
-    current_user = nil
-    
-
+  def sign_out
+    @current_user = nil
+    cookies[:token] = nil
     respond_to do |format|
-      format.html { redirect_to products_url }
-      format.json { head :no_content }
+      format.html { redirect_to products_path}
     end
   end
  

@@ -14,15 +14,12 @@ Test5::Application.routes.draw do
   
   resources :sessions do
     collection do
-      get 'sign_in'
+      delete 'sign_out'
     end
   end
   
   resources :users
-
   resources :prices
-
-
   resources :products
 
   namespace :api, defaults: {format: 'json'} do

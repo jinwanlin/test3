@@ -11,12 +11,21 @@
           <li><%= link_to "粮油", products_path(type: 'Agri')  %></li>
         </ul>
 				
+        <ul class="nav">
+          <li><%= link_to "用户", users_path %></li>
+        </ul>
+				
         <ul class="nav pull-right">
 					<% if current_user %>
-	          <li><%= current_user.phone  %></li>
+	          <li><%= link_to current_user.phone, current_user  %></li>
+						<li>
+							<%= link_to sign_out_sessions_path, method: 'delete', rel: "nofollow", :"data-confirm" => "确定要退出吗？", title: '退出' do %>
+								<i class="icon-off"></i>
+							<% end %>
+						</li>
 					<% else %>
 	          <li><%= link_to "注册", sign_up_registrations_path  %></li>
-	          <li><%= link_to "登录", sign_in_sessions_path  %></li>
+	          <li><%= link_to "登录", new_session_path  %></li>
 					<% end %>
         </ul>
       </div>

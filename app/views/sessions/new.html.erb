@@ -1,0 +1,15 @@
+<h1>登陆</h1>
+
+<%= form_for(User.new, url: sessions_path) do |f| %>
+  <div class="field">
+    <%= f.label :phone %><br />
+    <%= f.text_field :phone %>
+  </div>
+	<div class="field">
+    <%= f.label :password %><br />
+    <%= f.text_field :password %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

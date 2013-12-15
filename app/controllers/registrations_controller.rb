@@ -9,12 +9,14 @@ class RegistrationsController < ApplicationController
   
   # 注册
   def create
-    @user = User.find_by_phone(params[:user][:phone])
-    if @user.nil?
-      @user = User.new params[:user]
-      @user.state = "sign_up"
-    elsif @user.state != "sign_up" # 已被注册
-      @user = nil
+    if params[:user][:phone].present?
+      @user = User.find_by_phone(params[:user][:phone])
+      if @user.nil?
+        @user = User.new params[:user]
+        @user.state = "sign_up"
+      elsif @user.state != "sign_up" # 已被注册
+        @user = nil
+      end
     end
     
     unless @user.nil?

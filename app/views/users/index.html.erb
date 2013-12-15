@@ -1,17 +1,11 @@
 <h1>Listing users</h1>
 
-<table>
+<table class="table table-striped">
   <tr>
     <th>Name</th>
     <th>Phone</th>
-    <th>Password</th>
-    <th>County</th>
-    <th>Towns</th>
-    <th>Street</th>
-    <th>House</th>
-    <th>Latitude</th>
-    <th>Longitude</th>
-    <th>String</th>
+    <th>validate_code</th>
+    <th>state</th>
     <th></th>
     <th></th>
     <th></th>
@@ -21,14 +15,8 @@
   <tr>
     <td><%= user.name %></td>
     <td><%= user.phone %></td>
-    <td><%= user.password %></td>
-    <td><%= user.county %></td>
-    <td><%= user.towns %></td>
-    <td><%= user.street %></td>
-    <td><%= user.house %></td>
-    <td><%= user.latitude %></td>
-    <td><%= user.longitude %></td>
-    <td><%= user.string %></td>
+    <td><%= user.validate_code %></td>
+    <td><%= user.state %></td>
     <td><%= link_to 'Show', user %></td>
     <td><%= link_to 'Edit', edit_user_path(user) %></td>
     <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -38,4 +26,4 @@
 
 <br />
 
-<%= link_to 'New User', new_user_path %>
+<%#= link_to 'New User', new_user_path %>
