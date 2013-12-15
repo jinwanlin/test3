@@ -1,16 +1,4 @@
-<h1><%= @products.size %></h1>
-
 <table>
-  <tr>
-    <th>名称</th>
-    <!-- <th>最低价</th>
-    <th>最高价</th>
-    <th>平均价</th>
-    <th>卖价</th>
-    <th>利润</th>
-    <th></th> -->
-  </tr>
-
 <% @products.each do |product| %>
   <tr>
     <td><%= link_to product.name, product_path(product) %></td>
@@ -29,5 +17,7 @@
 </table>
 
 <br />
+
+<h1><%= @products.size %></h1>
 
 <%#= will_paginate @products %>

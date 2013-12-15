@@ -1,0 +1,11 @@
+<h1>验证</h1>
+
+<form method="post" action="/registrations/<%= @user.id %>/validate" accept-charset="UTF-8">
+  <div class="field">
+    <label for="user_validate_code">Validate code</label><br>
+    <input type="text" value="" size="30" name="validate_code" >
+  </div>
+  <div class="actions">
+    <input type="submit" value="next" name="commit">
+  </div>
+</form>

@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Vegetable < Product
   
   def self.model_name

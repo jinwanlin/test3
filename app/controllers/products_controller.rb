@@ -1,7 +1,9 @@
+# encoding: utf-8
 class ProductsController < ApplicationController
   # GET /products
   # GET /products.json
   def index
+    params[:type] ||= 'Vegetable'
     @products = Product
     @products = @products.where(type: params[:type]) if params[:type].present?
     @products = @products.order("created_at")

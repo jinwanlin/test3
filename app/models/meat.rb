@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Meat < Product
   
   def self.model_name

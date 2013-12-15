@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Fruit < Product
   
   def self.model_name

@@ -10,6 +10,15 @@
           <li><%= link_to "水产", products_path(type: 'Fish')  %></li>
           <li><%= link_to "粮油", products_path(type: 'Agri')  %></li>
         </ul>
+				
+        <ul class="nav pull-right">
+					<% if current_user %>
+	          <li><%= current_user.phone  %></li>
+					<% else %>
+	          <li><%= link_to "注册", sign_up_registrations_path  %></li>
+	          <li><%= link_to "登录", sign_in_sessions_path  %></li>
+					<% end %>
+        </ul>
       </div>
     </div>
   </div>

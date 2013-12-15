@@ -1,0 +1,11 @@
+<h1>注册</h1>
+
+<%= form_for(User.new, url: registrations_path) do |f| %>
+  <div class="field">
+    <%= f.label :phone %><br />
+    <%= f.text_field :phone %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
