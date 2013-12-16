@@ -30,6 +30,9 @@ group :development do
   gem 'capistrano', '~> 2.15.4'
   gem 'rvm-capistrano'
   gem 'debugger'
+  
+  gem 'quiet_assets'
+  gem 'thin'
 end
 
 group :production do 

@@ -26,7 +26,13 @@ class SessionsController < ApplicationController
   # 退出
   def sign_out
     @current_user = nil
-    cookies[:token] = nil
+    # cookies[:token] = { :value => nil, :expires => Time.now }
+
+
+    reset_session
+    
+    # set_cookie(options.merge("name" => "token", "value" => "", "expires" => Time.at(0)))
+      
     respond_to do |format|
       format.html { redirect_to products_path}
     end
