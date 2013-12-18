@@ -7,17 +7,14 @@ class ApplicationController < ActionController::Base
   end
   
   def current_user
-    @current_user# ||= User.find_by_token cookies[:token]
+    @current_user ||= User.find_by_token(cookies[:token] ? cookies[:token] : params[:token] )
   end
   
   def sign_in(user)
     @current_user = user
-    cookies[:token] = { value: user.token, expires: 1.year.from_now, domain: 'lvh.me' }
+    cookies.permanent[:token] = user.token
   end
   
   private
-  def current_user
-    @_current_user ||= session[:current_user_id] && User.find_by(id: session[:current_user_id])
-  end
-  
+  helper_method :current_user
 end
