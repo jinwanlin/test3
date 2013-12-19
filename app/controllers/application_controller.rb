@@ -1,6 +1,6 @@
 # encoding: utf-8
 class ApplicationController < ActionController::Base
-  protect_from_forgery
+  # protect_from_forgery
   
   def password_md5(user_id, password)
     Digest::MD5::hexdigest(password + user_id.to_s + "food") if password && user_id
@@ -15,6 +15,17 @@ class ApplicationController < ActionController::Base
     cookies.permanent[:token] = user.token
   end
   
+  def login_filter
+    unless current_user
+      @error_code = 1
+      
+      respond_to do |format|
+        format.html { redirect_to "/sessions/new" }
+        format.json { render "/sessions/new.json.jbuilder" }
+      end
+    end
+  end
+    
   private
   helper_method :current_user
 end

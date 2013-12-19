@@ -1,5 +1,7 @@
 # encoding: utf-8
 class UsersController < ApplicationController
+  before_filter :login_filter
+  
   # GET /users
   # GET /users.json
   def index

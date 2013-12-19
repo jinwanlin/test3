@@ -1,6 +1,5 @@
 # encoding: utf-8
 class SessionsController < ApplicationController
-  
   # 登录
   def new
     

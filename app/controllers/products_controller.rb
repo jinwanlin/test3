@@ -1,5 +1,6 @@
 # encoding: utf-8
 class ProductsController < ApplicationController
+  
   # GET /products
   # GET /products.json
   def index
@@ -86,4 +87,8 @@ class ProductsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  
+
+  
 end
