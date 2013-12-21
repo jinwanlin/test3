@@ -37,9 +37,16 @@ class Product < ActiveRecord::Base
   
 
   # 蔬菜
-  def self.a1
+  def self.a(_index, _page)
     ["Vegetable", "Fruit", "Meat", "Fish", "Agri"].each_with_index do |food_type, index|
       page = 1
+      
+      if _index > index
+        next
+      elsif _index == index
+        page = _page
+      end
+      
       while true do
         p "page:----#{food_type}---#{index+1}----#{page}-------"
         url = "http://www.xinfadi.com.cn/marketanalysis/#{index+1}/list/#{page}.shtml"
