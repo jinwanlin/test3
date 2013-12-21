@@ -61,24 +61,34 @@ class Product < ActiveRecord::Base
   
   
   def self.b(food_type, p, page)
-    p "page:----#{food_type}-------#{page}-------"
-    url = "http://www.xinfadi.com.cn/marketanalysis/#{p}/list/#{page}.shtml"
-    doc = Nokogiri::HTML(open(url))
-    doc.css('table.hq_table').to_s
-    data = doc.css('table.hq_table tr').each_with_index.map do |row, index|
-      next if index == 0
-      tds = row.xpath('./td').map(&:text)
-      product = Product.find_by_name(tds[0]) || food_type.constantize.create(name: tds[0])
-      if Price.where(product_id: product).where(date: tds[6].to_date).empty?
-        Price.create product: product, purchase_low_price: tds[1].to_f, purchase_price: tds[2].to_f, purchase_heigh_price: tds[3].to_f, date: tds[6].to_date
-      end
-    end
+
   end
 
   # 蔬菜
   def self.a1
-    (1..959).each do |page|
-      b("Vegetable", 1, page)
+    ["Vegetable", "Fruit", "Meat", "Fish", "Agri"].each_with_index do |food_type, index|
+      page = 1
+      while true do
+        p "page:----#{food_type}---#{index+1}----#{page}-------"
+        url = "http://www.xinfadi.com.cn/marketanalysis/#{index+1}/list/#{page}.shtml"
+        p url
+        doc = Nokogiri::HTML(open(url))
+        data = doc.css('table.hq_table tr').each_with_index.map do |row, index|
+          next if index == 0
+          tds = row.xpath('./td').map(&:text)
+          product = Product.find_by_name(tds[0]) || food_type.constantize.create(name: tds[0])
+          if Price.where(product_id: product).where(date: tds[6].to_date).empty?
+            Price.create product: product, purchase_low_price: tds[1].to_f, purchase_price: tds[2].to_f, purchase_heigh_price: tds[3].to_f, date: tds[6].to_date
+          else
+            # break # 找到价格历史记录就 break
+          end
+        end
+        
+        break if doc.css('.manu span')[-1].text == " 尾页 "
+        
+        
+        page += 1
+      end
     end
   end
 

@@ -14,22 +14,22 @@ class SessionsController < ApplicationController
         flash[:error] = "账号不存在。" 
         
         format.html { render action: "new"}
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+        format.json
       elsif @user.password == password_md5(@user.id, params[:user][:password])
         sign_in(@user)
         flash[:error] = "登录成功。" 
         
         format.html { redirect_to products_path }
-        format.json { render json: @user, status: :created, location: @user }
+        format.json
       else
         flash[:error] = "密码错误。" 
         
         format.html { render action: "new"}
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+        format.json
       end
     end
   end
-  
+   
   # 退出
   def sign_out
     @current_user = nil

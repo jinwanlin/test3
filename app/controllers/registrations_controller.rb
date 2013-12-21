@@ -27,11 +27,11 @@ class RegistrationsController < ApplicationController
     respond_to do |format|
       if @user
         format.html { redirect_to validate_code_registration_path(@user) }
-        format.json { render json: @user }
+        format.json
       else
         flash[:error] = "手机号已注册过，请登录或找回密码。" 
         format.html { render "sign_up" }
-        format.json { render json: @user }
+        format.json
       end
     end
   end
@@ -48,11 +48,11 @@ class RegistrationsController < ApplicationController
         @user.update_attributes validate_code: nil
         flash[:error] = "验证成功。" 
         format.html { render "password_new" }
-        format.json { render json: @user }
+        format.json
       else
         flash[:error] = "验证码错误。" 
         format.html { render "validate_code" }
-        format.json { render json: @user }
+        format.json
       end
     end
   end

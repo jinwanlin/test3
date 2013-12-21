@@ -7,7 +7,11 @@ class ApplicationController < ActionController::Base
   end
   
   def current_user
-    @current_user ||= User.find_by_token(cookies[:token] ? cookies[:token] : params[:token] )
+    unless @current_user
+      token = cookies[:token] ? cookies[:token] : params[:token]
+      @current_user = User.find_by_token(token) if token
+    end
+    @current_user
   end
   
   def sign_in(user)
