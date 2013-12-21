@@ -41,9 +41,9 @@ class Product < ActiveRecord::Base
     ["Vegetable", "Fruit", "Meat", "Fish", "Agri"].each_with_index do |food_type, index|
       page = 1
       
-      if _index > index
+      if _index-1 > index
         next
-      elsif _index == index
+      elsif _index-1 == index
         page = _page
       end
       
