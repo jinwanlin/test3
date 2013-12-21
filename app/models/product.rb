@@ -40,6 +40,7 @@ class Product < ActiveRecord::Base
   def self.a(_index, _page)
     ["Vegetable", "Fruit", "Meat", "Fish", "Agri"].each_with_index do |food_type, index|
       page = 1
+      find_history = false
       
       if _index-1 > index
         next
@@ -59,11 +60,12 @@ class Product < ActiveRecord::Base
           if Price.where(product_id: product).where(date: tds[6].to_date).empty?
             Price.create product: product, purchase_low_price: tds[1].to_f, purchase_price: tds[2].to_f, purchase_heigh_price: tds[3].to_f, date: tds[6].to_date
           else
-            break # 找到价格历史记录就 break
+            # break # 找到价格历史记录就 break
+            # find_history = true
           end
         end
         
-        break if doc.css('.manu span')[-1].text == " 尾页 "
+        break if doc.css('.manu span')[-1].text == " 尾页 " || find_history
         
         page += 1
       end
