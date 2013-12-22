@@ -14,7 +14,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string :state
       t.string :validate_code # 校验码
       t.string :token
-
+      t.text :desc
       
       t.timestamps
     end

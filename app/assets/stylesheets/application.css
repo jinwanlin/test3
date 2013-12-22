@@ -11,3 +11,12 @@
  *= require_self
  *= require_tree .
  */
+
+label.error, abbr {
+    color: #E4393C;
+    display: inline-block;
+    margin-left: 10px;
+}
+#beginDate, #endDate{
+	width:80px;
+}

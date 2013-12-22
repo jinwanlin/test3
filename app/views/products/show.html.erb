@@ -14,8 +14,8 @@
 <script type="text/javascript">
 Highcharts.setOptions({
 	lang: {
-		months: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',  'Juillet', '八月', '九月', '10', 'Novembre', 'Décembre'],
-		weekdays: ['星期一', '星期二', '星期三', '星期', '星期', '星期', '星期']
+		months: ['一月', '二月', '三月', '四月', '五月', '六月',  '七月', '八月', '九月', '十月', '十一月', '十二月'],
+		weekdays: ['星期一', '星期二', '星期三', '星期四', '星期五', '星期六', '星期日']
 	}
 });
 $(function () {
@@ -80,10 +80,10 @@ $(function () {
                 type: 'area',
                 name: '每斤',
                 pointInterval: 24 * 3600 * 1000,
-                pointStart: Date.UTC(2013, 11, 11),
+                // pointStart: Date.UTC(2013, 11, 11),
 								data: [
 											<% @product.prices.each_with_index do |price, index| %>
-												<%= "," if index != 0 %>[Date.UTC(<%= price.date.strftime("%Y, %m-1, %d") %>), <%= price.purchase_price %>]
+												<%= "," if index != 0 %>[Date.UTC(<%= "#{price.date.year}, #{price.date.month-1}, #{price.date.day}" %>), <%= price.purchase_price %>]
 											<% end %>
 											]
             }]

@@ -1,25 +1,48 @@
-<h1>Listing users</h1>
+<div class="navbar">
+  <div class="navbar-inner">
+		<form class="navbar-form bs-docs-example form-search">
+			<input type="text" name="beginDate" id="beginDate" value="<%= params[:beginDate] %>" dateFormat="yy-mm-dd" > -
+			<input type="text" name="endDate" id="endDate" value="<%= params[:endDate] %>" >
+			
+			<select name="state" style="width: 110px;">
+				<option value="">所有状态</option>
+				<option value="unaudited" <%= "selected='selected'" if params[:state] == 'unaudited' %>><%= user_state 'unaudited' %></option>
+				<option value="actived" <%= "selected='selected'" if params[:state] == 'actived' %>><%= user_state 'actived' %></option>
+				<option value="freezed" <%= "selected='selected'" if params[:state] == 'freezed' %>><%= user_state 'freezed' %></option>
+			</select>
+			
+	    <input type="text" name="query" class="span2" placeholder="店铺名称" value="<%= params[:query] %>">
+	    <button class="btn" type="submit">搜索</button>
+		</form>
+  </div>
+</div>
 
 <table class="table table-striped">
   <tr>
-    <th>Name</th>
-    <th>Phone</th>
-    <th>validate_code</th>
-    <th>state</th>
-    <th></th>
-    <th></th>
+    <th>手机号</th>
+    <th>店铺名</th>
+    <th>验证码</th>
+    <th>状态</th>
     <th></th>
   </tr>
 
 <% @users.each do |user| %>
   <tr>
+    <td><%= link_to user.phone, user  %></td>
     <td><%= user.name %></td>
-    <td><%= user.phone %></td>
     <td><%= user.validate_code %></td>
-    <td><%= user.state %></td>
-    <td><%= link_to 'Show', user %></td>
-    <td><%= link_to 'Edit', edit_user_path(user) %></td>
-    <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= user_state user.state %></td>
+    <td>
+			<% if user.unaudited? %>
+				<%= link_to '审核通过', active_user_url(user) %> |
+			<% elsif user.actived? %>
+				<%= link_to '冻结', frost_user_url(user) %> |
+			<% elsif user.freezed? %>
+				<%= link_to '解冻', active_user_url(user) %> |
+			<% end %>
+    	<%= link_to '编辑', edit_user_path(user) %> |
+    	<%= link_to '删除', user, method: :delete, data: { confirm: '你确定要要删除?' } %>
+		</td>
   </tr>
 <% end %>
 </table>

@@ -18,7 +18,12 @@ Test5::Application.routes.draw do
     end
   end
   
-  resources :users
+  resources :users do
+    member do
+      get 'active'
+      get 'frost'
+    end
+  end
   resources :prices
   resources :products
 

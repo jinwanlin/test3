@@ -1,11 +1,15 @@
 # encoding: utf-8
 class UsersController < ApplicationController
   before_filter :login_filter
+  before_filter :find_user, only: [:update, :show, :edit, :destroy, :active, :frost]
   
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    @users = User
+    @users = @users.where(state: params[:state]) if params[:state].present?
+    @users = @users.where("name LIKE :query OR phone LIKE :query", query: "%#{params[:query]}%") if params[:query].present?
+    @users = @users.order("created_at").reverse_order
 
     respond_to do |format|
       format.html # index.html.erb
@@ -82,5 +86,21 @@ class UsersController < ApplicationController
       format.html { redirect_to users_url }
       format.json { head :no_content }
     end
+  end
+  
+  def active
+    @user.active
+    redirect_to users_url
+  end
+  
+  def frost
+    @user.frost
+    redirect_to users_url
+  end
+  
+  
+  private
+  def find_user
+    @user = User.find(params[:id])
   end
 end
