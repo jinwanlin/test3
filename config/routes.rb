@@ -1,5 +1,11 @@
 Test5::Application.routes.draw do
   
+  resources :order_items
+
+
+  resources :orders
+
+
   resources :registrations do
     collection do
       get 'sign_up'
@@ -25,7 +31,12 @@ Test5::Application.routes.draw do
     end
   end
   resources :prices
-  resources :products
+  resources :products do
+    collection do
+      get 'search'
+    end
+  end
+    
 
   namespace :api, defaults: {format: 'json'} do
     scope module: :v1 do#, constraints: ApiConstraints.new(version: 1, default: :true) do

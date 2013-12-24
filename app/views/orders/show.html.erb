@@ -1,0 +1,27 @@
+<table class="table">
+  <tr>
+    <th>商品</th>
+    <th>订购量</th>
+    <th>出货重量</th>
+		<th>单价</th>
+		<th></th>
+  </tr>
+
+<% @order.order_items.each do |order_item| %>
+  <tr>
+		<td><%= link_to order_item.product.name, order_item.product %></td>
+		<td><%= order_item.order_amount %></td>
+		<td><%= order_item.ship_amount %></td>
+		<td><%= order_item.price %></td>
+    <td>
+			<%= link_to '删除', order_item, method: :delete, data: { confirm: 'Are you sure?' } %>
+		</td>
+  </tr>
+<% end %>
+</table>
+
+<%= render "order_items/form" if !@order.ship? && !@order.done? %>
+
+
+<%= link_to 'Edit', edit_order_path(@order) %> |
+<%= link_to 'Back', orders_path %>
