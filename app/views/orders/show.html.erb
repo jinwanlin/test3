@@ -1,3 +1,8 @@
+<div>
+	<a onclick="alert(‘打印’)"  class="btn btn-info" href="#new_order_item_div">打印</a>
+	<%= link_to '取消', cancel_order_path(@order), method: :put, class: 'btn btn-warning pull-right' unless @order.done? %>
+</div>
+<br />
 <table class="table">
   <tr>
     <th>商品</th>
@@ -22,6 +27,8 @@
 
 <%= render "order_items/form" if !@order.ship? && !@order.done? %>
 
-
-<%= link_to 'Edit', edit_order_path(@order) %> |
-<%= link_to 'Back', orders_path %>
+<p class="pull-right">
+	<%= link_to '提交', submit_order_path(@order), method: :put, class: 'btn btn-success' if @order.pending? %>
+	<%= link_to '出库', ship_order_path(@order), method: :put, class: 'btn btn-primary' if @order.open? %>
+	<%= link_to '完工', done_order_path(@order), method: :put, class: 'btn btn-danger' if @order.ship? %>
+</p>

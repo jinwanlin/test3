@@ -1,8 +1,8 @@
 <table>
 <% @products.each do |product| %>
-  <tr>
+  <tr id="product_<%= product.id %>" class="<%= 'product_is_bye' if (order_amount = order_amount(@order, product)) > 0 %>">
     <td><%= link_to product.name, product_path(product) %></td>
-		<td><%= select_tag 'amount', options_for_select(Product::AMOUNTS), id: product.id, class: 'order_item_amount' %></td>
+		<td><%= select_tag 'amount', options_for_select(Product::AMOUNTS, :selected => order_amount), id: product.id, class: 'order_item_amount' %></td>
     <!-- <td><%#= price_format product.last_purchase_low_price %></td>
     <td><%#= price_format product.last_purchase_price %></td>
     <td><%#= price_format product.last_purchase_heigh_price %></td>

@@ -5,10 +5,11 @@
       <div class="container nav-collapse">
         <ul class="nav">
           <li><%= link_to "蔬菜", products_path(type: 'Vegetable')  %></li>
-          <li><%= link_to "水果", products_path(type: 'Fruit')  %></li>
+          <!-- <li><%= link_to "水果", products_path(type: 'Fruit')  %></li> -->
           <li><%= link_to "肉禽蛋", products_path(type: 'Meat')  %></li>
           <li><%= link_to "水产", products_path(type: 'Fish')  %></li>
           <li><%= link_to "粮油", products_path(type: 'Agri')  %></li>
+          <li><%= link_to_function "调味品", "javascript:void(0)" %></li>
         </ul>
 				
         <ul class="nav">

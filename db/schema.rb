@@ -28,6 +28,8 @@ ActiveRecord::Schema.define(:version => 20131222021745) do
     t.integer  "user_id"
     t.text     "desc"
     t.string   "state"
+    t.float    "sum"
+    t.float    "profit"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end

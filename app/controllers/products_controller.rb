@@ -8,8 +8,7 @@ class ProductsController < ApplicationController
     @products = Product
     @products = @products.where(type: params[:type]) if params[:type].present?
     @products = @products.order("created_at")
-    # @products = @products.paginate(:page => params[:page])#.order("orders.created_at").reverse_order
-
+    @order = current_user.orders.where(state: 'open').last
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @products }

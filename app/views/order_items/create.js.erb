@@ -1,0 +1,5 @@
+<% if @order_item.order_amount==0 %>
+	$("#product_<%= @order_item.product.id %>").removeClass("product_is_bye")
+<% else %>
+	$("#product_<%= @order_item.product.id %>").addClass("product_is_bye")
+<% end %>

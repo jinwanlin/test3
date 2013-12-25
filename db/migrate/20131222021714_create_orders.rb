@@ -5,6 +5,8 @@ class CreateOrders < ActiveRecord::Migration
       t.references :user
       t.text :desc
       t.string :state
+      t.float :sum
+      t.float :profit
       
       t.timestamps
     end

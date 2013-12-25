@@ -1,4 +1,6 @@
 class OrdersController < ApplicationController
+  before_filter :find_order, only: [:show ,:edit, :update, :destroy, :submit, :cancel, :ship, :done]
+  
   # GET /orders
   # GET /orders.json
   def index
@@ -13,8 +15,6 @@ class OrdersController < ApplicationController
   # GET /orders/1
   # GET /orders/1.json
   def show
-    @order = Order.find(params[:id])
-
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @order }
@@ -34,7 +34,6 @@ class OrdersController < ApplicationController
 
   # GET /orders/1/edit
   def edit
-    @order = Order.find(params[:id])
   end
 
   # POST /orders
@@ -56,8 +55,6 @@ class OrdersController < ApplicationController
   # PUT /orders/1
   # PUT /orders/1.json
   def update
-    @order = Order.find(params[:id])
-
     respond_to do |format|
       if @order.update_attributes(params[:order])
         format.html { redirect_to @order, notice: 'Order was successfully updated.' }
@@ -72,7 +69,6 @@ class OrdersController < ApplicationController
   # DELETE /orders/1
   # DELETE /orders/1.json
   def destroy
-    @order = Order.find(params[:id])
     @order.destroy
 
     respond_to do |format|
@@ -80,4 +76,32 @@ class OrdersController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  
+  
+  def submit
+    @order.submit
+    redirect_to @order
+  end
+  
+  def cancel
+    @order.cancel
+    redirect_to @order
+  end
+  
+  def ship
+    @order.ship
+    redirect_to @order
+  end
+  
+  def done
+    @order.done
+    redirect_to @order
+  end
+   
+  private
+  def find_order
+    @order = Order.find(params[:id])
+  end
+   
 end

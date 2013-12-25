@@ -44,7 +44,7 @@ class OrderItemsController < ApplicationController
     
 
     respond_to do |format|
-      if @order_item.save
+      if @order_item.order_amount==0 ? @order_item.destroy : @order_item.save
         format.html { redirect_to @order }
         format.js
         format.json

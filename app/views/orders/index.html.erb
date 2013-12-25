@@ -5,6 +5,7 @@
     <th>客户</th>
     <th>电话</th>
 		<th>订单总计</th>
+		<th>状态</th>
 		<th></th>
   </tr>
 
@@ -13,7 +14,8 @@
 		<td><%= link_to order.sn, order %></td>
 		<td><%= link_to order.user.name, order.user %></td>
 		<td><%= order.user.phone %></td>
-		<td></td>
+		<td><%= order.sum %></td>
+		<td><%= order_state order.state %></td>
     <td>
 			<%= link_to '删除', order, method: :delete, data: { confirm: 'Are you sure?' } %>
 		</td>

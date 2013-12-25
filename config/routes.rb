@@ -3,7 +3,14 @@ Test5::Application.routes.draw do
   resources :order_items
 
 
-  resources :orders
+  resources :orders do
+    member do
+      get 'submit'
+      get 'cancel'
+      get 'ship'
+      get 'done'
+    end
+  end
 
 
   resources :registrations do
