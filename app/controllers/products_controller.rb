@@ -8,7 +8,7 @@ class ProductsController < ApplicationController
     @products = Product
     @products = @products.where(type: params[:type]) if params[:type].present?
     @products = @products.order("created_at")
-    @order = current_user.orders.where(state: 'open').last
+    @order = current_user.orders.where(state: ['pending', 'open']).first if current_user
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @products }

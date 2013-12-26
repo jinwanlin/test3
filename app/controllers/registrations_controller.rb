@@ -13,20 +13,20 @@ class RegistrationsController < ApplicationController
       @user = User.find_by_phone(params[:user][:phone])
       if @user.nil?
         @user = User.new params[:user]
-        @user.state = "sign_up"
-      elsif @user.state != "sign_up" # 已被注册
+        @user.state = "pending"
+      elsif @user.state != "pending" # 已被注册
         @user = nil
       end
     end
     
-    unless @user.nil?
+    if @user
       @user.validate_code = rand(9999)
       @user.save
     end
-    
+
     respond_to do |format|
       if @user
-        format.html { redirect_to validate_code_registration_path(@user) }
+        format.html { redirect_to validate_code_registration_url(@user) }
         format.json
       else
         flash[:error] = "手机号已注册过，请登录或找回密码。" 
@@ -66,6 +66,7 @@ class RegistrationsController < ApplicationController
   # 设置密码
   def password
     @user.update_attributes password: password_md5(@user.id, params[:user][:password])
+    @user.audite
     sign_in(@user)
     
     respond_to do |format|

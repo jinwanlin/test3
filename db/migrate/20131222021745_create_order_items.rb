@@ -6,6 +6,9 @@ class CreateOrderItems < ActiveRecord::Migration
       t.float :price
       t.integer :order_amount
       t.float :ship_amount
+      t.float :sum
+      t.float :cost
+      t.float :cost_sum
       
       t.timestamps
     end

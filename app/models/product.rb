@@ -38,7 +38,11 @@ class Product < ActiveRecord::Base
   
 
   # 蔬菜
-  def self.a(_index, _page)
+  # Product.a index: 1, page: 2
+  def self.a(args={})#(_index, _page)
+    _index = args[:index] || 0
+    _page = args[:page] || 1
+    
     ["Vegetable", "Fruit", "Meat", "Fish", "Agri"].each_with_index do |food_type, index|
       page = 1
       find_history = false
@@ -62,7 +66,7 @@ class Product < ActiveRecord::Base
             Price.create product: product, purchase_low_price: tds[1].to_f, purchase_price: tds[2].to_f, purchase_heigh_price: tds[3].to_f, date: tds[6].to_date
           else
             # break # 找到价格历史记录就 break
-            # find_history = true
+            find_history = true
           end
         end
         
