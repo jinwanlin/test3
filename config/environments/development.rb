@@ -34,4 +34,19 @@ Test5::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+  
+  config.middleware.use ExceptionNotifier,
+   :email_prefix => "[FOOD Error] ",
+   :sender_address => %{"Admin" <super@workxp.info>},
+   :exception_recipients => %w{jinwanlin123@gmail.com}
+   
+  config.action_mailer.delivery_method = :smtp
+  ActionMailer::Base.smtp_settings = {
+   address:              "smtpcom.263xmail.com",
+   port:                 25,
+   authentication:       'login',
+   enable_starttls_auto: true,
+   user_name:            'workxp@net263.com',
+   password:             '263abc'
+  }
 end
