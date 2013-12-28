@@ -16,6 +16,7 @@ gem "rails_config"
 gem "jbuilder"
 gem "letter_opener"
 gem 'exception_notification'
+gem "soap4r-ruby1.9", "~> 2.0.5"
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
