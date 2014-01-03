@@ -6,7 +6,7 @@ class CreateOrders < ActiveRecord::Migration
       t.text :desc
       t.string :state
       t.float :sum
-      t.float :profit
+      t.float :cost
       
       t.timestamps
     end

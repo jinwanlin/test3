@@ -23,6 +23,7 @@
     <th>店铺名</th>
     <th>验证码</th>
     <th>状态</th>
+    <th>级别</th>
     <th></th>
   </tr>
 
@@ -32,6 +33,7 @@
     <td><%= user.name %></td>
     <td><%= user.validate_code %></td>
     <td><%= user_state user.state %></td>
+    <td><%= user.level %></td>
     <td>
 			<% if user.unaudited? %>
 				<%= link_to '审核通过', active_user_url(user) %> |

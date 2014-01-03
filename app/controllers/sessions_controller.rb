@@ -13,17 +13,20 @@ class SessionsController < ApplicationController
       if @user.nil?
         flash[:error] = "账号不存在。" 
         
+        format.mobile { render action: "new"}
         format.html { render action: "new"}
         format.json
       elsif @user.password == password_md5(@user.id, params[:user][:password])
         sign_in(@user)
         flash[:error] = "登录成功。" 
         
+        format.mobile { redirect_to products_path }
         format.html { redirect_to products_path }
         format.json
       else
         flash[:error] = "密码错误。" 
         
+        format.mobile { render action: "new"}
         format.html { render action: "new"}
         format.json
       end

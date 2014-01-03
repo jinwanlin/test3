@@ -1,0 +1,7 @@
+<%= simple_form_for User.new, url: sessions_path do |f| %>
+	<%= f.input :phone, label: '手机号', input_html: {class: 'required'} %>
+	<%= f.input :password, label: '密码', input_html: {class: 'required'} %>
+	<div class="form-actions">
+    <%= f.submit '登陆', class: 'btn btn-primary' %>
+	</div>
+<% end %>

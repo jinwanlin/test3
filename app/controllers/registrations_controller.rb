@@ -20,13 +20,23 @@ class RegistrationsController < ApplicationController
     end
     
     if @user
-      @user.validate_code = rand(9999)
+      @user.validate_code = rand(9999) if Settings.has_validate_code
       @user.save
     end
 
     respond_to do |format|
       if @user
-        format.html { redirect_to validate_code_registration_url(@user) }
+        format.html {
+          if Settings.has_validate_code
+            redirect_to validate_code_registration_url(@user)
+          else
+            @user.update_attributes password: password_md5(@user.id, params[:user][:password])
+            @user.audite
+            sign_in(@user)
+            redirect_to products_path
+          end
+          
+        }
         format.json
       else
         flash[:error] = "手机号已注册过，请登录或找回密码。" 

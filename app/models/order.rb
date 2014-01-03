@@ -1,7 +1,7 @@
 class Order < ActiveRecord::Base
-  attr_accessible :product_id, :order_amount, :sn, :sum, :profit, :state
+  attr_accessible :product_id, :order_amount, :sn, :sum, :cost, :state
   
-  has_many :order_items
+  has_many :order_items, dependent: :destroy
   belongs_to :user
   
   before_create :generate_order_no
@@ -38,19 +38,21 @@ class Order < ActiveRecord::Base
   # 订单金额
   def total_amount
     total = 0.0
-    # order_items.each do |item|
-    #   total += item.number * (item.price + item.float_price) if item.price
-    # end
-    total
+    order_items.each do |item|
+      amount = item.ship_amount || item.order_amount
+      total += amount * item.price if amount
+    end
+    (total * 100).round / 100.0
   end
   
-  # 订单利润
-  def total_profit
+  # 订单成本
+  def total_cost
     total = 0.0
     order_items.each do |item|
-      total += item.number * (item.price - item.cost) if item.price && item.cost
+      amount = item.ship_amount || item.order_amount
+      total += amount * item.cost if amount
     end
-    total
+    (total * 100).round / 100.0
   end
 
   private

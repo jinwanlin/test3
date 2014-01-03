@@ -1,27 +1,31 @@
 # encoding: utf-8
 class Product < ActiveRecord::Base
-  attr_accessible :des, :name
+  attr_accessible :des, :name, :series, :price
   
   PRODUCT_TYPES = ['Vegetable', 'Fruit', 'Meat', 'Fish', 'Agri']
   AMOUNTS = [0, 1, 2, 3, 4, 5, 6, 7, 10, 12, 15, 20, 25, 30]
   
   has_many :prices, :order => 'date'
   
+  # 最后最低价
   def last_purchase_low_price
     prices.last.try(:purchase_low_price) unless prices.empty?
   end
   
+  # 最后平均价
   def last_purchase_price
     prices.last.try(:purchase_price) unless prices.empty?
   end
   
+  # 最后最高价
   def last_purchase_heigh_price
     prices.last.try(:purchase_heigh_price) unless prices.empty?
   end
   
-  def last_selling_price
-    prices.last.try(:selling_price) unless prices.empty?
-  end
+  # 
+  # def last_selling_price
+  #   prices.last.try(:selling_price) unless prices.empty?
+  # end
   
   def rofit
     last_selling_price - last_purchase_price unless last_selling_price.nil? || last_purchase_price.nil?
@@ -34,7 +38,17 @@ class Product < ActiveRecord::Base
   def next
     Product.find(id + 1) if self != Product.last
   end
+  
+  # 卖价，不同的人看到不同的卖价
+  def sales_price(level)
+    return if !level.present? || !price.present?
+    profit_1 = (level-1)/3
+    remainder = level%3 == 0 ? 3 : level%3
+    profit_2 = remainder >= series ? 1 : 0
     
+    profit = (profit_1+profit_2)*0.1
+    price * (1+profit)
+  end
   
 
   # 蔬菜

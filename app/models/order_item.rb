@@ -6,8 +6,8 @@ class OrderItem < ActiveRecord::Base
   belongs_to :product
   
 
-  after_save :update_order_sum, :update_profit_sum
-  after_destroy :update_order_sum, :update_profit_sum
+  after_save :update_order_sum, :update_cost_sum
+  after_destroy :update_order_sum, :update_cost_sum
   
   private
   
@@ -16,9 +16,9 @@ class OrderItem < ActiveRecord::Base
     order.update_attributes sum: order.total_amount
   end
   
-  # 订单利润
-  def update_profit_sum
-    order.update_attributes profit: order.total_profit
+  # 订单成本
+  def update_cost_sum
+    order.update_attributes cost: order.total_cost
   end
   
 end

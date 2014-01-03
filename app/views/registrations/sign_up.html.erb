@@ -1,11 +1,7 @@
-<h1>注册</h1>
-
-<%= form_for(User.new, url: registrations_path) do |f| %>
-  <div class="field">
-    <%= f.label :phone %><br />
-    <%= f.text_field :phone %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+<%= simple_form_for User.new, url: registrations_path, html: {class: 'form-horizontal'} do |f| %>
+	<%= f.input :phone, label: '手机号', input_html: {class: 'required'} %>
+	<%= f.input :password, label: '密码', input_html: {class: 'required'} unless Settings.has_validate_code %>
+	<div class="form-actions">
+    <%= f.submit '注册', class: 'btn btn-primary' %>
+	</div>
 <% end %>
