@@ -1,0 +1,13 @@
+<% if @destroy_success %>
+	$('#ships #ship_<%= @ship.id %>').remove()
+	
+	$("#order_item_<%= @ship.order_item.id %> .ship_amount").html(<%= @ship.order_item.ship_amount %>)
+	$("#order_item_<%= @ship.order_item.id %> .ship_sum").html(<%= @ship.order_item.ship_sum %>)
+	$("#order_ship_sum").html(<%= @ship.order_item.order.ship_sum %>)
+	$("#order_profit").html(<%= @ship.order_item.order.profit %>)
+	
+	
+	$("#ship_sn").val("").focus()
+<% else %>
+
+<% end %>

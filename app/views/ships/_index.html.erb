@@ -1,0 +1,8 @@
+<table id="ships" class="table">
+	<%= render partial: "ships/ship", collection: @order.ships %>
+</table>
+
+<%= simple_form_for @order.ships.new, remote: true, html: {class: 'form-horizontal'} do |f| %>
+	<%= f.hidden_field :order_id %>
+	<%= f.input :sn, label: '串码', input_html: {class: 'required span2'} %>
+<% end %>
