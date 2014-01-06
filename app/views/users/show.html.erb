@@ -1,47 +1,27 @@
-<p>
-  <b>Name:</b>
-  <%= @user.name %>
-</p>
-
-<p>
-  <b>Phone:</b>
-  <%= @user.phone %>
-</p>
-
-<p>
-  <b>County:</b>
-  <%= @user.county %>
-</p>
-
-<p>
-  <b>Towns:</b>
-  <%= @user.towns %>
-</p>
-
-<p>
-  <b>Street:</b>
-  <%= @user.street %>
-</p>
-
-<p>
-  <b>House:</b>
-  <%= @user.house %>
-</p>
-
-<p>
-  <b>Latitude:</b>
-  <%= @user.latitude %>
-</p>
-
-<p>
-  <b>Longitude:</b>
-  <%= @user.longitude %>
-</p>
-
-<p>
-  <b>state:</b>
-  <%= user_state @user.state %>
-</p>
+<table class="table table-bordered table-condensed">
+	<tr>
+		<th width=100>店铺名</th>
+		<td><%= @user.name %></td>
+		<th width=100>注册电话</th>
+		<td><%= @user.phone %></td>
+	</tr>
+	<tr>
+		<th>地址</th>
+		<td><%= @user.address %></td>
+		<th>坐标</th>
+		<td><%= "#{@user.latitude}，#{@user.longitude}" if @user.latitude %></td>
+	</tr>
+	<tr>
+		<th>状态</th>
+		<td><%= user_state @user.state %></td>
+		<th></th>
+		<td></td>
+	</tr>
+	<tr>
+		<th>备注</th>
+		<td colspan=3><%= @user.desc %></td>
+	</tr>
+</table>
 
 
 <%= link_to 'Edit', edit_user_path(@user) %> |

@@ -2,5 +2,5 @@
   <td><%= ship.sn %></td>
   <td><%= link_to ship.product.name, ship.product %></td>
   <td><%= ship.amount %></td>
-  <td><%= link_to '', ship, method: :delete, remote: true, class: 'icon-trash', title: '删除' %></td>
+  <td><%= link_to '', ship, method: :delete, remote: true, class: 'icon-trash', title: '删除' unless ship.order.done? %></td>
 </tr>

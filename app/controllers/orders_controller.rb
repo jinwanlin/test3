@@ -90,7 +90,7 @@ class OrdersController < ApplicationController
   end
   
   def ship
-    @order.ship
+    @order.shipment
     redirect_to @order
   end
   
