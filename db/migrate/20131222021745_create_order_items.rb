@@ -3,12 +3,15 @@ class CreateOrderItems < ActiveRecord::Migration
     create_table :order_items do |t|
       t.references :product
       t.references :order
-      t.float :price
       t.integer :order_amount
       t.float :ship_amount
-      t.float :sum
-      t.float :cost
-      t.float :cost_sum
+      
+      t.float :price, :null => false, :default => 0.0
+      t.float :order_sum, :null => false, :default => 0.0
+      t.float :ship_sum, :null => false, :default => 0.0
+      
+      t.float :cost, :null => false, :default => 0.0
+      t.float :cost_sum, :null => false, :default => 0.0
       
       t.timestamps
     end

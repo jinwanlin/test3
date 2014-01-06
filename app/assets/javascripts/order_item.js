@@ -15,6 +15,19 @@ $(function(){
 	    }
 	});
 	
+	$("#ship_sn").val("").focus()
+	$("#new_ship").submit(function(e){
+		e.preventDefault();
+		try {
+		   $(this).ajaxSubmit();
+		}catch(exception){
+		}finally {
+		}
+		
+		setTimeout(function(){
+			$("#ship_sn").val("").focus()
+		},1);
+	})
 	
 })
 

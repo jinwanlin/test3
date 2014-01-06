@@ -1,11 +1,13 @@
 # encoding: utf-8
 class Product < ActiveRecord::Base
-  attr_accessible :des, :name, :series, :price
+  attr_accessible :des, :name, :series, :cost
   
   PRODUCT_TYPES = ['Vegetable', 'Fruit', 'Meat', 'Fish', 'Agri']
   AMOUNTS = [0, 1, 2, 3, 4, 5, 6, 7, 10, 12, 15, 20, 25, 30]
   
   has_many :prices, :order => 'date'
+  
+  validates :series, :cost, :name, :presence => true
   
   # 最后最低价
   def last_purchase_low_price
@@ -41,13 +43,15 @@ class Product < ActiveRecord::Base
   
   # 卖价，不同的人看到不同的卖价
   def sales_price(level)
-    return if !level.present? || !price.present?
+    return if !level.present? || !cost.present?
     profit_1 = (level-1)/3
     remainder = level%3 == 0 ? 3 : level%3
     profit_2 = remainder >= series ? 1 : 0
     
     profit = (profit_1+profit_2)*0.1
-    price * (1+profit)
+    price = cost * (1+profit)
+    
+    (price * 100).round/100.0
   end
   
 
@@ -80,7 +84,7 @@ class Product < ActiveRecord::Base
             Price.create product: product, purchase_low_price: tds[1].to_f, purchase_price: tds[2].to_f, purchase_heigh_price: tds[3].to_f, date: tds[6].to_date
           else
             # break # 找到价格历史记录就 break
-            find_history = true
+            # find_history = true
           end
         end
         
@@ -105,6 +109,13 @@ class Product < ActiveRecord::Base
     p url
     p open(url)
     
+  end
+  
+  # 设置成本价
+  def self.set_cost
+    Product.all.each do |product|
+      product.update_attributes cost: (product.last_purchase_price * 100).round/100.0
+    end
   end
   
 end

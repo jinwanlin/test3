@@ -1,14 +1,17 @@
 Test5::Application.routes.draw do
   
+  resources :ships
+
+
   resources :order_items
 
 
   resources :orders do
     member do
-      get 'submit'
-      get 'cancel'
-      get 'ship'
-      get 'done'
+      put 'submit'
+      put 'cancel'
+      put 'ship'
+      put 'done'
     end
   end
 

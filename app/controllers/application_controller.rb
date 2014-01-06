@@ -31,7 +31,7 @@ class ApplicationController < ActionController::Base
       end
     end
   end
-    
+  
   private
   helper_method :current_user
   

@@ -1,5 +1,5 @@
-source 'https://rubygems.org'
-# source 'http://ruby.taobao.org/'
+# source 'https://rubygems.org'
+source 'http://ruby.taobao.org/'
 
 gem 'rails', '3.2.12'
 gem 'jquery-rails'
@@ -17,13 +17,14 @@ gem "jbuilder"
 gem "letter_opener"
 gem 'exception_notification'
 gem "soap4r-ruby1.9", "~> 2.0.5"
+# gem "barcode-generator"#, :git => 'git://github.com/anujluthra/barcode-generator.git'
+
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
   gem 'coffee-rails', '~> 3.2.1'
   gem 'uglifier', '>= 1.0.3'
   gem 'jquery-rails'
-  gem "twitter-bootstrap-rails"
   gem "highcharts-rails"
 end
 

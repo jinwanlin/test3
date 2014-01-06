@@ -5,8 +5,11 @@ class CreateOrders < ActiveRecord::Migration
       t.references :user
       t.text :desc
       t.string :state
-      t.float :sum
-      t.float :cost
+
+      t.float :order_sum, :null => false, :default => 0.0
+      t.float :ship_sum, :null => false, :default => 0.0
+      
+      t.float :cost, :null => false, :default => 0.0
       
       t.timestamps
     end

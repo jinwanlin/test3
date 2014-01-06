@@ -1,12 +1,13 @@
 <table>
 <% @products.each do |product| %>
-	<% price = product.sales_price(current_user.level) %>
-	<% if price %>
+	<% price = product.sales_price(current_user.level) if current_user %>
   <tr id="product_<%= product.id %>" class="<%= 'product_is_bye' if (order_amount = order_amount(@order, product)) > 0 %>">
     <td><%= link_to product.name, product_path(product) %></td>
-		<td><%= price_format price %></td>
+		<td><%= price_format(price) if price %></td>
+		<% if current_user && current_user.actived? %>
 		<td><%= select_tag 'amount', options_for_select(Product::AMOUNTS, :selected => order_amount), id: product.id, class: 'order_item_amount' %></td>
-		<td><%= product.series %></td>
+		<% end %>
+		<td><%#= product.series %></td>
     <!-- <td><%#= price_format product.last_purchase_low_price %></td>
     
     <td><%#= price_format product.last_purchase_heigh_price %></td>
@@ -17,12 +18,11 @@
     	<%#= link_to 'Edit', edit_product_path(product) %>
 		</td> -->
   </tr>
-	<% end %>
 <% end %>
 </table>
 
 <br />
 
-<h1><%= @products.size %></h1>
+<h1><%#= @products.size %></h1>
 
 <%#= will_paginate @products %>

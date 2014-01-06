@@ -3,6 +3,7 @@ class Order < ActiveRecord::Base
   
   has_many :order_items, dependent: :destroy
   belongs_to :user
+  has_many :ships, dependent: :destroy
   
   before_create :generate_order_no
   
@@ -36,11 +37,19 @@ class Order < ActiveRecord::Base
 
   
   # 订单金额
-  def total_amount
+  def order_sum_amount
     total = 0.0
     order_items.each do |item|
-      amount = item.ship_amount || item.order_amount
-      total += amount * item.price if amount
+      total += item.order_sum
+    end
+    (total * 100).round / 100.0
+  end
+  
+  # 出货金额
+  def ship_sum_amount
+    total = 0.0
+    order_items.each do |item|
+      total += item.ship_sum 
     end
     (total * 100).round / 100.0
   end
@@ -49,16 +58,38 @@ class Order < ActiveRecord::Base
   def total_cost
     total = 0.0
     order_items.each do |item|
-      amount = item.ship_amount || item.order_amount
-      total += amount * item.cost if amount
+      total += item.cost_sum
     end
     (total * 100).round / 100.0
   end
 
+  # 利润
+  def profit
+    amount = self.ship? ? ship_sum : order_sum
+    formart(ship_sum - cost)
+  end
+  
+  # 交易总额
+  def ship_sum_amount
+    total = OrderItem.where("order_id = ?", self).sum("ship_sum")
+    formart(total)
+  end
+  
+  # 成本总额
+  def cost_sum_amount
+    total = OrderItem.where("order_id = ?", self).sum("cost_sum")
+    formart(total)
+  end
+  
   private
   def generate_order_no
     begin
       self.sn = Time.new.strftime("%m%d")+(0...4).map{ ('0'..'9').to_a[rand(10)] }.join
     end while Order.find_by_sn(self.sn)
   end  
+  
+  
+  def formart(money)
+    (money * 100).round / 100.0
+  end
 end

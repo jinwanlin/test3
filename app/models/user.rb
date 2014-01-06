@@ -8,6 +8,8 @@ class User < ActiveRecord::Base
 
   before_update :change_password
   
+  validates :phone, :presence => true
+  
   
   state_machine initial: :pending do
     #before_transition :pending => :open, do: :do_done
@@ -20,6 +22,10 @@ class User < ActiveRecord::Base
     event :frost do # 冻结
       transition :actived => :freezed
     end
+  end
+  
+  def address
+    "#{county} #{towns} #{street} #{house}"
   end
   
   def change_password

@@ -1,36 +1,58 @@
-<div>
-	<a onclick="alert(‘打印’)"  class="btn btn-info" href="#new_order_item_div">打印</a>
-	<%= link_to '取消', cancel_order_path(@order), method: :put, class: 'btn btn-warning pull-right' unless @order.done? %>
+<div class="row">
+	<div class="span8">
+		<%#= barcode 'ANUJ', :height => 100, :width => 400, :margin => 100, :xoff => 20, :yoff => 40 %> 
+		<div>
+			<a onclick="alert(‘打印’)"  class="btn btn-info" href="#new_order_item_div">打印</a>
+			<%= link_to '取消', cancel_order_path(@order), method: :put, class: 'btn btn-warning pull-right' unless @order.done? %>
+		</div>
+		<br />
+		<table class="table">
+		  <tr>
+		    <th>商品</th>
+				<th>单价</th>
+		    <th>订购量</th>
+		    <th>订单金额</th>
+				<% unless @order.pending? %>
+		    <th>出货量</th>
+				<th>交易金额</th>
+				<% end %>
+				<th></th>
+		  </tr>
+		<%= render partial: "order_items/order_item", collection: @order.order_items %>
+		<tfoot>
+		<tr>
+		  <td></td>
+			<td></td>
+		  <td></td>
+		  <td>合计：<span style="color:red"><%= @order.order_sum %></td>
+				<% unless @order.pending? %>
+		  <td></td>
+		  <td>
+			<% if @order.ship_sum > 0 %>
+					合计：<span id="order_ship_sum" style="color:red"><%= @order.ship_sum %>
+				<% end %>
+			</td>
+			<% end %>
+			<td>
+			<% if @order.ship_sum > 0 %>
+				利润：<span id="order_profit" style="color:red"><%= @order.profit %>
+			<% end %>
+			</td>
+		</tr>
+		</tfoot>
+
+		</table>
+
+		<%= render "order_items/form" if !@order.ship? && !@order.done? %>
+
+		<p class="pull-right">
+			<%= link_to '提交', submit_order_path(@order), method: :put, class: 'btn btn-success' if @order.pending? %>
+			<%= link_to '出库', ship_order_path(@order), method: :put, class: 'btn btn-primary' if @order.open? %>
+			<%= link_to '完工', done_order_path(@order), method: :put, class: 'btn btn-danger' if @order.ship? %>
+		</p>
+	</div>
+	<div class="span4 ships_div" id="ships_div">
+	<%= render "ships/index"  %>
+	</div>
+	
 </div>
-<br />
-<table class="table">
-  <tr>
-    <th>商品</th>
-    <th>订购量</th>
-    <th>出货重量</th>
-		<th>单价</th>
-		<th>小计</th>
-		<th></th>
-  </tr>
-
-<% @order.order_items.each do |order_item| %>
-  <tr>
-		<td><%= link_to order_item.product.name, order_item.product %></td>
-		<td><%= order_item.order_amount %></td>
-		<td><%= order_item.ship_amount %></td>
-		<td><%= order_item.price %></td>
-		<td><%= order_item.price %></td>
-    <td>
-			<%= link_to '删除', order_item, method: :delete, data: { confirm: 'Are you sure?' } %>
-		</td>
-  </tr>
-<% end %>
-</table>
-
-<%= render "order_items/form" if !@order.ship? && !@order.done? %>
-
-<p class="pull-right">
-	<%= link_to '提交', submit_order_path(@order), method: :put, class: 'btn btn-success' if @order.pending? %>
-	<%= link_to '出库', ship_order_path(@order), method: :put, class: 'btn btn-primary' if @order.open? %>
-	<%= link_to '完工', done_order_path(@order), method: :put, class: 'btn btn-danger' if @order.ship? %>
-</p>
