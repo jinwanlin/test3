@@ -17,4 +17,7 @@
 
 //= require order_item
 //= require ships
+//= require order
+
+//= require jquery-ean13.min
 

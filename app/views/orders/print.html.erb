@@ -1,0 +1,68 @@
+<canvas class="order_no" id="order_no_1" width="300" height="100">
+    Your browser does not support canvas-elements.
+</canvas>
+<canvas class="order_no" id="order_no_2" width="600" height="200">
+    Your browser does not support canvas-elements.
+</canvas>
+<canvas class="order_no" id="order_no_3" width="900" height="300">
+    Your browser does not support canvas-elements.
+</canvas>
+<canvas class="order_no" id="order_no_4" width="1200" height="400">
+    Your browser does not support canvas-elements.
+</canvas>
+<canvas class="order_no" id="order_no_5" width="1500" height="500">
+    Your browser does not support canvas-elements.
+</canvas>
+<!-- 
+<div><%= @order.sn %></div>
+
+<div class="row">
+	<div class="span8">
+		<table class="table">
+		  <tr>
+		    <th>商品</th>
+				<th>单价</th>
+		    <th>订购量</th>
+		    <th>订单金额</th>
+		    <th>出货量</th>
+				<th>交易金额</th>
+		  </tr>
+		<% @order.order_items.each do |order_item| %>
+		
+		<tr id="order_item_<%= order_item.id %>">
+			<td><%= order_item.product.name %></td>
+			<td><%= order_item.price %></td>
+			<td><%= order_item.order_amount %></td>
+			<td><%= order_item.order_sum %></td>
+			<td><%= order_item.ship_amount %></td>
+			<td><%= order_item.ship_sum if order_item.ship_sum > 0 %></td>
+		</tr>
+		<% end %>
+		
+		<tfoot>
+		<tr>
+		  <td></td>
+		  <td></td>
+			<td></td>
+		  <td>合计：<span style="color:red"><%= @order.order_sum %></td>
+			<td>
+				<% if @order.ship_sum > 0 %>
+					合计：<span id="order_ship_sum" style="color:red"><%= @order.ship_sum %>
+				<% end %>
+			</td>
+			<td>
+				<% if @order.ship_sum > 0 %>
+					利润：<span id="order_profit" style="color:red"><%= @order.profit %>
+				<% end %>
+			</td>
+		</tr>
+		</tfoot>
+		</table>
+	</div>
+	
+</div>
+-->
+
+
+
+

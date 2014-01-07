@@ -12,6 +12,7 @@ Test5::Application.routes.draw do
       put 'cancel'
       put 'ship'
       put 'done'
+      get 'print'
     end
   end
 

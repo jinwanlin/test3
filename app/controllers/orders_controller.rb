@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_filter :find_order, only: [:show ,:edit, :update, :destroy, :submit, :cancel, :ship, :done]
+  before_filter :find_order, only: [:show ,:edit, :update, :destroy, :submit, :cancel, :ship, :done, :print]
   
   # GET /orders
   # GET /orders.json
@@ -77,7 +77,9 @@ class OrdersController < ApplicationController
     end
   end
   
-  
+  def print
+    render layout: "print"
+  end
   
   def submit
     @order.submit

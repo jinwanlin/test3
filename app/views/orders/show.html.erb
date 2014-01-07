@@ -2,10 +2,12 @@
 	<div class="span8">
 		<%#= barcode 'ANUJ', :height => 100, :width => 400, :margin => 100, :xoff => 20, :yoff => 40 %> 
 		<div>
-			<a onclick="alert(‘打印’)"  class="btn btn-info" href="#new_order_item_div">打印</a>
+			<%= link_to '打印', print_order_path(@order), class: 'btn btn-info pull-left', target: '_blank' %>
 			<%= link_to '取消', cancel_order_path(@order), method: :put, class: 'btn btn-warning pull-right' unless @order.done? %>
 		</div>
 		<br />
+
+		
 		<table class="table">
 		  <tr>
 		    <th>商品</th>
@@ -56,3 +58,4 @@
 	</div>
 	
 </div>
+
