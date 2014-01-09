@@ -2,14 +2,12 @@
 <% @products.each do |product| %>
 	<% price = product.sales_price(current_user.level) if current_user %>
   <tr id="product_<%= product.id %>" class="<%= 'product_is_bye' if (order_amount = order_amount(@order, product)) > 0 %>">
-    <td><a href="#"><%= product.name %></a></td>
-		<td><%= price_format(price) if price %>￥/斤</td>
+    <td><a href="#"><%= product.product_name %></a></td>
+		<td><%= price_format(price) if price %><span class="unit">￥/斤</span></td>
 		<% if current_user && current_user.actived? %>
 		<td align=right>
-			<%#= select_tag 'amount', options_for_select(Product::AMOUNTS, :selected => order_amount), id: product.id, class: 'order_item_amount' %>
-			
 			<div class="dropdown pull-right">
-				<a data-toggle="dropdown" class="dropdown-toggle" role="button" id="drop<%= product.id %>" href="#"><%= order_amount==0 ? "买" : order_amount  %></a>
+				<a data-toggle="dropdown" class="dropdown-toggle" role="button" id="drop<%= product.id %>" href="#"><%= order_amount==0 ? sanitize("<i class='car'></i>") : order_amount  %></a>
 				<ul aria-labelledby="drop<%= product.id %>" role="menu" class="dropdown-menu">
 					
 				  <li role="presentation" product_id="<%= product.id %>">
@@ -20,8 +18,6 @@
 					</li>
 				</ul>
 			</div>
-													
-													
 		</td>
 		<% end %>
   </tr>

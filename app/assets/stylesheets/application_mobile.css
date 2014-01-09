@@ -1,3 +1,22 @@
+body{
+	padding:0 20px;
+	padding-bottom:30px;
+}
+.menu{
+	position: fixed;
+	bottom:0;
+	background-color:#CDBA96;
+	width:100%;
+	margin:0 -20px;
+}
+.menu li{
+	float: left;
+	list-style: none;
+	width:25%;
+	text-align:center;
+	padding: 10px 0;
+}
+
 .amount{
 	width:20px;
 	display:inline-block;
@@ -24,7 +43,23 @@ body, a{
 	display:inline-block;
 	padding:1px;
 }
+.dropdown-toggle{
+	display:inline-block;
+	width:30px;
+	text-align:center;
+}
 
 .dropdown-menu button{
 	font-size:18px !important;
+}
+
+.car{
+	width:20px;
+	height:20px;
+	display:inline-block;
+	background-image:url("/assets/car 3.png");
+}
+
+.unit{
+	font-size:12px;
 }

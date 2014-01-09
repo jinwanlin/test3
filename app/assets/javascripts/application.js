@@ -15,6 +15,7 @@
 //= require bootstrap.min
 
 //= require ships
+//= require order_item
 
 
 

@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(:version => 20140105070656) do
   create_table "products", :force => true do |t|
     t.string   "sn"
     t.string   "name"
+    t.string   "aliases"
     t.string   "type"
     t.integer  "series",     :default => 1
     t.float    "cost",       :default => 0.0, :null => false

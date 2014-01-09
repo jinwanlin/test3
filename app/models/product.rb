@@ -1,6 +1,6 @@
 # encoding: utf-8
 class Product < ActiveRecord::Base
-  attr_accessible :des, :name, :series, :cost, :sn
+  attr_accessible :des, :name, :series, :cost, :sn, :aliases
   
   PRODUCT_TYPES = ['Vegetable', 'Fruit', 'Meat', 'Fish', 'Agri']
   AMOUNTS = [0, 1, 2, 3, 4, 5, 6, 7, 10, 12, 15, 20, 25, 30]
@@ -8,8 +8,28 @@ class Product < ActiveRecord::Base
   has_many :prices, :order => 'date'
   
   validates :series, :cost, :name, :presence => true
+  validates :name, uniqueness: true
+  validates :aliases, uniqueness: true, :if => :aliases_present?
   before_create :generate_product_sn
   
+  validate :validate_name_aliases
+ 
+  def validate_name_aliases
+    if aliases.present? && Product.find_by_name(aliases)
+      errors.add(:aliases, "#{aliases}已存在")
+    end
+    if name.present? && Product.find_by_aliases(name)
+      errors.add(:name, "#{name}已存在")
+    end
+  end
+  
+  def aliases_present?
+    aliases.present?
+  end
+  
+  def product_name
+    aliases.present? ? aliases : name
+  end
   
   # 最后最低价
   def last_purchase_low_price
@@ -107,7 +127,8 @@ class Product < ActiveRecord::Base
   
   private
   def generate_product_sn
-    previous_id = Product.last.present? ? Product.last.id : 0
+    previous_product=Product.last
+    previous_id = previous_product.present? ? previous_product.id : 0
     self.sn = (previous_id+1).to_s.rjust(6, '0') unless self.sn 
   end  
   

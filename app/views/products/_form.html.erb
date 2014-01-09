@@ -1,5 +1,6 @@
 <%= simple_form_for @product, html: {class: 'form-horizontal'} do |f| %>
-	<%= f.input :name, label: '商品名称', input_html: {class: 'required'} %>
+	<%= f.input :name, label: '商品名称', input_html: {disabled: "disabled"} %>
+	<%= f.input :aliases, label: '别名', input_html: {class: 'required'} %>
 	<%= f.input :series, label: '涨价次序', input_html: {class: 'required'} %>
 	<%= f.input :des, label: '备注', input_html: {class: 'required'} %>
 	<div class="form-actions">

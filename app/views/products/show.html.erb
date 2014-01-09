@@ -6,8 +6,8 @@
 </p>
 
 <p style="overflow:hidden;">
-<%= link_to @product.next.name, @product.next, class: 'pull-right btn' if @product.next %>
-<%= link_to @product.previous.name, @product.previous, class: 'btn' if @product.previous %>
+<%= link_to @product.next.product_name, @product.next, class: 'pull-right btn' if @product.next %>
+<%= link_to @product.previous.product_name, @product.previous, class: 'btn' if @product.previous %>
 </p>
 
 <p id="prices"></p>
@@ -32,7 +32,7 @@ $(function () {
                 spacingRight: 20
             },
             title: {
-                text: '<%= @product.name %>'
+                text: '<%= @product.product_name %>'
             },
             // subtitle: {
             //     text: document.ontouchstart === undefined ?
