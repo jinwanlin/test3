@@ -12,8 +12,8 @@
 					
 				  <li role="presentation" product_id="<%= product.id %>">
 						<p class="text-align:center">买几斤</p>
-						<% Product::AMOUNTS.each do |amount| %>
-							<button class="<%= 'product_is_bye' if order_amount != 0 && order_amount==amount %>" ><%= amount %></button>
+						<% product.get_amounts.each do |amount| %>
+							<button class="<%= 'product_is_bye' if order_amount != 0 && order_amount==amount.to_f %>" ><%= amount %></button>
 						<% end %>
 					</li>
 				</ul>

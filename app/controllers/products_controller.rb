@@ -46,7 +46,12 @@ class ProductsController < ApplicationController
   # POST /products
   # POST /products.json
   def create
-    @product = Product.new(params[:product])
+    if params[:amounts].present?
+      params[:product][:amounts] = params[:amounts].gsub(' ', '').split(",") 
+    else
+      params[:product][:amounts] = nil
+    end
+    @product = Product.new(options: params[:product])
 
     respond_to do |format|
       if @product.save
@@ -63,6 +68,11 @@ class ProductsController < ApplicationController
   # PUT /products/1.json
   def update
     @product = Product.find(params[:id])
+    if params[:amounts].present?
+      params[:product][:amounts] = params[:amounts].gsub(' ', '').split(",") 
+    else
+      params[:product][:amounts] = nil
+    end
 
     respond_to do |format|
       if @product.update_attributes(params[:product])

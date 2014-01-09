@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(:version => 20140105070656) do
     t.string   "type"
     t.integer  "series",     :default => 1
     t.float    "cost",       :default => 0.0, :null => false
+    t.string   "amounts",
     t.text     "des"
     t.datetime "created_at",                  :null => false
     t.datetime "updated_at",                  :null => false
