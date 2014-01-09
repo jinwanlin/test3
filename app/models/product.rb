@@ -107,7 +107,8 @@ class Product < ActiveRecord::Base
   
   private
   def generate_product_sn
-    self.sn = (Product.last.id+1).to_s.rjust(6, '0') unless self.sn 
+    previous_id = roduct.last ? roduct.last.id : 0
+    self.sn = (previous_id+1).to_s.rjust(6, '0') unless self.sn 
   end  
   
 end
