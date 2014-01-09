@@ -97,21 +97,6 @@ class Product < ActiveRecord::Base
     end
   end
 
-  def b
-    client = SmsClient.create
-    response = client.sendsms("jinwanlin123@gmail.com", Digest::MD5::hexdigest('jinwanlin123@'), '测试短消息内容', '15657715360')
-    puts response.resultCode    #“1”
-    puts response.resultMsg     #“success”
-    puts response.id            #“6b77dfa5-765a-4f38-38c5-eo9d364e000”
-  end
-  
-  def self.c
-    password = Digest::MD5::hexdigest('jinwanlin')
-    url = "http://www.smslinkapi.com/api/index.php/sendsms?username=jinwanlin123@gmail.com&password=#{password}&message=to_jin_wanlin&target=15657715360"
-    p url
-    p open(url)
-    
-  end
   
   # 设置成本价
   def self.set_cost
