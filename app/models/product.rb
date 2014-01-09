@@ -1,6 +1,6 @@
 # encoding: utf-8
 class Product < ActiveRecord::Base
-  attr_accessible :des, :name, :series, :cost
+  attr_accessible :des, :name, :series, :cost, :sn
   
   PRODUCT_TYPES = ['Vegetable', 'Fruit', 'Meat', 'Fish', 'Agri']
   AMOUNTS = [0, 1, 2, 3, 4, 5, 6, 7, 10, 12, 15, 20, 25, 30]
@@ -8,6 +8,8 @@ class Product < ActiveRecord::Base
   has_many :prices, :order => 'date'
   
   validates :series, :cost, :name, :presence => true
+  before_create :generate_product_sn
+  
   
   # 最后最低价
   def last_purchase_low_price
@@ -117,5 +119,10 @@ class Product < ActiveRecord::Base
       product.update_attributes cost: (product.last_purchase_price * 100).round/100.0
     end
   end
+  
+  private
+  def generate_product_sn
+    self.sn = (Product.last.id+1).to_s.rjust(6, '0') unless self.sn 
+  end  
   
 end

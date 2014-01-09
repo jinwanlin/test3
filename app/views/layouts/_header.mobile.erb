@@ -1,14 +1,13 @@
 <a class="brand" href="/">caicai</a>
-
 <ul class="nav">
-  <li><%= link_to "订单", orders_path %></li>
+  <li><a href="">订单</a></li>
 	<% if current_user %>
-    <li><%= link_to current_user.phone, current_user %></li>
+    <li><a href="">设置</a></li>
 		<li>
-			<%= link_to '退出', sign_out_sessions_path, method: 'delete', rel: "nofollow", :"data-confirm" => "确定要退出吗？" %>
+			<a rel="nofollow" data-method="delete" data-confirm="确定要退出吗？" href="/sessions/sign_out">退出</a>
 		</li>
 	<% else %>
-    <li><%= link_to "注册", sign_up_registrations_path  %></li>
-    <li><%= link_to "登录", new_session_path  %></li>
+    <li><a href="/registrations/sign_up">注册</a></li>
+    <li><a href="/sessions/new">登录</a></li>
 	<% end %>
 </ul>

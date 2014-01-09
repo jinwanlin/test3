@@ -2,18 +2,24 @@ class ShipsController < ApplicationController
 
 
   def create
-    @ship = Ship.new(params[:ship])
     
-    product = Product.find(1)
-    @ship.product = product
-    
-    @order_item = @ship.order.order_items.where(product_id: product).first
-    @ship.order_item = @order_item
-    
-    @ship.amount = 3.3
-
+    if params[:ship][:sn].length == 13
+      begin
+        ship_sn = params[:ship][:sn]
+        amount = ship_sn[7,2].to_i + ship_sn[9,2].to_i / 100.0
+        product = Product.find_by_sn(ship_sn[1,6])
+      rescue Exception=>e
+      end
+      
+      if amount && product
+        @ship = Ship.new(params[:ship])
+        @ship.amount = amount
+        @ship.product = product
+        @ship.order_item = @ship.order.order_items.where(product_id: product).first
+      end
+    end
     respond_to do |format|
-      if @ship.save
+      if @ship && @ship.save
         format.js
       else
         format.js
@@ -32,3 +38,4 @@ class ShipsController < ApplicationController
     end
   end
 end
+

@@ -1,14 +1,31 @@
-<table>
+<table width="100%" class="table">
 <% @products.each do |product| %>
 	<% price = product.sales_price(current_user.level) if current_user %>
   <tr id="product_<%= product.id %>" class="<%= 'product_is_bye' if (order_amount = order_amount(@order, product)) > 0 %>">
     <td><%= link_to product.name, product_path(product) %></td>
-		<td><%= price_format(price) if price %></td>
+		<td><%= price_format(price) if price %>￥/斤</td>
 		<% if current_user && current_user.actived? %>
-		<td><%= select_tag 'amount', options_for_select(Product::AMOUNTS, :selected => order_amount), id: product.id, class: 'order_item_amount' %></td>
+		<td align=right>
+			<%= select_tag 'amount', options_for_select(Product::AMOUNTS, :selected => order_amount), id: product.id, class: 'order_item_amount' %>
+			
+			<!-- <div class="dropdown pull-right">
+				<a data-toggle="dropdown" class="dropdown-toggle" role="button" id="drop<%= product.id %>" href="#">购买</a>
+				<ul aria-labelledby="drop<%= product.id %>" role="menu" class="dropdown-menu">
+				  <li role="presentation">
+						<% Product::AMOUNTS.each do |amount| %>
+							<button ><%= amount %></button>
+						<% end %>
+					</li>
+				</ul>
+			</div> -->
+													
+													
+		</td>
 		<% end %>
+		
+    <!--
 		<td><%#= product.series %></td>
-    <!-- <td><%#= price_format product.last_purchase_low_price %></td>
+		<td><%#= price_format product.last_purchase_low_price %></td>
     
     <td><%#= price_format product.last_purchase_heigh_price %></td>
     <td><%#= price_format product.last_selling_price %></td>

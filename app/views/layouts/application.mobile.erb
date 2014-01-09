@@ -5,9 +5,12 @@
 <title>百菜网</title>
 <meta content="width=device-width; initial-scale=1.0; minimum-scale=1.0; maximum-scale=1.0" name="viewport"/>
 <meta content="240" name="MobileOptimized"/>
+  <%= csrf_meta_tags %>
+  <%= stylesheet_link_tag "application", :media => "all" %>
+  <%= javascript_include_tag "application" %>
+	
+	<script type="text/javascript" src="/assets/order_item_mobile.js"></script>
 	<link type="text/css" rel="stylesheet" media="all" href="/assets/application_mobile.css">
-	<%= javascript_include_tag "application_mobile" %>
-
 </head>
 <body>
 	<%= render 'layouts/header'%>

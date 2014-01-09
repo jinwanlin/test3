@@ -6,6 +6,7 @@ class Ship < ActiveRecord::Base
   belongs_to :order_item
   
 
+  before_save :format_ship
   after_save :update_order_item
   after_destroy :update_order_item
   
@@ -22,6 +23,13 @@ class Ship < ActiveRecord::Base
   def formart(money)
     (money * 10).round / 10.0
   end
-
+  
+  def format_ship
+    self.amount = formart_2(self.amount)
+  end
+  
+  def formart_2(money)
+    (money * 100).round / 100.0
+  end
   
 end

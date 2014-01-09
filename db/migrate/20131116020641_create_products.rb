@@ -1,6 +1,7 @@
 class CreateProducts < ActiveRecord::Migration
   def change
     create_table :products do |t|
+      t.string :sn
       t.string :name
       t.string :type
       t.integer :series, :default => 1 # 分组，用于作涨价先后次序

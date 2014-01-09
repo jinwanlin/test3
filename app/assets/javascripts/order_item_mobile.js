@@ -1,9 +1,9 @@
 $(function(){
-	$(".order_item_amount").click(function(){
+	$(".dropdown-menu button").click(function(){
 		$.ajax({
 			type: "POST",
 			url: "/order_items.js",
-			data: { "order_item[product_id]": $(this).attr("id"), "order_item[order_amount]": $(this).val() }
+			data: { "order_item[product_id]": $(this).parent().attr("product_id"), "order_item[order_amount]": $(this).html() }
 		})
 	})
 	
