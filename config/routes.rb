@@ -1,6 +1,7 @@
 Test5::Application.routes.draw do
   
   resources :ships
+  resources :bills
 
 
   resources :order_items
