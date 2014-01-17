@@ -15,6 +15,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string :validate_code # 校验码
       t.string :token
       t.integer :level, :default => 1
+      t.string :role
       t.text :desc
       
       t.timestamps

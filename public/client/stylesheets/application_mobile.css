@@ -1,0 +1,76 @@
+body{
+	padding:30px 20px;
+}
+.menu{
+	position: fixed;
+	bottom:0;
+	background-color:#CDBA96;
+	width:100%;
+	margin:0 -20px;
+	z-index:99;
+}
+.menu li{
+	float: left;
+	list-style: none;
+	width:25%;
+	text-align:center;
+	padding: 10px 0;
+}
+
+.amount{
+	width:20px;
+	display:inline-block;
+	text-align:center;
+}
+.select_amount{
+	position:fixed;
+	width:200px;
+  background-color: #EEEEFF;
+}
+body, a{
+	font-size:20px !important;
+}
+.dropdown-menu{
+	margin-right:-10px;
+}
+.dropdown-menu > li{
+	text-align:left;
+	width:200px;
+}
+.dropdown-menu > li > button{
+	margin:2px;
+	width:57px;
+	display:inline-block;
+	padding:1px;
+}
+.dropdown-toggle{
+	display:inline-block;
+	width:30px;
+	text-align:center;
+}
+
+.dropdown-menu button{
+	font-size:18px !important;
+}
+
+.car{
+	width:20px;
+	height:20px;
+	display:inline-block;
+	background-image:url("/assets/car 3.png");
+}
+
+.unit{
+	font-size:12px;
+}
+
+.mobile_title{
+	position: fixed;
+	top:0;
+	background-color:#228B22;
+	width:100%;
+	margin:0 -20px;
+	text-align:center;
+	padding: 5px 0;
+	z-index:99;
+}

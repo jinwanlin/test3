@@ -110,8 +110,8 @@ class Product < ActiveRecord::Base
           if Price.where(product_id: product).where(date: tds[6].to_date).empty?
             Price.create product: product, purchase_low_price: tds[1].to_f, purchase_price: tds[2].to_f, purchase_heigh_price: tds[3].to_f, date: tds[6].to_date
           else
-            # break # 找到价格历史记录就 break
-            # find_history = true
+            find_history = true
+            break # 找到价格历史记录就 break
           end
         end
         

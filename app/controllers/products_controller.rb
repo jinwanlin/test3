@@ -7,11 +7,12 @@ class ProductsController < ApplicationController
     params[:type] ||= 'Vegetable'
     @products = Product
     @products = @products.where(type: params[:type]) if params[:type].present?
-    @products = @products.order("created_at")
+    @products = @products.order("updated_at")
     @order = current_user.orders.where(state: ['pending', 'open']).first if current_user
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @products }
+      format.client
     end
   end
 

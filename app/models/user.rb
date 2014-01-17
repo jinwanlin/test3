@@ -34,6 +34,10 @@ class User < ActiveRecord::Base
     end
   end
   
+  def admin?
+    role == "admin"
+  end
+  
   private
   def generate_token
     Digest::MD5::hexdigest(id.to_s + password)

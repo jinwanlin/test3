@@ -8,6 +8,7 @@ class OrdersController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
+      format.mobile # index.html.erb
       format.json { render json: @orders }
     end
   end

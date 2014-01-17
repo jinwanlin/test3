@@ -90,6 +90,7 @@ ActiveRecord::Schema.define(:version => 20140105070656) do
     t.string   "validate_code"
     t.string   "token"
     t.integer  "level",         :default => 1
+    t.string   "role"
     t.text     "desc"
     t.datetime "created_at",                   :null => false
     t.datetime "updated_at",                   :null => false
