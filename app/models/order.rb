@@ -84,7 +84,7 @@ class Order < ActiveRecord::Base
   private
   def generate_order_no
     begin
-      self.sn = Time.new.strftime("%m%d")+(0...4).map{ ('0'..'9').to_a[rand(10)] }.join
+      self.sn = (0...6).map{ ('0'..'9').to_a[rand(10)] }.join
     end while Order.find_by_sn(self.sn)
   end  
   

@@ -12,7 +12,7 @@ class ProductsController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @products }
-      format.client
+      format.mobile { render  layout: false }
     end
   end
 
@@ -103,6 +103,18 @@ class ProductsController < ApplicationController
     products = products.where("name LIKE ?", "%#{params[:query]}%")
     render :json =>  products.pluck(:name).compact.to_s
   end
-
+  
+  def export
+    
+    content = "ECS	VER	100	\n"
+    content += "DWL	PLU	\n"
+    Vegetable.all.each do |product|
+      content += "PLU	#{product.sn}	#{product.sn}		7	15,1	0,0	0,0	11	10	0	0	0	0	9	#{product.product_name}								0	0	0	0	0	0	0	0	0	0	0	0	0,0	0,0	0	127	0,0	0,0	0,0	0	127	0,0	0,0	0,0	0	127	0,0	0,0	0,0	0	127	0,0	0,0	0,0	0	0	0	0	0	0	0	\n"
+    end
+    content += "END	PLU \n"
+    content += "END	ECS	\n"
+    
+    send_data content, :type => 'text', :disposition => "attachment; filename=A_xxx.TMS"
+  end
   
 end

@@ -4,13 +4,14 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title></title>
+    <title><%= content_for?(:title) ? yield(:title) : "百菜网" %></title>
 
     <%= csrf_meta_tags %>
     <%= stylesheet_link_tag "application", :media => "all" %>
+		<link href="/assets/order_sn.css" media="all" rel="stylesheet" type="text/css" />
     <%= javascript_include_tag "application" %>
 		
-		<script type="text/javascript" src="/assets/jquery-ean13.min.js"></script>
+		<script type="text/javascript" src="/assets/code128.js"></script>
 		<script type="text/javascript" src="/assets/order.js"></script>
 		<script type="text/javascript">
 		$(function(){
@@ -22,12 +23,23 @@
 		
 		
   </head>
-  <body>
-    <div class="container">
-      <%= yield %>
-      <footer>
-        <!-- <p>&copy; Company 2013</p> -->
-      </footer>
+  <body style="padding-top:0">
+		<!-- max-width:756px; max-height:500px -->
+		<!--  -->
+    <div style="width:720px; height:489px; margin:1px auto 0; padding:0 10px; overflow:hidden; text-align:justify; background-color: #eee;">
+      <div style="height:467px;">
+				<%= yield %>
+			</div>
+			<div style="">
+				退换货电话：156-5771-5360
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				网址：http://www.caicai.com
+			</div>
     </div>
+		
+		
+		
+		
+		
   </body>
 </html>

@@ -1,0 +1,26 @@
+.barcode {   
+  float:left;  
+  clear:both;
+  padding: 0 10px; /*quiet zone*/  
+  overflow:auto;  
+  height:60px; /*size*/   
+}  
+.barcode div {   
+  float:left;  
+  height: 30px; /*size*/  
+}  
+.barcode .bar1 { border-left:2px solid black; }  
+.barcode .bar2 { border-left:4px solid black; }  
+.barcode .bar3 { border-left:6px solid black; }  
+.barcode .bar4 { border-left:8px solid black; }  
+.barcode .space0 { margin-right:0 }  
+.barcode .space1 { margin-right:2px }  
+.barcode .space2 { margin-right:4px }  
+.barcode .space3 { margin-right:6px }  
+.barcode .space4 { margin-right:8px }  
+.barcode label {   
+  clear:both;   
+  display:block;   
+  text-align:center;    
+  font: 16px/25px helvetica
+} 

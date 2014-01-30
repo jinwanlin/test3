@@ -47,6 +47,7 @@ Test5::Application.routes.draw do
   resources :products do
     collection do
       get 'search'
+      get 'export'
     end
   end
     

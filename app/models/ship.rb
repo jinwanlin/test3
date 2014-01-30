@@ -12,11 +12,13 @@ class Ship < ActiveRecord::Base
   
   def update_order_item
     ship_amount = Ship.where("order_id = ?", order).where("order_item_id = ?", order_item).sum("amount")
-    order_item.ship_amount = formart(ship_amount)
+    if order_item
+      order_item.ship_amount = formart(ship_amount)
     
-    order_item.ship_sum = order_item.ship_sum_amount
-    order_item.cost_sum = order_item.cost_sum_amount
-    order_item.save
+      order_item.ship_sum = order_item.ship_sum_amount
+      order_item.cost_sum = order_item.cost_sum_amount
+      order_item.save
+    end
   end
   
   # 保留一位小数

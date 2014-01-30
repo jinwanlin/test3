@@ -1,68 +1,257 @@
-<canvas class="order_no" id="order_no_1" width="300" height="100">
-    Your browser does not support canvas-elements.
-</canvas>
-<canvas class="order_no" id="order_no_2" width="600" height="200">
-    Your browser does not support canvas-elements.
-</canvas>
-<canvas class="order_no" id="order_no_3" width="900" height="300">
-    Your browser does not support canvas-elements.
-</canvas>
-<canvas class="order_no" id="order_no_4" width="1200" height="400">
-    Your browser does not support canvas-elements.
-</canvas>
-<canvas class="order_no" id="order_no_5" width="1500" height="500">
-    Your browser does not support canvas-elements.
-</canvas>
-<!-- 
-<div><%= @order.sn %></div>
+<script type="text/javascript">  
+$(function(){
+	$(".order_no").each(function(){
+		$(this).html(code128($(this).html()))
+  });
+})
+</script>
+<style>
+.table th, .table td{
+	line-height:6px;
+}
+</style>
 
-<div class="row">
-	<div class="span8">
-		<table class="table">
-		  <tr>
-		    <th>商品</th>
-				<th>单价</th>
-		    <th>订购量</th>
-		    <th>订单金额</th>
-		    <th>出货量</th>
-				<th>交易金额</th>
-		  </tr>
-		<% @order.order_items.each do |order_item| %>
-		
-		<tr id="order_item_<%= order_item.id %>">
-			<td><%= order_item.product.name %></td>
-			<td><%= order_item.price %></td>
-			<td><%= order_item.order_amount %></td>
-			<td><%= order_item.order_sum %></td>
-			<td><%= order_item.ship_amount %></td>
-			<td><%= order_item.ship_sum if order_item.ship_sum > 0 %></td>
-		</tr>
-		<% end %>
-		
-		<tfoot>
-		<tr>
-		  <td></td>
-		  <td></td>
-			<td></td>
-		  <td>合计：<span style="color:red"><%= @order.order_sum %></td>
-			<td>
-				<% if @order.ship_sum > 0 %>
-					合计：<span id="order_ship_sum" style="color:red"><%= @order.ship_sum %>
-				<% end %>
-			</td>
-			<td>
-				<% if @order.ship_sum > 0 %>
-					利润：<span id="order_profit" style="color:red"><%= @order.profit %>
-				<% end %>
-			</td>
-		</tr>
-		</tfoot>
-		</table>
+<div style=" height:60px;">
+	<div class="barcode order_no"><%= @order.sn %></div>
+	<div class="pull-right" style="text-align:right;">
+		<p>出货日期：<%= @order.created_at.strftime('%Y-%m-%d').to_s %></p>
+		<p>北京市丰台区南三环西路搜宝商务中心2号楼1910</p>
 	</div>
-	
+	<div style="text-align:center; font-weight:700; font-size:24px; line-height:40px; "><%= @order.user.name %></div>
 </div>
--->
 
+<table class="table" style="font-size:12px; margin-bottom:10px;">
+  <tr>
+    <th>商品</th>
+		<th>单价</th>
+    <th>订购量</th>
+    <th>出货量</th>
+		<th>金额</th>
+		<th style="width: 21px; border-top-width:0; background-color:auto;"></th>
+    <th>商品</th>
+		<th>单价</th>
+    <th>订购量</th>
+    <th>出货量</th>
+		<th>金额</th>
+  </tr>
+<% @order.order_items.each do |order_item| %>
+
+<tr id="order_item_<%= order_item.id %>">
+	<td><%= order_item.product.name %></td>
+	<td><%= order_item.price %> 元/斤</td>
+	<td><%= order_item.order_amount %> 斤</td>
+	<td><%= "#{order_item.ship_amount} 斤" if order_item.ship_amount %></td>
+	<td><%= "#{order_item.ship_sum} 元" if order_item.ship_sum > 0 %></td>
+	<td style="border-top-width:0"></td>
+	<td><%= order_item.product.name %></td>
+	<td><%= order_item.price %> 元/斤</td>
+	<td><%= order_item.order_amount %> 斤</td>
+	<td><%= "#{order_item.ship_amount} 斤" if order_item.ship_amount %></td>
+	<td><%= "#{order_item.ship_sum} 元" if order_item.ship_sum > 0 %></td>
+</tr>
+
+<tr id="order_item_<%= order_item.id %>">
+	<td><%= order_item.product.name %></td>
+	<td><%= order_item.price %> 元/斤</td>
+	<td><%= order_item.order_amount %> 斤</td>
+	<td><%= "#{order_item.ship_amount} 斤" if order_item.ship_amount %></td>
+	<td><%= "#{order_item.ship_sum} 元" if order_item.ship_sum > 0 %></td>
+	<td style="border-top-width:0"></td>
+	<td><%= order_item.product.name %></td>
+	<td><%= order_item.price %> 元/斤</td>
+	<td><%= order_item.order_amount %> 斤</td>
+	<td><%= "#{order_item.ship_amount} 斤" if order_item.ship_amount %></td>
+	<td><%= "#{order_item.ship_sum} 元" if order_item.ship_sum > 0 %></td>
+</tr>
+
+<tr id="order_item_<%= order_item.id %>">
+	<td><%= order_item.product.name %></td>
+	<td><%= order_item.price %> 元/斤</td>
+	<td><%= order_item.order_amount %> 斤</td>
+	<td><%= "#{order_item.ship_amount} 斤" if order_item.ship_amount %></td>
+	<td><%= "#{order_item.ship_sum} 元" if order_item.ship_sum > 0 %></td>
+	<td style="border-top-width:0"></td>
+	<td><%= order_item.product.name %></td>
+	<td><%= order_item.price %> 元/斤</td>
+	<td><%= order_item.order_amount %> 斤</td>
+	<td><%= "#{order_item.ship_amount} 斤" if order_item.ship_amount %></td>
+	<td><%= "#{order_item.ship_sum} 元" if order_item.ship_sum > 0 %></td>
+</tr>
+
+<tr id="order_item_<%= order_item.id %>">
+	<td><%= order_item.product.name %></td>
+	<td><%= order_item.price %> 元/斤</td>
+	<td><%= order_item.order_amount %> 斤</td>
+	<td><%= "#{order_item.ship_amount} 斤" if order_item.ship_amount %></td>
+	<td><%= "#{order_item.ship_sum} 元" if order_item.ship_sum > 0 %></td>
+	<td style="border-top-width:0"></td>
+	<td><%= order_item.product.name %></td>
+	<td><%= order_item.price %> 元/斤</td>
+	<td><%= order_item.order_amount %> 斤</td>
+	<td><%= "#{order_item.ship_amount} 斤" if order_item.ship_amount %></td>
+	<td><%= "#{order_item.ship_sum} 元" if order_item.ship_sum > 0 %></td>
+</tr>
+
+<tr id="order_item_<%= order_item.id %>">
+	<td><%= order_item.product.name %></td>
+	<td><%= order_item.price %> 元/斤</td>
+	<td><%= order_item.order_amount %> 斤</td>
+	<td><%= "#{order_item.ship_amount} 斤" if order_item.ship_amount %></td>
+	<td><%= "#{order_item.ship_sum} 元" if order_item.ship_sum > 0 %></td>
+	<td style="border-top-width:0"></td>
+	<td><%= order_item.product.name %></td>
+	<td><%= order_item.price %> 元/斤</td>
+	<td><%= order_item.order_amount %> 斤</td>
+	<td><%= "#{order_item.ship_amount} 斤" if order_item.ship_amount %></td>
+	<td><%= "#{order_item.ship_sum} 元" if order_item.ship_sum > 0 %></td>
+</tr>
+
+<tr id="order_item_<%= order_item.id %>">
+	<td><%= order_item.product.name %></td>
+	<td><%= order_item.price %> 元/斤</td>
+	<td><%= order_item.order_amount %> 斤</td>
+	<td><%= "#{order_item.ship_amount} 斤" if order_item.ship_amount %></td>
+	<td><%= "#{order_item.ship_sum} 元" if order_item.ship_sum > 0 %></td>
+	<td style="border-top-width:0"></td>
+	<td><%= order_item.product.name %></td>
+	<td><%= order_item.price %> 元/斤</td>
+	<td><%= order_item.order_amount %> 斤</td>
+	<td><%= "#{order_item.ship_amount} 斤" if order_item.ship_amount %></td>
+	<td><%= "#{order_item.ship_sum} 元" if order_item.ship_sum > 0 %></td>
+</tr>
+
+<tr id="order_item_<%= order_item.id %>">
+	<td><%= order_item.product.name %></td>
+	<td><%= order_item.price %> 元/斤</td>
+	<td><%= order_item.order_amount %> 斤</td>
+	<td><%= "#{order_item.ship_amount} 斤" if order_item.ship_amount %></td>
+	<td><%= "#{order_item.ship_sum} 元" if order_item.ship_sum > 0 %></td>
+	<td style="border-top-width:0"></td>
+	<td><%= order_item.product.name %></td>
+	<td><%= order_item.price %> 元/斤</td>
+	<td><%= order_item.order_amount %> 斤</td>
+	<td><%= "#{order_item.ship_amount} 斤" if order_item.ship_amount %></td>
+	<td><%= "#{order_item.ship_sum} 元" if order_item.ship_sum > 0 %></td>
+</tr>
+
+<tr id="order_item_<%= order_item.id %>">
+	<td><%= order_item.product.name %></td>
+	<td><%= order_item.price %> 元/斤</td>
+	<td><%= order_item.order_amount %> 斤</td>
+	<td><%= "#{order_item.ship_amount} 斤" if order_item.ship_amount %></td>
+	<td><%= "#{order_item.ship_sum} 元" if order_item.ship_sum > 0 %></td>
+	<td style="border-top-width:0"></td>
+	<td><%= order_item.product.name %></td>
+	<td><%= order_item.price %> 元/斤</td>
+	<td><%= order_item.order_amount %> 斤</td>
+	<td><%= "#{order_item.ship_amount} 斤" if order_item.ship_amount %></td>
+	<td><%= "#{order_item.ship_sum} 元" if order_item.ship_sum > 0 %></td>
+</tr>
+
+<tr id="order_item_<%= order_item.id %>">
+	<td><%= order_item.product.name %></td>
+	<td><%= order_item.price %> 元/斤</td>
+	<td><%= order_item.order_amount %> 斤</td>
+	<td><%= "#{order_item.ship_amount} 斤" if order_item.ship_amount %></td>
+	<td><%= "#{order_item.ship_sum} 元" if order_item.ship_sum > 0 %></td>
+	<td style="border-top-width:0"></td>
+	<td><%= order_item.product.name %></td>
+	<td><%= order_item.price %> 元/斤</td>
+	<td><%= order_item.order_amount %> 斤</td>
+	<td><%= "#{order_item.ship_amount} 斤" if order_item.ship_amount %></td>
+	<td><%= "#{order_item.ship_sum} 元" if order_item.ship_sum > 0 %></td>
+</tr>
+
+<tr id="order_item_<%= order_item.id %>">
+	<td><%= order_item.product.name %></td>
+	<td><%= order_item.price %> 元/斤</td>
+	<td><%= order_item.order_amount %> 斤</td>
+	<td><%= "#{order_item.ship_amount} 斤" if order_item.ship_amount %></td>
+	<td><%= "#{order_item.ship_sum} 元" if order_item.ship_sum > 0 %></td>
+	<td style="border-top-width:0"></td>
+	<td><%= order_item.product.name %></td>
+	<td><%= order_item.price %> 元/斤</td>
+	<td><%= order_item.order_amount %> 斤</td>
+	<td><%= "#{order_item.ship_amount} 斤" if order_item.ship_amount %></td>
+	<td><%= "#{order_item.ship_sum} 元" if order_item.ship_sum > 0 %></td>
+</tr>
+
+<tr id="order_item_<%= order_item.id %>">
+	<td><%= order_item.product.name %></td>
+	<td><%= order_item.price %> 元/斤</td>
+	<td><%= order_item.order_amount %> 斤</td>
+	<td><%= "#{order_item.ship_amount} 斤" if order_item.ship_amount %></td>
+	<td><%= "#{order_item.ship_sum} 元" if order_item.ship_sum > 0 %></td>
+	<td style="border-top-width:0"></td>
+	<td><%= order_item.product.name %></td>
+	<td><%= order_item.price %> 元/斤</td>
+	<td><%= order_item.order_amount %> 斤</td>
+	<td><%= "#{order_item.ship_amount} 斤" if order_item.ship_amount %></td>
+	<td><%= "#{order_item.ship_sum} 元" if order_item.ship_sum > 0 %></td>
+</tr>
+
+<tr id="order_item_<%= order_item.id %>">
+	<td><%= order_item.product.name %></td>
+	<td><%= order_item.price %> 元/斤</td>
+	<td><%= order_item.order_amount %> 斤</td>
+	<td><%= "#{order_item.ship_amount} 斤" if order_item.ship_amount %></td>
+	<td><%= "#{order_item.ship_sum} 元" if order_item.ship_sum > 0 %></td>
+	<td style="border-top-width:0"></td>
+	<td><%= order_item.product.name %></td>
+	<td><%= order_item.price %> 元/斤</td>
+	<td><%= order_item.order_amount %> 斤</td>
+	<td><%= "#{order_item.ship_amount} 斤" if order_item.ship_amount %></td>
+	<td><%= "#{order_item.ship_sum} 元" if order_item.ship_sum > 0 %></td>
+</tr>
+
+<tr id="order_item_<%= order_item.id %>">
+	<td><%= order_item.product.name %></td>
+	<td><%= order_item.price %> 元/斤</td>
+	<td><%= order_item.order_amount %> 斤</td>
+	<td><%= "#{order_item.ship_amount} 斤" if order_item.ship_amount %></td>
+	<td><%= "#{order_item.ship_sum} 元" if order_item.ship_sum > 0 %></td>
+	<td style="border-top-width:0"></td>
+	<td><%= order_item.product.name %></td>
+	<td><%= order_item.price %> 元/斤</td>
+	<td><%= order_item.order_amount %> 斤</td>
+	<td><%= "#{order_item.ship_amount} 斤" if order_item.ship_amount %></td>
+	<td><%= "#{order_item.ship_sum} 元" if order_item.ship_sum > 0 %></td>
+</tr>
+
+<tr id="order_item_<%= order_item.id %>">
+	<td><%= order_item.product.name %></td>
+	<td><%= order_item.price %> 元/斤</td>
+	<td><%= order_item.order_amount %> 斤</td>
+	<td><%= "#{order_item.ship_amount} 斤" if order_item.ship_amount %></td>
+	<td><%= "#{order_item.ship_sum} 元" if order_item.ship_sum > 0 %></td>
+	<td style="border-top-width:0"></td>
+	<td><%= order_item.product.name %></td>
+	<td><%= order_item.price %> 元/斤</td>
+	<td><%= order_item.order_amount %> 斤</td>
+	<td><%= "#{order_item.ship_amount} 斤" if order_item.ship_amount %></td>
+	<td><%= "#{order_item.ship_sum} 元" if order_item.ship_sum > 0 %></td>
+</tr>
+
+<tr id="order_item_<%= order_item.id %>">
+	<td><%= order_item.product.name %></td>
+	<td><%= order_item.price %> 元/斤</td>
+	<td><%= order_item.order_amount %> 斤</td>
+	<td><%= "#{order_item.ship_amount} 斤" if order_item.ship_amount %></td>
+	<td><%= "#{order_item.ship_sum} 元" if order_item.ship_sum > 0 %></td>
+	<td style="border-top-width:0"></td>
+	<td><%= order_item.product.name %></td>
+	<td><%= order_item.price %> 元/斤</td>
+	<td><%= order_item.order_amount %> 斤</td>
+	<td><%= "#{order_item.ship_amount} 斤" if order_item.ship_amount %></td>
+	<td><%= "#{order_item.ship_sum} 元" if order_item.ship_sum > 0 %></td>
+</tr>
+
+<% end %>
+</table>
+
+<% if @order.ship_sum > 0 %>
+	<div style="font-size:16px; margin-right:30px; text-align:right;" class="">合计：<span id="order_ship_sum" style="color:red"><%= @order.ship_sum %> 元</div>
+<% end %>
 
 
 

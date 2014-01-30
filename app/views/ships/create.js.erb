@@ -1,7 +1,9 @@
 $('#ships').append('<%= j render(partial: 'ship', object: @ship) %>')
 ships_div_scroll_top()
 
-$("#order_item_<%= @ship.order_item.id %> .ship_amount").html(<%= @ship.order_item.ship_amount %>)
-$("#order_item_<%= @ship.order_item.id %> .ship_sum").html(<%= @ship.order_item.ship_sum %>)
-$("#order_ship_sum").html(<%= @ship.order_item.order.ship_sum %>)
-$("#order_profit").html(<%= @ship.order_item.order.profit %>)
+<% if @ship.order_item %>
+	$("#order_item_<%= @ship.order_item.id %> .ship_amount").html(<%= @ship.order_item.ship_amount %>)
+	$("#order_item_<%= @ship.order_item.id %> .ship_sum").html(<%= @ship.order_item.ship_sum %>)
+	$("#order_ship_sum").html(<%= @ship.order_item.order.ship_sum %>)
+	$("#order_profit").html(<%= @ship.order_item.order.profit %>)
+<% end %>

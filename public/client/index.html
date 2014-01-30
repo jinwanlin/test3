@@ -5,6 +5,8 @@
 <meta name="MobileOptimized" content="240">
 <meta name="csrf-param" content="authenticity_token">
 <meta name="csrf-token" content="/MPez5f4Dsyh50HOfsKRJ47uB3gPrqAYl6wxvsONm68=">
+<meta http-equiv="Page-Enter" content="revealTrans(duration=6, transition=3)">
+<meta http-equiv="Page-Exit" content="revealTrans(duration=4, transition=2)">
 
 <link type="text/css" rel="stylesheet" media="all" href="./stylesheets/bootstrap.min.css?body=1">
 <link type="text/css" rel="stylesheet" media="all" href="./stylesheets/bootstrap_and_overrides.css?body=1">
@@ -24,7 +26,7 @@ $(function(){
 })
 
 function products(){
-	ajax("http://lvh.me:3000/products.client?type=Vegetable")
+	ajax("http://192.168.0.103:3000/products.mobile?type=Vegetable")
 }
 
 function ajax(url){
