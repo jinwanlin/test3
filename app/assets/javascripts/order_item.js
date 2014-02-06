@@ -1,16 +1,5 @@
 $(function(){
-	$(".dropdown-menu button").click(function(){
-		$.ajax({
-			type: "POST",
-			url: "/order_items.js",
-			data: { "order_item[product_id]": $(this).parent().attr("product_id"), "order_item[order_amount]": $(this).html() }
-		})
-		
-		$(this).siblings(".product_is_bye").removeClass("product_is_bye")
-		if($(this).html()!="0"){
-			$(this).addClass("product_is_bye")
-		}
-	})
+	$(".dropdown-menu button").click(change_order);
 	
 	$('#product_search').typeahead({
 	    source: function (query, process) {
@@ -20,7 +9,8 @@ $(function(){
 	    }
 	});
 	
-	$("#ship_sn").val("").focus()
+	$("#ship_sn").val("").focus();
+	
 	$("#new_ship").submit(function(e){
 		e.preventDefault();
 		try {
@@ -36,3 +26,17 @@ $(function(){
 	
 })
 
+
+function change_order(){
+	alert(2)
+	$.ajax({
+		type: "POST",
+		url: "/order_items.js",
+		data: { "order_item[product_id]": $(this).parent().attr("product_id"), "order_item[order_amount]": $(this).html() }
+	})
+
+	$(this).siblings(".product_is_bye").removeClass("product_is_bye")
+	if($(this).html()!="0"){
+		$(this).addClass("product_is_bye")
+	}
+}
