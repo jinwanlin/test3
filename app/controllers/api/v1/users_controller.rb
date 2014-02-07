@@ -2,7 +2,7 @@
 module Api
   module V1
     class UsersController < Api::BaseController
-      before_filter :find_user_by_phone, only: [:sign_up, :validate]
+      before_filter :find_user_by_phone, only: [:sign_up, :validate, :sign_in]
       before_filter :find_user_by_id, only: [:set_password]
       
       
@@ -48,6 +48,21 @@ module Api
       end
       
       
+      # 登陆
+      def sign_in
+        @state = false
+        if @user
+          if @user.password == password_md5(@user.id, params[:user][:password])
+            @state = true
+          else
+            @user = nil
+          end
+        end
+      end
+      
+      def show
+        @user = User.find(params[:id])
+      end
       
       private
       def find_user_by_phone

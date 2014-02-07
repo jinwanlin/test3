@@ -60,6 +60,7 @@ Test5::Application.routes.draw do
           get 'sign_up'
           get 'validate'
           get 'set_password'
+          get 'sign_in'
         end
       end
     end
