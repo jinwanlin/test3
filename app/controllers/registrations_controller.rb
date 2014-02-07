@@ -20,7 +20,10 @@ class RegistrationsController < ApplicationController
     end
     
     if @user
-      @user.validate_code = rand(9999) if Settings.has_validate_code
+      if Settings.has_validate_code
+        @user.validate_code = rand(9999) 
+        SMS.send(@user.phone, "注册校验码：#{@user.validate_code}")
+      end
       @user.save
     end
 
@@ -35,7 +38,6 @@ class RegistrationsController < ApplicationController
             sign_in(@user)
             redirect_to products_path
           end
-          
         }
         format.json
       else

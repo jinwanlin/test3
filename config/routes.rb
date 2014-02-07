@@ -55,6 +55,11 @@ Test5::Application.routes.draw do
   namespace :api, defaults: {format: 'json'} do
     scope module: :v1 do#, constraints: ApiConstraints.new(version: 1, default: :true) do
       resources :products
+      resources :users do
+        collection do
+          get 'sign_up'
+        end
+      end
     end
   end
   
