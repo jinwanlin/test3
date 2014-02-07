@@ -58,6 +58,8 @@ Test5::Application.routes.draw do
       resources :users do
         collection do
           get 'sign_up'
+          get 'validate'
+          get 'set_password'
         end
       end
     end
