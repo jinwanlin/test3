@@ -8,6 +8,7 @@ if user
     json.latitude user.latitude
     json.longitude user.longitude
     json.state user.state
+    json.level user.level
     json.desc user.desc
   end
 end

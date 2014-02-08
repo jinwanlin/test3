@@ -1,1 +1,0 @@
-json.(product, :id, :name)

@@ -63,6 +63,7 @@ Test5::Application.routes.draw do
           get 'sign_in'
         end
       end
+      resources :bills
     end
   end
   

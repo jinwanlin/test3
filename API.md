@@ -3,7 +3,7 @@ caicai-api
 #注册、登陆、忘记密码、修改密码
 ##注册  
 ####1、输入手机号，系统发送验证码到客户手机上
-接口：code/api/users/sign_up  
+接口：/api/users/sign_up  
 参数：
 ```ruby
 	user[phone]=18628405091  #手机号
@@ -12,7 +12,8 @@ caicai-api
 ```ruby
 	{
 		"state":false,  #成功（true），失败（false） 
-		"message":"手机号已注册过，请登录或找回密码。"  #失败原因  
+		"need_validate":true,  #是否需要短信验证：是（true），否（false） 
+		"message":"手机号已注册，请登录或找回密码。"  #失败原因  
 	}  
 ``` 
 
@@ -84,14 +85,87 @@ caicai-api
   
 ##修改密码
 
+
 #商品列表
-##蔬菜列表
+接口：/api/products  
+参数：
+```ruby
+	user[id]=1
+	user[level]=3
+	type=Vegetable  #蔬菜
+	last_update_at=2013-03-03  #上次更新时间
+``` 
+返回值:  
+```ruby
+{
+	"user":{
+		"id":1, 
+		"level":1
+	},
+	"now":"2014-02-08T10:28:07+08:00",
+	"products":[{
+		"id":1,
+		"name":"\u91d1\u9488\u83c7",
+		"price":1.8
+	},{
+		"id":2,
+		"name":"\u9999\u83c7"
+	},{
+		"id":3,
+		"name":"\u6728\u8033"
+	}]
+}
+```
 
 #订单
 ##订单列表
+接口：/api/orders  
+参数：
+```ruby
+	user[id]=1
+	last_update_at=2013-03-03  #上次更新时间
+``` 
+返回值:  
+```ruby
+{
+	"now":"2014-02-08T10:28:07+08:00",
+	"orders":[{
+		"id":1,
+		"created_date":"2013-03-03",
+		"amount":1.8
+	}]
+}
+```
 ##订单明细
-##最后一条订单明细
+接口：/api/orders/{id}  
+参数：无  
+返回值:  
+```ruby
+	{
+		"id":1,
+		"created_date":"2013-03-03",
+		"amount":1.8
+	}
+```
+
+
 
 #账单
-##账单列表
+接口：/api/bills  
+参数：
+```ruby
+	user[id]=1
+	last_update_at=2013-03-03  #上次更新时间
+``` 
+返回值:  
+```ruby
+{
+	"now":"2014-02-08T10:28:07+08:00",
+	"bills":[{
+		"id":1,,
+		"amount":1.8
+		"created_date":"2013-03-03"
+	}]
+}
+```
 

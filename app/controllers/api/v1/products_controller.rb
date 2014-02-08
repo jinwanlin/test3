@@ -2,6 +2,7 @@ module Api
   module V1
     class ProductsController < Api::BaseController
       def index
+        @user = User.find(params[:user][:id])
         # params[:type] ||= "Vegetable"
         @products = Product
         @products = @products.where(type: "Vegetable")# if params[:type].present?
