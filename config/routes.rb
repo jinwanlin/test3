@@ -49,6 +49,11 @@ Test5::Application.routes.draw do
       get 'search'
       get 'export'
     end
+    member do
+      get 'to_up'
+      get 'to_down'
+      get 'to_file'
+    end
   end
     
 
@@ -64,6 +69,8 @@ Test5::Application.routes.draw do
         end
       end
       resources :bills
+      resources :orders
+      resources :order_items
     end
   end
   

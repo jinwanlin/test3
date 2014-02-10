@@ -11,7 +11,7 @@
 
 <% @prices.each do |price| %>
   <tr>
-    <td><%= price.purchase_price %></td>
+    <td><%= price.forecast_cost %></td>
     <td><%= price.selling_price %></td>
     <td><%= link_to 'Show', price %></td>
     <td><%= link_to 'Edit', edit_price_path(price) %></td>

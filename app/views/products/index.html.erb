@@ -10,7 +10,6 @@
 			<div class="dropdown pull-right">
 				<a data-toggle="dropdown" class="dropdown-toggle" role="button" id="drop<%= product.id %>" href="#"><%= order_amount==0 ? sanitize("<i class='car'></i>") : order_amount  %></a>
 				<ul aria-labelledby="drop<%= product.id %>" role="menu" class="dropdown-menu">
-					
 				  <li role="presentation" product_id="<%= product.id %>">
 						<p class="text-align:center">买几斤</p>
 						<% product.get_amounts.each do |amount| %>
@@ -19,6 +18,18 @@
 					</li>
 				</ul>
 			</div>
+		</td>
+		<td>
+			<%= product.state_ %>
+			<% if product.up? %>
+				<%= link_to '下架', to_down_product_url(product) %> |
+				<%= link_to '归档', to_file_product_url(product) %>
+			<% elsif product.down? %>
+				<%= link_to '归档', to_file_product_url(product) %> |
+				<%= link_to '上架', to_up_product_url(product) %>
+			<% elsif product.file? %>
+				<%= link_to '上架', to_up_product_url(product) %>
+			<% end %>
 		</td>
 		<% end %>
   </tr>

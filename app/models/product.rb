@@ -4,7 +4,7 @@ class Product < ActiveRecord::Base
   attr_accessible :des, :name, :series, :cost, :sn, :aliases, :amounts
   
   PRODUCT_TYPES = ['Vegetable', 'Fruit', 'Meat', 'Fish', 'Agri']
-  AMOUNTS = [0, 1, 2, 3, 4, 5, 6, 7, 10, 12, 15, 20, 25, 30]
+  AMOUNTS = [1, 2, 3, 4, 5, 6, 7, 10, 12, 15, 20, 25, 30]
   
   has_many :prices, :order => 'date'
   
@@ -24,6 +24,19 @@ class Product < ActiveRecord::Base
     end
   end
   
+  state_machine initial: :down do
+    #before_transition :pending => :open, do: :do_done
+    event :to_up do # 上架
+      transition [:file, :down] => :up
+    end
+    event :to_down do # 下架
+      transition :up => :down
+    end
+    event :to_file do # 归档
+      transition [:up, :down] => :file
+    end
+  end
+  
   def aliases_present?
     aliases.present?
   end
@@ -36,29 +49,29 @@ class Product < ActiveRecord::Base
     amounts.present? ? amounts : AMOUNTS
   end
   
-  # 最后最低价
-  def last_purchase_low_price
-    prices.last.try(:purchase_low_price) unless prices.empty?
-  end
-  
-  # 最后平均价
-  def last_purchase_price
-    prices.last.try(:purchase_price) unless prices.empty?
-  end
-  
-  # 最后最高价
-  def last_purchase_heigh_price
-    prices.last.try(:purchase_heigh_price) unless prices.empty?
-  end
+  # # 最后最低价
+  # def last_purchase_low_price
+  #   prices.last.try(:purchase_low_price) unless prices.empty?
+  # end
+  # 
+  # # 最后平均价
+  # def last_purchase_price
+  #   prices.last.try(:purchase_price) unless prices.empty?
+  # end
+  # 
+  # # 最后最高价
+  # def last_purchase_heigh_price
+  #   prices.last.try(:purchase_heigh_price) unless prices.empty?
+  # end
   
   # 
   # def last_selling_price
   #   prices.last.try(:selling_price) unless prices.empty?
   # end
-  
-  def rofit
-    last_selling_price - last_purchase_price unless last_selling_price.nil? || last_purchase_price.nil?
-  end
+  # 
+  # def profit
+  #   last_selling_price - last_purchase_price unless last_selling_price.nil? || last_purchase_price.nil?
+  # end
   
   def previous
     Product.find(id - 1) if self != Product.first
@@ -88,7 +101,8 @@ class Product < ActiveRecord::Base
     _index = args[:index] || 0
     _page = args[:page] || 1
     
-    ["Vegetable", "Fruit", "Meat", "Fish", "Agri"].each_with_index do |food_type, index|
+    #, "Fruit", "Meat", "Fish", "Agri"
+    ["Vegetable"].each_with_index do |food_type, index|
       page = 1
       find_history = false
       
@@ -106,12 +120,15 @@ class Product < ActiveRecord::Base
         data = doc.css('table.hq_table tr').each_with_index.map do |row, index|
           next if index == 0
           tds = row.xpath('./td').map(&:text)
+          date = tds[6].to_date
           product = Product.find_by_name(tds[0]) || food_type.constantize.create(name: tds[0])
-          if Price.where(product_id: product).where(date: tds[6].to_date).empty?
-            Price.create product: product, purchase_low_price: tds[1].to_f, purchase_price: tds[2].to_f, purchase_heigh_price: tds[3].to_f, date: tds[6].to_date
+          if Price.where(product_id: product).where(date: date).empty? && tds[2].to_f > 0
+            price = Price.where(product_id: product, date: date).first || Price.create(product: product, date: date)
+            price.update_attributes(actual_cost: tds[2].to_f)
+            price.set_tomorrow_forecast_cost
           else
-            find_history = true
-            break # 找到价格历史记录就 break
+            # find_history = true
+            # break # 找到价格历史记录就 break
           end
         end
         
@@ -129,6 +146,16 @@ class Product < ActiveRecord::Base
       product.update_attributes cost: (product.last_purchase_price * 100).round/100.0
     end
   end
+  
+  def state_
+    case self.state
+      when "up" then "已上架"
+      when "down" then "已下架"
+      when "file" then "已归档"
+    end
+  end
+  
+
   
   private
   def generate_product_sn

@@ -38,6 +38,15 @@ class User < ActiveRecord::Base
     role == "admin"
   end
   
+  def state_
+    case self.state
+      when "pending" then "注册中"
+      when "unaudited" then "未审核"
+      when "actived" then "正常"
+      when "freezed" then "冻结"
+    end
+  end
+  
   private
   def generate_token
     Digest::MD5::hexdigest(id.to_s + password)

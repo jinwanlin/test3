@@ -105,8 +105,17 @@ class ProductsController < ApplicationController
     render :json =>  products.pluck(:name).compact.to_s
   end
   
-  def export
+  def to_up
     
+  end
+  
+  # get 'to_up'
+  # get 'to_down'
+  # get 'to_file'
+  
+  
+  
+  def export
     content = "ECS	VER	100	\n"
     content += "DWL	PLU	\n"
     Vegetable.all.each do |product|

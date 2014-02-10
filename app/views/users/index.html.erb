@@ -6,9 +6,9 @@
 			
 			<select name="state" style="width: 110px;">
 				<option value="">所有状态</option>
-				<option value="unaudited" <%= "selected='selected'" if params[:state] == 'unaudited' %>><%= user_state 'unaudited' %></option>
-				<option value="actived" <%= "selected='selected'" if params[:state] == 'actived' %>><%= user_state 'actived' %></option>
-				<option value="freezed" <%= "selected='selected'" if params[:state] == 'freezed' %>><%= user_state 'freezed' %></option>
+				<option value="unaudited" <%= "selected='selected'" if params[:state] == 'unaudited' %>>未审核</option>
+				<option value="actived" <%= "selected='selected'" if params[:state] == 'actived' %>>正常</option>
+				<option value="freezed" <%= "selected='selected'" if params[:state] == 'freezed' %>>冻结</option>
 			</select>
 			
 	    <input type="text" name="query" class="span2" placeholder="店铺名称" value="<%= params[:query] %>">
@@ -32,7 +32,7 @@
     <td><%= link_to user.phone, user  %></td>
     <td><%= user.name %></td>
     <td><%= user.validate_code %></td>
-    <td><%= user_state user.state %></td>
+    <td><%= user.state_ %></td>
     <td><%= user.level %></td>
     <td>
 			<% if user.unaudited? %>

@@ -5,8 +5,8 @@ module Api
         @user = User.find(params[:user][:id])
         # params[:type] ||= "Vegetable"
         @products = Product
-        @products = @products.where(type: "Vegetable")# if params[:type].present?
-        @products = @products.order("created_at")
+        @products = @products.where('updated_at >= ?', DateTime.parse(params[:last_update_at])) if params[:last_update_at].present? && @user.level == params[:user][:level]
+        @products = @products.where(type: params[:type]) if params[:type].present?
       end
     end
   end
