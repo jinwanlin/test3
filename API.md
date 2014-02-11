@@ -1,18 +1,17 @@
 caicai-api  
 ####注册、登陆、忘记密码、修改密码
   1. [注册](#注册)  
-  2. [登陆](#登陆) 
+  2. [登陆](#登陆)  
 	3. [商品列表](#商品列表)  
-	4. [订单列表](#订单列表)    
-	5. [订单明细](#订单明细)    
-	6. [账单列表](#账单列表)    
-
+	4. [订单列表](#订单列表)  
+	5. [订单明细](#订单明细)  
+	6. [账单列表](#账单列表)  
 
 ==========
 #注册、登陆、忘记密码、修改密码
 ##注册  
 ####1、输入手机号，系统发送验证码到客户手机上
-接口：/api/users/sign_up  
+接口：http://115.28.160.65/api/users/sign_up  
 参数：
 ```ruby
 	user[phone]=18628405091  #手机号
@@ -29,7 +28,7 @@ caicai-api
 ----
 ####2、输入短信验证码校验
 
-接口：/api/users/validate  
+接口：http://115.28.160.65/api/users/validate  
 参数：
 ```ruby
 	user[phone]=18628405091  
@@ -49,7 +48,7 @@ caicai-api
 
 ----
 ####3、设置密码
-接口：/api/users/set_password  
+接口：http://115.28.160.65/api/users/set_password  
 参数：
 ```ruby
 	user[id]=3  
@@ -65,7 +64,7 @@ caicai-api
 ----
 
 ##登陆  
-接口：/api/users/sign_in  
+接口：http://115.28.160.65/api/users/sign_in  
 参数：
 ```ruby
 	user[phone]=15657715360  
@@ -96,7 +95,7 @@ caicai-api
 
 
 #商品列表
-接口：/api/products  
+接口：http://115.28.160.65/api/products  
 参数：
 ```ruby
 	user[id]=1
@@ -128,7 +127,7 @@ caicai-api
 
 #订单
 ##订单列表
-接口：/api/orders  
+接口：http://115.28.160.65/api/orders  
 参数：
 ```ruby
 	user[id]=1
@@ -146,7 +145,7 @@ caicai-api
 }
 ```
 ##订单明细
-接口：/api/orders/{id}  
+接口：http://115.28.160.65/api/orders/{id}  
 参数：无  
 返回值:  
 ```ruby
@@ -160,7 +159,7 @@ caicai-api
 
 
 #账单
-接口：/api/bills  
+接口：http://115.28.160.65/api/bills  
 参数：
 ```ruby
 	user[id]=1
