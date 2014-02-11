@@ -21,7 +21,7 @@ module Api
           @user.password = password_md5(@user.id, params[:user][:password])
           
           if Settings.has_validate_code
-            @user.validate_code = rand(9999) 
+            @user.validate_code = rand(1000..9999)
             SMS.send(@user.phone, "注册校验码：#{@user.validate_code}")
             @message = "请输入短信校验码"
           else

@@ -14,7 +14,7 @@
 参数：
 ```ruby
 	user[phone]=18628405091  #手机号
-	user[password]=111un111  #密码
+	user[password]=11111111  #密码
 ```
 返回值:  
 ```ruby
@@ -94,27 +94,42 @@
 	user[id]=1
 	user[level]=3
 	type=Vegetable  #蔬菜
-	last_update_at=2013-03-03  #上次更新时间
+	last_update_at=2014-02-08T10:28:07+08:00  #上次更新时间
 ``` 
 返回值:  
 ```ruby
 {
-	"user":{
-		"id":1, 
-		"level":1
-	},
-	"now":"2014-02-08T10:28:07+08:00",
-	"products":[{
-		"id":1,
-		"name":"\u91d1\u9488\u83c7",
-		"price":1.8
-	},{
-		"id":2,
-		"name":"\u9999\u83c7"
-	},{
-		"id":3,
-		"name":"\u6728\u8033"
-	}]
+  "user": {
+    "level": 1
+  },
+  "now": "2014-02-11T13:26:04+08:00",
+  "products": [{
+    "id": 361,
+    "sn": "000001",
+    "name": "\u5927\u767d\u83dc",
+    "type": "Vegetable",
+    "amounts": [1, 2, 3, 4, 5, 6, 7, 10, 12, 15, 20, 25, 30],
+    "price": 0.0,
+    "nuit": "\u5343\u514b"
+  },
+  {
+    "id": 368,
+    "sn": "000368",
+    "name": "\u97ed\u83dc",
+    "type": "Vegetable",
+    "amounts": [1, 2, 3, 4, 5, 6, 7, 10, 12, 15, 20, 25, 30],
+    "price": 2.59,
+    "nuit": "\u5343\u514b"
+  },
+  {
+    "id": 369,
+    "sn": "000369",
+    "name": "\u849c\u82d7",
+    "type": "Vegetable",
+    "amounts": [1, 2, 3, 4, 5, 6, 7, 10, 12, 15, 20, 25, 30],
+    "price": 3.73,
+    "nuit": "\u5343\u514b"
+  }]
 }
 ```
 
