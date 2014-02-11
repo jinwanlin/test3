@@ -62,10 +62,10 @@ Test5::Application.routes.draw do
       resources :products
       resources :users do
         collection do
-          get 'sign_up'
-          get 'validate'
-          get 'set_password'
-          get 'sign_in'
+          post 'sign_up'
+          post 'validate'
+          post 'set_password'
+          post 'sign_in'
         end
       end
       resources :bills
