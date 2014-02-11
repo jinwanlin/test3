@@ -11,6 +11,7 @@
 ##注册  
 ####1、输入手机号，系统发送验证码到客户手机上
 接口：http://115.28.160.65/api/users/sign_up  
+方法：POST  
 参数：
 ```ruby
 	user[phone]=18628405091  #手机号
@@ -40,6 +41,7 @@
 ####2、输入短信验证码校验
 
 接口：http://115.28.160.65/api/users/validate  
+方法：POST  
 参数：
 ```ruby
 	user[id]=4
@@ -58,6 +60,7 @@
 
 ##登陆  
 接口：http://115.28.160.65/api/users/sign_in  
+方法：POST  
 参数：
 ```ruby
 	user[phone]=15657715360  
@@ -89,6 +92,7 @@
 
 #商品列表
 接口：http://115.28.160.65/api/products  
+方法：GET  
 参数：
 ```ruby
 	user[id]=1
@@ -156,6 +160,7 @@
 
 ##订单列表
 接口：http://115.28.160.65/api/orders  
+方法：GET  
 参数：
 ```ruby
 	user[id]=1
@@ -174,6 +179,7 @@
 ```
 ##订单明细
 接口：http://115.28.160.65/api/orders/{id}  
+方法：GET  
 参数：无  
 返回值:  
 ```ruby
@@ -188,6 +194,7 @@
 
 #账单
 接口：http://115.28.160.65/api/bills  
+方法：GET  
 参数：
 ```ruby
 	user[id]=1
