@@ -11,10 +11,10 @@ class User < ActiveRecord::Base
   validates :phone, :presence => true
   
   
-  state_machine initial: :pending do
+  state_machine initial: :unvalidate do
     #before_transition :pending => :open, do: :do_done
-    event :audite do # 注册
-      transition :pending => :unaudited
+    event :validate do # 注册
+      transition :unvalidate => :unaudited
     end
     event :active do # 审核通过
       transition [:unaudited, :freezed] => :actived

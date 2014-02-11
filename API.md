@@ -14,6 +14,7 @@
 参数：
 ```ruby
 	user[phone]=18628405091  #手机号
+	user[password]=111111  #密码
 ```
 返回值:  
 ```ruby
@@ -21,6 +22,10 @@
 		"state":false,  #成功（true），失败（false） 
 		"need_validate":true,  #是否需要短信验证：是（true），否（false） 
 		"message":"手机号已注册，请登录或找回密码。"  #失败原因  
+		"user":{
+			"id":4,
+			"name":18628405022
+		}
 	}  
 ``` 
 
@@ -30,35 +35,17 @@
 接口：http://115.28.160.65/api/users/validate  
 参数：
 ```ruby
-	user[phone]=18628405091  
+	user[id]=4
 	user[validate_code]=2813
 ``` 
 返回值:  
 ```ruby
 	{
 		"state":true,  #成功（true），失败（false） 
-		"message":null,  #失败原因  
-		"user":{  #若成功，则返回用户信息;若失败则无用户信息返回
-			"id":3,
-			"phone":18628405091
-		}
+		"message":"验证成功",  #验证成功  或  验证失败 
 	}
 ```
 
-----
-####3、设置密码
-接口：http://115.28.160.65/api/users/set_password  
-参数：
-```ruby
-	user[id]=3  
-	user[password]=abc123  #密码明码
-```
-返回值:  
-```ruby
-	{
-		"state":true  #成功（true），失败（false）
-	}
-``` 
 
 ----
 

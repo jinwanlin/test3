@@ -2,25 +2,28 @@
 module Api
   module V1
     class UsersController < Api::BaseController
-      before_filter :find_user_by_phone, only: [:sign_up, :validate, :sign_in]
-      before_filter :find_user_by_id, only: [:set_password]
+      before_filter :find_user_by_phone, only: [:sign_up, :sign_in]
+      before_filter :find_user_by_id, only: [:set_password, :validate]
       
       
       # 注册
       def sign_up
         if params[:user][:phone].present?
           if @user.nil?
-            @user = User.new params[:user]
-            @user.state = "pending"
-          elsif @user.state != "pending" # 已被注册
+            @user = User.create(phone: params[:user][:phone])
+          elsif @user.state != "unvalidate" # 已被注册
             @user = nil
           end
         end
         
         if @user
+          @user.password = password_md5(@user.id, params[:user][:password])
+          
           if Settings.has_validate_code
             @user.validate_code = rand(9999) 
-            # SMS.send(@user.phone, "注册校验码：#{@user.validate_code}")
+            SMS.send(@user.phone, "注册校验码：#{@user.validate_code}")
+          else
+            @user.state = "unaudited"
           end
           @user.save
         end
@@ -30,22 +33,24 @@ module Api
       def validate
         if @user.validate_code == params[:user][:validate_code]
           @user.update_attributes validate_code: nil
+          @user.validate!
           @state = true 
+          @message = "验证成功!" 
         else
           @state = false
           @message = "验证码错误!" 
         end
       end
       
-      # 第一次设置密码，其密码必须为空
-      def set_password
-        @state = false
-        unless @user.password
-          @user.update_attributes password: password_md5(@user.id, params[:user][:password])
-          @user.audite
-          @state = true
-        end
-      end
+      # # 第一次设置密码，其密码必须为空
+      # def set_password
+      #   @state = false
+      #   unless @user.password
+      #     @user.update_attributes password: password_md5(@user.id, params[:user][:password])
+      #     @user.audite
+      #     @state = true
+      #   end
+      # end
       
       
       # 登陆
