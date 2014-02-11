@@ -30,6 +30,9 @@ module Api
           end
           @user.save
         end
+        
+        self.response_body = "{phone:15657715360, id: 1}"
+        
       end
       
       # 验证校验码

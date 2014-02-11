@@ -58,4 +58,11 @@ class Api::BaseController < ApplicationController
   #                     :from_ip => request.remote_ip, :browser_info => request.env['HTTP_USER_AGENT']
   # end
   
+  def current_user
+    unless @current_user
+      @current_user = User.find_by_id(params[:current_user_id]) if params[:current_user_id].present?
+    end
+    @current_user
+  end
+  
 end

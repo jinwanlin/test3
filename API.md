@@ -134,6 +134,26 @@
 ```
 
 #订单
+####购买
+方法：POST  
+接口：http://115.28.160.65/api/order_items  
+参数：
+```ruby
+	user[id]=4
+	order_item[product_id]=2813
+	order_item[order_amount]=15
+``` 
+返回值:  
+```ruby
+	{
+		"state":true,  #成功（true），失败（false） 
+		"message":"验证成功",  #验证成功  或  验证失败 
+	}
+```
+
+
+----
+
 ##订单列表
 接口：http://115.28.160.65/api/orders  
 参数：
