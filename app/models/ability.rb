@@ -7,7 +7,7 @@ class Ability
     if user.admin?
       can :manage, :all
     else
-      cannot [:index, :destroy, :active, :frost, :show], User
+      # cannot [:index, :destroy, :active, :frost, :show], User
     end
   end
 end

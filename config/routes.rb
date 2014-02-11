@@ -64,7 +64,6 @@ Test5::Application.routes.draw do
         collection do
           post 'sign_up'
           post 'validate'
-          post 'set_password'
           post 'sign_in'
         end
       end
@@ -76,3 +75,5 @@ Test5::Application.routes.draw do
   
   root :to => 'products#index'
 end
+
+
