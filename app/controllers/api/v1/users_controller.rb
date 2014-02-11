@@ -13,6 +13,7 @@ module Api
             @user = User.create(phone: params[:user][:phone])
           elsif @user.state != "unvalidate" # 已被注册
             @user = nil
+            @message = "手机号已注册，请登录或找回密码。"
           end
         end
         
@@ -22,8 +23,10 @@ module Api
           if Settings.has_validate_code
             @user.validate_code = rand(9999) 
             SMS.send(@user.phone, "注册校验码：#{@user.validate_code}")
+            @message = "请输入短信校验码"
           else
             @user.state = "unaudited"
+            @message = "注册成功"
           end
           @user.save
         end

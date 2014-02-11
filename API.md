@@ -14,20 +14,26 @@
 参数：
 ```ruby
 	user[phone]=18628405091  #手机号
-	user[password]=111111  #密码
+	user[password]=111un111  #密码
 ```
 返回值:  
 ```ruby
 	{
-		"state":false,  #成功（true），失败（false） 
-		"need_validate":true,  #是否需要短信验证：是（true），否（false） 
-		"message":"手机号已注册，请登录或找回密码。"  #失败原因  
+		"state":true,  #成功（true），失败（false）
+		"message":"\u8bf7\u8f93\u5165\u77ed\u4fe1\u6821\u9a8c\u7801",
 		"user":{
-			"id":4,
-			"name":18628405022,
-			"token":3dd765e6acb60292e93bb9fe1cf43fcf
+			"id":3,
+			"name":null,
+			"phone":18628405021,
+			"token":"cbc320f76a34a1db3c2e8f0b1c74386f",
+			"address":"",  #完整地址
+			"latitude":null,  #纬度
+			"longitude":null,  #经度
+			"state":"unvalidate",  #unvalidate（待输入校验码校验）actived（可用）
+			"level":1,
+			"desc":null
 		}
-	}  
+	}
 ``` 
 
 ----
