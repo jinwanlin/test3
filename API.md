@@ -11,7 +11,7 @@
 ##注册  
 ####1、输入手机号，系统发送验证码到客户手机上
 <!-- 
-curl -d "user[phone]=18628405091" http://lvh.me:3000/api/users/sign_up
+curl -d "user[phone]=18628405093" http://lvh.me:3000/api/users/sign_up
 -->
 接口：http://115.28.160.65/api/users/sign_up  
 方法：POST  
@@ -28,45 +28,36 @@ user[phone]=18628405091  #手机号
 ``` 
 
 ----
-####2、发送短信验证码
+####2、输入短信验证码校验并注册
 <!-- 
-curl -d "user[id]=2" http://lvh.me:3000/api/users/send_validate_code
--->
-接口：http://115.28.160.65/api/users/send_validate_code  
-方法：POST  
-参数：
-```ruby
-	user[phone]=18628405091
-	user[password]=11111111  #密码(明码)
-	user[validate_code]=11111111  #验证码
-``` 
-返回值:  
-```ruby
-	{
-		"state":true,  #成功（true），失败（false） 
-		"message":"验证成功",  #验证成功  或  验证失败 
-	}
-```
-
-
-----
-####2、输入短信验证码校验
-<!-- 
-curl -d "user[id]=4&user[validate_code]=2813", http://lvh.me:3000/api/users/validate
+curl -d "user[phone]=18628405093&user[password]=11111111&user[validate_code]=3320" http://lvh.me:3000/api/users/validate
 -->
 接口：http://115.28.160.65/api/users/validate  
 方法：POST  
 参数：
 ```ruby
-	user[id]=4
-	user[validate_code]=2813
+user[phone]=18628405091
+user[password]=11111111  #密码(明码)
+user[validate_code]=5921  #验证码
 ``` 
 返回值:  
 ```ruby
-	{
-		"state":true,  #成功（true），失败（false） 
-		"message":"验证成功",  #验证成功  或  验证失败 
-	}
+{
+  "state": true, #注册成功
+  "message": "\u9a8c\u8bc1\u6210\u529f!",
+  "user": {
+    "id": 6,
+    "name": null,
+    "phone": 18628405093,
+    "token": "7745fd11fcdc68896f71fa8710ede9f7",
+    "address": "   ",
+    "latitude": null,
+    "longitude": null,
+    "state": "unaudited",
+    "level": 1,
+    "desc": null
+  }
+}
 ```
 
 

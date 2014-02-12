@@ -24,6 +24,7 @@ class User < ActiveRecord::Base
     end
   end
   
+  
   def address
     "#{county} #{towns} #{street} #{house}"
   end

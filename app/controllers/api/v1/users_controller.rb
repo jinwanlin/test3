@@ -44,11 +44,13 @@ module Api
       
       # 验证校验码
       def validate
-        if @user.validate_code == params[:user][:validate_code]
-          @user.update_attributes validate_code: nil
+        p @user.validate_code
+        p params[:user][:validate_code]
+        if @user.unvalidate? && @user.validate_code == params[:user][:validate_code]
+          @user.validate_code = nil
+          @user.state = "unaudited"
           @user.password = password_md5(@user.id, params[:user][:password])
           @user.save
-          @user.validate!
           
           @state = true 
           @message = "验证成功!" 
@@ -58,15 +60,6 @@ module Api
         end
       end
       
-      # # 第一次设置密码，其密码必须为空
-      # def set_password
-      #   @state = false
-      #   unless @user.password
-      #     @user.update_attributes password: password_md5(@user.id, params[:user][:password])
-      #     @user.audite
-      #     @state = true
-      #   end
-      # end
       
       
       # 登陆
