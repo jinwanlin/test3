@@ -65,6 +65,7 @@ Test5::Application.routes.draw do
           post 'sign_up'
           post 'validate'
           post 'sign_in'
+          post 'send_validate_code'
         end
       end
       resources :bills

@@ -1,3 +1,2 @@
-json.state !@user.nil?
-json.message @message
-json.partial! "user", user: @user
+json.phone_can_use @phone_can_use
+json.is_send_validate_code @is_send_validate_code

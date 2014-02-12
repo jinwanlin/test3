@@ -41,9 +41,9 @@ class User < ActiveRecord::Base
   def state_
     case self.state
       when "unvalidate" then "注册中"
-      when "unaudited" then "未审核"
+      when "unaudited" then "待审核"
       when "actived" then "正常"
-      when "freezed" then "冻结"
+      when "freezed" then "已冻结"
     end
   end
   
