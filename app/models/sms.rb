@@ -13,7 +13,7 @@ class SMS
     # else
     #   MSG[code]
     # end  
-    1 #假设发送成功
+    # 1 #假设发送成功
   end
   
 end
