@@ -83,15 +83,21 @@ class Product < ActiveRecord::Base
   
   # 卖价，不同的人看到不同的卖价
   def sales_price(level)
-    return if !level.present? || !cost.present?
-    profit_1 = (level-1)/3
-    remainder = level%3 == 0 ? 3 : level%3
-    profit_2 = remainder >= series ? 1 : 0
+    # return if !level.present? || !cost.present?
+    # profit_1 = (level-1)/3
+    # remainder = level%3 == 0 ? 3 : level%3
+    # profit_2 = remainder >= series ? 1 : 0
+    # 
+    # profit = (profit_1+profit_2)*0.1
+    # price = cost * (1+profit)
     
-    profit = (profit_1+profit_2)*0.1
-    price = cost * (1+profit)
+    price = cost*(level * 0.05 + 1)
     
-    (price * 100).round/100.0
+    price = price*10
+    price = price.round # 四舍五入取整
+    price = price/10.0
+    
+    # (price * 100).round/100.0
   end
   
 

@@ -22,7 +22,7 @@ module Api
           
           if Settings.has_validate_code
             @user.validate_code = rand(1000..9999)
-            SMS.send(@user.phone, "注册校验码：#{@user.validate_code}")
+            # SMS.send(@user.phone, "注册校验码：#{@user.validate_code}")
             @message = "请输入短信校验码"
           else
             @user.state = "unaudited"
@@ -58,10 +58,13 @@ module Api
       
       # 登陆
       def sign_in
-        @state = false
+        @message = "登陆失败！"
         if @user
           if @user.password == password_md5(@user.id, params[:user][:password])
-            @state = true
+            @current_user = user
+            cookies.permanent[:token] = user.token
+            
+            @message = "登陆成功！"
           else
             @user = nil
           end

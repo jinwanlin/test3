@@ -1,10 +1,9 @@
 <a href="/products/export" class="pull-right">导出</a>
 <table width="100%" class="table">
 <% @products.each do |product| %>
-	<% price = product.sales_price(current_user.level) if current_user %>
   <tr id="product_<%= product.id %>" class="<%= 'product_is_bye' if (order_amount = order_amount(@order, product)) > 0 %>">
     <td><a href="/products/<%= product.id %>"><%= product.product_name %></a></td>
-		<td><%= price_format(price) if price %><span class="unit">￥/斤</span></td>
+		<td><%= price_format(product.cost) %><span class="unit">￥/斤</span></td>
 		<% if current_user && current_user.actived? %>
 		<td align=right>
 			<div class="dropdown pull-right">

@@ -4,8 +4,8 @@ module Api
       def index
         @bills = Bills.where()
       end
+      
+      
     end
   end
-  
-  
 end

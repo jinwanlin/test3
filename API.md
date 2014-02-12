@@ -10,6 +10,9 @@
 #注册、登陆、忘记密码、修改密码
 ##注册  
 ####1、输入手机号，系统发送验证码到客户手机上
+<!-- 
+curl -d "user[phone]=18628405091&user[password]=11111111", "http://lvh.me:3000/api/users/sign_up"
+-->
 接口：http://115.28.160.65/api/users/sign_up  
 方法：POST  
 参数：
@@ -39,7 +42,9 @@
 
 ----
 ####2、输入短信验证码校验
-
+<!-- 
+curl -d "user[id]=4&user[validate_code]=2813", "http://lvh.me:3000/api/users/validate"
+-->
 接口：http://115.28.160.65/api/users/validate  
 方法：POST  
 参数：
@@ -59,6 +64,9 @@
 ----
 
 ##登陆  
+<!-- 
+curl -d "user[phone]=15657715360&user[password]=111111", "http://lvh.me:3000/api/users/sign_in"
+-->
 接口：http://115.28.160.65/api/users/sign_in  
 方法：POST  
 参数：
@@ -91,6 +99,9 @@
 
 
 #商品列表
+<!-- 
+curl "http://lvh.me:3000/api/products?user[id]=1&user[level]=3&type=Vegetable&last_update_at=2014-02-08T10:28:07+08:00"
+-->
 接口：http://115.28.160.65/api/products  
 方法：GET  
 参数：
@@ -141,6 +152,9 @@
 ####购买
 方法：POST  
 接口：http://115.28.160.65/api/order_items  
+<!-- 
+curl -d "user[id]=1&order_item[product_id]=362&order_item[order_amount]=15", "http://lvh.me:3000/api/order_items"
+-->
 参数：
 ```ruby
 	user[id]=4

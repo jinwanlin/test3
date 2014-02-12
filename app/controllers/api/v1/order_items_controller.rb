@@ -12,15 +12,14 @@ module Api
         # order
         @order = @user.orders.last
         if @order && (@order.pending? || @order.open?)
+          
         else
-          @order = current_user.orders.create
+          @order = @user.orders.create
         end
     
         # product
         if params[:order_item][:product_id].present?
           product = Product.find params[:order_item][:product_id]
-        else
-          product = Product.find_by_name params[:product_name]
         end
     
         # order_item
@@ -30,10 +29,10 @@ module Api
         else
           @order_item = @order.order_items.new(params[:order_item])
           @order_item.product = product
-          p @order_item.order.user.id
           @order_item.price = product.sales_price(@order_item.order.user.level)
           @order_item.cost = product.cost
         end
+        @order_item.save
       end
       
       def show

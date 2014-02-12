@@ -40,7 +40,7 @@ class User < ActiveRecord::Base
   
   def state_
     case self.state
-      when "pending" then "注册中"
+      when "unvalidate" then "注册中"
       when "unaudited" then "未审核"
       when "actived" then "正常"
       when "freezed" then "冻结"
