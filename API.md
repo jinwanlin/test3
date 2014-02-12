@@ -11,7 +11,7 @@
 ##注册  
 ####1、输入手机号，系统发送验证码到客户手机上
 <!-- 
-curl -d "user[phone]=18628405093" http://lvh.me:3000/api/users/sign_up
+curl -d "user[phone]=18628405094" http://lvh.me:3000/api/users/sign_up
 -->
 接口：http://115.28.160.65/api/users/sign_up  
 方法：POST  
@@ -100,7 +100,7 @@ curl -d "user[phone]=15657715360&user[password]=111111", "http://lvh.me:3000/api
 
 #商品列表
 <!-- 
-curl "http://lvh.me:3000/api/products?user[id]=1&user[level]=3&type=Vegetable&last_update_at=2014-02-08T10:28:07+08:00"
+http://lvh.me:3000/api/products?user[id]=1&user[level]=3&type=Vegetable&updated_at=20140201
 -->
 接口：http://115.28.160.65/api/products  
 方法：GET  
@@ -115,9 +115,9 @@ curl "http://lvh.me:3000/api/products?user[id]=1&user[level]=3&type=Vegetable&la
 ```ruby
 {
   "user": {
-    "level": 1
+    "level": 4
   },
-  "now": "2014-02-11T13:26:04+08:00",
+  "now": "2014-02-12T14:12:19+08:00",
   "products": [{
     "id": 361,
     "sn": "000001",
@@ -128,21 +128,12 @@ curl "http://lvh.me:3000/api/products?user[id]=1&user[level]=3&type=Vegetable&la
     "nuit": "\u5343\u514b"
   },
   {
-    "id": 368,
-    "sn": "000368",
-    "name": "\u97ed\u83dc",
+    "id": 366,
+    "sn": "000366",
+    "name": "\u7ea2\u76ae\u8471\u5934",
     "type": "Vegetable",
     "amounts": [1, 2, 3, 4, 5, 6, 7, 10, 12, 15, 20, 25, 30],
-    "price": 2.59,
-    "nuit": "\u5343\u514b"
-  },
-  {
-    "id": 369,
-    "sn": "000369",
-    "name": "\u849c\u82d7",
-    "type": "Vegetable",
-    "amounts": [1, 2, 3, 4, 5, 6, 7, 10, 12, 15, 20, 25, 30],
-    "price": 3.73,
+    "price": 1.2,
     "nuit": "\u5343\u514b"
   }]
 }

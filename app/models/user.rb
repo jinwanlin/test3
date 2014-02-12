@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   
   validates :phone, :presence => true
   
+  before_create :set_default
   
   state_machine initial: :unvalidate do
     #before_transition :pending => :open, do: :do_done
@@ -53,4 +54,7 @@ class User < ActiveRecord::Base
     Digest::MD5::hexdigest(id.to_s + password)
   end
   
+  def set_default
+    self.level = 2
+  end
 end
