@@ -52,10 +52,10 @@ module Api
           @user.password = password_md5(@user.id, params[:user][:password])
           @user.save
           
-          @state = true 
+          @state = 0 
           @message = "验证成功!" 
         else
-          @state = false
+          @state = -1
           @message = "验证码错误!" 
         end
       end
@@ -66,6 +66,8 @@ module Api
       def sign_in
         @message = "登陆失败！"
         if @user
+          p @user.password
+          p password_md5(@user.id, params[:user][:password])
           if @user.password == password_md5(@user.id, params[:user][:password])
             @current_user = user
             cookies.permanent[:token] = user.token
