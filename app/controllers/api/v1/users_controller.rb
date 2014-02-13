@@ -2,8 +2,7 @@
 module Api
   module V1
     class UsersController < Api::BaseController
-      before_filter :find_user_by_phone, only: [:validate]
-      before_filter :find_user_by_id, only: [:set_password, :send_validate_code]
+      before_filter :find_user_by_phone, only: [:sign_up, :sign_in, :validate]
       
       # 注册
       def sign_up
@@ -11,8 +10,7 @@ module Api
         unless params[:user][:phone].present?
           return
         end
-        
-        @user = User.find_by_phone(params[:user][:phone]) || User.create(phone: params[:user][:phone])
+        @user ||= User.create(phone: params[:user][:phone])
           
         if @user.unvalidate? # 已被注册
           @phone_can_use = true
@@ -63,7 +61,10 @@ module Api
       # 登陆
       def sign_in
         @message = "登陆失败！"
-        if @user = User.where(phone: params[:user][:phone]).first
+        if @user
+          p @user.password
+          p password_md5(@user.id, params[:user][:password])
+          
           if @user.password == password_md5(@user.id, params[:user][:password])
             @current_user = @user
             cookies.permanent[:token] = @user.token
@@ -81,12 +82,9 @@ module Api
       
       private
       def find_user_by_phone
-        @user = User.find_by_phone(params[:user][:phone])
+        @user = User.where(phone: params[:user][:phone]).first
       end
 
-      def find_user_by_id
-        @user = User.find(params[:user][:id])
-      end
     end
   end
   
