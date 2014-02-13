@@ -52,10 +52,10 @@ module Api
           @user.password = password_md5(@user.id, params[:user][:password])
           @user.save
           
-          @state = 0 
+          @status = 0 
           @message = "验证成功!" 
         else
-          @state = -1
+          @status = -1
           @message = "验证码错误!" 
         end
       end
