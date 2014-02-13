@@ -69,7 +69,9 @@ user[validate_code]=5921  #验证码
 
 ##登陆  
 <!-- 
-curl -d "user[phone]=15657715360&user[password]=111111", "http://lvh.me:3000/api/users/sign_in"
+curl -d "user[phone]=15657715360&user[password]=111111" http://lvh.me:3000/api/users/sign_in
+curl -d "user[phone]=15657715360&user[password]=111111" http://115.28.160.65/api/users/sign_in
+
 -->
 接口：http://115.28.160.65/api/users/sign_in  
 方法：POST  
@@ -151,7 +153,7 @@ http://lvh.me:3000/api/products?user[id]=1&user[level]=3&type=Vegetable&updated_
 方法：POST  
 接口：http://115.28.160.65/api/order_items  
 <!-- 
-curl -d "user[id]=1&order_item[product_id]=362&order_item[order_amount]=15", "http://lvh.me:3000/api/order_items"
+curl -d "user[id]=1&order_item[product_id]=362&order_item[order_amount]=15" http://lvh.me:3000/api/order_items
 -->
 参数：
 ```ruby

@@ -2,7 +2,7 @@
 module Api
   module V1
     class UsersController < Api::BaseController
-      before_filter :find_user_by_phone, only: [:sign_in, :validate]
+      before_filter :find_user_by_phone, only: [:validate]
       before_filter :find_user_by_id, only: [:set_password, :send_validate_code]
       
       # 注册
@@ -63,8 +63,9 @@ module Api
       # 登陆
       def sign_in
         @message = "登陆失败！"
-        if @user
+        if @user = User.find_by_phone(params[:user][:phone])
           p @user.password
+          p params[:user][:password]
           p password_md5(@user.id, params[:user][:password])
           
           if @user.password == password_md5(@user.id, params[:user][:password])
