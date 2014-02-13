@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
   
   # 登录
   def create
-    @user = User.find_by_phone params[:user][:phone]
+    @user = User.where(phone: params[:user][:phone]).first
     
     respond_to do |format|
       if @user.nil?

@@ -10,7 +10,7 @@ class RegistrationsController < ApplicationController
   # 注册
   def create
     if params[:user][:phone].present?
-      @user = User.find_by_phone(params[:user][:phone])
+      @user = User.where(phone: params[:user][:phone]).first
       if @user.nil?
         @user = User.new params[:user]
         @user.state = "pending"
