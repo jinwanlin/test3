@@ -1,6 +1,0 @@
-$('#main').append('<%= j render(content_type: "mobile", file: '/products/index2') %>')
-$(".dropdown-menu button").click(change_order)
-
-<% if @products.size >= 5 %>
-	ajax("http://115.28.160.65/products.mobile?page=<%=(@page.to_i+1)%>&type=Vegetable")
-<% end %>

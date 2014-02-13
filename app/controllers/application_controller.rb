@@ -1,8 +1,5 @@
 # encoding: utf-8
 class ApplicationController < ActionController::Base
-  # protect_from_forgery
-  
-  before_filter :prepare_for_mobile
     
   def password_md5(user_id, password)
     Digest::MD5::hexdigest(password + user_id.to_s + "food") if password && user_id
@@ -34,20 +31,4 @@ class ApplicationController < ActionController::Base
   
   private
   helper_method :current_user
-  
-  def mobile_device?
-    if session[:mobile_param]
-      session[:mobile_param] == "1"
-    else
-      request.user_agent =~ /Mobile|webOS/
-    end
-  end
-  
-  helper_method :mobile_device?
-  
-  def prepare_for_mobile
-    session[:mobile_param] = params[:mobile] if params[:mobile]
-    p request.format 
-    request.format = :mobile if mobile_device? && request.format!="text/javascript"
-  end
 end

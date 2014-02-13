@@ -9,29 +9,22 @@ class RegistrationsController < ApplicationController
   
   # 注册
   def create
-    if params[:user][:phone].present?
-      @user = User.where(phone: params[:user][:phone]).first
-      if @user.nil?
-        @user = User.new params[:user]
-        @user.state = "pending"
-      elsif @user.state != "pending" # 已被注册
-        @user = nil
-      end
+    @user = User.where(phone: params[:user][:phone]).first || User.create(params[:user])
+    unless @user.unvalidate? # 已被注册
+      @user = nil
     end
     
-    if @user
-      if Settings.has_validate_code
+    if !@user.nil? && Settings.has_validate_code
         @user.validate_code = rand(1000..9999) 
         SMS.send(@user.phone, "注册校验码：#{@user.validate_code}")
-      end
-      @user.save
+        @user.save
     end
 
     respond_to do |format|
       if @user
         format.html {
           if Settings.has_validate_code
-            redirect_to validate_code_registration_url(@user)
+            redirect_to validate_code_registration_url(@user.id)
           else
             @user.update_attributes password: password_md5(@user.id, params[:user][:password])
             @user.audite
@@ -78,7 +71,7 @@ class RegistrationsController < ApplicationController
   # 设置密码
   def password
     @user.update_attributes password: password_md5(@user.id, params[:user][:password])
-    @user.audite
+    @user.validate
     sign_in(@user)
     
     respond_to do |format|
