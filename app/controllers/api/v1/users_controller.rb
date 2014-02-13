@@ -2,40 +2,39 @@
 module Api
   module V1
     class UsersController < Api::BaseController
-      before_filter :find_user_by_phone, only: [:sign_up, :sign_in, :validate]
+      before_filter :find_user_by_phone, only: [:sign_in, :validate]
       before_filter :find_user_by_id, only: [:set_password, :send_validate_code]
       
       
       # 注册
       def sign_up
-        @is_send_validate_code = false
-        @phone_can_use = false
         
-        if params[:user][:phone].present?
-          if @user.nil?
-            @user = User.create(phone: params[:user][:phone])
-            @phone_can_use = true
-          elsif @user.state != "unvalidate" # 已被注册
-            @user = nil
-          else
-            @phone_can_use = true
-          end
+        unless params[:user][:phone].present?
+          return
         end
         
-        if @user
-          validate_code = rand(1000..9999)
+        @user = User.find_by_phone(params[:user][:phone]) || User.create(phone: params[:user][:phone])
           
+        if @user.unvalidate? # 已被注册
+          @phone_can_use = true
+          
+          validate_code = rand(1000..9999)
           code = SMS.send(@user.phone, "注册校验码：#{validate_code}")
           if code > 0
-            @user.validate_code = validate_code
-            @user.save
-            
+            @user.update_attributes validate_code: validate_code
+
+            @message = "请输入验证码"
             @is_send_validate_code = true
           else
+            @is_send_validate_code = false
+            @message = "验证码发送失败"
             @@logger ||= Logger.new("#{Rails.root}/log/sms.log")
             @@logger.error SMS::MSG["#{code}"]
           end
-          
+        else
+          @phone_can_use = false
+          @user = nil
+          @message = "手机号已被注册"
         end
       end
       
