@@ -27,6 +27,7 @@ user[phone]=18628405091  #手机号
 	"staet": 0, # 0成功，-1失败
   "phone_can_use": true,
   "is_send_validate_code": true
+  "message": "请输入验证码"
 }
 ``` 
 
