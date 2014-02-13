@@ -24,7 +24,7 @@ user[phone]=18628405091  #手机号
 返回值:  
 ```ruby
 {
-	"staet": 0, # 0成功，-1失败
+	"status": 0, # 0成功，-1失败
   "phone_can_use": true,
   "is_send_validate_code": true
   "message": "请输入验证码"
@@ -47,7 +47,7 @@ user[validate_code]=5921  #验证码
 返回值:  
 ```ruby
 {
-  "state": 0, #0成功， -1失败
+  "status": 0, #0成功， -1失败
   "message": "\u9a8c\u8bc1\u6210\u529f!",
   "user": {
     "id": 6,
@@ -81,7 +81,7 @@ curl -d "user[phone]=15657715360&user[password]=111111", "http://lvh.me:3000/api
 返回值:  
 ```ruby
 	{
-		"state":true,  #成功（true），失败（false） 
+		"status":true,  #成功（true），失败（false） 
 		"user":{  
 			"id":1,  
 			"name":"成都小吃",  
@@ -159,7 +159,7 @@ curl -d "user[id]=1&order_item[product_id]=362&order_item[order_amount]=15", "ht
 返回值:  
 ```ruby
 	{
-		"state":true,  #成功（true），失败（false） 
+		"status":true,  #成功（true），失败（false） 
 		"message":"验证成功",  #验证成功  或  验证失败 
 	}
 ```
