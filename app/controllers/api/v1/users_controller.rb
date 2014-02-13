@@ -63,14 +63,7 @@ module Api
       # 登陆
       def sign_in
         @message = "登陆失败！"
-
-        p params[:user][:phone]
-        p params[:user][:password]
-        
-        if @user = User.find_by_phone(params[:user][:phone])
-          p password_md5(@user.id, params[:user][:password])
-          p @user.password
-          
+        if @user = User.where(phone: params[:user][:phone]).first
           if @user.password == password_md5(@user.id, params[:user][:password])
             @current_user = @user
             cookies.permanent[:token] = @user.token
