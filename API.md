@@ -24,6 +24,7 @@ user[phone]=18628405091  #手机号
 返回值:  
 ```ruby
 {
+	"staet": 0, # 0成功，-1失败
   "phone_can_use": true,
   "is_send_validate_code": true
 }
@@ -45,7 +46,7 @@ user[validate_code]=5921  #验证码
 返回值:  
 ```ruby
 {
-  "state": true, #注册成功
+  "state": 0, #0成功， -1失败
   "message": "\u9a8c\u8bc1\u6210\u529f!",
   "user": {
     "id": 6,
