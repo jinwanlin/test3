@@ -63,10 +63,13 @@ module Api
       # 登陆
       def sign_in
         @message = "登陆失败！"
+
+        p params[:user][:phone]
+        p params[:user][:password]
+        
         if @user = User.find_by_phone(params[:user][:phone])
-          p @user.password
-          p params[:user][:password]
           p password_md5(@user.id, params[:user][:password])
+          p @user.password
           
           if @user.password == password_md5(@user.id, params[:user][:password])
             @current_user = @user
