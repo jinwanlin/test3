@@ -2,9 +2,8 @@
 module Api
   module V1
     class UsersController < Api::BaseController
-      before_filter :find_user_by_phone, only: [:sign_in, :validate]
+      before_filter :find_user_by_phone, only: [:validate]
       before_filter :find_user_by_id, only: [:set_password, :send_validate_code]
-      
       
       # 注册
       def sign_up
@@ -69,7 +68,7 @@ module Api
           p password_md5(@user.id, params[:user][:password])
           if @user.password == password_md5(@user.id, params[:user][:password])
             @current_user = user
-            cookies.permanent[:token] = user.token
+            cookies.permanent[:token] = @user.token
             
             @message = "登陆成功！"
           else
