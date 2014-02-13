@@ -3,7 +3,7 @@ class CreateUsers < ActiveRecord::Migration
   def change
     create_table :users do |t|
       t.string :name
-      t.integer :phone
+      t.string :phone
       t.string :password
       t.string :county # 区
       t.string :towns # 乡镇（上地、西二旗、常营等）

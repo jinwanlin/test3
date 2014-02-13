@@ -64,7 +64,6 @@ module Api
       def sign_in
         @message = "登陆失败！"
         if @user
-          p "----------------"
           p @user.password
           p password_md5(@user.id, params[:user][:password])
           

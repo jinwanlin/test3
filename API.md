@@ -25,9 +25,9 @@ user[phone]=18628405091  #手机号
 ```ruby
 {
 	"status": 0, # 0成功，-1失败
+  "message": "请输入验证码",
   "phone_can_use": true,
   "is_send_validate_code": true
-  "message": "请输入验证码"
 }
 ``` 
 
@@ -81,7 +81,8 @@ curl -d "user[phone]=15657715360&user[password]=111111", "http://lvh.me:3000/api
 返回值:  
 ```ruby
 	{
-		"status":true,  #成功（true），失败（false） 
+		"status":0,
+		"message": "登陆失败",
 		"user":{  
 			"id":1,  
 			"name":"成都小吃",  
@@ -118,6 +119,8 @@ http://lvh.me:3000/api/products?user[id]=1&user[level]=3&type=Vegetable&updated_
 返回值:  
 ```ruby
 {
+	"status":0,
+	"message": "",
   "user": {
     "level": 4
   },
@@ -159,8 +162,8 @@ curl -d "user[id]=1&order_item[product_id]=362&order_item[order_amount]=15", "ht
 返回值:  
 ```ruby
 	{
-		"status":true,  #成功（true），失败（false） 
-		"message":"验证成功",  #验证成功  或  验证失败 
+		"status":0,
+		"message":"购买成功",  #验证成功  或  验证失败 
 	}
 ```
 

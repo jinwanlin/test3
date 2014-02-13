@@ -1,3 +1,6 @@
+json.status 0
+json.message ""
+
 json.user do
   json.level @user.level
 end
