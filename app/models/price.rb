@@ -6,24 +6,22 @@ class Price < ActiveRecord::Base
   belongs_to :product
 
   def set_tomorrow_forecast_cost
-    prices = Price.where(product_id: product).where('date =< ?', date).limit(4).order('date DESC')
+    p self.date.class
+    #10天前的价格不作为依据
+    prices = Price.where(product_id: product).where(:date => (date-10)..date).limit(4).order('date DESC')
     forecast_cost = 0
     
     if prices && prices.size > 0
       total = 0
       size = 0
       prices.each do |price|
-        if price.date < (Date.today - 10) #10天前的价格不作为依据
-          next
-        else
-          total = total + price.actual_cost 
-          size += 1
-        end
+        total = total + price.actual_cost 
+        size += 1
       end
       forecast_cost = total/size
     end
     
-    tomorrow_price = Price.where(product_id: product, date: date.tomorrow).first || Price.create(product: product, date: date.tomorrow)
+    tomorrow_price = Price.where(product_id: product, date: self.date.tomorrow).first || Price.create(product: product, date: self.date.tomorrow)
     tomorrow_price.update_attributes(forecast_cost: formart(forecast_cost))
   end
   
