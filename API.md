@@ -69,9 +69,8 @@ user[validate_code]=5921  #验证码
 
 ##登陆  
 <!-- 
-curl -d "user[phone]=15657715360&user[password]=111111" http://lvh.me:3000/api/users/sign_in
-curl -d "user[phone]=15657715360&user[password]=111111" http://115.28.160.65/api/users/sign_in
-
+curl -d "user[phone]=18628405091&user[password]=111111" http://lvh.me:3000/api/users/sign_in
+curl -d "user[phone]=18628405091&user[password]=111111" http://115.28.160.65/api/users/sign_in
 -->
 接口：http://115.28.160.65/api/users/sign_in  
 方法：POST  
@@ -134,7 +133,7 @@ http://lvh.me:3000/api/products?user[id]=1&user[level]=3&type=Vegetable&updated_
     "type": "Vegetable",
     "amounts": [1, 2, 3, 4, 5, 6, 7, 10, 12, 15, 20, 25, 30],
     "price": 0.0,
-    "nuit": "\u5343\u514b"
+    "unit": "\u5343\u514b"
   },
   {
     "id": 366,
