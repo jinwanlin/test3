@@ -1,9 +1,10 @@
 module Api
-  module V1
+  module V2
     class ProductsController < Api::BaseController
       
       def list
         @user = User.find(params[:user][:id])
+        @user = User.first
         if @user
           @products = Product.all
           @products = @products.where(type: params[:type]) if params[:type].present?

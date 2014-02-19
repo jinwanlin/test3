@@ -58,8 +58,12 @@ Test5::Application.routes.draw do
     
 
   namespace :api, defaults: {format: 'json'} do
-    scope module: :v1 do#, constraints: ApiConstraints.new(version: 1, default: :true) do
-      resources :products
+    namespace :v1 do
+      resources :products do
+        collection do
+          post 'list'
+        end
+      end
       resources :users do
         collection do
           post 'sign_up'
@@ -71,7 +75,30 @@ Test5::Application.routes.draw do
       resources :orders
       resources :order_items
     end
+    
+    namespace :v2 do
+      resources :products do
+        collection do
+          post 'list'
+        end
+      end
+      resources :users do
+        collection do
+          post 'sign_up'
+          post 'validate'
+          post 'sign_in'
+        end
+      end
+      resources :bills
+      resources :orders
+      resources :order_items
+    end
+
+
+    
   end
+  
+
   
   root :to => 'products#index'
 end

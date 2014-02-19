@@ -1,5 +1,4 @@
-json.status @user ? 0 : -1
+json.status @status
 json.message @message
-p @message
-
 json.partial! "user", user: @user
+p @message

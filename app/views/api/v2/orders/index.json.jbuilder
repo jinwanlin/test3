@@ -1,6 +1,4 @@
-json.status 0
-json.message @message
-p @message
+json.state 0
 
 json.bills @orders do |order|
   json.(order, :id)
