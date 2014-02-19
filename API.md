@@ -11,7 +11,7 @@
 ##注册  
 ####1、输入手机号，系统发送验证码到客户手机上
 <!-- 
-curl -d "user[phone]=18628405094" http://lvh.me:3000/api/users/sign_up
+curl -d "user[phone]=18628405094" http://lvh.me:3000/api/v1/users/sign_up
 curl -d "user[phone]=18628405091" http://115.28.160.65/api/users/sign_up
 
 -->
@@ -69,7 +69,7 @@ user[validate_code]=5921  #验证码
 
 ##登陆  
 <!-- 
-curl -d "user[phone]=18628405091&user[password]=111111" http://lvh.me:3000/api/users/sign_in
+curl -d "user[phone]=18628405091&user[password]=111111" http://lvh.me:3000/api/v1/users/sign_in
 curl -d "user[phone]=18628405091&user[password]=111111" http://115.28.160.65/api/users/sign_in
 -->
 接口：http://115.28.160.65/api/users/sign_in  

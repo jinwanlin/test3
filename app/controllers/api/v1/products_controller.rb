@@ -5,7 +5,7 @@ module Api
       def list
         @user = User.find(params[:user][:id])
         if @user
-          @products = Product.all
+          @products = Product
           @products = @products.where(type: params[:type]) if params[:type].present?
         end
       end
