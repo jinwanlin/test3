@@ -12,10 +12,10 @@
 ####1、输入手机号，系统发送验证码到客户手机上
 <!-- 
 curl -d "user[phone]=18628405094" http://lvh.me:3000/api/v1/users/sign_up
-curl -d "user[phone]=18628405091" http://115.28.160.65/api/users/sign_up
+curl -d "user[phone]=18628405091" http://115.28.160.65/api/v1/users/sign_up
 
 -->
-接口：http://115.28.160.65/api/users/sign_up  
+接口：http://115.28.160.65/api/v1/users/sign_up  
 方法：POST  
 参数：
 ```ruby
@@ -34,9 +34,9 @@ user[phone]=18628405091  #手机号
 ----
 ####2、输入短信验证码校验并注册
 <!-- 
-curl -d "user[phone]=18628405093&user[password]=11111111&user[validate_code]=3320" http://lvh.me:3000/api/users/validate
+curl -d "user[phone]=18628405093&user[password]=11111111&user[validate_code]=3320" http://lvh.me:3000/api/v1/users/validate
 -->
-接口：http://115.28.160.65/api/users/validate  
+接口：http://115.28.160.65/api/v1/users/validate  
 方法：POST  
 参数：
 ```ruby
@@ -70,9 +70,9 @@ user[validate_code]=5921  #验证码
 ##登陆  
 <!-- 
 curl -d "user[phone]=18628405091&user[password]=111111" http://lvh.me:3000/api/v1/users/sign_in
-curl -d "user[phone]=18628405091&user[password]=111111" http://115.28.160.65/api/users/sign_in
+curl -d "user[phone]=18628405091&user[password]=111111" http://115.28.160.65/api/v1/users/sign_in
 -->
-接口：http://115.28.160.65/api/users/sign_in  
+接口：http://115.28.160.65/api/v1/users/sign_in  
 方法：POST  
 参数：
 ```ruby
@@ -106,9 +106,9 @@ curl -d "user[phone]=18628405091&user[password]=111111" http://115.28.160.65/api
 
 #商品列表
 <!-- 
-http://lvh.me:3000/api/products?user[id]=1&user[level]=3&type=Vegetable&updated_at=20140201
+http://lvh.me:3000/api/v1/products?user[id]=1&user[level]=3&type=Vegetable&updated_at=20140201
 -->
-接口：http://115.28.160.65/api/products  
+接口：http://115.28.160.65/api/v1/products  
 方法：GET  
 参数：
 ```ruby
@@ -150,9 +150,9 @@ http://lvh.me:3000/api/products?user[id]=1&user[level]=3&type=Vegetable&updated_
 #订单
 ####购买
 方法：POST  
-接口：http://115.28.160.65/api/order_items  
+接口：http://115.28.160.65/api/v1/order_items  
 <!-- 
-curl -d "user[id]=1&order_item[product_id]=362&order_item[order_amount]=15" http://lvh.me:3000/api/order_items
+curl -d "user[id]=1&order_item[product_id]=362&order_item[order_amount]=15" http://lvh.me:3000/api/v1/order_items
 -->
 参数：
 ```ruby
@@ -228,22 +228,14 @@ curl http://lvh.me:3000/api/v1/orders/1
 
 
 #账单
-接口：http://115.28.160.65/api/bills  
+接口：http://115.28.160.65/api/v1/bills  
 方法：GET  
 参数：
 ```ruby
 	user[id]=1
-	last_update_at=2013-03-03  #上次更新时间
 ``` 
 返回值:  
 ```ruby
-{
-	"now":"2014-02-08T10:28:07+08:00",
-	"bills":[{
-		"id":1,,
-		"amount":1.8
-		"created_date":"2013-03-03"
-	}]
-}
+
 ```
 
