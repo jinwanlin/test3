@@ -90,14 +90,11 @@ class Product < ActiveRecord::Base
     # 
     # profit = (profit_1+profit_2)*0.1
     # price = cost * (1+profit)
-    p cost
     price = cost*(level * 0.05 + 1)
     
     price = price*10
     price = price.round # 四舍五入取整
     price = price/10.0
-    p price
-    price
     # (price * 100).round/100.0
   end
   

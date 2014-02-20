@@ -172,35 +172,57 @@ curl -d "user[id]=1&order_item[product_id]=362&order_item[order_amount]=15" http
 ----
 
 ##订单列表
-接口：http://115.28.160.65/api/orders  
-方法：GET  
+方法：POST  
+接口：http://115.28.160.65/api/v1/orders/list  
+<!-- 
+curl -d "user[id]=1" http://lvh.me:3000/api/v1/orders/list
+-->
 参数：
 ```ruby
 	user[id]=1
-	last_update_at=2013-03-03  #上次更新时间
 ``` 
 返回值:  
 ```ruby
 {
-	"now":"2014-02-08T10:28:07+08:00",
-	"orders":[{
-		"id":1,
-		"created_date":"2013-03-03",
-		"amount":1.8
-	}]
+  "status": 0,
+  "message": null,
+  "orders": [{
+    "order": {
+      "id": 1,
+      "sn": "751210",
+      "order_sum": 9.6,
+      "ship_sum": 0.0,
+      "state": "pending",
+      "desc": null,
+      "created_at": "2014-02-11T14:08:54Z",
+      "updated_at": "2014-02-11T14:10:48Z"
+    }
+  }]
 }
 ```
 ##订单明细
-接口：http://115.28.160.65/api/orders/{id}  
+接口：http://115.28.160.65/api/v1/orders/{id}  
+<!-- 
+curl http://lvh.me:3000/api/v1/orders/1
+-->
 方法：GET  
 参数：无  
 返回值:  
 ```ruby
-	{
-		"id":1,
-		"created_date":"2013-03-03",
-		"amount":1.8
-	}
+{
+  "status": 0,
+  "message": null,
+  "order": {
+    "id": 1,
+    "sn": "751210",
+    "order_sum": 9.6,
+    "ship_sum": 0.0,
+    "state": "pending",
+    "desc": null,
+    "created_at": "2014-02-11T14:08:54Z",
+    "updated_at": "2014-02-11T14:10:48Z"
+  }
+}
 ```
 
 
