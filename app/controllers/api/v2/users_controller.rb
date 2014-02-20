@@ -6,7 +6,18 @@ module Api
       
       # 注册
       def sign_up
-        @user = User.create(params[:user])
+        unless params[:user][:phone].present?
+          return
+        end
+        @user ||= User.create(phone: params[:user][:phone])
+          
+        if @user.unvalidate? # 已被注册
+          @user.password = password_md5(@user.id, params[:user][:password])
+          @user.state = "unaudited"
+          @user.save
+        else
+          @message = "手机号已被注册"
+        end
       end
       
       # 验证校验码

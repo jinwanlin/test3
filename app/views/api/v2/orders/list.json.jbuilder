@@ -1,5 +1,8 @@
-json.now Time.now
-json.products @products do |product|
+json.array!(@orders) do |order|
+  json.partial! "order", order: order
+end
+
+json.array! @products do |product|
   json.id product.id
   json.sn product.sn #商品编号
   json.name product.product_name

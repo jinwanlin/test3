@@ -94,7 +94,11 @@ Test5::Application.routes.draw do
         end
       end
       resources :bills
-      resources :orders
+      resources :orders do
+        collection do
+          post 'list'
+        end
+      end
       resources :order_items
     end
 

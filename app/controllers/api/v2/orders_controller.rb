@@ -1,7 +1,7 @@
 module Api
   module V2
     class OrdersController < Api::BaseController
-      def index
+      def list
         @orders = Order.all
       end
       

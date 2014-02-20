@@ -118,18 +118,21 @@ class Product < ActiveRecord::Base
       
       while true do
         p "page:----#{food_type}---#{index+1}----#{page}-------"
-        url = "http://www.xinfadi.com.cn/marketanalysis/#{index+1}/list/#{page}.shtml"
-        p url
+        url = "http://42.96.188.146/marketanalysis/#{index+1}/list/#{page}.shtml"
+        # p url
         doc = Nokogiri::HTML(open(url))
         data = doc.css('table.hq_table tr').each_with_index.map do |row, index|
           next if index == 0
           tds = row.xpath('./td').map(&:text)
+          
           date = tds[6].to_date
+          actual_cost = tds[2].to_f
+          next if actual_cost == 0
+          
           product = Product.find_by_name(tds[0]) || food_type.constantize.create(name: tds[0])
-          if Price.where(product_id: product).where(date: date).empty? && tds[2].to_f > 0
-            price = Price.where(product_id: product, date: date).first || Price.create(product: product, date: date)
-            price.update_attributes(actual_cost: tds[2].to_f)
-            price.set_tomorrow_forecast_cost
+          price = Price.where(product_id: product, date: date).first
+          unless price 
+              price = Price.create(product: product, date: date, actual_cost: actual_cost)
           else
             # find_history = true
             # break # 找到价格历史记录就 break

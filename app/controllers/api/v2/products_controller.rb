@@ -4,7 +4,6 @@ module Api
       
       def list
         @user = User.find(params[:user][:id])
-        @user = User.first
         if @user
           @products = Product.order(:id)
           @products = @products.where(type: params[:type]) if params[:type].present?
