@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  user: 
+  product: 
+  average_amount: 1.5
+  order_times: 1
+  order_amount: 1.5
+
+two:
+  user: 
+  product: 
+  average_amount: 1.5
+  order_times: 1
+  order_amount: 1.5

@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  payer: 
+  operator: 
+  amount: 1.5
+  overage: 1.5
+  desc: MyText
+  order: 
+
+two:
+  payer: 
+  operator: 
+  amount: 1.5
+  overage: 1.5
+  desc: MyText
+  order: 

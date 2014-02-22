@@ -2,6 +2,7 @@ if order_item
   json.order_item do
     json.id order_item.id
     json.product_id order_item.product_id
+    json.product_name order_item.product.name
     json.order_id order_item.order_id
     
     json.price order_item.price #单价

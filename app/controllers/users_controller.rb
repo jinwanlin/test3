@@ -1,7 +1,7 @@
 # encoding: utf-8
 class UsersController < ApplicationController
   before_filter :login_filter
-  before_filter :find_user, only: [:update, :show, :edit, :destroy, :active, :frost]
+  before_filter :find_user, only: [:update, :show, :edit, :destroy, :active, :frost, :payment]
   
   def index
     @users = User
@@ -48,6 +48,11 @@ class UsersController < ApplicationController
     redirect_to users_url
   end
   
+  # 付款
+  def payment
+    payment = Payment.create(params[:payment].merge operator: current_user, payer: @user)
+    redirect_to user_path(@user)
+  end
   
   private
   def find_user

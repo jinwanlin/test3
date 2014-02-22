@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   validates :phone, :presence => true, uniqueness: true
   
   has_many :orders
+  has_many :payments, foreign_key: 'payer_id'#, :order => 'date'
 
   before_update :change_password
   
@@ -47,6 +48,11 @@ class User < ActiveRecord::Base
       when "actived" then "正常"
       when "freezed" then "已冻结"
     end
+  end
+  
+  def overage
+    payment = payments.last
+    payment.nil? ? 0 : payment.overage
   end
   
   private

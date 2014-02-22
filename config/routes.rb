@@ -41,6 +41,7 @@ Test5::Application.routes.draw do
     member do
       get 'active'
       get 'frost'
+      post 'payment'
     end
   end
   resources :prices
@@ -100,6 +101,12 @@ Test5::Application.routes.draw do
         end
       end
       resources :order_items
+      resources :payments do
+        collection do
+          post 'list'
+        end
+      end
+      
     end
 
 

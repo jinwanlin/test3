@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140208043111) do
+ActiveRecord::Schema.define(:version => 20140221144520) do
 
   create_table "bills", :force => true do |t|
     t.integer  "payer_id"
@@ -52,6 +52,35 @@ ActiveRecord::Schema.define(:version => 20140208043111) do
 
   add_index "orders", ["sn"], :name => "index_orders_on_sn"
   add_index "orders", ["user_id"], :name => "index_orders_on_user_id"
+
+  create_table "payments", :force => true do |t|
+    t.integer  "payer_id"
+    t.integer  "operator_id"
+    t.float    "amount"
+    t.float    "overage"
+    t.text     "desc"
+    t.integer  "order_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "payments", ["operator_id"], :name => "index_payments_on_operator_id"
+  add_index "payments", ["order_id"], :name => "index_payments_on_order_id"
+  add_index "payments", ["payer_id"], :name => "index_payments_on_payer_id"
+
+  create_table "predicts", :force => true do |t|
+    t.date     "date"
+    t.integer  "user_id"
+    t.integer  "product_id"
+    t.float    "average_amount"
+    t.integer  "order_times"
+    t.float    "order_amount"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  add_index "predicts", ["product_id"], :name => "index_predicts_on_product_id"
+  add_index "predicts", ["user_id"], :name => "index_predicts_on_user_id"
 
   create_table "prices", :force => true do |t|
     t.integer  "product_id"

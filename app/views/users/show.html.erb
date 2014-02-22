@@ -14,8 +14,8 @@
 	<tr>
 		<th>状态</th>
 		<td><%= @user.state_ %></td>
-		<th></th>
-		<td></td>
+		<th>余额</th>
+		<td><%= @user.overage %></td>
 	</tr>
 	<tr>
 		<th>备注</th>
@@ -23,6 +23,13 @@
 	</tr>
 </table>
 
+
+
+<%= render 'payments/payment' %>
+<form class="form-inline" action="/users/<%= @user.id %>/payment" method="post">
+  <input type="text" class="input-small" name="payment[amount]" placeholder="充值金额">
+  <button type="submit" class="btn">充值</button>
+</form>
 
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>

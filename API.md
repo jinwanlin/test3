@@ -105,11 +105,11 @@ curl -d "user[phone]=18628405091&user[password]=111111" http://115.28.160.65/api
 
 
 #商品列表
+方法：POST  
+接口：http://115.28.160.65/api/v1/products/list  
 <!-- 
-http://lvh.me:3000/api/v1/products?user[id]=1&user[level]=3&type=Vegetable&updated_at=20140201
+curl -d "user[id]=1" http://lvh.me:3000/api/v2/products/list
 -->
-接口：http://115.28.160.65/api/v1/products  
-方法：GET  
 参数：
 ```ruby
 	user[id]=1
@@ -176,6 +176,7 @@ curl -d "user[id]=1&order_item[product_id]=362&order_item[order_amount]=15" http
 接口：http://115.28.160.65/api/v1/orders/list  
 <!-- 
 curl -d "user[id]=1" http://lvh.me:3000/api/v1/orders/list
+curl -d "user[id]=1" http://lvh.me:3000/api/v2/orders/list
 -->
 参数：
 ```ruby
@@ -228,14 +229,37 @@ curl http://lvh.me:3000/api/v1/orders/1
 
 
 #账单
-接口：http://115.28.160.65/api/v1/bills  
-方法：GET  
+方法：POST  
+接口：http://115.28.160.65/api/v1/payments 
+<!-- 
+curl -d "user[id]=1" http://lvh.me:3000/api/v1/payments/list
+curl -d "user[id]=1" http://lvh.me:3000/api/v2/payments/list
+-->
 参数：
 ```ruby
 	user[id]=1
 ``` 
 返回值:  
 ```ruby
-
+[{
+  "id": 9,
+  "operator_name": null,
+  "amount": 23.0,
+  "overage": 23.0,
+  "order_id": null,
+  "order_sn": null,
+  "created_at": "2014-02-22 10:06:13",
+  "updated_at": "2014-02-22 10:06:13"
+},
+{
+  "id": 10,
+  "operator_name": null,
+  "amount": 27.0,
+  "overage": 50.0,
+  "order_id": null,
+  "order_sn": null,
+  "created_at": "2014-02-22 10:07:48",
+  "updated_at": "2014-02-22 10:07:48"
+}]
 ```
 
