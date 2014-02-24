@@ -105,8 +105,9 @@ class Product < ActiveRecord::Base
     _index = args[:index] || 0
     _page = args[:page] || 1
     
-    #, "Fruit", "Meat", "Fish", "Agri"
-    ["Vegetable"].each_with_index do |food_type, index|
+    # "Vegetable", "Fruit", "Meat", "Fish", "Agri"
+    ["Fruit"].each_with_index do |food_type, index|
+      index = 1;
       page = 1
       find_history = false
       

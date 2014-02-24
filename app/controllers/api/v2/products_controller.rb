@@ -10,7 +10,7 @@ module Api
           
           @predicts = Predict.order(:order_times)
           @predicts = @predicts.where(user_id: @user).where(date: Date.today)
-          
+          @predicts = @predicts.joins(:product).where("products.type = ?", params[:type]) if params[:type].present?
         end
       end
       
