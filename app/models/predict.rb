@@ -5,7 +5,8 @@ class Predict < ActiveRecord::Base
   belongs_to :product
   attr_accessible :average_amount, :order_amount, :order_times, :date, :user, :user_id, :product, :product_id
   
-  def self.a(user)
+  def self.a
+    user = User.first
     today = Date.today
     if Predict.where(user_id: user).where(date: today).empty?
       ids = Order.where(user_id: user).where(state: 'done').where("created_at > ?", today-8.days).where("created_at < ?", today).pluck(:id)

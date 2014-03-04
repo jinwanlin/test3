@@ -1,7 +1,7 @@
 # encoding: utf-8
 class UsersController < ApplicationController
   before_filter :login_filter
-  before_filter :find_user, only: [:update, :show, :edit, :destroy, :active, :frost, :payment]
+  before_filter :find_user, only: [:update, :show, :edit, :destroy, :active, :frost, :recharge]
   
   def index
     @users = User
@@ -30,6 +30,7 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     @user.update_attributes(params[:user])
+    redirect_to user_path(@user)
   end
 
   def destroy
@@ -48,9 +49,9 @@ class UsersController < ApplicationController
     redirect_to users_url
   end
   
-  # 付款
-  def payment
-    payment = Payment.create(params[:payment].merge operator: current_user, payer: @user)
+  # 充值
+  def recharge
+    payment = Recharge.create(params[:recharge].merge operator: current_user, payer: @user, amount: params[:recharge][:amount])
     redirect_to user_path(@user)
   end
   

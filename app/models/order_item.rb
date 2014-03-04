@@ -33,16 +33,15 @@ class OrderItem < ActiveRecord::Base
   
   # 订单总计
   def update_order
-    if order.pending?
+    # if order.pending? || order.confirmed?
       order.order_sum = order.order_sum_amount
-    elsif order.ship? || order.open?
+    # elsif order.shiping? || order.open?
       order.ship_sum = order.ship_sum_amount
       order.cost = order.total_cost
       
-      
       order.ship_sum = order.ship_sum_amount
       order.cost = order.cost_sum_amount
-    end
+    # end
     order.save
   end
   

@@ -28,12 +28,35 @@ class OrdersController < ApplicationController
     @order.destroy
   end
   
-  def print
-    render layout: "print"
-  end
+
+  
+  
+  
   
   def submit
     @order.submit
+    redirect_to @order
+  end
+  
+  def print_order
+    
+  end
+  
+  def print_ship
+    @order.shipment
+    redirect_to @order
+  end
+  
+  def loading
+    
+  end
+  
+  def sign
+    
+  end
+  
+  def done
+    @order.done
     redirect_to @order
   end
   
@@ -42,16 +65,10 @@ class OrdersController < ApplicationController
     redirect_to @order
   end
   
-  def ship
-    @order.shipment
-    redirect_to @order
-  end
-  
-  def done
-    @order.done
-    redirect_to @order
-  end
-   
+
+
+
+
   private
   def find_order
     @order = Order.find(params[:id])

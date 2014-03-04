@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(:version => 20140221144520) do
     t.float    "overage"
     t.text     "desc"
     t.integer  "order_id"
+    t.string   "type"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
@@ -117,7 +118,7 @@ ActiveRecord::Schema.define(:version => 20140221144520) do
 
   create_table "users", :force => true do |t|
     t.string   "name"
-    t.integer  "phone"
+    t.string   "phone"
     t.string   "password"
     t.string   "county"
     t.string   "towns"

@@ -1,9 +1,10 @@
 # encoding: utf-8
 class Product < ActiveRecord::Base
   serialize :amounts, Array
-  attr_accessible :des, :name, :series, :cost, :sn, :aliases, :amounts
+  attr_accessible :des, :name, :series, :cost, :sn, :aliases, :amounts, :classify, :no
   
-  PRODUCT_TYPES = ['Vegetable', 'Fruit', 'Meat', 'Fish', 'Agri']
+  PRODUCT_TYPES = ['', 'Vegetable', 'Fruit', 'Meat', 'Fish', 'Agri']
+  
   AMOUNTS = [1, 2, 3, 4, 5, 6, 7, 10, 12, 15, 20, 25, 30]
   
   has_many :prices, :order => 'date'
@@ -11,10 +12,12 @@ class Product < ActiveRecord::Base
   validates :series, :cost, :name, :presence => true
   validates :name, uniqueness: true
   validates :aliases, uniqueness: true, :if => :aliases_present?
-  before_create :generate_product_sn
+  # before_update :generate_product_sn
   
   validate :validate_name_aliases
- 
+  
+
+  
   def validate_name_aliases
     if aliases.present? && Product.find_by_name(aliases)
       errors.add(:aliases, "#{aliases}已存在")
@@ -35,6 +38,10 @@ class Product < ActiveRecord::Base
     event :to_file do # 归档
       transition [:up, :down] => :file
     end
+  end
+  
+  def unit
+    "斤"
   end
   
   def aliases_present?
@@ -90,6 +97,7 @@ class Product < ActiveRecord::Base
     # 
     # profit = (profit_1+profit_2)*0.1
     # price = cost * (1+profit)
+    cost = prices.last.forecast_cost
     price = cost*(level * 0.05 + 1)
     
     price = price*10
@@ -106,8 +114,7 @@ class Product < ActiveRecord::Base
     _page = args[:page] || 1
     
     # "Vegetable", "Fruit", "Meat", "Fish", "Agri"
-    ["Fruit"].each_with_index do |food_type, index|
-      index = 1;
+    ["Vegetable"].each_with_index do |food_type, index|
       page = 1
       find_history = false
       
@@ -149,11 +156,11 @@ class Product < ActiveRecord::Base
 
   
   # 设置成本价
-  # def self.set_cost
-  #   Product.all.each do |product|
-  #     product.update_attributes cost: (product.last_purchase_price * 100).round/100.0
-  #   end
-  # end
+  def self.set_cost
+    Product.all.each do |product|
+      product.update_attributes cost: (product.prices.last.forecast_cost * 100).round/100.0
+    end
+  end
 
   
   def state_
@@ -164,13 +171,16 @@ class Product < ActiveRecord::Base
     end
   end
   
-
   
-  private
-  def generate_product_sn
-    previous_product=Product.last
-    previous_id = previous_product.present? ? previous_product.id : 0
-    self.sn = (previous_id+1).to_s.rjust(6, '0') unless self.sn 
+  def generate_product_sn(no, classify)
+    # previous_product=Product.last
+    # previous_id = previous_product.present? ? previous_product.id : 0
+    
+    type_id = PRODUCT_TYPES.index type
+    sn = "#{type_id}#{classify}#{no.to_s.rjust(2, '0')}"
+    p sn
+    sn
+    # self.sn = (previous_id+1).to_s.rjust(6, '0') unless self.sn 
   end  
   
 end

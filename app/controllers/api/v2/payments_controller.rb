@@ -7,6 +7,7 @@ module Api
         if @user
           @payments = @user.payments
         end
+        
       end
       
     end

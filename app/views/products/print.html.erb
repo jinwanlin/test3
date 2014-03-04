@@ -1,0 +1,63 @@
+<link rel="stylesheet" href="/assets/jquery-ui.css">
+<script src="/assets/jquery-ui.js"></script>
+  <style rel="stylesheet" type="text/css">
+	body{
+		padding-top:10px;
+	}
+	.navbar{
+		display:none;
+	}
+  .connectedSortable {
+		list-style-type: none;
+		margin:0; 
+		padding:0; 
+/*		height:3000px; */
+		margin-right: 10px; 
+		min-width:130px; 
+		outline:1px solid;
+	}
+  .connectedSortable li{
+		margin: 0 0 1px 0; 
+		padding: 5px; 
+		font-size: 14px; 
+		width: 120px; 
+	}
+  </style>
+  <script>
+	
+	
+	
+	
+	
+	
+  </script>
+	<table>
+		<tr id="head">
+			<% Vegetable::CLASSIFY.each_with_index do |classify, index| %>
+				<td valign="top" align="center" >
+					<%= Product::PRODUCT_TYPES.index params[:type] %><%= index %> <%= classify %>
+				</td>
+			<% end %>
+		</tr>
+		
+		<tr>
+			<% Vegetable::CLASSIFY.each_with_index do |classify, index| %>
+				<% list = @products.where(classify: index).order(:no) %>
+				<td valign="top" >
+					<ul id="<%= index %>" class="connectedSortable">
+						<% list.each do |product| %>
+							<li class="ui-state-default" classify="<%= product.classify %>" product_id="<%= product.id %>"><%= product.no.to_s.rjust(2, '0') %> <%= product.name %></li>
+						<% end %>
+					</ul>
+				</td>
+			<% end %>
+			
+		</tr>
+	</table>
+		
+
+ 
+
+	
+ 
+

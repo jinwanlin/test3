@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
   validates :phone, :presence => true, uniqueness: true
   
   has_many :orders
-  has_many :payments, foreign_key: 'payer_id'#, :order => 'date'
+  has_many :payments, foreign_key: 'payer_id', :order => 'id DESC'
 
   before_update :change_password
   
@@ -51,7 +51,7 @@ class User < ActiveRecord::Base
   end
   
   def overage
-    payment = payments.last
+    payment = payments.first
     payment.nil? ? 0 : payment.overage
   end
   

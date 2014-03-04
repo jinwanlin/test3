@@ -7,6 +7,7 @@ class CreatePayments < ActiveRecord::Migration
       t.float :overage #余额
       t.text :desc
       t.references :order
+      t.string :type
 
       t.timestamps
     end

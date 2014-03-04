@@ -24,12 +24,13 @@
 </table>
 
 
-
-<%= render 'payments/payment' %>
-<form class="form-inline" action="/users/<%= @user.id %>/payment" method="post">
-  <input type="text" class="input-small" name="payment[amount]" placeholder="充值金额">
+<form class="form-inline" action="/users/<%= @user.id %>/recharge" method="post">
+  <input type="text" class="input-small" name="recharge[amount]" placeholder="充值金额">
   <button type="submit" class="btn">充值</button>
 </form>
+<%= render 'payments/payment' %>
+
+
 
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>

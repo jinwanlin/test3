@@ -1,12 +1,12 @@
 <tr id="order_item_<%= order_item.id %>">
 	<td><%= order_item.product.sn %></td>
 	<td><%= link_to order_item.product.name, order_item.product %></td>
-	<td><%= order_item.price %></td>
-	<td><%= order_item.order_amount %></td>
-	<td><%= order_item.order_sum %></td>
-	<% unless @order.pending? %>
-	<td class="ship_amount"><%= order_item.ship_amount %></td>
-	<td class="ship_sum"><%= order_item.ship_sum if order_item.ship_sum > 0 %></td>
+	<td><%= price_format order_item.price %> <%= "元/#{order_item.product.unit}" %></td>
+	<td><%= "#{order_item.order_amount} #{order_item.product.unit}" %></td>
+	<td><%= price_format order_item.order_sum %></td>
+	<% unless @order.pending? || @order.confirmed? %>
+	<td class="ship_amount"><%= price_format order_item.ship_amount %></td>
+	<td class="ship_sum"><%= price_format order_item.ship_sum if order_item.ship_sum > 0 %></td>
 	<% end %>
   <td>
 		<%= link_to '', order_item, method: :delete, data: { confirm: 'Are you sure?' }, class: 'icon-trash', title: '删除' unless order_item.order.done? %>

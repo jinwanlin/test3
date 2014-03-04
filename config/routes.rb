@@ -41,7 +41,7 @@ Test5::Application.routes.draw do
     member do
       get 'active'
       get 'frost'
-      post 'payment'
+      post 'recharge'
     end
   end
   resources :prices
@@ -49,6 +49,9 @@ Test5::Application.routes.draw do
     collection do
       get 'search'
       get 'export'
+      get 'sortable'
+      post 'update_sn'
+      get 'print'
     end
     member do
       get 'to_up'

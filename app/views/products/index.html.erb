@@ -1,37 +1,52 @@
-<a href="/products/export" class="pull-right">导出</a>
+<div class="btn-group pull-right" >
+	<a href="/products/sortable" class="btn">分类排序</a>
+	<a href="/products/print" class="btn">打印</a>
+	<a href="/products/export" class="btn">导出</a>
+</div>
+
 <table width="100%" class="table">
-<% @products.each do |product| %>
-  <tr id="product_<%= product.id %>" class="<%= 'product_is_bye' if (order_amount = order_amount(@order, product)) > 0 %>">
-    <td><a href="/products/<%= product.id %>"><%= product.product_name %></a></td>
-		<td><%= price_format(product.cost) %><span class="unit">￥/斤</span></td>
-		<% if current_user && current_user.actived? %>
-		<td align=right>
-			<div class="dropdown pull-right">
-				<a data-toggle="dropdown" class="dropdown-toggle" role="button" id="drop<%= product.id %>" href="#"><%= order_amount==0 ? sanitize("<i class='car'></i>") : order_amount  %></a>
-				<ul aria-labelledby="drop<%= product.id %>" role="menu" class="dropdown-menu">
-				  <li role="presentation" product_id="<%= product.id %>">
-						<p class="text-align:center">买几斤</p>
-						<% product.get_amounts.each do |amount| %>
-							<button class="<%= 'product_is_bye' if order_amount != 0 && order_amount==amount %>" ><%= amount %></button>
-						<% end %>
-					</li>
-				</ul>
-			</div>
+	
+	<% Vegetable::CLASSIFY.each_with_index do |classify, index| %>
+		<tr>
+			<td colspan="4" style="padding-top:30px;"><%= classify %></td>
 		</td>
-		<td>
-			<%= product.state_ %>
-			<% if product.up? %>
-				<%= link_to '下架', to_down_product_url(product) %> |
-				<%= link_to '归档', to_file_product_url(product) %>
-			<% elsif product.down? %>
-				<%= link_to '归档', to_file_product_url(product) %> |
-				<%= link_to '上架', to_up_product_url(product) %>
-			<% elsif product.file? %>
-				<%= link_to '上架', to_up_product_url(product) %>
-			<% end %>
-		</td>
+		<% list = @products.where(classify: index).order(:no) %>
+		<% list.each do |product| %>
+		  <tr id="product_<%= product.id %>" class="<%= 'product_is_bye' if (order_amount = order_amount(@order, product)) > 0 %>">
+		    <td><%= product.no.to_s.rjust(2, '0') %> <a href="/products/<%= product.id %>"><%= product.product_name %></a></td>
+				<td><%= price_format(product.sales_price(current_user.level)) if current_user %><span class="unit">￥/斤</span></td>
+				<% if current_user && current_user.actived? %>
+				<td align=right>
+					<div class="dropdown pull-right">
+						<a data-toggle="dropdown" class="dropdown-toggle" role="button" id="drop<%= product.id %>" href="#"><%= order_amount==0 ? sanitize("<i class='car'></i>") : order_amount  %></a>
+						<ul aria-labelledby="drop<%= product.id %>" role="menu" class="dropdown-menu">
+						  <li role="presentation" product_id="<%= product.id %>">
+								<p class="text-align:center">买几斤</p>
+								<% product.get_amounts.each do |amount| %>
+									<button class="<%= 'product_is_bye' if order_amount != 0 && order_amount==amount %>" ><%= amount %></button>
+								<% end %>
+							</li>
+						</ul>
+					</div>
+				</td>
+				<td>
+					<%= product.state_ %>
+					<div class="btn-group " >
+					<% if product.up? %>
+						<%= link_to '下架', to_down_product_url(product), class: "btn btn-small" %>
+						<%#= link_to '归档', to_file_product_url(product) %>
+					<% elsif product.down? %>
+						<%#= link_to '归档', to_file_product_url(product), class: "btn btn-small" %>
+						<%= link_to '上架', to_up_product_url(product), class: "btn btn-small" %>
+					<% elsif product.file? %>
+						<%= link_to '上架', to_up_product_url(product), class: "btn btn-small" %>
+					<% end %>
+					</div>
+				</td>
+				<% end %>
+		  </tr>
 		<% end %>
-  </tr>
-<% end %>
+		
+	<% end %>
 </table>
 <%#= will_paginate @products %>

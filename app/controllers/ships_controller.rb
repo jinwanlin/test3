@@ -2,13 +2,14 @@ class ShipsController < ApplicationController
 
 
   def create
-    
-    if params[:ship][:sn].length == 13
+    ship_sn = params[:ship][:sn]
+    p ship_sn
+    if ship_sn.length == 13
       begin
-        ship_sn = params[:ship][:sn]
-        amount = ship_sn[7,2].to_i + ship_sn[9,2].to_i / 100.0
-        product = Product.find_by_sn(ship_sn[1,6])
+        amount = ship_sn[7,3].to_i + ship_sn[10,2].to_i / 100.0
+        product = Product.find(ship_sn[1,6].to_i)
       rescue Exception=>e
+        
       end
       
       if amount && product

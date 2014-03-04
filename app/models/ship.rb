@@ -11,10 +11,14 @@ class Ship < ActiveRecord::Base
   after_destroy :update_order_item
   
   def update_order_item
-    ship_amount = Ship.where("order_id = ?", order).where("order_item_id = ?", order_item).sum("amount")
+    ship_amount = 0
+    ships = Ship.where("order_id = ?", order).where("order_item_id = ?", order_item)
+    ships.each do |ship|
+      ship_amount += ship.amount
+    end
+    p ship_amount
     if order_item
-      order_item.ship_amount = formart(ship_amount)
-    
+      order_item.ship_amount = ship_amount
       order_item.ship_sum = order_item.ship_sum_amount
       order_item.cost_sum = order_item.cost_sum_amount
       order_item.save

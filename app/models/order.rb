@@ -1,3 +1,4 @@
+# encoding: utf-8
 class Order < ActiveRecord::Base
   attr_accessible :product_id, :order_amount, :sn, :sum, :cost, :state
   
@@ -7,30 +8,55 @@ class Order < ActiveRecord::Base
   
   before_create :generate_order_no
   
-  # pending/open/ship/done
+  
+  
+  # [pending] --submit--> [confirmed] --:print_order--> [shiping] --:print_ship--> [baled打包完毕] --:sign--> [signed已签收] ----> done /open/ship/done
   state_machine initial: :pending do
     
-    # before_transition [:pending, :confirmed] => :done, do: :do_done
-    # before_transition [:open, :confirmed] => :canceled, do: :do_cancel
+    before_transition [:ship] => :done, do: :do_done
       
     # state :confirmed do
     #   validate {|order| order.validate_invevntory}
     # end
     
+    # 提交订单
     event :submit do
-      transition :pending => :open
+      transition :pending => :confirmed
     end
     
-    event :shipment do
-      transition :open => :ship
+    # 继续购买
+    event :continue_buy do
+      transition :confirmed => :pending
     end
     
+    # 打印订单
+    event :print_order do
+      transition :confirmed => :shiping
+    end
+    
+    # 打印出货单
+    event :print_ship do
+      transition :shiping => :baled
+    end
+    
+    # 装车
+    event :loading do
+      transition :baled => :truck
+    end
+    
+    # 签收
+    event :sign do
+      transition [:truck] => :signed
+    end
+    
+    # 完工（签收5小时后）
     event :done do
-      transition [:ship] => :done
+      transition [:signed] => :done
     end
     
-    event :cancel do
-      transition [:pending, :open, :ship] => :canceled
+    # 取消
+    event :cancel do 
+      transition [:pending, :confirmed, :shiping, :baled, :truck, :signed] => :canceled
     end
   end
   
@@ -66,7 +92,7 @@ class Order < ActiveRecord::Base
   # 利润
   def profit
     amount = self.ship? ? ship_sum : order_sum
-    formart(ship_sum - cost)
+    amount - cost
   end
   
   # 交易总额
@@ -88,6 +114,9 @@ class Order < ActiveRecord::Base
     end while Order.find_by_sn(self.sn)
   end  
   
+  def do_done
+    Pay.create order: self, payer: user, operator: nil, amount: -1*ship_sum, desc: "订单号：#{self.id}"
+  end
   
   def formart(money)
     (money * 100).round / 100.0

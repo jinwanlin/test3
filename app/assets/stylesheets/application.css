@@ -34,6 +34,7 @@ label.error, abbr {
 .table tr th {
     background: none repeat scroll 0 0 #EEEEEE;
 }
-
-
+ul.order-total-info li{
+	margin-left:30px;
+}
 

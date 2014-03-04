@@ -16,37 +16,25 @@
 				<th>单价</th>
 		    <th>订购量</th>
 		    <th>订单金额</th>
-				<% unless @order.pending? %>
-		    <th>出货量</th>
-				<th>交易金额</th>
+				<% unless @order.pending? || @order.confirmed? %>
+		    	<th>出货量</th>
+					<th>交易金额</th>
 				<% end %>
 				<th></th>
 		  </tr>
 		<%= render partial: "order_items/order_item", collection: @order.order_items %>
-		<tfoot>
-		<tr>
-		  <td></td>
-		  <td></td>
-			<td></td>
-		  <td></td>
-		  <td>合计：<span style="color:red"><%= @order.order_sum %></td>
-				<% unless @order.pending? %>
-		  <td></td>
-		  <td>
-			<% if @order.ship_sum > 0 %>
-					合计：<span id="order_ship_sum" style="color:red"><%= @order.ship_sum %>
-				<% end %>
-			</td>
-			<% end %>
-			<td>
-			<% if @order.ship_sum > 0 %>
-				利润：<span id="order_profit" style="color:red"><%= @order.profit %>
-			<% end %>
-			</td>
-		</tr>
-		</tfoot>
-
 		</table>
+		
+		<ul  class="nav nav-pills pull-right order-total-info">
+			<li>订购合计：<span style="color:red"><%= price_format @order.order_sum %></li>
+			<% unless @order.pending? || @order.confirmed? %>
+				<li>出库合计：<span id="order_ship_sum" style="color:red"><%= price_format @order.ship_sum %></li>
+			<% end %>
+			<li>成本：<span style="color:red"><%= price_format @order.cost %></li>
+			<% if @order.ship_sum > 0 %>
+				<li>利润：<span id="order_profit" style="color:red"><%= price_format @order.profit %></li>
+			<% end %>
+		</ul>
 
 		<%= render "order_items/form" if !@order.ship? && !@order.done? %>
 

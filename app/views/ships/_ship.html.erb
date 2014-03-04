@@ -1,6 +1,6 @@
 <tr class="<%= "error" unless ship.order_item.present? %> " id="ship_<%= ship.id %>">
   <td><%= ship.sn %></td>
   <td><%= link_to ship.product.name, ship.product %></td>
-  <td><%= ship.amount %></td>
+  <td><%= "#{price_format ship.amount} #{ship.order_item.product.unit}" %></td>
   <td><%= link_to '', ship, method: :delete, remote: true, class: 'icon-trash', title: '删除' unless ship.order.done? %></td>
 </tr>
