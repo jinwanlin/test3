@@ -2,7 +2,7 @@
 module Api
   module V2
     class UsersController < Api::BaseController
-      before_filter :find_user_by_phone, only: [:sign_up, :sign_in, :send_validate]
+      before_filter :find_user_by_phone, only: [:sign_up, :sign_in, :get_sign_up_validate_code, :send_validate_code, :update_password]
       
       def has_validate_code
         
@@ -24,13 +24,21 @@ module Api
       end
       
       # 验证校验码
-      def get_validate_code
+      def get_sign_up_validate_code
         unless @user
           @validate_code = rand(1000..9999)
           # SMS.send(params[:user][:phone], "注册校验码：#{@validate_code}")
         end
       end
       
+      
+      # 验证校验码
+      def send_validate_code
+        if @user
+          @validate_code = rand(1000..9999)
+          # SMS.send(params[:user][:phone], "注册校验码：#{@validate_code}")
+        end
+      end
       
       
       # 登陆
@@ -53,10 +61,18 @@ module Api
         @user = User.find(params[:id])
       end
       
+      def update_password
+        if @user
+          @user.update_attributes password: password_md5(@user.id, params[:user][:password])
+        end
+      end
+      
       private
       def find_user_by_phone
         @user = User.where(phone: params[:user][:phone]).first
       end
+      
+
 
     end
   end

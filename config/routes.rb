@@ -96,9 +96,11 @@ Test5::Application.routes.draw do
       resources :users do
         collection do
           post 'sign_up'
-          post 'get_validate_code'
+          post 'get_sign_up_validate_code'
+          post 'send_validate_code'
           post 'sign_in'
           get 'has_validate_code'
+          post 'update_password'
         end
       end
       resources :bills
