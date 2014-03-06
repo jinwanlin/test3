@@ -1,4 +1,7 @@
 Test5::Application.routes.draw do
+
+  match '/apk', :to => redirect('/weicai.apk')
+  
   
   resources :ships
   resources :bills
@@ -93,8 +96,9 @@ Test5::Application.routes.draw do
       resources :users do
         collection do
           post 'sign_up'
-          post 'validate'
+          post 'get_validate_code'
           post 'sign_in'
+          get 'has_validate_code'
         end
       end
       resources :bills

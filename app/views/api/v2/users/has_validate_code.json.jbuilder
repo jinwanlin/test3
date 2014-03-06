@@ -1,0 +1,1 @@
+json.has_validate_code Settings.has_validate_code
