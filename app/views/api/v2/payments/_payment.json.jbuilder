@@ -3,7 +3,7 @@ if payment
   json.created_at     payment.created_at.strftime("%F %T")
   json.updated_at     payment.updated_at.strftime("%F %T")
   
-  json.type           payment.type_
+  json.type           payment.type
   json.desc           payment.desc
   json.amount         payment.amount
   json.overage        payment.overage

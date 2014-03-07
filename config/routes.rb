@@ -101,6 +101,7 @@ Test5::Application.routes.draw do
           post 'sign_in'
           get 'has_validate_code'
           post 'update_password'
+          post 'change_password'
         end
       end
       resources :bills

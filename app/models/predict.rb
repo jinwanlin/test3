@@ -30,7 +30,7 @@ class Predict < ActiveRecord::Base
     end
   end
   
-  def self.all
+  def self.b
     User.all.each do |user|
       # user = User.first
       today = Date.today

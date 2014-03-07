@@ -67,10 +67,25 @@ module Api
         end
       end
       
+      def change_password
+        @user = User.find(params[:user][:id])
+        if @user && @user.password == password_md5(@user.id, params[:user][:old_password])
+          @user.update_attributes password: password_md5(@user.id, params[:user][:new_password])
+          @message = "修改成功"
+          @state = true
+        else
+          @message = "当前密码错误，修改失败"
+          @state = false
+        end
+      end
+      
+      
       private
       def find_user_by_phone
         @user = User.where(phone: params[:user][:phone]).first
       end
+      
+
       
 
 
