@@ -1,13 +1,6 @@
 <div class="row">
 	<div class="span8">
 		<%#= barcode 'ANUJ', :height => 100, :width => 400, :margin => 100, :xoff => 20, :yoff => 40 %> 
-		<div>
-			<%= link_to '打印', print_order_path(@order), class: 'btn btn-info', target: '_blank' %>
-			<%= link_to '取消', cancel_order_path(@order), method: :put, class: 'btn btn-warning pull-right' unless @order.done? %>
-			
-		</div>
-		<br />
-
 		
 		<table class="table">
 		  <tr>
@@ -25,6 +18,7 @@
 		<%= render partial: "order_items/order_item", collection: @order.order_items %>
 		</table>
 		
+		<p>
 		<ul  class="nav nav-pills pull-right order-total-info">
 			<li>订购合计：<span style="color:red"><%= price_format @order.order_sum %></li>
 			<% unless @order.pending? || @order.confirmed? %>
@@ -35,13 +29,19 @@
 				<li>利润：<span id="order_profit" style="color:red"><%= price_format @order.profit %></li>
 			<% end %>
 		</ul>
-
-		<%= render "order_items/form" if !@order.ship? && !@order.done? %>
+		<br/>
+</p>
+		<%= render "order_items/form" if !@order.baled? && !@order.done? %>
 
 		<p class="pull-right">
-			<%= link_to '提交', submit_order_path(@order), method: :put, class: 'btn btn-success' if @order.pending? %>
-			<%= link_to '出库', ship_order_path(@order), method: :put, class: 'btn btn-primary' if @order.open? %>
-			<%= link_to '完工', done_order_path(@order), method: :put, class: 'btn btn-danger' if @order.ship? %>
+			<%= link_to '提交订单', 	submit_order_path(@order), class: 'btn btn-success' if @order.pending? %>
+			<%= link_to '继续购买', 	continue_buy_order_path(@order), class: 'btn btn-success' if @order.confirmed? %>
+			<%= link_to '打印订单', 	print_order_order_path(@order), class: 'btn btn-success' if @order.confirmed? %>
+			<%= link_to '打印出货单', print_ship_order_path(@order), class: 'btn btn-success' if @order.shiping? %>
+			<%= link_to '装车', 			loading_order_path(@order), class: 'btn btn-success' if @order.baled? %>
+			<%= link_to '签收', 			sign_order_path(@order), class: 'btn btn-success' if @order.truck? %>
+			<%= link_to '完工', 			done_order_path(@order), class: 'btn btn-success' if @order.signed? %>
+			<%= link_to '取消', 			cancel_order_path(@order), class: 'btn btn-success' unless @order.done? %>
 		</p>
 	</div>
 	<div class="span4 ships_div" id="ships_div">

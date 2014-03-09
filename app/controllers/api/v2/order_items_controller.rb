@@ -11,8 +11,8 @@ module Api
       def create
         # order
         @order = @user.orders.last
-        if @order && (@order.pending? || @order.open?)
-          
+        if @order && (@order.pending? || @order.confirmed?)
+          @order.continue_buy if @order.confirmed?
         else
           @order = @user.orders.create
         end
@@ -21,16 +21,25 @@ module Api
         if params[:order_item][:product_id].present?
           product = Product.find params[:order_item][:product_id]
         end
+        
+        predict = Predict.where(user_id: @user).where(date: Date.today).where(product_id: product).first
+        predict.update_attributes order_amount: params[:order_item][:order_amount]
     
         # order_item
         @order_item = @order.order_items.where(product_id: product).first
         if @order_item
-          @order_item.order_amount = params[:order_item][:order_amount]
+          if params[:order_item][:order_amount] == 0
+            @order_item.destroy
+          else
+            @order_item.order_amount = params[:order_item][:order_amount]
+          end
         else
-          @order_item = @order.order_items.new(params[:order_item])
-          @order_item.product = product
-          @order_item.price = product.sales_price(@order_item.order.user.level)
-          @order_item.cost = product.cost
+          if params[:order_item][:order_amount] != 0
+            @order_item = @order.order_items.new(params[:order_item])
+            @order_item.product = product
+            @order_item.price = product.sales_price(@order_item.order.user.level)
+            @order_item.cost = product.cost
+          end
         end
         @order_item.save
       end

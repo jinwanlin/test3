@@ -1,5 +1,6 @@
 class OrdersController < ApplicationController
-  before_filter :find_order, only: [:show ,:edit, :update, :destroy, :submit, :cancel, :ship, :done, :print]
+  before_filter :find_order, only: [:show ,:edit, :update, :destroy, :submit,  :continue_buy,  :print_order,  :print_ship,  :loading,  :sign,  :done,  :cancel]
+  
   
   def index
     @orders = Order.all
@@ -32,27 +33,34 @@ class OrdersController < ApplicationController
   
   
   
-  
   def submit
     @order.submit
     redirect_to @order
   end
   
+  def continue_buy
+    @order.continue_buy
+    redirect_to @order
+  end
+  
   def print_order
-    
+    @order.print_order
+    redirect_to @order
   end
   
   def print_ship
-    @order.shipment
+    @order.print_ship
     redirect_to @order
   end
   
   def loading
-    
+    @order.loading
+    redirect_to @order
   end
   
   def sign
-    
+    @order.sign
+    redirect_to @order
   end
   
   def done

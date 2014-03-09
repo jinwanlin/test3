@@ -10,10 +10,10 @@
 	<% @user.payments.each do |payment| %>
 		<tr>
 			<td><%= payment.created_at.strftime("%F %T") %></td>
-			<td><%= link_to payment.operator.name, payment.operator %></td>
+			<td><%= link_to payment.operator.name, payment.operator if payment.operator %></td>
 			<td><%= payment.amount %></td>
 			<td><%= payment.overage %></td>
-			<td><%= link_to payment.order, payment.order if payment.order %></td>
+			<td><%= link_to payment.order.sn, payment.order if payment.order %></td>
 			<td><%= payment.desc %></td>
 		</tr>
 	<% end %>

@@ -13,11 +13,14 @@ Test5::Application.routes.draw do
 
   resources :orders do
     member do
-      put 'submit'
-      put 'cancel'
-      put 'ship'
-      put 'done'
-      get 'print'
+      get 'submit'
+      get 'continue_buy'
+      get 'print_order'
+      get 'print_ship'
+      get 'loading'
+      get 'sign'
+      get 'done'
+      get 'cancel'
     end
   end
 

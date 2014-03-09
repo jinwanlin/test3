@@ -11,9 +11,11 @@ class Order < ActiveRecord::Base
   
   
   # [pending] --submit--> [confirmed] --:print_order--> [shiping] --:print_ship--> [baled打包完毕] --:sign--> [signed已签收] ----> done /open/ship/done
+  # pending/confirmed/shiping/baled/truck/signed/done/canceled
   state_machine initial: :pending do
     
-    before_transition [:ship] => :done, do: :do_done
+    before_transition [:signed] => :done, do: :do_done
+    before_transition [:confirmed] => :shiping, do: :do_print_order
       
     # state :confirmed do
     #   validate {|order| order.validate_invevntory}
@@ -91,7 +93,7 @@ class Order < ActiveRecord::Base
 
   # 利润
   def profit
-    amount = self.ship? ? ship_sum : order_sum
+    amount = self.baled? ? ship_sum : order_sum
     amount - cost
   end
   
@@ -115,7 +117,12 @@ class Order < ActiveRecord::Base
   end  
   
   def do_done
-    Pay.create order: self, payer: user, operator: nil, amount: -1*ship_sum, desc: "订单号：#{self.id}"
+    Pay.create order: self, payer: user, operator: nil, amount: -1*ship_sum, summary: "订单号：#{self.id}"
+  end
+  
+  def do_print_order
+    Predict.where(user_id: user).delete_all
+    Predict.a user
   end
   
   def formart(money)

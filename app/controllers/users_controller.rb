@@ -51,7 +51,7 @@ class UsersController < ApplicationController
   
   # 充值
   def recharge
-    payment = Recharge.create(params[:recharge].merge operator: current_user, payer: @user, amount: params[:recharge][:amount])
+    payment = Recharge.create(params[:recharge].merge operator: current_user, payer: @user, amount: params[:recharge][:amount], summary: "充值#{params[:recharge][:amount]}")
     redirect_to user_path(@user)
   end
   

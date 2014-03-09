@@ -5,7 +5,7 @@ class Product < ActiveRecord::Base
   
   PRODUCT_TYPES = ['', 'Vegetable', 'Fruit', 'Meat', 'Fish', 'Agri']
   
-  AMOUNTS = [1, 2, 3, 4, 5, 6, 7, 10, 12, 15, 20, 25, 30]
+  AMOUNTS = [0, 1, 2, 3, 4, 5, 6, 7, 10, 12, 15, 20, 25, 30]
   
   has_many :prices, :order => 'date'
   

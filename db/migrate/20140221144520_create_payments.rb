@@ -5,7 +5,7 @@ class CreatePayments < ActiveRecord::Migration
       t.references :operator #收款人
       t.float :amount #交易金额
       t.float :overage #余额
-      t.text :desc
+      t.text :desc #备注
       t.references :order
       t.string :type
 
@@ -16,3 +16,5 @@ class CreatePayments < ActiveRecord::Migration
     add_index :payments, :order_id
   end
 end
+
+
