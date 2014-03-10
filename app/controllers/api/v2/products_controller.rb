@@ -13,7 +13,9 @@ module Api
             Predict.a @user
             @predicts = find_predicts(@user)
           end
+          
         end
+        
       end
       
       

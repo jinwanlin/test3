@@ -8,11 +8,10 @@ class Predict < ActiveRecord::Base
   def self.a(user)
     today = Date.today
     if Predict.where(user_id: user).where(date: today).empty?
-      order_ids = Order.where(user_id: user).where(state: 'done').where("created_at > ?", today-8.days).where("created_at < ?", today).pluck(:id)
+      order_ids = Order.where(user_id: user).where(state: ['shiping', 'baled', 'truck', 'signed', 'done']).where("created_at > ?", today-8.days).where("created_at < ?", today).pluck(:id)
       Product.all.each do |product|
         average_amount = 0
         order_times = 0
-      
         unless order_ids.empty?
           if order_ids.size > 1
             items = OrderItem.where("order_id in ?", order_ids).where(product_id: product)
@@ -33,36 +32,36 @@ class Predict < ActiveRecord::Base
         end
         
         Predict.create date: today, user: user, product: product, average_amount: average_amount, order_times: order_times, order_amount: 0
-      
       end
     end
   end
   
   def self.b
     User.all.each do |user|
-      # user = User.first
-      today = Date.today
-      if Predict.where(user_id: user).where(date: today).empty?
-        ids = Order.where(user_id: user).where(state: 'done').where("created_at > ?", today-8.days).where("created_at < ?", today).pluck(:id)
-        Product.all.each do |product|
-          average_amount = 0
-          order_times = 0
-        
-          unless ids.empty?
-            items = OrderItem.where("order_id in ?", ids).where(product_id: product)
-            unless items.empty?
-              amount_total = 0
-              items.each do |item|
-                amount_total += item.order_amount
-              end
-              average_amount = amount_total*1.0/items.size
-              order_times = items.size
-            end
-          end
-          Predict.create date: today, user: user, product: product, average_amount: average_amount, order_times: order_times, order_amount: 0
-        
-        end
-      end
+      a user
+    #   # user = User.first
+    #   today = Date.today
+    #   if Predict.where(user_id: user).where(date: today).empty?
+    #     ids = Order.where(user_id: user).where(state: 'done').where("created_at > ?", today-8.days).where("created_at < ?", today).pluck(:id)
+    #     Product.all.each do |product|
+    #       average_amount = 0
+    #       order_times = 0
+    #     
+    #       unless ids.empty?
+    #         items = OrderItem.where("order_id in ?", ids).where(product_id: product)
+    #         unless items.empty?
+    #           amount_total = 0
+    #           items.each do |item|
+    #             amount_total += item.order_amount
+    #           end
+    #           average_amount = amount_total*1.0/items.size
+    #           order_times = items.size
+    #         end
+    #       end
+    #       Predict.create date: today, user: user, product: product, average_amount: average_amount, order_times: order_times, order_amount: 0
+    #     
+    #     end
+    #   end
     end
   end
   

@@ -1,4 +1,4 @@
-json.status 0
+json.state true
 json.message @message
 p @message
 

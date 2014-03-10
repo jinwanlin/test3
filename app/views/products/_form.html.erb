@@ -1,4 +1,7 @@
-<%= simple_form_for @product, html: {class: 'form-horizontal'} do |f| %>
+<div class="row">
+<div class="span6">
+<%= simple_form_for @product, html: {class: 'form-horizontal', :multipart => true} do |f| %>
+
 	<%= f.input :name, label: '商品名称', input_html: {disabled: "disabled"} %>
 	<%= f.input :aliases, label: '别名', input_html: {class: 'required'} %>
 	<%= f.input :series, label: '涨价次序', input_html: {class: 'required'} %>
@@ -11,3 +14,18 @@
     <%= f.submit '保存', class: 'btn btn-primary' %>
 	</div>
 <% end %>
+</div>
+
+<div class="span6">
+<%= simple_form_for @product, url: upload_file_product_path(@product), html: {class: 'form-horizontal', :multipart => true} do |f| %>
+	<% @product.attachments.each do |attachment| %>
+		<div><%= image_tag attachment.source.url %><br />
+			<%= link_to "删除", delete_attachment_product_path(@product, attachment_id: attachment), method: 'delete' %>
+			<br /></div>
+	<% end %>
+	<div><%= file_field_tag :attachment %></div>
+	<div class="form-actions">
+    <%= f.submit '保存', class: 'btn btn-primary' %>
+	</div>
+<% end %>
+</div>

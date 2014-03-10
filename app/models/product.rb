@@ -8,6 +8,7 @@ class Product < ActiveRecord::Base
   AMOUNTS = [0, 1, 2, 3, 4, 5, 6, 7, 10, 12, 15, 20, 25, 30]
   
   has_many :prices, :order => 'date'
+  has_many :attachments, :as => :owner, :dependent => :destroy
   
   validates :series, :cost, :name, :presence => true
   validates :name, uniqueness: true

@@ -63,8 +63,19 @@ Test5::Application.routes.draw do
       get 'to_up'
       get 'to_down'
       get 'to_file'
+      put 'upload_file'
+      delete 'delete_attachment'
     end
   end
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
 
   namespace :api, defaults: {format: 'json'} do
@@ -90,10 +101,21 @@ Test5::Application.routes.draw do
       resources :order_items
     end
     
+    
+    
+    
+    
+    
+    
+    
+    
     namespace :v2 do
       resources :products do
         collection do
           post 'list'
+        end
+        member do 
+          post 'avatar'
         end
       end
       resources :users do
@@ -111,6 +133,13 @@ Test5::Application.routes.draw do
       resources :orders do
         collection do
           post 'list'
+          post 'auto_make_order'
+        end
+        member do
+          get 'submit'
+          get 'continue_buy'
+          get 'sign'
+          get 'cancel'
         end
       end
       resources :order_items

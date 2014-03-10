@@ -33,8 +33,11 @@ class ProductsController < ApplicationController
     else
       params[:product][:amounts] = nil
     end
+    @product.attachments << Attachment.new(:source => params[:attachment]) unless params[:attachment].blank?
     @product = Product.new(options: params[:product])
     @product.save
+    
+    redirect_to @product
   end
 
   def update
@@ -44,8 +47,23 @@ class ProductsController < ApplicationController
     else
       params[:product][:amounts] = nil
     end
-
     @product.update_attributes(params[:product])
+    
+    redirect_to @product
+  end
+  
+  def upload_file
+    @product = Product.find(params[:id])
+    @product.attachments << Attachment.new(:source => params[:attachment]) unless params[:attachment].blank?
+    @product.save
+    redirect_to @product
+  end
+  
+  def delete_attachment
+    @product = Product.find(params[:id])
+    @product.attachments.delete(Attachment.find(params[:attachment_id]))
+    @product.save
+    redirect_to edit_product_path(@product)
   end
 
   def update_sn
@@ -56,7 +74,7 @@ class ProductsController < ApplicationController
     
     render nothing: true
   end
-
+  
   def destroy
     @product = Product.find(params[:id])
     @product.destroy

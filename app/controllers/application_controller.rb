@@ -29,6 +29,15 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  def add_attachments(object)
+    if params[:attachments]
+      params[:attachments].each do |attachment|
+        object.attachments << Attachment.new(:source => attachment) unless attachment.blank?
+      end
+    end
+  
+  end
+  
   private
   helper_method :current_user
 end

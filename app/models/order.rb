@@ -16,6 +16,7 @@ class Order < ActiveRecord::Base
     
     before_transition [:signed] => :done, do: :do_done
     before_transition [:confirmed] => :shiping, do: :do_print_order
+    before_transition [:pending, :confirmed, :shiping, :baled, :truck, :signed] => :canceled, do: :do_cancel
       
     # state :confirmed do
     #   validate {|order| order.validate_invevntory}
@@ -121,6 +122,11 @@ class Order < ActiveRecord::Base
   end
   
   def do_print_order
+    Predict.where(user_id: user).delete_all
+    Predict.a user
+  end
+  
+  def do_cancel
     Predict.where(user_id: user).delete_all
     Predict.a user
   end
