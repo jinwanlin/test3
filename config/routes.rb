@@ -127,6 +127,7 @@ Test5::Application.routes.draw do
           get 'has_validate_code'
           post 'update_password'
           post 'change_password'
+          post 'update_baidu_user_id'
         end
       end
       resources :bills

@@ -7,6 +7,7 @@ class Order < ActiveRecord::Base
   has_many :ships, dependent: :destroy
   
   before_create :generate_order_no
+  after_destroy :destroy_order
   
   
   
@@ -122,6 +123,9 @@ class Order < ActiveRecord::Base
   end
   
   def do_print_order
+    content = "{message:'订单#{sn}已发货', state: 'shiping'}"
+    Push.new.push_msg(user.baidu_user_id, 0, content)
+    
     Predict.where(user_id: user).delete_all
     Predict.a user
   end
@@ -134,4 +138,9 @@ class Order < ActiveRecord::Base
   def formart(money)
     (money * 100).round / 100.0
   end
+  
+  def destroy_order
+    Predict.a user
+  end
 end
+

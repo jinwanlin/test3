@@ -42,7 +42,12 @@ class OrderItem < ActiveRecord::Base
       order.ship_sum = order.ship_sum_amount
       order.cost = order.cost_sum_amount
     # end
-    order.save
+    
+    if order.order_sum == 0
+      order.delete
+    else
+      order.save
+    end
   end
   
 

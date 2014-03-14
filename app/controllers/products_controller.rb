@@ -1,12 +1,13 @@
 # encoding: utf-8
 class ProductsController < ApplicationController
+  before_filter :find_product, only: [:update, :show, :edit, :destroy, :to_up, :to_down, :to_file]
   
   def index
     params[:type] ||= 'Vegetable'
     @page = params[:page] ||= 1
     @products = Product
     @products = @products.where(type: params[:type]) if params[:type].present?
-    @products = @products.order("updated_at") #.paginate(:page => @page, :per_page => 5)
+    @products = @products.order("state") #.paginate(:page => @page, :per_page => 5)
     @order = current_user.orders.where(state: ['pending', 'open']).first if current_user
   end
   
@@ -16,7 +17,6 @@ class ProductsController < ApplicationController
   end
 
   def show
-    @product = Product.find(params[:id])
   end
 
   def new
@@ -24,7 +24,6 @@ class ProductsController < ApplicationController
   end
 
   def edit
-    @product = Product.find(params[:id])
   end
 
   def create
@@ -41,7 +40,6 @@ class ProductsController < ApplicationController
   end
 
   def update
-    @product = Product.find(params[:id])
     if params[:amounts].present?
       params[:product][:amounts] = params[:amounts].gsub(' ', '').split(",") 
     else
@@ -76,7 +74,6 @@ class ProductsController < ApplicationController
   end
   
   def destroy
-    @product = Product.find(params[:id])
     @product.destroy
   end
   
@@ -86,18 +83,24 @@ class ProductsController < ApplicationController
     render :json =>  products.pluck(:name).compact.to_s
   end
   
-  def to_up
-    
-  end
+
   
   def print
     params[:type] ||= 'Vegetable'
     @products = Product.where(type: params[:type])
   end
   
-  # get 'to_up'
-  # get 'to_down'
-  # get 'to_file'
+  def to_up
+    @product.to_up
+  end
+  
+  def to_down
+    @product.to_down
+  end
+  
+  def to_file
+    @product.to_file
+  end
   
   def export
     # 打印类型
@@ -121,6 +124,11 @@ class ProductsController < ApplicationController
     content += "END	ECS	\n"
     
     send_data content, :type => 'text', :disposition => "attachment; filename=A_xxx.TMS"
+  end
+  
+  private
+  def find_product
+    @product = Product.find(params[:id])
   end
   
 end

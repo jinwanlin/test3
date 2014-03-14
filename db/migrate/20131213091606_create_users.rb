@@ -16,6 +16,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string :token
       t.integer :level, :default => 1
       t.string :role
+      t.string :baidu_user_id
       t.text :desc
       
       t.timestamps

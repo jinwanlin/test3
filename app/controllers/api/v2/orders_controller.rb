@@ -33,7 +33,7 @@ module Api
         end
         redirect_to api_v2_order_path(@order)
       end
-  
+      
   
       def submit
         @order.submit

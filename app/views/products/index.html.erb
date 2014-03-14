@@ -9,7 +9,6 @@
 	<% Vegetable::CLASSIFY.each_with_index do |classify, index| %>
 		<tr>
 			<td colspan="4" style="padding-top:30px;"><%= classify %></td>
-		</td>
 		<% list = @products.where(classify: index).order(:no) %>
 		<% list.each do |product| %>
 		  <tr id="product_<%= product.id %>" class="<%= 'product_is_bye' if (order_amount = order_amount(@order, product)) > 0 %>">
@@ -31,15 +30,15 @@
 				</td>
 				<td>
 					<%= product.state_ %>
-					<div class="btn-group " >
+					<div class="btn-group options" >
 					<% if product.up? %>
-						<%= link_to '下架', to_down_product_url(product), class: "btn btn-small" %>
+						<%= link_to '下架', to_down_product_url(product), class: "btn btn-small", remote: true %>
 						<%#= link_to '归档', to_file_product_url(product) %>
 					<% elsif product.down? %>
 						<%#= link_to '归档', to_file_product_url(product), class: "btn btn-small" %>
-						<%= link_to '上架', to_up_product_url(product), class: "btn btn-small" %>
+						<%= link_to '上架', to_up_product_url(product), class: "btn btn-small", remote: true %>
 					<% elsif product.file? %>
-						<%= link_to '上架', to_up_product_url(product), class: "btn btn-small" %>
+						<%#= link_to '上架', to_up_product_url(product), class: "btn btn-small" %>
 					<% end %>
 					</div>
 				</td>

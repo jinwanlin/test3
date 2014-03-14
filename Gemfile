@@ -1,5 +1,6 @@
 # source 'https://rubygems.org'
-source 'http://ruby.taobao.org/'
+# source 'http://ruby.taobao.org/'
+source 'http://110.75.120.11'
 
 gem 'rails', '3.2.12'
 # gem 'jquery-rails'
@@ -19,7 +20,7 @@ gem 'exception_notification'
 gem "soap4r-ruby1.9", "~> 2.0.5"
 gem "cancan"
 gem 'rufus-scheduler'
-
+gem 'httparty'#, :git => 'git@192.30.252.129:jnunemaker/httparty.git'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'

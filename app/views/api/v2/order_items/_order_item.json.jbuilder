@@ -4,6 +4,7 @@ if order_item
     json.product_name order_item.product.name
     json.product_unit "斤"
     json.order_id order_item.order_id
+    json.order_state order_item.order.state
     
     json.price order_item.price #单价
     

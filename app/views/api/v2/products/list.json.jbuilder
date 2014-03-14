@@ -11,7 +11,7 @@
 if @user
   json.state true
   json.last_order_state @user.orders.last.try(:state)
-  json.last_order_id @user.orders.last.try(:id)
+  json.last_order_id    @user.orders.last.try(:id)
   
   json.products @predicts do |predict|
     json.id                   predict.product_id

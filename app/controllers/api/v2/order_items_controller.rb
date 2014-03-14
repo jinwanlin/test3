@@ -28,10 +28,12 @@ module Api
         # order_item
         @order_item = @order.order_items.where(product_id: product).first
         if @order_item
-          if params[:order_item][:order_amount] == 0
+          p params[:order_item][:order_amount]
+          if params[:order_item][:order_amount] == "0"
             @order_item.destroy
           else
             @order_item.order_amount = params[:order_item][:order_amount]
+            @order_item.save
           end
         else
           if params[:order_item][:order_amount] != 0
@@ -39,9 +41,9 @@ module Api
             @order_item.product = product
             @order_item.price = product.sales_price(@order_item.order.user.level)
             @order_item.cost = product.cost
+            @order_item.save
           end
         end
-        @order_item.save
       end
       
       def show

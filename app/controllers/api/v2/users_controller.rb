@@ -79,6 +79,14 @@ module Api
         end
       end
       
+      def update_baidu_user_id
+        @user = User.find(params[:id])
+        if @user
+          @user.update_attributes baidu_user_id: params[:baidu_user_id] if params[:baidu_user_id].present?
+        end
+        render nothing: true
+      end
+      
       
       private
       def find_user_by_phone

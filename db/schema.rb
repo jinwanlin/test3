@@ -73,7 +73,7 @@ ActiveRecord::Schema.define(:version => 20140309073744) do
     t.integer  "product_id"
     t.float    "average_amount"
     t.integer  "order_times"
-    t.float    "order_amount"
+    t.integer  "order_amount"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
   end
@@ -131,6 +131,7 @@ ActiveRecord::Schema.define(:version => 20140309073744) do
     t.string   "token"
     t.integer  "level",         :default => 1
     t.string   "role"
+    t.string   "baidu_user_id"
     t.text     "desc"
     t.datetime "created_at",                   :null => false
     t.datetime "updated_at",                   :null => false

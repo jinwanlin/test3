@@ -20,9 +20,10 @@ module Api
       
       
       def find_predicts(user)
-        @predicts = Predict.order(:order_times)
-        @predicts = @predicts.where(user_id: user).where(date: Date.today)
+        @predicts = Predict.where(user_id: user).where(date: Date.today)
         @predicts = @predicts.joins(:product).where("products.type = ?", params[:type]) if params[:type].present?
+        @predicts = @predicts.joins(:product).where("products.classify = ?", params[:classify]) if params[:classify].present?
+        @predicts
       end
       
     end

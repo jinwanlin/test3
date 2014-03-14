@@ -1,6 +1,6 @@
 # encoding: utf-8
 class User < ActiveRecord::Base
-  attr_accessible :county, :house, :latitude, :longitude, :name, :password, :phone, :street, :string, :towns, :validate_code, :token, :state, :desc, :level
+  attr_accessible :county, :house, :latitude, :longitude, :name, :password, :phone, :street, :string, :towns, :validate_code, :token, :state, :desc, :level, :baidu_user_id
   
   validates :phone, :presence => true, uniqueness: true
   

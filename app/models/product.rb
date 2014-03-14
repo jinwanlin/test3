@@ -4,7 +4,7 @@ class Product < ActiveRecord::Base
   attr_accessible :des, :name, :series, :cost, :sn, :aliases, :amounts, :classify, :no
   
   PRODUCT_TYPES = ['', 'Vegetable', 'Fruit', 'Meat', 'Fish', 'Agri']
-  
+  UNIT= '斤'
   AMOUNTS = [0, 1, 2, 3, 4, 5, 6, 7, 10, 12, 15, 20, 25, 30]
   
   has_many :prices, :order => 'date'
