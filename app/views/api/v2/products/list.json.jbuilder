@@ -12,6 +12,7 @@ if @user
   json.state true
   json.last_order_state @user.orders.last.try(:state)
   json.last_order_id    @user.orders.last.try(:id)
+  json.search_history_id @search_history ? @search_history.id : ""
   
   json.products @predicts do |predict|
     json.id                   predict.product_id

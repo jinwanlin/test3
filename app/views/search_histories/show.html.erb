@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>User:</b>
+  <%= @search_history.user %>
+</p>
+
+<p>
+  <b>Keywords:</b>
+  <%= @search_history.keywords %>
+</p>
+
+
+<%= link_to 'Edit', edit_search_history_path(@search_history) %> |
+<%= link_to 'Back', search_histories_path %>

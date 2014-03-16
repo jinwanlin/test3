@@ -23,9 +23,9 @@ class OrderItem < ActiveRecord::Base
   
   # 订单明细总计
   def update_order_item
-    if order.pending? || order.open?
+    if order.pending? || order.confirmed?
       self.order_sum = formart(order_amount * price)
-    elsif order.ship?
+    elsif order.shiping?
       self.ship_sum = ship_sum_amount
       self.cost_sum = cost_sum_amount
     end

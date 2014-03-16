@@ -1,1 +1,2 @@
 $("#product_<%= @product.id %> .options").html('<%= link_to '下架', to_down_product_url(@product), class: "btn btn-small", remote: true %>')
+$("#product_<%= @product.id %>").removeClass("info");

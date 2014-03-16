@@ -95,8 +95,8 @@ class Order < ActiveRecord::Base
 
   # 利润
   def profit
-    amount = self.baled? ? ship_sum : order_sum
-    amount - cost
+    sum_ = self.baled? ? ship_sum : order_sum
+    sum_ - cost
   end
   
   # 交易总额

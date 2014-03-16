@@ -1,5 +1,8 @@
 Test5::Application.routes.draw do
 
+  resources :search_histories
+
+
   match '/apk', :to => redirect('/weicai.apk')
   
   
@@ -145,6 +148,11 @@ Test5::Application.routes.draw do
       end
       resources :order_items
       resources :payments do
+        collection do
+          post 'list'
+        end
+      end
+      resources :search_histories do
         collection do
           post 'list'
         end
