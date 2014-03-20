@@ -1,11 +1,12 @@
 # encoding: utf-8
 class Product < ActiveRecord::Base
   serialize :amounts, Array
-  attr_accessible :des, :name, :series, :cost, :sn, :aliases, :amounts, :classify, :no
+  attr_accessible :des, :name, :series, :cost, :sn, :aliases, :amounts, :classify, :no, :type, :state, :unit, :market_sort, :market_area
   
   PRODUCT_TYPES = ['', 'Vegetable', 'Fruit', 'Meat', 'Fish', 'Agri']
   UNIT= '斤'
   AMOUNTS = [0, 1, 2, 3, 4, 5, 6, 7, 10, 12, 15, 20, 25, 30]
+  MARKET_AREA = {"xiaocai"=>"小菜豆芽区", "bailuobo"=>"白萝卜区", "nangua"=>"南瓜西芹区", "yangcong"=>"洋葱山药区", "tudou"=>"土豆大葱区", "huanggua"=>"黄瓜番茄区", "jiangsuan"=>"姜蒜区", "hongsu"=>"红薯区"}
   
   has_many :prices, :order => 'date'
   has_many :attachments, :as => :owner, :dependent => :destroy
@@ -91,6 +92,7 @@ class Product < ActiveRecord::Base
   
   # 卖价，不同的人看到不同的卖价
   def sales_price(level)
+    return nil if prices.empty?
     # return if !level.present? || !cost.present?
     # profit_1 = (level-1)/3
     # remainder = level%3 == 0 ? 3 : level%3
@@ -176,12 +178,30 @@ class Product < ActiveRecord::Base
   def generate_product_sn(no, classify)
     # previous_product=Product.last
     # previous_id = previous_product.present? ? previous_product.id : 0
+    if classify == 'nil'
+      ""
+    else
+      type_id = PRODUCT_TYPES.index type
+      sn = "#{type_id}#{type.constantize.classify_index classify}#{no.to_s.rjust(2, '0')}"
+      p sn
+      sn
+    end
     
-    type_id = PRODUCT_TYPES.index type
-    sn = "#{type_id}#{classify}#{no.to_s.rjust(2, '0')}"
-    p sn
-    sn
+    
     # self.sn = (previous_id+1).to_s.rjust(6, '0') unless self.sn 
   end  
+  
+  def self.type_ type
+    case type
+      when "Vegetable" then "蔬菜"
+      when "Fruit" then "水果"
+      when "Meat" then "肉"
+      when "Fish" then "鱼"
+      when "Agri" then "粮油"
+    end
+  end
+  
+  
+
   
 end

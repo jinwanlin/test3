@@ -24,6 +24,7 @@ Test5::Application.routes.draw do
       get 'sign'
       get 'done'
       get 'cancel'
+      get 'print'
     end
   end
 
@@ -59,7 +60,9 @@ Test5::Application.routes.draw do
       get 'search'
       get 'export'
       get 'sortable'
+      get 'sortable_market'
       post 'update_sn'
+      post "update_market"
       get 'print'
     end
     member do
@@ -116,6 +119,7 @@ Test5::Application.routes.draw do
       resources :products do
         collection do
           post 'list'
+          get 'types'
         end
         member do 
           post 'avatar'

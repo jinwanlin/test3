@@ -7,7 +7,7 @@ module Api
         if @user
 
           date = Date.today
-          date = - date-1.days if Time.new.hour < 3 # 凌晨3点前任然显示昨天的价格
+          date = date-1.days if Time.new.hour < 3 # 凌晨3点前任然显示昨天的价格
           
           # @products = Product.order(:id)
           # @products = @products.where(type: params[:type]) if params[:type].present?
@@ -33,6 +33,10 @@ module Api
         @predicts = @predicts.joins(:product).where("products.classify = ?", params[:classify]) if params[:classify].present?
         @predicts = @predicts.joins(:product).where("products.name like ?", "%#{params[:searchKey]}%") if params[:searchKey].present?
         @predicts
+      end
+      
+      def types
+        
       end
       
     end

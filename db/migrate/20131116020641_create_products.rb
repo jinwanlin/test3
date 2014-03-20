@@ -6,7 +6,7 @@ class CreateProducts < ActiveRecord::Migration
       t.string :name
       t.string :aliases #别名
       t.string :type #分类
-      t.integer :classify #归类
+      t.string :classify #归类
       t.integer :no #归类里的序号
       t.string :amounts #可选重量
       t.string :unit # 计价单位：斤

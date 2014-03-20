@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  before_filter :find_order, only: [:show ,:edit, :update, :destroy, :submit,  :continue_buy,  :print_order,  :print_ship,  :loading,  :sign,  :done,  :cancel]
+  before_filter :find_order, only: [:print, :show ,:edit, :update, :destroy, :submit,  :continue_buy,  :print_order,  :print_ship,  :loading,  :sign,  :done,  :cancel]
   
   
   def index
@@ -9,6 +9,10 @@ class OrdersController < ApplicationController
   def show
   end
 
+  def print
+    render layout: "print"
+  end
+  
   def new
     @order = Order.new
   end

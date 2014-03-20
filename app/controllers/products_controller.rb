@@ -13,7 +13,12 @@ class ProductsController < ApplicationController
   
   def sortable
     params[:type] ||= 'Vegetable'
-    @products = Product.where(type: params[:type])
+    @products = Product.where(type: params[:type]).where(state: 'up')
+  end
+  
+  def sortable_market
+    params[:type] ||= 'Vegetable'
+    @products = Product.where(type: params[:type]).where(state: 'up')
   end
 
   def show
@@ -65,11 +70,24 @@ class ProductsController < ApplicationController
   end
 
   def update_sn
-    params[:ids].each_with_index do |id, index| 
-      product = Product.find(id)
-      product.update_attributes no: index, classify: params[:classify], sn: product.generate_product_sn(index, params[:classify])
+    if params[:ids].present?
+      params[:ids].each_with_index do |id, index| 
+        product = Product.find(id)
+        product.update_attributes no: index, classify: params[:classify], sn: product.generate_product_sn(index, params[:classify])
+      end
     end
-    
+    render nothing: true
+  end
+  
+  def update_market
+    p params[:ids]
+    p params[:market_area]
+    if params[:ids].present?
+      params[:ids].each_with_index do |id, index| 
+        product = Product.find(id)
+        product.update_attributes market_sort: index, market_area: params[:market_area]
+      end
+    end
     render nothing: true
   end
   
@@ -87,7 +105,7 @@ class ProductsController < ApplicationController
   
   def print
     params[:type] ||= 'Vegetable'
-    @products = Product.where(type: params[:type])
+    @products = Product.where(type: params[:type]).where(state: 'up')
   end
   
   def to_up
@@ -118,7 +136,9 @@ class ProductsController < ApplicationController
       p sn
       # 货号
       id = product.id
-      content += "PLU	#{sn}	#{id}		3	#{price},#{price_point}	0,0	0,0	#{print_type}	11	0	0	0	0	9	#{product.product_name}								0	0	0	0	0	0	0	0	0	0	0	0	0,0	0,0	0	127	0,0	0,0	0,0	0	127	0,0	0,0	0,0	0	127	0,0	0,0	0,0	0	127	0,0	0,0	0,0	0	0	0	0	0	0	0	\n"
+      if sn != ""
+        content += "PLU	#{sn}	#{id}		3	#{price},#{price_point}	0,0	0,0	#{print_type}	11	0	0	0	0	9	#{product.product_name}								0	0	0	0	0	0	0	0	0	0	0	0	0,0	0,0	0	127	0,0	0,0	0,0	0	127	0,0	0,0	0,0	0	127	0,0	0,0	0,0	0	127	0,0	0,0	0,0	0	0	0	0	0	0	0	\n"
+      end
     end
     content += "END	PLU \n"
     content += "END	ECS	\n"
