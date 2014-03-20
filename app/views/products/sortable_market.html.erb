@@ -1,41 +1,7 @@
 <link rel="stylesheet" href="/assets/jquery-ui.css">
+<link rel="stylesheet" href="/assets/products_print.css">
+
 <script src="/assets/jquery-ui.js"></script>
-  <style rel="stylesheet" type="text/css">
-	body{
-		padding-top:20px;
-	}
-	.navbar{
-		display:none;
-	}
-	.container{
-		margin-left:5px;
-	}
-  .connectedSortable {
-		list-style-type: none;
-		margin:0; 
-		padding:0; 
-		height:100%; 
-		margin: 0 5px 0 10px; 
-		min-width:130px; 
-		outline:1px solid;
-	}
-  .connectedSortable li{
-		margin: 0 0 1px 0; 
-		padding: 5px; 
-		font-size: 14px; 
-		width: 120px; 
-		cursor:move; 
-	}
-	#head{
-		position:fixed;
-		margin-top:-22px;
-		background-color:#fff;
-		font-size:16px;
-	}
-	#head td{
-		width:144px;
-	}
-  </style>
   <script>
 	
 	
@@ -71,8 +37,8 @@
 		<tr id="head">
 			<% Product::MARKET_AREA.each do |key, val| %>
 				<td>
-					<div style="width:140px; text-align:center;">
-					<%= val %>
+					<div style="text-align:center;">
+						<%= val %>
 					</div>
 				</td>
 			<% end %>
@@ -80,7 +46,7 @@
 		<tr>
 			<% Product::MARKET_AREA.each do |key, val| %>
 				<% list = @products.where(market_area: key).order(:market_sort) %>
-				<%  @height = list.size*33 if key=="xiaocai" %>
+				<%  @height = list.size*31 if key=="xiaocai" %>
 				<td valign="top" style="height:<%= @height %>px;">
 					<ul id="<%= key %>" class="connectedSortable">
 						<% list.each do |product| %>

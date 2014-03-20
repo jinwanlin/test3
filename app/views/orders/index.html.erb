@@ -21,7 +21,7 @@
 		<td><%= price_format order.ship_sum %></td>
 		<td><%= price_format order.profit  %></td>
     <td>
-			<%= link_to '', order, method: :delete, data: { confirm: 'Are you sure?' }, class: 'icon-trash', title: '删除' unless order.done? || order.canceled? %>
+			<%= link_to '', order, method: :delete, data: { confirm: 'Are you sure?' }, class: 'icon-trash', title: '删除' unless order.done? %>
 		</td>
   </tr>
 <% end %>

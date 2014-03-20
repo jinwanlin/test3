@@ -181,7 +181,8 @@ class Product < ActiveRecord::Base
     if classify == 'nil'
       ""
     else
-      type_id = PRODUCT_TYPES.index type
+      # type_id = PRODUCT_TYPES.index type
+      type_id = ""
       sn = "#{type_id}#{type.constantize.classify_index classify}#{no.to_s.rjust(2, '0')}"
       p sn
       sn

@@ -73,7 +73,7 @@ class ProductsController < ApplicationController
     if params[:ids].present?
       params[:ids].each_with_index do |id, index| 
         product = Product.find(id)
-        product.update_attributes no: index, classify: params[:classify], sn: product.generate_product_sn(index, params[:classify])
+        product.update_attributes no: (index+1), classify: params[:classify], sn: product.generate_product_sn(index, params[:classify])
       end
     end
     render nothing: true
@@ -101,13 +101,6 @@ class ProductsController < ApplicationController
     render :json =>  products.pluck(:name).compact.to_s
   end
   
-
-  
-  def print
-    params[:type] ||= 'Vegetable'
-    @products = Product.where(type: params[:type]).where(state: 'up')
-  end
-  
   def to_up
     @product.to_up
   end
@@ -131,11 +124,9 @@ class ProductsController < ApplicationController
     content = "ECS	VER	100	\n"
     content += "DWL	PLU	\n"
     Vegetable.where("classify is not null").each do |product|
-      # 编号
-      sn = product.sn
-      p sn
-      # 货号
-      id = product.id
+      
+      sn = product.sn # 编号
+      id = product.id # 货号
       if sn != ""
         content += "PLU	#{sn}	#{id}		3	#{price},#{price_point}	0,0	0,0	#{print_type}	11	0	0	0	0	9	#{product.product_name}								0	0	0	0	0	0	0	0	0	0	0	0	0,0	0,0	0	127	0,0	0,0	0,0	0	127	0,0	0,0	0,0	0	127	0,0	0,0	0,0	0	127	0,0	0,0	0,0	0	0	0	0	0	0	0	\n"
       end

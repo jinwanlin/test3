@@ -12,7 +12,7 @@ class Vegetable < Product
     i = 0
     CLASSIFY.to_a.each_with_index do |classify, index|
       if classify[0] == key
-        i = index
+        i = index+1
         break
       end
     end

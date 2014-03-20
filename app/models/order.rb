@@ -125,13 +125,13 @@ class Order < ActiveRecord::Base
   def do_print_order
     content = "{message:'订单#{sn}已发货', state: 'shiping'}"
     Push.new.push_msg(user.baidu_user_id, 0, content)
-    
-    Predict.where(user_id: user).delete_all
+
+    Predict.where(user_id: user).update_all order_amount: 0
     Predict.a user
   end
   
   def do_cancel
-    Predict.where(user_id: user).delete_all
+    Predict.where(user_id: user).update_all order_amount: 0
     Predict.a user
   end
   
@@ -140,6 +140,7 @@ class Order < ActiveRecord::Base
   end
   
   def destroy_order
+    Predict.where(user_id: user).update_all order_amount: 0
     Predict.a user
   end
 end

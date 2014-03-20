@@ -1,32 +1,6 @@
 <link rel="stylesheet" href="/assets/jquery-ui.css">
+<link rel="stylesheet" href="/assets/products_print.css">
 <script src="/assets/jquery-ui.js"></script>
-  <style rel="stylesheet" type="text/css">
-  .connectedSortable {
-		list-style-type: none;
-		margin:0; 
-		padding:0; 
-		height:3000px; 
-		margin-right: 10px; 
-		min-width:130px; 
-		outline:1px solid;
-	}
-  .connectedSortable li{
-		margin: 0 0 1px 0; 
-		padding: 5px; 
-		font-size: 14px; 
-		width: 120px; 
-		cursor:move; 
-	}
-	#head{
-		position:fixed;
-		margin-top:-22px;
-		background-color:#fff;
-		font-size:16px;
-	}
-	#head td{
-		width:144px;
-	}
-  </style>
   <script>
 	
 	
@@ -65,27 +39,34 @@
 	<table>
 		<tr id="head">
 			<% Vegetable::CLASSIFY.each do |key, val| %>
-				<td valign="top" align="center" >
-					<%= Vegetable.classify_index key %> <%= val %>
+				<td>
+					<div style="text-align:center;">
+						<%= Vegetable.classify_index key %> <%= val %>
+					</div>
 				</td>
 			<% end %>
-			<td>未分类</td>
+			<td><div style="text-align:center;">未分类</td></td>
 		</tr>
+		
+		
+		
+		
 		
 		<tr>
 			<% Vegetable::CLASSIFY.each do |key, val| %>
 				<% list = @products.where(classify: key).order(:no) %>
-				<td valign="top" >
+				<%  @height = list.size*31 if key=="leaf" %>
+				<td valign="top" style="height:<%= @height %>px;">
 					<ul id="<%= key %>" class="connectedSortable">
 						<% list.each do |product| %>
-							<li class="ui-state-default" classify="<%= product.classify %>" product_id="<%= product.id %>"><%= product.no.to_s.rjust(2, '0') %> <%= product.product_name %></li>
+							<li class="ui-state-default" classify="<%= product.classify %>" product_id="<%= product.id %>"><%= Vegetable.classify_index key %><%= product.no.to_s.rjust(2, '0') %> <%= product.product_name %></li>
 						<% end %>
 					</ul>
 				</td>
 			<% end %>
 			
 			<% list = @products.where(classify: 'nil') %>
-			<td valign="top" >
+			<td valign="top" style="height:<%= @height %>px;">
 				<ul id="nil" class="connectedSortable">
 					<% list.each do |product| %>
 						<li class="ui-state-default" classify="<%= product.classify %>" product_id="<%= product.id %>"><%= product.name %></li>
