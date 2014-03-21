@@ -1,5 +1,11 @@
 <link rel="stylesheet" href="/assets/jquery-ui.css">
 <link rel="stylesheet" href="/assets/products_print.css">
+<style>
+.connectedSortable li{
+	font-size:14px;
+}
+
+</style>
 <script src="/assets/jquery-ui.js"></script>
   <script>
 	
@@ -37,6 +43,9 @@
 	
   </script>
 	<table>
+		<tr id="print-title">
+			<td colspan="6"><div>称重打码用</div></td>
+		</tr>
 		<tr id="head">
 			<% Vegetable::CLASSIFY.each do |key, val| %>
 				<td>
@@ -59,7 +68,19 @@
 				<td valign="top" style="height:<%= @height %>px;">
 					<ul id="<%= key %>" class="connectedSortable">
 						<% list.each do |product| %>
-							<li class="ui-state-default" classify="<%= product.classify %>" product_id="<%= product.id %>"><%= Vegetable.classify_index key %><%= product.no.to_s.rjust(2, '0') %> <%= product.product_name %></li>
+							<li class="ui-state-default" classify="<%= product.classify %>" product_id="<%= product.id %>">
+								<div class="pull-left">
+									<%= Vegetable.classify_index key %><%= product.no.to_s.rjust(2, '0') %>
+									<%= product.product_name %>
+								</div>
+								<% product.order_spid.each do |key, value| %>
+								<% next if value==0 %>
+									<div class="pull-left" style="font-size:12px; line-height:12px; padding: 0 2px;">
+											<div><%= "#{key}#{product.unit}" %></div>
+											<div style="color:red;"><%= value %>包</div>
+									</div>
+								<% end %>
+							</li>
 						<% end %>
 					</ul>
 				</td>
@@ -69,7 +90,9 @@
 			<td valign="top" style="height:<%= @height %>px;">
 				<ul id="nil" class="connectedSortable">
 					<% list.each do |product| %>
-						<li class="ui-state-default" classify="<%= product.classify %>" product_id="<%= product.id %>"><%= product.name %></li>
+						<li class="ui-state-default" classify="<%= product.classify %>" product_id="<%= product.id %>">
+							<%= product.product_name %>
+						</li>
 					<% end %>
 				</ul>
 			</td>

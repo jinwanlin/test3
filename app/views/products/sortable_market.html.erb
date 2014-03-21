@@ -1,6 +1,5 @@
 <link rel="stylesheet" href="/assets/jquery-ui.css">
 <link rel="stylesheet" href="/assets/products_print.css">
-
 <script src="/assets/jquery-ui.js"></script>
   <script>
 	
@@ -34,6 +33,9 @@
 	});
   </script>
 	<table>
+		<tr id="print-title">
+			<td colspan="6"><div>买菜用</div></td>
+		</tr>
 		<tr id="head">
 			<% Product::MARKET_AREA.each do |key, val| %>
 				<td>
@@ -46,12 +48,14 @@
 		<tr>
 			<% Product::MARKET_AREA.each do |key, val| %>
 				<% list = @products.where(market_area: key).order(:market_sort) %>
-				<%  @height = list.size*31 if key=="xiaocai" %>
+				<%  @height = list.size*45 if key=="xiaocai" %>
 				<td valign="top" style="height:<%= @height %>px;">
 					<ul id="<%= key %>" class="connectedSortable">
 						<% list.each do |product| %>
 							<li class="ui-state-default" classify="<%= product.classify %>" product_id="<%= product.id %>">
-								<%#= product.market_sort.to_s.rjust(2, '0') %> <%= product.product_name %>
+								<%#= product.market_sort.to_s.rjust(2, '0') %>
+								<%= product.product_name %>
+								<span style="color:red;"><%= "#{product.order_total}#{product.unit}" if product.order_total %></span>
 							</li>
 						<% end %>
 					</ul>

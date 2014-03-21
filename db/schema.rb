@@ -107,6 +107,10 @@ ActiveRecord::Schema.define(:version => 20140316031142) do
     t.string   "market_area"
     t.integer  "market_sort"
     t.string   "unit"
+    t.integer  "order_total"
+    t.text   "order_detail"
+    t.text   "order_spid"
+    
   end
 
   create_table "search_histories", :force => true do |t|

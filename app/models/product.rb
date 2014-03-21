@@ -1,12 +1,15 @@
 # encoding: utf-8
 class Product < ActiveRecord::Base
+  store :order_detail, coder: JSON
+  store :order_spid, coder: JSON
+  
   serialize :amounts, Array
-  attr_accessible :des, :name, :series, :cost, :sn, :aliases, :amounts, :classify, :no, :type, :state, :unit, :market_sort, :market_area
+  attr_accessible :des, :name, :series, :cost, :sn, :aliases, :amounts, :classify, :no, :type, :state, :unit, :market_sort, :market_area, :order_total, :order_detail, :order_spid
   
   PRODUCT_TYPES = ['', 'Vegetable', 'Fruit', 'Meat', 'Fish', 'Agri']
   UNIT= '斤'
   AMOUNTS = [0, 1, 2, 3, 4, 5, 6, 7, 10, 12, 15, 20, 25, 30]
-  MARKET_AREA = {"xiaocai"=>"小菜豆芽区", "bailuobo"=>"白萝卜区", "nangua"=>"南瓜西芹区", "yangcong"=>"洋葱山药区", "tudou"=>"土豆大葱区", "huanggua"=>"黄瓜番茄区", "jiangsuan"=>"姜蒜区", "hongsu"=>"红薯区"}
+  MARKET_AREA = {"xiaocai"=>"小菜豆芽区", "nangua"=>"南瓜西芹区", "yangcong"=>"洋葱山药区", "tudou"=>"土豆大葱区", "huanggua"=>"黄瓜番茄区", "jiangsuan"=>"姜蒜区", "hongsu"=>"萝卜红薯区"}
   
   has_many :prices, :order => 'date'
   has_many :attachments, :as => :owner, :dependent => :destroy
@@ -203,6 +206,109 @@ class Product < ActiveRecord::Base
   end
   
   
+  # 统计未分拣货物
+  def self.order_total
+    Product.all.each do |product|
+      product.reset_order_detail_and_order_spid
+      
+      orderItems = OrderItem.where(product_id: p)
+      orderItems = orderItems.joins(:order).where("orders.state = 'shiping' ")
+      unless orderItems.empty?
+        orderItems.each do |item|
+          product.update_order_spid(item.order_amount)
+          product.update_order_detail(item.order_amount)
+        end
+        product.order_total = product.order_detail.values.inject{|sum,x| sum + x }
+        product.save
+      end
+    end
+  end
+  
+  # 重置两个字段
+  def reset_order_detail_and_order_spid
+    self.order_detail = Hash.new if self.order_detail == nil
+    self.order_detail[1] = 0
+    self.order_detail[2] = 0
+    self.order_detail[3] = 0
+    self.order_detail[4] = 0
+    self.order_detail[5] = 0
+    self.order_detail[6] = 0
+    self.order_detail[7] = 0
+    self.order_detail[10] = 0
+    self.order_detail[12] = 0
+    self.order_detail[15] = 0
+    self.order_detail[20] = 0
+    self.order_detail[25] = 0
 
+    self.order_spid = Hash.new if self.order_spid == nil
+    self.order_spid[1] = 0
+    self.order_spid[2] = 0
+    self.order_spid[5] = 0
+    self.order_spid[10] = 0
+    self.order_spid[20] = 0
+  end
+  
+  def update_order_detail(order_amount)
+    case order_amount
+      when 1
+        self.order_detail[1] += 1
+      when 2
+        self.order_detail[2] += 1
+      when 3 
+        self.order_detail[3] += 1
+      when 4
+        self.order_detail[2] += 1
+      when 5
+        self.order_detail[5] += 1
+      when 6
+        self.order_detail[6] += 1
+      when 7
+        self.order_detail[7] += 1
+      when 10
+        self.order_detail[10] += 1
+      when 12
+        self.order_detail[12] += 1
+      when 15
+        self.order_detail[15] += 1
+      when 20
+        self.order_detail[20] += 1
+      when 25
+        self.order_detail[5] += 1
+    end
+  end
+  
+  def update_order_spid(order_amount)
+    case order_amount
+      when 1
+        self.order_spid[1] += 1
+      when 2
+        self.order_spid[2] += 1
+      when 3 
+        self.order_spid[1] += 1
+        self.order_spid[2] += 1
+      when 4
+        self.order_spid[2] += 2
+      when 5
+        self.order_spid[5] += 1
+      when 6
+        self.order_spid[1] += 1
+        self.order_spid[5] += 1
+      when 7
+        self.order_spid[2] += 1
+        self.order_spid[5] += 1
+      when 10
+        self.order_spid[10] += 1
+      when 12
+        self.order_spid[10] += 1
+        self.order_spid[2] += 1
+      when 15
+        self.order_spid[10] += 1
+        self.order_spid[5] += 1
+      when 20
+        self.order_spid[20] += 1
+      when 25
+        self.order_spid[5] += 1
+    end
+  end
   
 end
