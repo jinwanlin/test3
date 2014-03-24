@@ -5,7 +5,7 @@ class SMS
   
   def self.send(phone, content)
     p Socket.gethostname
-    if Socket.gethostname == "AY131203213614306c1aZ" #只有服务器才发送短信
+    if Socket.gethostname == "AY131203213614306c1aZ_" #只有服务器才发送短信
       url = URI.escape("http://utf8.sms.webchinese.cn/?Uid=wanlinjin&Key=caa74871061793420615&smsMob=#{phone}&smsText=#{content}")
       code = open(url).read.to_i
     else
