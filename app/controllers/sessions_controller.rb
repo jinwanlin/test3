@@ -8,6 +8,8 @@ class SessionsController < ApplicationController
   # 登录
   def create
     @user = User.where(phone: params[:user][:phone]).first
+    p @user.password
+    p password_md5(@user.id, params[:user][:password])
     
     if @user.nil?
       flash[:error] = "账号不存在。" 
