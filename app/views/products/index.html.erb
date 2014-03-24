@@ -5,8 +5,9 @@
 </div>
 
 <table width="100%" class="table">
-	
-	<% Vegetable::CLASSIFY.each do |key, val| %>
+	<% classifies = Vegetable::CLASSIFY %>
+	<% classifies[nil]="未分类" %>
+	<% classifies.each do |key, val| %>
 		<tr>
 			<td colspan="4" style="padding-top:30px;"><%= val %></td>
 		<% list = @products.where(classify: key).order(:no) %>
