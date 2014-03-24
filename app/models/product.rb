@@ -139,7 +139,7 @@ class Product < ActiveRecord::Base
           actual_cost = tds[2].to_f
           next if actual_cost == 0
           
-          product = Product.find_by_name(tds[0]) || food_type.constantize.create(name: tds[0], unit: tds[5])
+          product = Product.find_by_name(tds[0]) || food_type.constantize.create(name: tds[0], unit: tds[5], market_area: "hongsu")
           price = Price.where(product_id: product, date: date).first
           unless price 
               price = Price.create(product: product, date: date, actual_cost: actual_cost)
