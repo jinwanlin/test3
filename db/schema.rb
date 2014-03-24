@@ -11,7 +11,18 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140221144520) do
+ActiveRecord::Schema.define(:version => 20140316031142) do
+
+  create_table "attachments", :force => true do |t|
+    t.string   "source_file_name"
+    t.string   "source_content_type"
+    t.integer  "source_file_size"
+    t.datetime "source_updated_at"
+    t.integer  "owner_id"
+    t.string   "owner_type"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+  end
 
   create_table "bills", :force => true do |t|
     t.integer  "payer_id"
@@ -100,6 +111,16 @@ ActiveRecord::Schema.define(:version => 20140221144520) do
     t.text     "order_detail", :limit => 255
     t.text     "order_spid"
   end
+
+  create_table "search_histories", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "keywords"
+    t.string   "has_result"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "search_histories", ["user_id"], :name => "index_search_histories_on_user_id"
 
   create_table "ships", :force => true do |t|
     t.string   "sn"
