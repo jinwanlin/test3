@@ -11,18 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140316031142) do
-
-  create_table "attachments", :force => true do |t|
-    t.string   "source_file_name"
-    t.string   "source_content_type"
-    t.integer  "source_file_size"
-    t.datetime "source_updated_at"
-    t.integer  "owner_id"
-    t.string   "owner_type"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
-  end
+ActiveRecord::Schema.define(:version => 20140221144520) do
 
   create_table "bills", :force => true do |t|
     t.integer  "payer_id"
@@ -97,31 +86,20 @@ ActiveRecord::Schema.define(:version => 20140316031142) do
     t.string   "type"
     t.string   "amounts"
     t.string   "state"
-    t.integer  "series",     :default => 1
-    t.float    "cost",       :default => 0.0, :null => false
+    t.integer  "series",                      :default => 1
+    t.float    "cost",                        :default => 0.0, :null => false
     t.text     "des"
-    t.datetime "created_at",                  :null => false
-    t.datetime "updated_at",                  :null => false
+    t.datetime "created_at",                                   :null => false
+    t.datetime "updated_at",                                   :null => false
     t.integer  "no"
-    t.string  "classify"
+    t.string   "classify"
+    t.string   "unit"
     t.string   "market_area"
     t.integer  "market_sort"
-    t.string   "unit"
     t.integer  "order_total"
-    t.text   "order_detail"
-    t.text   "order_spid"
-    
+    t.text     "order_detail", :limit => 255
+    t.text     "order_spid"
   end
-
-  create_table "search_histories", :force => true do |t|
-    t.integer  "user_id"
-    t.string   "keywords"
-    t.string   "has_result"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "search_histories", ["user_id"], :name => "index_search_histories_on_user_id"
 
   create_table "ships", :force => true do |t|
     t.string   "sn"
