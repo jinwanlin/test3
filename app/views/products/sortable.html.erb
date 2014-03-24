@@ -59,7 +59,7 @@
 		
 		<tr>
 			<% Vegetable::CLASSIFY.each do |key, val| %>
-			<%= key %>
+			<% p key %>
 				<% list = @products.where(classify: key).order(:no) %>
 				<%  @height = list.size*31 if key=="leaf" %>
 				<td valign="top" style="height:<%= @height %>px;">
