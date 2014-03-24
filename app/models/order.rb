@@ -127,12 +127,12 @@ class Order < ActiveRecord::Base
     Push.new.push_msg(user.baidu_user_id, 0, content)
 
     Predict.where(user_id: user).update_all order_amount: 0
-    Predict.a user
+    Predict.update_user user
   end
   
   def do_cancel
     Predict.where(user_id: user).update_all order_amount: 0
-    Predict.a user
+    Predict.update_user user
   end
   
   def formart(money)
@@ -141,7 +141,7 @@ class Order < ActiveRecord::Base
   
   def destroy_order
     Predict.where(user_id: user).update_all order_amount: 0
-    Predict.a user
+    Predict.update_user user
   end
 end
 

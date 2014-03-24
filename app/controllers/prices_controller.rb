@@ -41,17 +41,9 @@ class PricesController < ApplicationController
   # POST /prices
   # POST /prices.json
   def create
-    @price = Price.new(params[:price])
-
-    respond_to do |format|
-      if @price.save
-        format.html { redirect_to @price, notice: 'Price was successfully created.' }
-        format.json { render json: @price, status: :created, location: @price }
-      else
-        format.html { render action: "new" }
-        format.json { render json: @price.errors, status: :unprocessable_entity }
-      end
-    end
+    price = Price.where(product_id: params[:price][:product_id], date: Date.today).first
+    price.destroy if price
+    Price.create(params[:price].merge date: Date.today)
   end
 
   # PUT /prices/1

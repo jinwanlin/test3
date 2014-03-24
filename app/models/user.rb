@@ -63,4 +63,8 @@ class User < ActiveRecord::Base
   def set_default
     self.level = 2
   end
+  
+  def update_predict
+    Predict.update_user self
+  end
 end

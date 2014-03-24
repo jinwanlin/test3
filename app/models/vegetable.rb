@@ -8,7 +8,7 @@ class Vegetable < Product
     Product.model_name
   end
 
-  def self.classify_index key
+  def classify_index key
     i = 0
     CLASSIFY.to_a.each_with_index do |classify, index|
       if classify[0] == key

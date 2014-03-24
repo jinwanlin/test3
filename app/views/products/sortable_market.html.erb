@@ -55,7 +55,7 @@
 							<li class="ui-state-default" classify="<%= product.classify %>" product_id="<%= product.id %>">
 								<%#= product.market_sort.to_s.rjust(2, '0') %>
 								<%= product.product_name %>
-								<span style="color:red;"><%= "#{product.order_total}#{product.unit}" if product.order_total %></span>
+								<span style="color:red;"><%= "#{product.order_total}#{product.unit}" if product.order_total > 0 %></span>
 							</li>
 						<% end %>
 					</ul>

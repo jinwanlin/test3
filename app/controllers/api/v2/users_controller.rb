@@ -19,7 +19,7 @@ module Api
           @user.state = "unaudited"
           @user.save
           
-          Predict.a @user
+          Predict.update_user @user
         end
       end
       

@@ -18,6 +18,10 @@ require 'rufus-scheduler'
 
 scheduler = Rufus::Scheduler.new
 
+
+
+
+
 scheduler.every '30s' do
   # p "Predict.b"
   # Predict.b
@@ -25,17 +29,22 @@ end
 
 
 
-#每日8点 生成新预测价
+#每日8点 
 scheduler.in '8h' do
-  # do something every 8 hours
+  # 更新所有商品明日预测价
+  Product.all.each do |product|
+    product.update_attributes cost: (product.prices.last.forecast_cost * 100).round/100.0
+  end
 end
 
 
 
-#每日4点 用户生成可能订购量 
+#每日4点 
 scheduler.in '2h' do
-  Predict.b
-  # do something every 8 hours
+  #更新用户订购预测
+  User.all.each do |user|
+    user.update_user user
+  end
 end
 
 # scheduler.join

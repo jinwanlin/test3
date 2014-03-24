@@ -79,4 +79,12 @@ $(function () {
 <% @product.attachments.each do |attachment| %>
 	<%= image_tag attachment.source.url %>
 <% end %>
-  
+
+
+<%= simple_form_for Price.new(product: @product), remote: true, html: {class: 'form-horizontal'} do |f| %>
+	<%= f.hidden_field :product_id %>
+	<%= f.input :actual_cost, label: '今日价格' %>
+	<div class="form-actions">
+    <%= f.submit '保存', class: 'btn btn-primary' %>
+	</div>
+<% end %>

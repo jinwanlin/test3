@@ -14,7 +14,7 @@ module Api
           
           @predicts = find_predicts(@user, date)
           if @predicts.empty?
-            Predict.a @user
+            Predict.update_user @user
             @predicts = find_predicts(@user, date)
           end
           

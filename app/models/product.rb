@@ -161,12 +161,7 @@ class Product < ActiveRecord::Base
   end
 
   
-  # 设置成本价
-  def self.set_cost
-    Product.all.each do |product|
-      product.update_attributes cost: (product.prices.last.forecast_cost * 100).round/100.0
-    end
-  end
+
 
   
   def state_
@@ -187,7 +182,7 @@ class Product < ActiveRecord::Base
       # type_id = PRODUCT_TYPES.index type
       type_id = ""
       sn = "#{type_id}#{type.constantize.classify_index classify}#{no.to_s.rjust(2, '0')}"
-      p sn
+      # p sn
       sn
     end
     
@@ -206,8 +201,10 @@ class Product < ActiveRecord::Base
   end
   
   
+
+
   # 统计未分拣货物
-  def self.order_total
+  def self.do_order_total
     Product.all.each do |product|
       product.reset_order_detail_and_order_spid
       
@@ -218,15 +215,16 @@ class Product < ActiveRecord::Base
           product.update_order_spid(item.order_amount)
           product.update_order_detail(item.order_amount)
         end
-        product.order_total = product.order_detail.values.inject{|sum,x| sum + x }
-        product.save
       end
+      
+      product.order_total = product.order_detail.values.inject{|sum,x| sum + x }
+      product.save
     end
   end
   
   # 重置两个字段
   def reset_order_detail_and_order_spid
-    self.order_detail = Hash.new if self.order_detail == nil
+    self.order_detail = Hash.new
     self.order_detail[1] = 0
     self.order_detail[2] = 0
     self.order_detail[3] = 0
@@ -240,7 +238,7 @@ class Product < ActiveRecord::Base
     self.order_detail[20] = 0
     self.order_detail[25] = 0
 
-    self.order_spid = Hash.new if self.order_spid == nil
+    self.order_spid = Hash.new
     self.order_spid[1] = 0
     self.order_spid[2] = 0
     self.order_spid[5] = 0
