@@ -103,7 +103,7 @@ ActiveRecord::Schema.define(:version => 20140316031142) do
     t.datetime "created_at",                  :null => false
     t.datetime "updated_at",                  :null => false
     t.integer  "no"
-    t.integer  "classify"
+    t.string  "classify"
     t.string   "market_area"
     t.integer  "market_sort"
     t.string   "unit"
