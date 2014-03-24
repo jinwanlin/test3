@@ -27,7 +27,7 @@ module Api
       def get_sign_up_validate_code
         unless @user
           @validate_code = rand(1000..9999)
-          # SMS.send(params[:user][:phone], "注册校验码：#{@validate_code}")
+          SMS.send(params[:user][:phone], "注册校验码：#{@validate_code}")
         end
       end
       
