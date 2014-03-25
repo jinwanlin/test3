@@ -9,22 +9,23 @@ body{
 }
 .connectedSortable {
 	list-style-type: none;
+	width:130px;
 	margin:0; 
 	padding:0; 
 	height:100%; 
 	margin: 0 5px 0 5px; 
-	min-width:130px; 
 	outline:1px solid;
+	padding: 5px; 
 }
 .ui-state-default{
 	background-color:#fff;
+	display:block;
+	overflow:hidden;
 }
 .connectedSortable li{
 	margin: 0; 
 	border-width: 0 0 1px 0;
-	padding: 5px; 
 	font-size: 14px; 
-	width:137px;
 	cursor:move; 
 	font-size:20px;
 	line-height:24px;
@@ -49,6 +50,6 @@ body{
 	font-size:16px;
 }
 #head td div{
-	width:157px;
+	width:150px;
 	font-size:14px;
 }

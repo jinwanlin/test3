@@ -56,7 +56,7 @@ class User < ActiveRecord::Base
   end
   
   def update_predict
-    Predict.update_user self
+    Predict.update_user self 
   end
   
   private

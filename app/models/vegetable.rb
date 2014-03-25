@@ -2,7 +2,13 @@
 class Vegetable < Product
   
   # CLASSIFY = ["叶菜类", "根茎类", "瓜果类", "豆荚类", "葱姜蒜", "菌类", "水生菜类"]
-  CLASSIFY = {"leaf" => "叶菜类", "rhizome" => "根茎类", "melon_and_fruit" => "瓜果类", "beans" => "豆荚类", "ginger_garlic" => "葱姜蒜", "mushroom" => "菌类", "water_lettuce" => "水生菜类"}
+  CLASSIFY = {"leaf" => "叶菜类", 
+              "rhizome" => "根茎类", 
+              "melon_and_fruit" => "瓜果类", 
+              "beans" => "豆荚类", 
+              "ginger_garlic" => "葱姜蒜", 
+              "mushroom" => "菌类", 
+              "water_lettuce" => "水生菜类"}
   
   def self.model_name
     Product.model_name

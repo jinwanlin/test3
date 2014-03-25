@@ -11,7 +11,7 @@
 	
 	
 	$(function() {
-			<% keys = params[:type].constantize::CLASSIFY.keys.push('nil') %>
+			<% p keys = params[:type].constantize::CLASSIFY.keys.push('nil') %>
 			keys = <%= sanitize params[:type].constantize::CLASSIFY.keys.push('nil').to_s %>
 			
 			$('<%= sanitize "#"+keys.join(",#") %>').sortable({
@@ -47,6 +47,7 @@
 			<td colspan="6"><div>称重打码用</div></td>
 		</tr>
 		<tr id="head">
+			<%= p Vegetable::CLASSIFY %>
 			<% Vegetable::CLASSIFY.each do |key, val| %>
 				<td>
 					<div style="text-align:center;">
@@ -60,8 +61,8 @@
 		<tr>
 			<% Vegetable::CLASSIFY.each do |key, val| %>
 			<% p key %>
+				<%  @height = @products.where(classify: 'leaf').size*25 %>
 				<% list = @products.where(classify: key).order(:no) %>
-				<%  @height = list.size*31 if key=="leaf" %>
 				<td valign="top" style="height:<%= @height %>px;">
 					<ul id="<%= key %>" class="connectedSortable">
 						<% list.each do |product| %>

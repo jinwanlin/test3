@@ -22,6 +22,7 @@ class OrderItemsController < ApplicationController
     # order
     @order = current_user.orders.last
     if @order && (@order.pending? || @order.open?)
+      @order.continue_buy if @order.confirmed?      
     else
       @order = current_user.orders.create
     end

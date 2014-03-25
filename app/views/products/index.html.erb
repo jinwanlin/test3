@@ -6,7 +6,6 @@
 
 <table width="100%" class="table">
 	<% classifies = Vegetable::CLASSIFY %>
-	<% classifies[nil]="未分类" %>
 	<% classifies.each do |key, val| %>
 		<tr>
 			<td colspan="4" style="padding-top:30px;"><%= val %></td>
