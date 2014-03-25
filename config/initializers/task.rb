@@ -43,7 +43,7 @@ end
 scheduler.in '2h' do
   #更新用户订购预测
   User.all.each do |user|
-    user.update_predict user
+    user.update_predict
   end
 end
 

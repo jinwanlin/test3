@@ -19,7 +19,7 @@ if @user
     json.sn                   predict.product.sn #商品编号
     json.name                 predict.product.product_name
 
-    avatar = "/system/product/thumb/no_picture.png"
+    avatar = "/product/thumb/no_picture.png"
     avatar = predict.product.attachments.first.source.url(:thumb) unless predict.product.attachments.empty?
     json.avatar               avatar
 
