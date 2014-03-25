@@ -17,6 +17,8 @@ class CreateProducts < ActiveRecord::Migration
       t.integer :order_total
       t.text :order_detail
       t.text :order_spid
+      t.string :market_area
+      t.integer :market_sort
 
       t.timestamps
     end
