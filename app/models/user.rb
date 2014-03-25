@@ -55,6 +55,10 @@ class User < ActiveRecord::Base
     payment.nil? ? 0 : payment.overage
   end
   
+  def update_predict
+    Predict.update_user self
+  end
+  
   private
   def generate_token
     Digest::MD5::hexdigest(id.to_s + password)
@@ -64,7 +68,5 @@ class User < ActiveRecord::Base
     self.level = 2
   end
   
-  def update_predict
-    Predict.update_user self
-  end
+
 end

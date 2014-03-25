@@ -8,6 +8,8 @@ class CreateProducts < ActiveRecord::Migration
       t.string :type #分类
       t.string :classify #归类
       t.integer :no #归类里的序号
+      t.string :market_area
+      t.integer :market_sort
       t.string :amounts #可选重量
       t.string :unit # 计价单位：斤
       t.string :state #状态：上架、下架、归档  ActiveRecord::Migration.add_column :products, :state, :string, default: 'down'
@@ -17,8 +19,6 @@ class CreateProducts < ActiveRecord::Migration
       t.integer :order_total
       t.text :order_detail
       t.text :order_spid
-      t.string :market_area
-      t.integer :market_sort
 
       t.timestamps
     end
