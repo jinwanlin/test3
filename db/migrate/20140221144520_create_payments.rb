@@ -13,7 +13,6 @@ class CreatePayments < ActiveRecord::Migration
     end
     add_index :payments, :payer_id
     add_index :payments, :operator_id
-    add_index :payments, :order_id
   end
 end
 

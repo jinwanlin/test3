@@ -64,8 +64,21 @@ ActiveRecord::Schema.define(:version => 20140316031142) do
   add_index "orders", ["sn"], :name => "index_orders_on_sn"
   add_index "orders", ["user_id"], :name => "index_orders_on_user_id"
 
-# Could not dump table "payments" because of following StandardError
-#   Unknown type 'summary' for column 'text'
+  create_table "payments", :force => true do |t|
+    t.integer  "payer_id"
+    t.integer  "operator_id"
+    t.float    "amount"
+    t.float    "overage"
+    t.text     "desc"
+    t.integer  "order_id"
+    t.string   "type"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "payments", ["operator_id"], :name => "index_payments_on_operator_id"
+  add_index "payments", ["order_id"], :name => "index_payments_on_order_id"
+  add_index "payments", ["payer_id"], :name => "index_payments_on_payer_id"
 
   create_table "predicts", :force => true do |t|
     t.date     "date"
