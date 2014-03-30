@@ -26,8 +26,8 @@ module Api
       # 验证校验码
       def get_sign_up_validate_code
         unless @user
-          @validate_code = rand(1000..9999)
-          SMS.send(params[:user][:phone], "注册校验码：#{@validate_code}")
+          @validate_code = params[:validate_code] || rand(1000..9999)
+          SMS.send(params[:user][:phone], "#{@validate_code}（微菜验证码）为了保护您的账号安全，验证码短信请勿转发给其他人")
         end
       end
       
@@ -35,7 +35,9 @@ module Api
       # 验证校验码
       def send_validate_code
         if @user
-          @validate_code = rand(1000..9999)
+          @validate_code = params[:validate_code] || rand(1000..9999)
+          SMS.send(params[:user][:phone], "#{@validate_code}（微菜验证码）为了保护您的账号安全，验证码短信请勿转发给其他人")
+          # @validate_code = rand(1000..9999)
           # SMS.send(params[:user][:phone], "注册校验码：#{@validate_code}")
         end
       end

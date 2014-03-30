@@ -47,13 +47,14 @@
 		</tr>
 		<tr>
 			<% Product::MARKET_AREA.each do |key, val| %>
-				<% list = @products.where(market_area: key).order(:market_sort) %>
-				<%  @height = list.size*45 if key=="xiaocai" %>
+				<%  @height = @products.where(market_area: "xiaocai").size*25 %>
+				<% list = @products.where(market_area: key).order(:pinyin) %>
 				<td valign="top" style="height:<%= @height %>px;">
 					<ul id="<%= key %>" class="connectedSortable">
 						<% list.each do |product| %>
 							<li class="ui-state-default" classify="<%= product.classify %>" product_id="<%= product.id %>">
 								<%#= product.market_sort.to_s.rjust(2, '0') %>
+								<span style="width:10px; display:inline-block;"><%= product.pinyin.at(0) %></span>
 								<%= product.product_name %>
 								<span style="color:red;"><%= "#{product.order_total}#{product.unit}" if product.order_total > 0 %></span>
 							</li>

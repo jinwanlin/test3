@@ -19,6 +19,7 @@ class CreateProducts < ActiveRecord::Migration
       t.integer :order_total
       t.text :order_detail
       t.text :order_spid
+      t.string :pinyin
 
       t.timestamps
     end

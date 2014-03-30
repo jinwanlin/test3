@@ -51,7 +51,7 @@ module Api
       end
 
       def cancel
-        @order.cancel
+        @order.cancel if @order.pending? || @order.confirmed?
         redirect_to api_v2_order_path(@order)
       end
    

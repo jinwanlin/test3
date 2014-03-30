@@ -4,12 +4,18 @@ class Product < ActiveRecord::Base
   store :order_spid, coder: JSON
   
   serialize :amounts, Array
-  attr_accessible :des, :name, :series, :cost, :sn, :aliases, :amounts, :classify, :no, :type, :state, :unit, :market_sort, :market_area, :order_total, :order_detail, :order_spid, :market_area, :market_sort
+  attr_accessible :des, :name, :series, :cost, :sn, :aliases, :amounts, :classify, :no, :type, :state, :unit, :market_sort, :market_area, :order_total, :order_detail, :order_spid, :market_area, :market_sort, :pinyin
   
   PRODUCT_TYPES = ['', 'Vegetable', 'Fruit', 'Meat', 'Fish', 'Agri']
   UNIT= '斤'
   AMOUNTS = [0, 1, 2, 3, 4, 5, 6, 7, 10, 12, 15, 20, 25, 30]
-  MARKET_AREA = {"xiaocai"=>"小菜豆芽区", "nangua"=>"南瓜西芹区", "yangcong"=>"洋葱山药区", "tudou"=>"土豆大葱区", "huanggua"=>"黄瓜番茄区", "jiangsuan"=>"姜蒜区", "hongsu"=>"萝卜红薯区"}
+  MARKET_AREA = {"xiaocai"=>"小菜豆芽区", 
+                 "nangua"=>"南瓜西芹区", 
+                 "yangcong"=>"洋葱山药区", 
+                 "tudou"=>"土豆大葱区", 
+                 "huanggua"=>"黄瓜番茄区", 
+                 "jiangsuan"=>"姜蒜区", 
+                 "hongsu"=>"萝卜红薯区"}
   
   has_many :prices, :order => 'date'
   has_many :attachments, :as => :owner, :dependent => :destroy
@@ -20,6 +26,8 @@ class Product < ActiveRecord::Base
   # before_update :generate_product_sn
   
   validate :validate_name_aliases
+  
+  before_update :update_pinyin
   
 
   
@@ -305,4 +313,9 @@ class Product < ActiveRecord::Base
     end
   end
   
+  def update_pinyin
+      self.pinyin = Pinyin.t(self.product_name)
+  end
+  
 end
+

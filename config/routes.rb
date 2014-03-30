@@ -5,7 +5,6 @@ Test5::Application.routes.draw do
 
   match '/apk', :to => redirect('/weicai.apk')
   
-  
   resources :ships
   resources :bills
 
@@ -84,6 +83,12 @@ Test5::Application.routes.draw do
     
 
   namespace :api, defaults: {format: 'json'} do
+    resources :versions do
+      collection do
+        get 'last_version'
+      end
+    end
+    
     namespace :v1 do
       resources :products do
         collection do

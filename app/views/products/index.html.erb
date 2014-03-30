@@ -11,7 +11,7 @@
 			<td colspan="4" style="padding-top:30px;"><%= val %></td>
 		<% list = @products.where(classify: key).order(:no) %>
 		<% list.each do |product| %>
-		  <tr id="product_<%= product.id %>" class="<%= 'info' if product.down? %>  <%= 'product_is_bye' if (order_amount = order_amount(@order, product)) > 0 %>">
+		  <tr id="product_<%= product.id %>" class="<%= 'info' if product.down? %>  <%#= 'product_is_bye' if (order_amount = order_amount(@order, product)) > 0 %>">
 		    <td><%= product.no.to_s.rjust(2, '0') %> <a href="/products/<%= product.id %>"><%= product.product_name %></a></td>
 				<td><%= price_format(product.sales_price(current_user.level)) if current_user %><span class="unit">￥/斤</span></td>
 				<td>

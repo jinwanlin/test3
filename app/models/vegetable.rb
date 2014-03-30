@@ -6,7 +6,7 @@ class Vegetable < Product
               "rhizome" => "根茎类", 
               "melon_and_fruit" => "瓜果类", 
               "beans" => "豆荚类", 
-              "ginger_garlic" => "葱姜蒜", 
+              "ginger_garlic" => "辣椒葱姜蒜", 
               "mushroom" => "菌类", 
               "water_lettuce" => "水生菜类"}
   

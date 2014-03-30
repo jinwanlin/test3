@@ -16,7 +16,7 @@ class RegistrationsController < ApplicationController
     
     if !@user.nil? && Settings.has_validate_code
         @user.validate_code = rand(1000..9999) 
-        SMS.send(@user.phone, "注册校验码：#{@user.validate_code}")
+        SMS.send(@user.phone, "#{@user.validate_code}（微菜验证码）为了保护您的账号安全，验证码短信请勿转发给其他人")
         @user.save
     end
 
