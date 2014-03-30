@@ -1,7 +1,7 @@
 if user
   json.user do
     json.id user.id
-    json.name user.name
+    json.name user.name ? user.name : ""
     json.phone user.phone
     json.token user.token
     json.address user.address

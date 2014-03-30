@@ -29,7 +29,7 @@ if @user
     json.average_amount       predict.average_amount #平均每次订购量
     json.order_times          predict.order_times #最近7天订购次数
     json.order_amount         predict.order_amount #今日订单实际订购量
-    json.unit "斤"
+    json.unit                 predict.product.unit
   end
 else
   json.state false
