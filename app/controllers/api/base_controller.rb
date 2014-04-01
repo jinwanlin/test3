@@ -1,5 +1,9 @@
 class Api::BaseController < ActionController::Base
   
+  def password_md5(user_id, password)
+    Digest::MD5::hexdigest(password + user_id.to_s + "food") if password && user_id
+  end
+  
   # respond_to :json
   # before_filter :authenticate
   # doorkeeper_for :all, :if => lambda { !basic_auth?(request) }
