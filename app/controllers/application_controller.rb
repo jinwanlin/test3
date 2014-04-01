@@ -10,6 +10,10 @@ class ApplicationController < ActionController::Base
     redirect_to new_session_path, :alert => exception.message
   end
   
+  def password_md5(user_id, password)
+    Digest::MD5::hexdigest(password + user_id.to_s + "food") if password && user_id
+  end
+  
   def current_user
     unless @current_user
       token = cookies[:token] ? cookies[:token] : params[:token]
