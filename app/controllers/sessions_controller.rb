@@ -1,5 +1,7 @@
 # encoding: utf-8
 class SessionsController < ApplicationController
+  skip_before_filter :authenticate_user, only: [:new, :create]
+  
   # 登录
   def new
     

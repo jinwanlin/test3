@@ -1,5 +1,5 @@
 class ShipsController < ApplicationController
-
+  load_and_authorize_resource class: 'Ship'
 
   def create
     ship_sn = params[:ship][:sn]

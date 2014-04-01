@@ -1,4 +1,4 @@
-class Api::BaseController < ApplicationController
+class Api::BaseController < ActionController::Base
   
   # respond_to :json
   # before_filter :authenticate

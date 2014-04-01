@@ -1,6 +1,7 @@
 # encoding: utf-8
 class RegistrationsController < ApplicationController
   before_filter :find_user, only: [:validate_code, :validate, :new_password, :password]
+  skip_before_filter :authenticate_user, only: [:sign_up, :create, :validate_code, :validate, :password_new, :password]
   
   # 初始化注册
   def sign_up

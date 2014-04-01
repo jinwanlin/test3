@@ -22,6 +22,7 @@ gem "cancan"
 gem 'rufus-scheduler'
 gem 'httparty'#, :git => 'git@192.30.252.129:jnunemaker/httparty.git'
 gem 'chinese_pinyin'
+gem 'assignable_values'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'

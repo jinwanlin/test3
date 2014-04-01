@@ -1,4 +1,6 @@
 class BillsController < ApplicationController
+  load_and_authorize_resource class: 'Bill'
+  
   # GET /bills
   # GET /bills.json
   def index

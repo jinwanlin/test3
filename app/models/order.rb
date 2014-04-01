@@ -10,8 +10,7 @@ class Order < ActiveRecord::Base
   after_destroy :destroy_order
   
   
-  
-  # [pending] --submit--> [confirmed] --:print_order--> [shiping] --:print_ship--> [baled打包完毕] --:sign--> [signed已签收] ----> done /open/ship/done
+   STATES = {"pending" => '待提交', "confirmed" => '待打印订单', "shiping" => '待打印出库单', "baled" => '待装车', "truck" => '配送中', "signed" => "已送达", "done" => '交易成功', "canceled" => '已取消'}
   # pending/confirmed/shiping/baled/truck/signed/done/canceled
   state_machine initial: :pending do
     
@@ -95,7 +94,7 @@ class Order < ActiveRecord::Base
 
   # 利润
   def profit
-    sum_ = self.baled? ? ship_sum : order_sum
+    sum_ = self.shiping? ? ship_sum : order_sum
     sum_ - cost
   end
   
@@ -119,7 +118,7 @@ class Order < ActiveRecord::Base
   end  
   
   def do_done
-    Pay.create order: self, payer: user, operator: nil, amount: -1*ship_sum, summary: "订单号：#{self.id}"
+    Pay.create order: self, payer: user, operator: nil, amount: -1*ship_sum
   end
   
   def do_print_order

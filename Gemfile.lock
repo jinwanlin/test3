@@ -30,6 +30,8 @@ GEM
       multi_json (~> 1.0)
     addressable (2.3.5)
     arel (3.0.3)
+    assignable_values (0.8.1)
+      activerecord
     atomic (1.1.14)
     bcrypt-ruby (3.1.2)
     bootstrap-will_paginate (0.0.10)
@@ -192,6 +194,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  assignable_values
   bootstrap-will_paginate
   cancan
   capistrano (~> 2.15.4)

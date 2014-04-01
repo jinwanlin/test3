@@ -1,16 +1,24 @@
+<%= link_to @order.user.name, @order.user %>
+<%= @order.created_at.strftime('%Y-%m-%d').to_s %>
+<%= @order.sn %>
+
 <div class="row">
 	<div class="span8">
 		<%#= barcode 'ANUJ', :height => 100, :width => 400, :margin => 100, :xoff => 20, :yoff => 40 %> 
-		
+		<%= link_to '打印', 			print_order_path(@order), target: "_blank", class: 'btn btn-success'  %>
+		<%= link_to '取消', 			cancel_order_path(@order), class: 'btn btn-success' unless @order.done? %>
 		<table class="table">
 		  <tr>
 		    <th>商品编号</th>
 		    <th>商品</th>
 				<th>单价</th>
 		    <th>订购量</th>
-		    <th>订单金额</th>
 				<% unless @order.pending? || @order.confirmed? %>
 		    	<th>出货量</th>
+					<th></th>
+				<% end %>
+		    <th>订单金额</th>
+				<% unless @order.pending? || @order.confirmed? %>
 					<th>交易金额</th>
 				<% end %>
 				<th></th>
@@ -41,7 +49,6 @@
 			<%= link_to '装车', 			loading_order_path(@order), class: 'btn btn-success' if @order.baled? %>
 			<%= link_to '签收', 			sign_order_path(@order), class: 'btn btn-success' if @order.truck? %>
 			<%= link_to '完工', 			done_order_path(@order), class: 'btn btn-success' if @order.signed? %>
-			<%= link_to '取消', 			cancel_order_path(@order), class: 'btn btn-success' unless @order.done? %>
 		</p>
 	</div>
 	<div class="span4 ships_div" id="ships_div">

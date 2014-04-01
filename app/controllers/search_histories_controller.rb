@@ -1,4 +1,6 @@
 class SearchHistoriesController < ApplicationController
+  load_and_authorize_resource class: 'SearchHistory'
+  
   # GET /search_histories
   # GET /search_histories.json
   def index

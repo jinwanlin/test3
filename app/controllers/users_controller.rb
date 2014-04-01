@@ -1,6 +1,7 @@
 # encoding: utf-8
 class UsersController < ApplicationController
-  before_filter :login_filter
+  load_and_authorize_resource class: 'User'
+  
   before_filter :find_user, only: [:update, :show, :edit, :destroy, :active, :frost, :recharge]
   
   def index
@@ -51,7 +52,7 @@ class UsersController < ApplicationController
   
   # 充值
   def recharge
-    payment = Recharge.create(params[:recharge].merge operator: current_user, payer: @user, amount: params[:recharge][:amount], summary: "充值#{params[:recharge][:amount]}")
+    payment = Recharge.create(params[:recharge].merge operator: current_user, payer: @user, amount: params[:recharge][:amount])
     redirect_to user_path(@user)
   end
   

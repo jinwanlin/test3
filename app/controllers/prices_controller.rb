@@ -1,5 +1,7 @@
 # encoding: utf-8
 class PricesController < ApplicationController
+  load_and_authorize_resource class: 'Price'
+  
   # GET /prices
   # GET /prices.json
   def index

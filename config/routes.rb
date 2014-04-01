@@ -2,8 +2,8 @@ Test5::Application.routes.draw do
 
   resources :search_histories
 
-
-  match '/apk', :to => redirect('/weicai.apk')
+  match '/apk', :to => redirect('/weicai_1.0.apk')
+  match '/weicai.apk', :to => redirect('/weicai_1.0.apk')
   
   resources :ships
   resources :bills
@@ -14,10 +14,12 @@ Test5::Application.routes.draw do
 
 
   resources :orders do
+    collection do
+      get 'print_order'
+    end
     member do
       get 'submit'
       get 'continue_buy'
-      get 'print_order'
       get 'print_ship'
       get 'loading'
       get 'sign'

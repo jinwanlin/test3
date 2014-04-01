@@ -1,5 +1,7 @@
 class OrdersController < ApplicationController
-  before_filter :find_order, only: [:print, :show ,:edit, :update, :destroy, :submit,  :continue_buy,  :print_order,  :print_ship,  :loading,  :sign,  :done,  :cancel]
+  load_and_authorize_resource class: 'Order'
+  
+  before_filter :find_order, only: [:show ,:edit, :update, :destroy, :submit,  :continue_buy,  :print_ship,  :loading,  :sign,  :done,  :cancel]
   
   
   def index
@@ -9,10 +11,6 @@ class OrdersController < ApplicationController
   def show
   end
 
-  def print
-    render layout: "print"
-  end
-  
   def new
     @order = Order.new
   end
@@ -33,10 +31,8 @@ class OrdersController < ApplicationController
     @order.destroy
     redirect_to orders_path
   end
-  
 
-  
-  
+
   
   def submit
     @order.submit
@@ -44,13 +40,19 @@ class OrdersController < ApplicationController
   end
   
   def continue_buy
-    @order.continue_buy
+    @order.continue_buy  if order.confirmed?
     redirect_to @order
   end
   
   def print_order
-    @order.print_order
-    redirect_to @order
+    # @order.print_order
+    # redirect_to @order
+    p params[:sn]
+    @orders = Order.where("id IN (?)", params[:sn])
+    @orders.each do |order|
+      order.print_order if order.confirmed?
+    end
+    render layout: "print"
   end
   
   def print_ship

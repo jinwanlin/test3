@@ -23,9 +23,9 @@ class Payment < ActiveRecord::Base
 
   def desc
     case self.type
-      when "Pay" then "订单号：#{order.sn}"
+      when "Pay" then "订单号：#{order.try :sn}"
       when "Recharge" then "收款人：#{operator.name}"
-      when "Refund" then "订单号：#{order.sn}"
+      when "Refund" then "订单号：#{order.try :sn}"
     end
   end
   

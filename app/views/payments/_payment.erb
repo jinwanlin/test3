@@ -13,7 +13,7 @@
 			<td><%= link_to payment.operator.name, payment.operator if payment.operator %></td>
 			<td><%= payment.amount %></td>
 			<td><%= payment.overage %></td>
-			<td><%= link_to payment.order.sn, payment.order if payment.order %></td>
+			<td><%= link_to payment.order.try(:sn), payment.order if payment.order %></td>
 			<td><%= payment.desc %></td>
 		</tr>
 	<% end %>

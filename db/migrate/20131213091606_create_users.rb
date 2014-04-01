@@ -10,7 +10,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string :street # 街道
       t.string :house # 小区、门牌号
       t.float :latitude # 纬度
-      t.string :longitude # 经度
+      t.float :longitude # 经度
       t.string :state
       t.string :validate_code # 校验码
       t.string :token
@@ -23,4 +23,3 @@ class CreateUsers < ActiveRecord::Migration
     end
   end
 end
-

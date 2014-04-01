@@ -67,7 +67,7 @@
 						<% list.each do |product| %>
 							<li class="ui-state-default" classify="<%= product.classify %>" product_id="<%= product.id %>">
 								<div class="pull-left">
-									<%= Vegetable.classify_index key %><%= product.no.to_s.rjust(2, '0') %>
+									<%= product.sn %>
 									<%= product.product_name %>
 								</div>
 								<% product.order_spid.each do |key, value| %>

@@ -4,7 +4,7 @@ class CreateOrderItems < ActiveRecord::Migration
       t.references :product
       t.references :order
       t.integer :order_amount
-      t.float :ship_amount
+      t.float :ship_amount, :null => false, :default => 0.0
       
       t.float :price, :null => false, :default => 0.0
       t.float :order_sum, :null => false, :default => 0.0

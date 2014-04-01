@@ -1,4 +1,6 @@
 class OrderItemsController < ApplicationController
+  load_and_authorize_resource class: 'OrderItem'
+  
   def index
     @order_items = OrderItem.all
 
