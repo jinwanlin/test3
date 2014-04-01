@@ -12,7 +12,12 @@
 		<% list = @products.where(classify: key).order(:no) %>
 		<% list.each do |product| %>
 		  <tr id="product_<%= product.id %>" class="<%= 'info' if product.down? %>  <%#= 'product_is_bye' if (order_amount = order_amount(@order, product)) > 0 %>">
-		    <td><%= product.sn %> <a href="/products/<%= product.id %>"><%= product.product_name %></a></td>
+		    <td>
+						<%= image_tag product.attachments.first.source.url(:thumb) unless product.attachments.empty? %>
+					<%= product.sn %> 
+					<a href="/products/<%= product.id %>"><%= product.product_name %></a>
+					<%= link_to '编辑', edit_product_path(product), target: '_blank' %>
+				</td>
 				<td><%= price_format(product.sales_price(current_user.level)) if current_user %><span class="unit">￥/斤</span></td>
 				<td>
 					<%= product.state_ %>
