@@ -11,6 +11,7 @@ class CreateProducts < ActiveRecord::Migration
       t.string :market_area
       t.integer :market_sort
       t.string :amounts #可选重量
+      t.integer :optional_amounts #可选重量
       t.string :unit # 计价单位：斤
       t.string :state #状态：上架、下架、归档  ActiveRecord::Migration.add_column :products, :state, :string, default: 'down'
       t.integer :series, :default => 1 # 分组，用于作涨价先后次序

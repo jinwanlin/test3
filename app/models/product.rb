@@ -4,11 +4,13 @@ class Product < ActiveRecord::Base
   store :order_spid, coder: JSON
   
   serialize :amounts, Array
-  attr_accessible :des, :name, :series, :cost, :sn, :aliases, :amounts, :classify, :no, :type, :state, :unit, :market_sort, :market_area, :order_total, :order_detail, :order_spid, :market_area, :market_sort, :pinyin
+  attr_accessible :des, :name, :series, :cost, :sn, :aliases, :amounts, :classify, :no, :type, :state, :unit, :market_sort, :market_area, :order_total, :order_detail, :order_spid, :market_area, :market_sort, :pinyin, :optional_amounts
   
   PRODUCT_TYPES = ['', 'Vegetable', 'Fruit', 'Meat', 'Fish', 'Agri']
   UNIT= '斤'
-  AMOUNTS = [0, 1, 2, 3, 4, 5, 6, 7, 10, 12, 15, 20, 25, 30]
+  AMOUNTS1 = [0, 1, 2, 3, 4, 5, 6, 7, 10, 12, 15, 20, 25, 30]
+  AMOUNTS2 = [0, 2, 5, 7, 10, 15, 20, 25, 30, 35, 40]
+  AMOUNTS3 = [0, 5, 10, 15, 20, 25, 30, 35, 40]
   MARKET_AREA = {"xiaocai"=>"小菜豆芽区", 
                  "nangua"=>"南瓜西芹区", 
                  "yangcong"=>"洋葱山药区", 
@@ -62,7 +64,16 @@ class Product < ActiveRecord::Base
   end
   
   def get_amounts
-    amounts.present? ? amounts : AMOUNTS
+    if amounts.present?
+      amounts
+    else
+      case optional_amounts
+        when 1 then AMOUNTS1
+        when 2 then AMOUNTS2
+        when 3 then AMOUNTS3
+        else AMOUNTS1
+      end
+    end
   end
   
   # # 最后最低价
