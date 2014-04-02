@@ -45,7 +45,9 @@ class PricesController < ApplicationController
   def create
     price = Price.where(product_id: params[:price][:product_id], date: Date.today).first
     price.destroy if price
-    Price.create(params[:price].merge date: Date.today)
+    
+    date = params[:date] || Date.today
+    Price.create(params[:price].merge date: date)
   end
 
   # PUT /prices/1
