@@ -7,7 +7,7 @@ class ProductsController < ApplicationController
   def index
     params[:type] ||= 'Vegetable'
     @page = params[:page] ||= 1
-    @products = Product
+    @products = Product.where("state in (?)", ['up', 'down'])
     @products = @products.where(type: params[:type]) if params[:type].present?
     @products = @products.order("state desc") #.paginate(:page => @page, :per_page => 5)
     @order = current_user.orders.where(state: ['pending', 'confirmed']).first if current_user

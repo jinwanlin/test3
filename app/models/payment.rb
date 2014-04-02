@@ -10,7 +10,7 @@ class Payment < ActiveRecord::Base
   before_save :update_overage
   
   def update_overage
-    self.overage = payer.overage + amount 
+    self.overage = formart(payer.overage + amount)
   end
   
   def type_
@@ -27,6 +27,10 @@ class Payment < ActiveRecord::Base
       when "Recharge" then "收款人：#{operator.name}"
       when "Refund" then "订单号：#{order.try :sn}"
     end
+  end
+  
+  def formart(money)
+    (money * 100).round / 100.0
   end
   
 end

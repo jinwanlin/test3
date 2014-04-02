@@ -53,11 +53,9 @@ $(function () {
             series: [{
                 name: '实际进价',
                 data: [
-								<% prices = @product.prices %>
+								<% prices = Price.where(product_id: @product).where("date > ?", (Date.today - 15.days)).order("date") %>
 								<% prices.each_with_index do |price, index| %>
-									<%# unless price == prices[-1] %>
-										<%= "," if index != 0 %>[Date.UTC(<%= "#{price.date.year}, #{price.date.month-1}, #{price.date.day}" %>), <%= price.actual_cost %>]
-									<%# end %>
+									<%= "," if index != 0 %>[Date.UTC(<%= "#{price.date.year}, #{price.date.month-1}, #{price.date.day}" %>), <%= price.actual_cost %>]
 								<% end %>
                     
                 ]
@@ -65,10 +63,8 @@ $(function () {
                 name: '预测进价',
                 data: [
 								<% prices.each_with_index do |price, index| %>
-									<% unless price == prices[0] %>
 										<% tomorrow = price.date + 1.days %>
-										<%= "," if index > 1 %>[Date.UTC(<%= "#{tomorrow.year}, #{tomorrow.month-1}, #{tomorrow.day}" %>), <%=  (price.forecast_cost * 100).round / 100.0 %>, <%= price.id %>]
-									<% end %>
+										<%= "," if index > 0 %>[Date.UTC(<%= "#{tomorrow.year}, #{tomorrow.month-1}, #{tomorrow.day}" %>), <%=  (price.forecast_cost * 100).round / 100.0 %>]
 								<% end %>
                 ]
             }]
