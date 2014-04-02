@@ -98,9 +98,14 @@ class ProductsController < ApplicationController
   end
   
   def search
-    products = Product.where(type: 'Vegetable')
+    products = Product.where(type: 'Vegetable', state: 'up')
     products = products.where("name LIKE ?", "%#{params[:query]}%")
-    render :json =>  products.pluck(:name).compact.to_s
+    names = Array.new
+    products.each do |product|
+      names << product.product_name
+    end
+    # products.pluck(:product_name).compact.to_s
+    render :json =>  names.to_s
   end
   
   def to_up

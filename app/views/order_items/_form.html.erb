@@ -12,7 +12,8 @@
 			<%= f.input :product, label: '<abbr title="required">*</abbr> 商品名称' do %>
 				<%= text_field_tag "product_name", "", class: 'required', id: 'product_search', autocomplete: 'off' %>
 			<% end %>
-			<%= f.input :order_amount, label: '数量', :collection => Product::AMOUNTS, input_html: {class: 'required'} %>
+			<%= f.input :order_amount, label: '数量', input_html: {class: 'required'} %>
+			<%#= f.input :order_amount, label: '数量', :collection => Product::AMOUNTS, input_html: {class: 'required'} %>
 		</div>
 	
 		<div class="modal-footer">
