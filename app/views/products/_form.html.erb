@@ -6,7 +6,7 @@
 	<%= f.input :aliases, label: '别名', input_html: {class: 'required'} %>
 	<%= f.input :series, label: '涨价次序', input_html: {class: 'required'} %>
 	<%= f.input :unit, label: '单位', input_html: {class: 'required'} %>
-	<%= f.input :optional_amounts, :collection => 1..3, :prompt => false %>
+	<%= f.input :optional_amounts, label: '可选重量', :collection => 1..3, :prompt => false %>
 	<%= f.input :amounts, label: '可选重量' do %>
 		<%= text_field_tag "amounts", "#{@product.amounts.join(', ') if @product.amounts}", input_html: {autocomplete: 'off'} %>
 	<% end %>

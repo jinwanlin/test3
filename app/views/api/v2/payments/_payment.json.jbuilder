@@ -7,7 +7,7 @@ if payment
   json.desc           payment.desc ? payment.desc : ""
   
   if payment.instance_of? Pay
-    summary = "订单号：#{payment.order.sn}"
+    summary = "订单号：#{payment.order.try(:sn)}"
   elsif payment.instance_of? Recharge
     summary = "收款人：#{payment.operator.name}"
   end
