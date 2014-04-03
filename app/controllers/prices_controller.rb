@@ -47,7 +47,7 @@ class PricesController < ApplicationController
     price.destroy if price
     
     date = params[:date] || Date.today
-    Price.create(params[:price].merge date: date)
+    Price.create(params[:price].merge date: date) if params[:price][:actual_cost].present?
   end
 
   # PUT /prices/1

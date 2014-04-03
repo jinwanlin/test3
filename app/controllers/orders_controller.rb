@@ -47,8 +47,7 @@ class OrdersController < ApplicationController
   def print_order
     # @order.print_order
     # redirect_to @order
-    p params[:sn]
-    @orders = Order.where("id IN (?)", params[:sn])
+    @orders = Order.where("id IN (?)", params[:order_id])
     @orders.each do |order|
       order.print_order if order.confirmed?
     end

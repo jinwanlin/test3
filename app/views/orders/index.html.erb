@@ -28,7 +28,7 @@
 <% @orders.each do |order| %>
   <tr>
     <td style="width:30px;">
-			<label class="checkbox" style="width: 45px;"><input type="checkbox" class="order_box" name="sn[]" value="<%= order.id %>" ></label>
+			<label class="checkbox" style="width: 45px;"><input type="checkbox" class="order_box" name="order_id[]" value="<%= order.id %>" ></label>
     </td>
 		<td><%= link_to order.sn, order %></td>
 		<td><%= link_to order.user.name, order.user %></td>

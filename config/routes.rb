@@ -64,6 +64,7 @@ Test5::Application.routes.draw do
       get 'sortable_market'
       post 'update_sn'
       post "update_market"
+      get 'print_dm'
     end
     member do
       get 'to_up'

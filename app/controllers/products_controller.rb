@@ -22,6 +22,11 @@ class ProductsController < ApplicationController
     params[:type] ||= 'Vegetable'
     @products = Product.where(type: params[:type]).where(state: 'up')
   end
+  
+  def print_dm
+    @products = Product.where(type: 'Vegetable').where(state: 'up')
+    render layout: "print"
+  end
 
   def show
   end

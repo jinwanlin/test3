@@ -5,7 +5,7 @@
 <div class="row">
 	<div class="span8">
 		<%#= barcode 'ANUJ', :height => 100, :width => 400, :margin => 100, :xoff => 20, :yoff => 40 %> 
-		<%= link_to '打印', 			print_order_path(@order), target: "_blank", class: 'btn btn-success'  %>
+		<%= link_to '打印', 			print_order_orders_path(:"order_id[]" => @order.id), target: "_blank", class: 'btn btn-success'  %>
 		<%= link_to '取消', 			cancel_order_path(@order), class: 'btn btn-success' unless @order.done? %>
 		<table class="table">
 		  <tr>

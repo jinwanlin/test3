@@ -5,7 +5,22 @@
 </div>
 
 <table width="100%" class="table">
-	
+	<tr>
+			<td></td>
+			<td>
+				<label class="checkbox pull-left" style="width:45px;">
+          <input type="checkbox"  id="before_yestorday">前天
+        </label>
+				<label class="checkbox pull-left" style="width:45px;" >
+          <input type="checkbox" id="yestorday">昨天
+        </label>
+				<label class="checkbox pull-left" style="width:45px;">
+          <input type="checkbox"  id="today">今天
+        </label>
+			</td>
+			<td></td>
+			<td></td>
+	</tr>
 	<% Product::MARKET_AREA.each do |key, val| %>
 		<tr>
 			<td colspan="4" style="padding-top:30px;"><%= val %></td>
@@ -24,11 +39,24 @@
 						<%= f.input :actual_cost, label: false, :input_html => { :class => 'input-small'}, :wrapper_html => { :class => 'pull-left'} %>
 					    <%= f.submit '保存', class: 'btn btn-primary pull-left' %>
 					<% end %> -->
-					
-					<form novalidate="novalidate" method="post" id="new_price" style="margin:0;" data-remote="true" class="simple_form form-horizontal pull-left" action="/prices" accept-charset="UTF-8">
-					    <input type="hidden" value="44" name="price[product_id]" id="price_product_id">
-					    <input type="number" step="any" name="price[actual_cost]" placeholder="价格" id="price_actual_cost" class="numeric float optional input-small pull-left">
-					    <input type="submit" value="保存" name="commit" class="btn btn-primary pull-left">
+					</td>
+					<td>
+
+					<form novalidate="novalidate" method="post" style="margin:0;" data-remote="true" class="before_yestorday simple_form form-horizontal pull-left hide" action="/prices" accept-charset="UTF-8">
+					    <input type="hidden" value="44" name="price[product_id]" >
+					    <input type="hidden" value="<%= Date.today - 2.days %>" name="price[date]" >
+					    <input type="number" name="price[actual_cost]" placeholder="前天" style="width:45px;" class="price_input numeric float optional pull-left" value="<%= Price.where(product_id: product, date: (Date.today - 2.days)).first.try(:actual_cost) %>" on>
+					</form>
+
+					<form novalidate="novalidate" method="post" style="margin:0;" data-remote="true" class="yestorday simple_form form-horizontal pull-left hide" action="/prices" accept-charset="UTF-8">
+					    <input type="hidden" value="44" name="price[product_id]" >
+					    <input type="hidden" value="<%= Date.today - 1.days %>" name="price[date]" >
+					    <input type="number" name="price[actual_cost]" placeholder="昨天" style="width:45px;" class="price_input numeric float optional pull-left" value="<%= Price.where(product_id: product, date: (Date.today - 1.days)).first.try(:actual_cost) %>" on>
+					</form>
+					<form novalidate="novalidate" method="post" style="margin:0;" data-remote="true" class="today simple_form form-horizontal pull-left hide" action="/prices" accept-charset="UTF-8">
+					    <input type="hidden" value="44" name="price[product_id]" >
+					    <input type="hidden" value="<%= Date.today %>" name="price[date]" >
+					    <input type="number" name="price[actual_cost]" placeholder="今天" style="width:45px;" class="price_input numeric float optional pull-left" value="<%= Price.where(product_id: product, date: Date.today).first.try(:actual_cost) %>" on>
 					</form>
 					
 					
@@ -54,3 +82,37 @@
 	<% end %>
 </table>
 <%#= will_paginate @products %>
+
+
+<script type="text/javascript">
+	$(function(){
+		
+		$("#before_yestorday").change(function(){
+			if ($("#before_yestorday").is(":checked")) { 
+				$(".before_yestorday").show();
+			}else{
+				$(".before_yestorday").hide();
+			}
+		});
+		
+		$("#yestorday").change(function(){
+			if ($(this).is(":checked")) { 
+				$(".yestorday").show();
+			}else{
+				$(".yestorday").hide();
+			}
+		});
+		
+		$("#today").change(function(){
+			if ($(this).is(":checked")) { 
+				$(".today").show();
+			}else{
+				$(".today").hide();
+			}
+		});
+		
+		
+	})
+	
+	
+</script>

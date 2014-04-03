@@ -19,3 +19,9 @@
 
 
 
+$(function(){
+	$(".price_input").blur(function(){
+		$(this).closest('form').submit();
+	})
+	
+})
