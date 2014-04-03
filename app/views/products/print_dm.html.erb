@@ -1,20 +1,19 @@
 <style>
 .out_div{
 	width:700px; 
-	height:1050px; 
+	height:1005px; 
 	border:1px solid #000; 
 	margin:0 auto; 
 	padding:20px; 
 	overflow:hidden; 
-	background: url('/assets/dm_bg3.png') no-repeat scroll 0 0 #FFFFFF;
+	background: url('/assets/dm_bg2.png') no-repeat scroll 0 0 #FFFFFF;
 }
 table tr td{
 	padding:5px;
 }
 
 .table_out{
-	margin-top: 234px;
-	margin-left: 22px;
+	margin: 231px auto 0;
 	background-color:white;
 	border-collapse: separate;
 	border-spacing: 10px 0;
@@ -29,13 +28,13 @@ table tr td{
 	color:white;
 }
 .border_bottom{
-	border-bottom: 1px solid #333 !important;
+	border-bottom: 1px solid #def0c8 !important;
 }
 .price{
 	color: #FEB977;
 }
-.table_classify{
-	border: 1px solid #91C66B;
+.table_classify td, .table_classify th{
+	border: 2px solid #dbebbc;
 }
 .table_classify th{
 	height:25px; 
@@ -49,7 +48,9 @@ table tr td{
 	font-size:16px; 
 	line-height:24px;
 }
-
+.table_in td{
+	border:0;
+}
 
 </style>
 
@@ -83,7 +84,7 @@ table tr td{
 									</td>
 							</tr>
 							
-							<% @products.where(classify: 'leaf').limit(18).each do |product| %>
+							<% @products.where(classify: 'leaf').limit(17).each do |product| %>
 							<tr class="border_bottom">
 									<td>
 										<%= product.product_name %>
@@ -107,7 +108,7 @@ table tr td{
 									</td>
 							</tr>
 							
-							<% @products.where(classify: 'rhizome').limit(18).each do |product| %>
+							<% @products.where(classify: 'rhizome').limit(17).each do |product| %>
 							<tr class="border_bottom">
 									<td>
 										<%= product.product_name %>
