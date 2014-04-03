@@ -111,7 +111,7 @@ class Product < ActiveRecord::Base
   end
   
   # 卖价，不同的人看到不同的卖价
-  def sales_price(level)
+  def sales_price(level=5)
     return nil if prices.empty?
     # return if !level.present? || !cost.present?
     # profit_1 = (level-1)/3
