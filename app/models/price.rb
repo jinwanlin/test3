@@ -18,6 +18,8 @@ class Price < ActiveRecord::Base
       end
       self.update_attributes(forecast_cost: formart(total/prices.size))
     end
+    
+    product.update_attributes cost: forecast_cost
   end
   
   def formart(money)

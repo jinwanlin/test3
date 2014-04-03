@@ -33,6 +33,7 @@ end
 scheduler.in '8h' do
   # 更新所有商品明日预测价
   Product.all.each do |product|
+    product.prices.last.set_tomorrow_forecast_cost
     product.update_attributes cost: (product.prices.last.forecast_cost * 100).round/100.0
   end
 end
