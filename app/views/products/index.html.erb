@@ -42,18 +42,19 @@
 					</td>
 					<td>
 
-					<form novalidate="novalidate" method="post" style="margin:0;" data-remote="true" class="before_yestorday simple_form form-horizontal pull-left hide" action="/prices" accept-charset="UTF-8">
+					<!-- <form novalidate="novalidate" method="post" style="margin:0;" data-remote="true" class="before_yestorday simple_form form-horizontal pull-left hide" action="/prices" accept-charset="UTF-8">
 					    <input type="hidden" value="<%= product.id %>" name="price[product_id]" >
 					    <input type="hidden" value="<%= Date.today - 2.days %>" name="price[date]" >
-					    <input type="number" name="price[actual_cost]" placeholder="前天" style="width:45px;" class="price_input numeric float optional pull-left" value="<%= Price.where(product_id: product, date: (Date.today - 2.days)).first.try(:actual_cost) %>" on>
+					    <input type="number" name="price[actual_cost]" placeholder="前天" style="width:45px;" class="price_input numeric float optional pull-left" value="<%#= Price.where(product_id: product, date: (Date.today - 2.days)).first.try(:actual_cost) %>" on>
 					</form>
 
 					<form novalidate="novalidate" method="post" style="margin:0;" data-remote="true" class="yestorday simple_form form-horizontal pull-left hide" action="/prices" accept-charset="UTF-8">
 					    <input type="hidden" value="<%= product.id %>" name="price[product_id]" >
 					    <input type="hidden" value="<%= Date.today - 1.days %>" name="price[date]" >
-					    <input type="number" name="price[actual_cost]" placeholder="昨天" style="width:45px;" class="price_input numeric float optional pull-left" value="<%= Price.where(product_id: product, date: (Date.today - 1.days)).first.try(:actual_cost) %>" on>
-					</form>
-					<form novalidate="novalidate" method="post" style="margin:0;" data-remote="true" class="today simple_form form-horizontal pull-left hide" action="/prices" accept-charset="UTF-8">
+					    <input type="number" name="price[actual_cost]" placeholder="昨天" style="width:45px;" class="price_input numeric float optional pull-left" value="<%#= Price.where(product_id: product, date: (Date.today - 1.days)).first.try(:actual_cost) %>" on>
+					</form> -->
+					
+					<form novalidate="novalidate" method="post" style="margin:0;" data-remote="true" class="today simple_form form-horizontal pull-left" action="/prices" accept-charset="UTF-8">
 					    <input type="hidden" value="<%= product.id %>" name="price[product_id]" >
 					    <input type="hidden" value="<%= Date.today %>" name="price[date]" >
 					    <input type="number" name="price[actual_cost]" placeholder="今天" style="width:45px;" class="price_input numeric float optional pull-left" value="<%= Price.where(product_id: product, date: Date.today).first.try(:actual_cost) %>" on>
