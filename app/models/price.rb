@@ -16,8 +16,6 @@ class Price < ActiveRecord::Base
       prices.each do |price|
         total = total + price.actual_cost
       end
-      p total/prices.size
-      p formart(total/prices.size)
       self.update_attributes(forecast_cost: formart(total/prices.size))
     end
   end

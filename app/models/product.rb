@@ -101,11 +101,13 @@ class Product < ActiveRecord::Base
   # end
   
   def previous
-    Product.find(id - 1) if self != Product.first
+    # Product.find(id - 1) if self != Product.first
+    Product.where("id < ?", id).where(state: 'up').order("id desc").first
   end 
   
   def next
-    Product.find(id + 1) if self != Product.last
+    # Product.find(id + 1) if self != Product.last
+    Product.where("id > ?", id).where(state: 'up').first
   end
   
   # 卖价，不同的人看到不同的卖价
