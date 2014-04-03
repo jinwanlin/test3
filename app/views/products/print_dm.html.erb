@@ -1,31 +1,149 @@
 <style>
+.out_div{
+	width:700px; 
+	height:1050px; 
+	border:1px solid #000; 
+	margin:0 auto; 
+	padding:20px; 
+	overflow:hidden; 
+	background: url('/assets/dm_bg3.png') no-repeat scroll 0 0 #FFFFFF;
+}
+table tr td{
+	padding:5px;
+}
+
+.table_out{
+	margin-top: 234px;
+	margin-left: 22px;
+	background-color:white;
+	border-collapse: separate;
+	border-spacing: 10px 0;
+}
+.table_in{
+	width:200px;
+}
+
+.p_name, .p_price{
+	background-color: #91C66B;
+	padding:2px 5px;
+	color:white;
+}
+.border_bottom{
+	border-bottom: 1px solid #333 !important;
+}
+.price{
+	color: #FEB977;
+}
+.table_classify{
+	border: 1px solid #91C66B;
+}
+.table_classify th{
+	height:25px; 
+	background-color:#91C66B;
+}
+.table_classify th img{
+	width:29px; margin-left:10px;
+}
+.table_classify th span{
+	color:white; 
+	font-size:16px; 
+	line-height:24px;
+}
+
+
 </style>
 
-<div style="width:700px; height:1050px; border:1px solid #000; margin:0 auto; padding:20px; overflow:hidden; background: url('/assets/dm_bg2.png') no-repeat scroll 0 0 #FFFFFF;">
+<div class="out_div">
 	
-	<table style="margin-top: 234px; margin-left: 22px;">
-			<tr>
-					<td>
-						
-						<table style="width:210px;">
-							<tr>
-									<th colspan=2 style="height:33px;" align="left">
-										<img src="/classify/leaf.png" style="width:29px; margin-left:10px;" />
-										叶菜类
-									</th>
-							</tr>
-							<tr>
+	<table class="table_out">
+			<tr class="table_classify">
+					<th align="left">
+						<img src="/classify/leaf.png" />
+						<span>叶菜类</span>
+					</th>
+					<th align="left">
+						<img src="/classify/rhizome.png" />
+						<span>根茎类</span>
+					</th>
+					<th align="left">
+						<img src="/classify/melon_and_fruit.png" />
+						<span>瓜果类</span>
+					</th>
+			</tr>
+			<tr class="table_classify">
+				
+					<td valign="top">
+						<table class="table_in" >
+							<tr class="border_bottom">
 									<td>
-										名称
+										<span class="p_name">名称</span>
 									</td>
-									<td>
-										价格
+									<td align="right">
+										<span class="p_price">价格</span>
 									</td>
 							</tr>
+							
+							<% @products.where(classify: 'leaf').limit(18).each do |product| %>
+							<tr class="border_bottom">
+									<td>
+										<%= product.product_name %>
+									</td>
+									<td align="right">
+										<div class="price"><%= product.sales_price(4) %> 元/<%= product.unit %></div>
+									</td>
+							</tr>
+							<% end %>
 						</table>
-						
-						
 					</td>
+				
+					<td valign="top">
+						<table class="table_in" >
+							<tr class="border_bottom">
+									<td>
+										<span class="p_name">名称</span>
+									</td>
+									<td align="right">
+										<span class="p_price">价格</span>
+									</td>
+							</tr>
+							
+							<% @products.where(classify: 'rhizome').limit(18).each do |product| %>
+							<tr class="border_bottom">
+									<td>
+										<%= product.product_name %>
+									</td>
+									<td align="right">
+										<div class="price"><%= product.sales_price(4) %> 元/<%= product.unit %></div>
+									</td>
+							</tr>
+							<% end %>
+						</table>
+					</td>
+				
+					<td valign="top">
+						<table class="table_in" >
+							<tr class="border_bottom">
+									<td>
+										<span class="p_name">名称</span>
+									</td>
+									<td align="right">
+										<span class="p_price">价格</span>
+									</td>
+							</tr>
+							
+							<% @products.where(classify: 'melon_and_fruit').limit(18).each do |product| %>
+							<tr class="border_bottom">
+									<td>
+										<%= product.product_name %>
+									</td>
+									<td align="right">
+										<div class="price"><%= product.sales_price(4) %> 元/<%= product.unit %></div>
+									</td>
+							</tr>
+							<% end %>
+						</table>
+					</td>
+					
 			</tr>
 	</table>
 	
