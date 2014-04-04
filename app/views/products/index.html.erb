@@ -53,9 +53,9 @@
 				</td>
 				<td>
 					<div class="btn-group options" >
-						<a data-remote="true" id="bt_up_<%= product.id %>" class="btn btn-small <%= 'disabled' if product.up? %>" href="http://lvh.me:3000/products/<%= product.id %>/to_up">上架</a>
-						<a data-remote="true" id="bt_down_<%= product.id %>" class="btn btn-small <%= 'disabled' if product.down? %>" href="http://lvh.me:3000/products/<%= product.id %>/to_down">下架</a>
-						<a data-remote="true" id="bt_file_<%= product.id %>" class="btn btn-small <%= 'disabled' if product.file? %>" href="http://lvh.me:3000/products/<%= product.id %>/to_file">归档</a>
+						<a data-remote="true" id="bt_up_<%= product.id %>" class="btn btn-small <%= 'disabled' if product.up? %>" href="/products/<%= product.id %>/to_up">上架</a>
+						<a data-remote="true" id="bt_down_<%= product.id %>" class="btn btn-small <%= 'disabled' if product.down? %>" href="/products/<%= product.id %>/to_down">下架</a>
+						<a data-remote="true" id="bt_file_<%= product.id %>" class="btn btn-small <%= 'disabled' if product.file? %>" href="/products/<%= product.id %>/to_file">归档</a>
 					</div>
 				</td>
 		  </tr>
