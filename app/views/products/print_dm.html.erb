@@ -1,19 +1,19 @@
 <style>
 .out_div{
-	width:700px; 
-	height:1005px; 
-	border:1px solid #000; 
+	width:740px; 
+	height:1045px; 
+	border:1px solid #fff; 
 	margin:0 auto; 
-	padding:20px; 
+	padding:0px; 
 	overflow:hidden; 
-	background: url('/assets/dm_bg2.png') no-repeat scroll 0 0 #FFFFFF;
+	background:  #FFFFFF;
 }
 table tr td{
 	padding:5px;
 }
 
 .table_out{
-	margin: 231px auto 0;
+	margin: 10px auto 0;
 	background-color:white;
 	border-collapse: separate;
 	border-spacing: 10px 0;
@@ -28,20 +28,20 @@ table tr td{
 	color:white;
 }
 .border_bottom{
-	border-bottom: 1px solid #def0c8 !important;
+	border-bottom: 1px solid #def0c8;
+}
+.no_bottom_border{
+	border-bottom: 0px solid #fff ;
 }
 .price{
 	color: #FEB977;
 }
 .table_classify td, .table_classify th{
-	border: 2px solid #dbebbc;
+	border: 2px solid #90C677;
 }
 .table_classify th{
+	padding:0;
 	height:25px; 
-	background-color:#91C66B;
-}
-.table_classify th img{
-	width:29px; margin-left:10px;
 }
 .table_classify th span{
 	color:white; 
@@ -51,24 +51,29 @@ table tr td{
 .table_in td{
 	border:0;
 }
+.table_classify th img{
+	width:210px;
+}
 
 </style>
 
 <div class="out_div">
-	
+	<img src="/assets/dm_header.png" />
 	<table class="table_out">
 			<tr class="table_classify">
 					<th align="left">
-						<img src="/classify/leaf.png" />
-						<span>叶菜类</span>
+						<img src="/assets/leaf_bg.png" />
+						<!-- <span>叶菜类</span> -->
 					</th>
 					<th align="left">
-						<img src="/classify/rhizome.png" />
-						<span>根茎类</span>
+						<img src="/assets/gengjin_bg.png" />
+						<!-- <img src="/classify/rhizome.png" />
+						<span>根茎类</span> -->
 					</th>
 					<th align="left">
-						<img src="/classify/melon_and_fruit.png" />
-						<span>瓜果类</span>
+						<img src="/assets/guaguo_bg.png" />
+						<!-- <img src="/classify/melon_and_fruit.png" />
+						<span>瓜果类</span> -->
 					</th>
 			</tr>
 			<tr class="table_classify">
@@ -77,15 +82,15 @@ table tr td{
 						<table class="table_in" >
 							<tr class="border_bottom">
 									<td>
-										<span class="p_name">名称</span>
+										<img src="/assets/mingcheng.png" />
 									</td>
 									<td align="right">
-										<span class="p_price">价格</span>
+										<img src="/assets/jiage.png" />
 									</td>
 							</tr>
-							
-							<% @products.where(classify: 'leaf').limit(17).each do |product| %>
-							<tr class="border_bottom">
+
+							<% getSort(@products.where(classify: 'leaf').order("cost").limit(15)).each_with_index do |product, index| %>
+							<tr class="border_bottom <%= 'no_bottom_border' if index == 14 %>">
 									<td>
 										<%= product.product_name %>
 									</td>
@@ -101,15 +106,15 @@ table tr td{
 						<table class="table_in" >
 							<tr class="border_bottom">
 									<td>
-										<span class="p_name">名称</span>
+										<img src="/assets/mingcheng.png" />
 									</td>
 									<td align="right">
-										<span class="p_price">价格</span>
+										<img src="/assets/jiage.png" />
 									</td>
 							</tr>
 							
-							<% @products.where(classify: 'rhizome').limit(17).each do |product| %>
-							<tr class="border_bottom">
+							<% getSort(@products.where(classify: 'rhizome').order("cost").limit(15)).each_with_index do |product, index| %>
+							<tr class="border_bottom <%= 'no_bottom_border' if index == 14 %>">
 									<td>
 										<%= product.product_name %>
 									</td>
@@ -125,15 +130,15 @@ table tr td{
 						<table class="table_in" >
 							<tr class="border_bottom">
 									<td>
-										<span class="p_name">名称</span>
+										<img src="/assets/mingcheng.png" />
 									</td>
 									<td align="right">
-										<span class="p_price">价格</span>
+										<img src="/assets/jiage.png" />
 									</td>
 							</tr>
 							
-							<% @products.where(classify: 'melon_and_fruit').limit(18).each do |product| %>
-							<tr class="border_bottom">
+							<% getSort(@products.where(classify: 'melon_and_fruit').order("cost").limit(15)).each_with_index do |product, index| %>
+							<tr class="border_bottom <%= 'no_bottom_border' if index == 14 %>">
 									<td>
 										<%= product.product_name %>
 									</td>
@@ -147,6 +152,7 @@ table tr td{
 					
 			</tr>
 	</table>
+	<img src="/assets/dm_footer.png" />
 	
 	<!-- 微菜安卓客户端下载：http:// -->
 </div>

@@ -17,7 +17,9 @@ class Product < ActiveRecord::Base
                  "tudou"=>"土豆大葱区", 
                  "huanggua"=>"黄瓜番茄区", 
                  "jiangsuan"=>"姜蒜区", 
-                 "hongsu"=>"萝卜红薯区"}
+                 "hongsu"=>"萝卜红薯区", 
+                 "lajiao"=>"辣椒区", 
+                 "zhenjun"=>"真菌区"}
   
   has_many :prices, :order => 'date'
   has_many :attachments, :as => :owner, :dependent => :destroy
