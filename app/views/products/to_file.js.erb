@@ -1,1 +1,5 @@
-$("#product_<%= @product.id %>").remove();
+	$("#bt_up_<%= @product.id %>").removeClass('disabled')
+	$("#bt_down_<%= @product.id %>").removeClass('disabled')
+	$("#bt_file_<%= @product.id %>").addClass('disabled')
+	
+	$("#product_<%= @product.id %>").removeClass("info").addClass("error");

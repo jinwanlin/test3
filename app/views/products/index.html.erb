@@ -4,77 +4,58 @@
 	<a href="/products/export" class="btn">导出</a>
 </div>
 
+<form action="/products" class="bs-docs-example form-inline">
+	<select name="state[]" style="width:55px;" multiple="multiple" size=3>
+			<option value="up" <%= "selected='selected'" if @states.include? 'up' %>>上架</option>
+			<option value="down" <%= "selected='selected'" if @states.include? 'down' %>>下架</option>
+			<option value="file" <%= "selected='selected'" if @states.include? 'file' %>>归档</option>
+	</select>
+	<label class="checkbox search_form" name="state[]">
+    <input type="checkbox"  value="true" <%= "checked='checked'" if params[:edit_price] %>  name="edit_price"> 编辑价格
+  </label>
+	<label class="checkbox search_form" name="state[]">
+    <input type="checkbox"  value="true" <%= "checked='checked'" if params[:show_img] %>  name="show_img"> 图片
+  </label>
+	<label class="checkbox search_form" name="state[]">
+    <input type="checkbox"  value="true" <%= "checked='checked'" if params[:show_price] %>  name="show_price"> 卖价
+  </label>
+	<input type="submit" value="查询" class='btn'>
+	</form>
 <table width="100%" class="table">
-	<tr>
-			<td></td>
-			<td>
-				<!-- <label class="checkbox pull-left" style="width:45px;">
-          <input type="checkbox"  id="before_yestorday">前天
-        </label>
-				<label class="checkbox pull-left" style="width:45px;" >
-          <input type="checkbox" id="yestorday">昨天
-        </label>
-				<label class="checkbox pull-left" style="width:45px;">
-          <input type="checkbox"  id="today">今天
-        </label> -->
-			</td>
-			<td></td>
-			<td></td>
-	</tr>
 	<% Product::MARKET_AREA.each do |key, val| %>
 		<tr>
 			<td colspan="4" style="padding-top:30px;"><%= val %></td>
 		<% list = @products.where(market_area: key).order(:pinyin) %>
 		<% list.each do |product| %>
-		  <tr id="product_<%= product.id %>" class="<%= 'info' if product.down? %>  <%#= 'product_is_bye' if (order_amount = order_amount(@order, product)) > 0 %>">
+		  <tr id="product_<%= product.id %>" class="<%= 'info' if product.down? %> <%= 'error' if product.file? %>  <%#= 'product_is_bye' if (order_amount = order_amount(@order, product)) > 0 %>">
 		    <td>
 					<div class="pull-left">
-					<%#= image_tag product.attachments.first.source.url(:thumb) unless product.attachments.empty? %>
-					<%= product.sn %> 
+					<%= image_tag product.attachments.first.source.url(:thumb) if(params[:show_img] && !product.attachments.empty?) %>
+					<%#= product.sn %> 
 					<a href="/products/<%= product.id %>"><%= product.product_name %></a>
-					<%= link_to '编辑', edit_product_path(product), target: '_blank' %>
+					<%= link_to sanitize('<i class="icon-edit"></i>'), edit_product_path(product), target: '_blank' %>
 					</div>
-					<!-- <%= simple_form_for Price.new(product: product, actual_cost: nil), remote: true, html: {class: 'form-horizontal'} do |f| %>
-						<%= f.hidden_field :product_id %>
-						<%= f.input :actual_cost, label: false, :input_html => { :class => 'input-small'}, :wrapper_html => { :class => 'pull-left'} %>
-					    <%= f.submit '保存', class: 'btn btn-primary pull-left' %>
-					<% end %> -->
 					</td>
 					<td>
 
-					<!-- <form novalidate="novalidate" method="post" style="margin:0;" data-remote="true" class="before_yestorday simple_form form-horizontal pull-left hide" action="/prices" accept-charset="UTF-8">
-					    <input type="hidden" value="<%= product.id %>" name="price[product_id]" >
-					    <input type="hidden" value="<%= Date.today - 2.days %>" name="price[date]" >
-					    <input type="number" name="price[actual_cost]" placeholder="前天" style="width:45px;" class="price_input numeric float optional pull-left" value="<%#= Price.where(product_id: product, date: (Date.today - 2.days)).first.try(:actual_cost) %>" on>
-					</form>
-
-					<form novalidate="novalidate" method="post" style="margin:0;" data-remote="true" class="yestorday simple_form form-horizontal pull-left hide" action="/prices" accept-charset="UTF-8">
-					    <input type="hidden" value="<%= product.id %>" name="price[product_id]" >
-					    <input type="hidden" value="<%= Date.today - 1.days %>" name="price[date]" >
-					    <input type="number" name="price[actual_cost]" placeholder="昨天" style="width:45px;" class="price_input numeric float optional pull-left" value="<%#= Price.where(product_id: product, date: (Date.today - 1.days)).first.try(:actual_cost) %>" on>
-					</form> -->
-					
-					<form novalidate="novalidate" method="post" style="margin:0;" data-remote="true" class="today simple_form form-horizontal pull-left" action="/prices" accept-charset="UTF-8">
+					<form novalidate="novalidate" method="post" style="margin:0;" data-remote="true" class="today simple_form form-horizontal pull-left <%= params[:edit_price] ? 'show' : 'hide' %>" action="/prices" accept-charset="UTF-8">
 					    <input type="hidden" value="<%= product.id %>" name="price[product_id]" >
 					    <input type="hidden" value="<%= Date.today %>" name="price[date]" >
-					    <input type="number" name="price[actual_cost]" placeholder="今天" style="width:45px;" class="price_input numeric float optional pull-left" value="<%= Price.where(product_id: product, date: Date.today).first.try(:actual_cost) %>" on>
+					    <input type="number" name="price[actual_cost]" placeholder="今天" style="width:45px;" class="price_input numeric float optional pull-left" value="<%= Price.where(product_id: product, date: Date.today).first.try(:actual_cost) if params[:edit_price] %>" on>
 					</form>
 					
 					
 				</td>
-				<td><%= price_format(product.sales_price(current_user.level)) if current_user %><span class="unit">￥/斤</span></td>
 				<td>
-					<%= product.state_ %>
-					<div class="btn-group options" >
-					<% if product.up? %>
-						<%= link_to '下架', to_down_product_url(product), class: "btn btn-small", remote: true %>
-						<%= link_to '归档', to_file_product_url(product), class: "btn btn-small", remote: true  %>
-					<% elsif product.down? %>
-						<%= link_to '归档', to_file_product_url(product), class: "btn btn-small", remote: true  %>
-						<%= link_to '上架', to_up_product_url(product), class: "btn btn-small", remote: true %>
-					<% elsif product.file? %>
-						<%= link_to '上架', to_up_product_url(product), class: "btn btn-small", remote: true  %>
+					<% if params[:show_price] %>
+					<%= price_format(product.sales_price(current_user.level)) if current_user %><span class="unit">￥/<%= product.unit %></span>
 					<% end %>
+				</td>
+				<td>
+					<div class="btn-group options" >
+						<a data-remote="true" id="bt_up_<%= product.id %>" class="btn btn-small <%= 'disabled' if product.up? %>" href="http://lvh.me:3000/products/<%= product.id %>/to_up">上架</a>
+						<a data-remote="true" id="bt_down_<%= product.id %>" class="btn btn-small <%= 'disabled' if product.down? %>" href="http://lvh.me:3000/products/<%= product.id %>/to_down">下架</a>
+						<a data-remote="true" id="bt_file_<%= product.id %>" class="btn btn-small <%= 'disabled' if product.file? %>" href="http://lvh.me:3000/products/<%= product.id %>/to_file">归档</a>
 					</div>
 				</td>
 		  </tr>
@@ -88,29 +69,33 @@
 <script type="text/javascript">
 	$(function(){
 		
-		$("#before_yestorday").change(function(){
-			if ($("#before_yestorday").is(":checked")) { 
-				$(".before_yestorday").show();
-			}else{
-				$(".before_yestorday").hide();
-			}
-		});
-		
-		$("#yestorday").change(function(){
-			if ($(this).is(":checked")) { 
-				$(".yestorday").show();
-			}else{
-				$(".yestorday").hide();
-			}
-		});
-		
-		$("#today").change(function(){
-			if ($(this).is(":checked")) { 
-				$(".today").show();
-			}else{
-				$(".today").hide();
-			}
-		});
+		// $("#before_yestorday").change(function(){
+		// 	if ($("#before_yestorday").is(":checked")) { 
+		// 		$(".before_yestorday").show();
+		// 	}else{
+		// 		$(".before_yestorday").hide();
+		// 	}
+		// });
+		// 
+		// $("#yestorday").change(function(){
+		// 	if ($(this).is(":checked")) { 
+		// 		$(".yestorday").show();
+		// 	}else{
+		// 		$(".yestorday").hide();
+		// 	}
+		// });
+		// 
+		// $("#today").change(function(){
+		// 	if ($(this).is(":checked")) { 
+		// 		$(".today").show();
+		// 	}else{
+		// 		$(".today").hide();
+		// 	}
+		// });
+		// 
+		// $(".search_form").change(function(){
+		// 	$(this).closest('form').submit();
+		// });
 		
 		
 	})
