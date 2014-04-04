@@ -20,6 +20,7 @@ Test5::Application.routes.draw do
     member do
       get 'submit'
       get 'continue_buy'
+      get 'print_order'
       get 'print_ship'
       get 'loading'
       get 'sign'
