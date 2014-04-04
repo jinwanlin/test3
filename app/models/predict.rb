@@ -13,6 +13,8 @@ class Predict < ActiveRecord::Base
     
     order_ids = Order.where(user_id: user).where(:state => ['shiping', 'baled', 'truck', 'signed', 'done']).where("created_at > ?", today-8.days).where("created_at < ?", today+1.days).pluck(:id)
     Product.where(state: 'up').each do |product|
+      next if product.prices.empty?
+      
       average_amount = 0
       order_times = 0
       unless order_ids.empty?
