@@ -2,7 +2,7 @@
 class ProductsController < ApplicationController
   load_and_authorize_resource class: 'Product'
   
-  before_filter :find_product, only: [:update, :show, :edit, :destroy, :to_up, :to_down, :to_file]
+  before_filter :find_product, only: [:update, :show, :edit, :destroy, :to_up, :to_down, :to_file, :change_type]
   
   def index
     params[:type] ||= 'Vegetable'
@@ -59,8 +59,12 @@ class ProductsController < ApplicationController
       params[:product][:amounts] = nil
     end
     @product.update_attributes(params[:product])
-    
     redirect_to @product
+  end
+  
+  def change_type
+    @product.update_attributes(params[:product])
+    render nothing: true
   end
   
   def upload_file

@@ -52,6 +52,16 @@
 					<% end %>
 				</td>
 				<td>
+					<div >
+						<form action="/products/<%= product.id %>/change_type" class="bs-docs-example form-inline pull-left" data-remote="true" method="put" >
+							<select name="product[type]" style="width:65px;" class="price_input">
+									<option value="Vegetable" <%= "selected" if product.type == 'Vegetable' %>>蔬菜</option>
+									<option value="Fruit" <%= "selected" if product.type == 'Fruit' %>>水果</option>
+									<option value="Meat" <%= "selected" if product.type == 'Meat' %>>肉</option>
+							</select>
+						</form>
+					</div>
+					
 					<div class="btn-group options" >
 						<a data-remote="true" id="bt_up_<%= product.id %>" class="btn btn-small <%= 'disabled' if product.up? %>" href="/products/<%= product.id %>/to_up">上架</a>
 						<a data-remote="true" id="bt_down_<%= product.id %>" class="btn btn-small <%= 'disabled' if product.down? %>" href="/products/<%= product.id %>/to_down">下架</a>

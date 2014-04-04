@@ -71,6 +71,7 @@ Test5::Application.routes.draw do
       get 'to_down'
       get 'to_file'
       put 'upload_file'
+      put 'change_type'
       delete 'delete_attachment'
     end
   end
