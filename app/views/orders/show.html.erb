@@ -5,7 +5,6 @@
 <div class="row">
 	<div class="span8">
 		<%#= barcode 'ANUJ', :height => 100, :width => 400, :margin => 100, :xoff => 20, :yoff => 40 %> 
-		<%= link_to '打印', 			print_order_orders_path(:"order_id[]" => @order.id), target: "_blank", class: 'btn btn-success'  %>
 		<%= link_to '取消', 			cancel_order_path(@order), class: 'btn btn-success' unless @order.done? %>
 		<table class="table">
 		  <tr>
@@ -44,7 +43,8 @@
 		<p class="pull-right">
 			<%= link_to '提交订单', 	submit_order_path(@order), class: 'btn btn-success' if @order.pending? %>
 			<%= link_to '继续购买', 	continue_buy_order_path(@order), class: 'btn btn-success' if @order.confirmed? %>
-			<%= link_to '打印订单', 	print_order_order_path(@order), class: 'btn btn-success' if @order.confirmed? %>
+			<%= link_to '打印订单', 			print_order_orders_path(:"order_id[]" => @order.id), target: "_blank", class: 'btn btn-success' if @order.confirmed?  %>
+			<%#= link_to '打印订单', 	print_order_order_path(@order), class: 'btn btn-success' if @order.confirmed? %>
 			<%= link_to '打印出货单', print_ship_order_path(@order), class: 'btn btn-success' if @order.shiping? %>
 			<%= link_to '装车', 			loading_order_path(@order), class: 'btn btn-success' if @order.baled? %>
 			<%= link_to '签收', 			sign_order_path(@order), class: 'btn btn-success' if @order.truck? %>

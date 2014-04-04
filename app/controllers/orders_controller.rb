@@ -43,7 +43,7 @@ class OrdersController < ApplicationController
     @order.continue_buy  if order.confirmed?
     redirect_to @order
   end
-  
+ 
   def print_order
     # @order.print_order
     # redirect_to @order

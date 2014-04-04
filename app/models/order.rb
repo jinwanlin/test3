@@ -123,8 +123,13 @@ class Order < ActiveRecord::Base
   
   def do_print_order
     content = "{message:'订单#{sn}已发货', state: 'shiping', order_no: '#{sn}', order_id: '#{id}'}"
+    
+    begin
     Push.new.push_msg(user.baidu_user_id, 0, content)
-
+    rescue
+      # 推送失败
+    end
+  
     Predict.where(user_id: user).update_all order_amount: 0
     Predict.update_user user
   end
