@@ -32,6 +32,7 @@ module Api
         @predicts = @predicts.joins(:product).where("products.type = ?", params[:type]) if params[:type].present?
         @predicts = @predicts.joins(:product).where("products.classify = ?", params[:classify]) if params[:classify].present?
         @predicts = @predicts.joins(:product).where("products.name like ?", "%#{params[:searchKey]}%") if params[:searchKey].present?
+        @predicts = @predicts.order("order_times DESC")
         @predicts
       end
       
