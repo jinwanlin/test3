@@ -1,4 +1,4 @@
-json.state @user ? false : true
+json.state @user ? true : false
 json.message @message
 p @message
 
