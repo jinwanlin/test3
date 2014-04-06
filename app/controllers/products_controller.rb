@@ -62,7 +62,7 @@ class ProductsController < ApplicationController
     redirect_to @product
   end
   
-  def change_type
+  def update_product
     @product.update_attributes(params[:product])
     render nothing: true
   end

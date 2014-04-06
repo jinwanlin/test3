@@ -31,10 +31,17 @@
 		    <td>
 					<%= image_tag product.attachments.first.source.url(:thumb) if(params[:show_img] && !product.attachments.empty?) %>
 					<%#= product.sn %> 
-					<%= product.optional_amounts %>
 					<a href="/products/<%= product.id %>"><%= product.product_name %></a>
 					<%= link_to sanitize('<i class="icon-edit"></i>'), edit_product_path(product), target: '_blank' %>
-					<%= product.get_amounts %>
+					
+					<form action="/products/<%= product.id %>/update_product" class="bs-docs-example form-inline" data-remote="true" method="put" >
+						<select name="product[optional_amounts]" style="width:120px;" class="price_input">
+								<option value="1" <%= "selected" if product.optional_amounts == 1 %>>AMOUNTS1</option>
+								<option value="2" <%= "selected" if product.optional_amounts == 2 %>>AMOUNTS2</option>
+								<option value="3" <%= "selected" if product.optional_amounts == 3 %>>AMOUNTS3</option>
+						</select>
+					</form>
+					
 					</td>
 					<td>
 
@@ -52,15 +59,13 @@
 					<% end %>
 				</td>
 				<td>
-					<div >
-						<form action="/products/<%= product.id %>/change_type" class="bs-docs-example form-inline pull-left" data-remote="true" method="put" >
-							<select name="product[type]" style="width:65px;" class="price_input">
-									<option value="Vegetable" <%= "selected" if product.type == 'Vegetable' %>>蔬菜</option>
-									<option value="Fruit" <%= "selected" if product.type == 'Fruit' %>>水果</option>
-									<option value="Meat" <%= "selected" if product.type == 'Meat' %>>肉</option>
-							</select>
-						</form>
-					</div>
+					<form action="/products/<%= product.id %>/update_product" class="bs-docs-example form-inline pull-left" data-remote="true" method="put" >
+						<select name="product[type]" style="width:65px;" class="price_input">
+								<option value="Vegetable" <%= "selected" if product.type == 'Vegetable' %>>蔬菜</option>
+								<option value="Fruit" <%= "selected" if product.type == 'Fruit' %>>水果</option>
+								<option value="Meat" <%= "selected" if product.type == 'Meat' %>>肉</option>
+						</select>
+					</form>
 					
 					<div class="btn-group options" >
 						<a data-remote="true" id="bt_up_<%= product.id %>" class="btn btn-small <%= 'disabled' if product.up? %>" href="/products/<%= product.id %>/to_up">上架</a>
