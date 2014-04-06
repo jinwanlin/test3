@@ -10,7 +10,12 @@ end
 
 <tr id="order_item_<%= order_item.id %>" class="<%= tr_class %>">
 	<td><%= order_item.product.sn %></td>
-	<td><%= link_to order_item.product.name, order_item.product %></td>
+	<td>
+		<%= "2#{order_item.product.id.to_s.rjust(6, '0')}#{order_item.order_amount.to_s.rjust(3, '0')}#{rand(99).to_s.rjust(2, '0')}0" %>
+		<%= link_to order_item.product.name, order_item.product %>
+	
+	
+	</td>
 	<td>
 		<%#= price_format order_item.product.cost %>
 		<%= price_format order_item.price %> <%= "元/#{order_item.product.unit}" %>
