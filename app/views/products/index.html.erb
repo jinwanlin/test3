@@ -29,12 +29,12 @@
 		<% list.each do |product| %>
 		  <tr id="product_<%= product.id %>" class="<%= 'info' if product.down? %> <%= 'error' if product.file? %>  <%#= 'product_is_bye' if (order_amount = order_amount(@order, product)) > 0 %>">
 		    <td>
-					<div class="pull-left">
 					<%= image_tag product.attachments.first.source.url(:thumb) if(params[:show_img] && !product.attachments.empty?) %>
 					<%#= product.sn %> 
+					<%= product.optional_amounts %>
 					<a href="/products/<%= product.id %>"><%= product.product_name %></a>
 					<%= link_to sanitize('<i class="icon-edit"></i>'), edit_product_path(product), target: '_blank' %>
-					</div>
+					<%= product.get_amounts %>
 					</td>
 					<td>
 

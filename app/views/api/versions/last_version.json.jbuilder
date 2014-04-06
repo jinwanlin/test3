@@ -1,2 +1,2 @@
-json.apkname "weicai_1.0.apk"
-json.version "1.0"
+json.apkname "weicai_1.1.apk"
+json.version "1.1"

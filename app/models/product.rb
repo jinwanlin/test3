@@ -9,7 +9,7 @@ class Product < ActiveRecord::Base
   PRODUCT_TYPES = ['', 'Vegetable', 'Fruit', 'Meat', 'Fish', 'Agri']
   UNIT= '斤'
   AMOUNTS1 = [0, 1, 2, 3, 4, 5, 6, 7, 10, 12, 15, 20, 25, 30]
-  AMOUNTS2 = [0, 2, 5, 7, 10, 15, 20, 25, 30, 35, 40]
+  AMOUNTS2 = [0, 2, 5, 7, 10, 12, 15, 20, 25, 30, 35, 40]
   AMOUNTS3 = [0, 5, 10, 15, 20, 25, 30, 35, 40]
   MARKET_AREA = {"xiaocai"=>"小菜豆芽区", 
                  "nangua"=>"南瓜西芹区", 
