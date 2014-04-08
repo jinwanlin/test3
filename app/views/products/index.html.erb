@@ -39,7 +39,7 @@
 					<%#= product.sn %> 
 					<a href="/products/<%= product.id %>"><%= product.product_name %></a>
 					<%= link_to sanitize('<i class="icon-edit"></i>'), edit_product_path(product), target: '_blank' %>
-					
+					<% if params[:optional_amounts].present? %>
 					<form action="/products/<%= product.id %>/update_product" class="bs-docs-example form-inline" data-remote="true" method="put" >
 						<select name="product[optional_amounts]" style="width:120px;" class="price_input">
 								<option value="1" <%= "selected" if product.optional_amounts == 1 %>>AMOUNTS1</option>
@@ -47,7 +47,7 @@
 								<option value="3" <%= "selected" if product.optional_amounts == 3 %>>AMOUNTS3</option>
 						</select>
 					</form>
-					
+					<% end %>
 					</td>
 					<td>
 
