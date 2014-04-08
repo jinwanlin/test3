@@ -10,6 +10,7 @@ class ProductsController < ApplicationController
     
     @products = Product.where("state in (?)", @states)
     @products = @products.where(type: params[:type]) if params[:type].present?
+    @products = @products.where(optional_amounts: params[:optional_amounts]) if params[:optional_amounts].present?
     @products = @products.order("state desc") #.paginate(:page => @page, :per_page => 5)
     @order = current_user.orders.where(state: ['pending', 'confirmed']).first if current_user
   end
