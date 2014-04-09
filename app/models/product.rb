@@ -131,6 +131,8 @@ class Product < ActiveRecord::Base
       
     elsif 2 <= cost && cost <3
       level = level - 1
+    elsif 3 <= cost
+      level = level - 2
     end
       
     
