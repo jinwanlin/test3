@@ -125,6 +125,15 @@ class Product < ActiveRecord::Base
     # profit = (profit_1+profit_2)*0.1
     # price = cost * (1+profit)
     # cost = prices.last.forecast_cost
+    if cost<1
+      level = level + 1
+    elsif 1 <= cost && cost <2
+      
+    elsif 2 <= cost && cost <3
+      level = level - 0.5
+    end
+      
+    
     price = cost*(level * 0.05 + 1)
     
     price = price*10
