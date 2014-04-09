@@ -114,15 +114,17 @@ class Product < ActiveRecord::Base
   
   # 卖价，不同的人看到不同的卖价
   def sales_price(level=4)
-    return nil if prices.empty?
-    # return if !level.present? || !cost.present?
+    # return nil if prices.empty?
+    return nil unless cost.present?
+    return nil if cost < 0.01
+    
     # profit_1 = (level-1)/3
     # remainder = level%3 == 0 ? 3 : level%3
     # profit_2 = remainder >= series ? 1 : 0
     # 
     # profit = (profit_1+profit_2)*0.1
     # price = cost * (1+profit)
-    cost = prices.last.forecast_cost
+    # cost = prices.last.forecast_cost
     price = cost*(level * 0.05 + 1)
     
     price = price*10

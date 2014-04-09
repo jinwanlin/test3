@@ -47,7 +47,15 @@ class PricesController < ApplicationController
     price.destroy if price
     
     date = params[:date] || Date.today
-    Price.create(params[:price].merge date: date) if params[:price][:actual_cost].present?
+    price = Price.create(params[:price].merge date: date) if params[:price][:actual_cost].present?
+    
+    product = price.product
+    if product.prices.empty?
+      cost = 0
+    else
+      cost = prices.last.forecast_cost
+    end
+    product.update_attributes cost: cost
   end
 
   # PUT /prices/1
