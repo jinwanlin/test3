@@ -1,5 +1,8 @@
 Test5::Application.routes.draw do
 
+  resources :companies
+
+
   resources :search_histories
 
   match '/apk', :to => redirect('/weicai_1.1.apk')

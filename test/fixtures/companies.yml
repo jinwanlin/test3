@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  jindu: 1.5
+  weidu: 1.5
+  state: MyString
+  address: MyString
+
+two:
+  name: MyString
+  jindu: 1.5
+  weidu: 1.5
+  state: MyString
+  address: MyString
