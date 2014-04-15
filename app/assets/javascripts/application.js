@@ -24,4 +24,54 @@ $(function(){
 		$(this).closest('form').submit();
 	})
 	
+	$('#searchKey').typeahead({
+	    source: function (query, process) {
+	        return $.get('/products/search.json', { query: query }, function (data) {
+							return process(data)
+	        });
+	    }
+	});
+	
+	
+	
+	
+	
+	
+	
+
+	$("#searchKey").focus(function() {
+		if($("#searchKey").val() == ""){
+			$("#history").css("display", "block");
+
+		}
+	});
+	
+	$("#searchKey").blur(function() {
+		t=setTimeout("hidden()",100);  //休眠300毫秒再执行这行 
+	});
+	
+	
+	$("#searchKey").keyup(function(event) {
+		if($("#searchKey").val() == ""){
+			$("#history").css("display", "block");
+			cc();
+		}else{
+			t=setTimeout("hidden()",100);  //休眠300毫秒再执行这行 
+		}
+	})
+	
+	$("#history li a").click(function(){
+		key = $(this).html();
+		$("#searchKey").val(key)
+	})
+	
+
+
+	
 })
+
+
+function hidden(){
+	$("#history").css("display", "none");
+}
+

@@ -1,6 +1,7 @@
 # encoding: utf-8
 class SessionsController < ApplicationController
-  skip_before_filter :authenticate_user, only: [:new, :create]
+  skip_before_filter :authenticate_user!, only: [:new, :create]
+  
   
   # 登录
   def new
@@ -16,7 +17,7 @@ class SessionsController < ApplicationController
       render action: "new"
     elsif @user.password == password_md5(@user.id, params[:user][:password])
       sign_in(@user)
-      flash[:error] = "登录成功。" 
+      flash[:success] = "登录成功。" 
       redirect_to products_path
     else
       flash[:error] = "密码错误。" 
@@ -29,7 +30,7 @@ class SessionsController < ApplicationController
     @current_user = nil
     cookies[:token] = nil
 
-    redirect_to products_path
+    redirect_to new_session_path
   end
  
 

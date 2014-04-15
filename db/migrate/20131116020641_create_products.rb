@@ -16,12 +16,14 @@ class CreateProducts < ActiveRecord::Migration
       t.string :state #状态：上架、下架、归档  ActiveRecord::Migration.add_column :products, :state, :string, default: 'down'
       t.integer :series, :default => 1 # 分组，用于作涨价先后次序
       t.float :cost, :null => false, :default => 0.0 # 当前平均成本
+      t.text :experience
       t.text :des
       t.integer :order_total
       t.text :order_detail
       t.text :order_spid
       t.string :pinyin
-
+      t.integer :save_time #保鲜时间
+      
       t.timestamps
     end
   end

@@ -1,7 +1,7 @@
 # encoding: utf-8
 class RegistrationsController < ApplicationController
   before_filter :find_user, only: [:validate_code, :validate, :new_password, :password]
-  skip_before_filter :authenticate_user, only: [:sign_up, :create, :validate_code, :validate, :password_new, :password]
+  skip_before_filter :authenticate_user, only: [:new, :sign_up, :create, :validate_code, :validate, :password_new, :password]
   
   # 初始化注册
   def sign_up
@@ -28,7 +28,8 @@ class RegistrationsController < ApplicationController
             redirect_to validate_code_registration_url(@user.id)
           else
             @user.update_attributes password: password_md5(@user.id, params[:user][:password])
-            @user.audite
+            @user.active
+            
             sign_in(@user)
             redirect_to products_path
           end

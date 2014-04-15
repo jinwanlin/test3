@@ -1,5 +1,5 @@
 $(function(){
-	$(".dropdown-menu button").click(change_order);
+	$(".amounts_ul li").click(change_order);
 	
 	$('#product_search').typeahead({
 	    source: function (query, process) {
@@ -28,11 +28,10 @@ $(function(){
 
 
 function change_order(){
-	alert(2)
 	$.ajax({
 		type: "POST",
 		url: "/order_items.js",
-		data: { "order_item[product_id]": $(this).parent().attr("product_id"), "order_item[order_amount]": $(this).html() }
+		data: { "order_item[product_id]": $(this).parent().attr("product_id"), "order_item[order_amount]": $(this).attr("amount") }
 	})
 
 	$(this).siblings(".product_is_bye").removeClass("product_is_bye")

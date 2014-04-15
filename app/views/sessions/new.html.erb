@@ -1,3 +1,5 @@
+<div class="row">
+	<div class="span12">
 <%= simple_form_for User.new, url: sessions_path, html: {class: 'form-horizontal'} do |f| %>
 	<%= f.input :phone, label: '手机号', input_html: {class: 'required'} %>
 	<%= f.input :password, label: '密码', input_html: {class: 'required'} %>
@@ -5,3 +7,5 @@
     <%= f.submit '登录', class: 'btn btn-primary' %>
 	</div>
 <% end %>
+</div>
+</div>

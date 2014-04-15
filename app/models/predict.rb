@@ -1,7 +1,7 @@
 # encoding: utf-8
 # 用户明日订购预测
 class Predict < ActiveRecord::Base
-  default_scope :order => 'order_times DESC'
+  # default_scope :order => 'order_times DESC'
   
   belongs_to :user
   belongs_to :product

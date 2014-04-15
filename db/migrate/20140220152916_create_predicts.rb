@@ -6,7 +6,7 @@ class CreatePredicts < ActiveRecord::Migration
       t.references :product
       t.float :average_amount, :null => false, :default => 0.0
       t.integer :order_times
-      t.integer :order_amount
+      t.float :order_amount
 
       t.timestamps
     end

@@ -14,7 +14,10 @@
 			<td><%= price_format payment.amount %></td>
 			<td><%= price_format payment.overage %></td>
 			<td><%= link_to payment.order.try(:sn), payment.order if payment.order %></td>
-			<td><%= payment.desc %></td>
+			<td>
+				<%= payment.desc_ %>
+				<a href="javascript:void(0);" class="icon-edit" data-remote="true" title="修改" onclick="alert(1)" ></a>
+			</td>
 		</tr>
 	<% end %>
 </table>

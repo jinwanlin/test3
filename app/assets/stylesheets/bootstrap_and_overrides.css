@@ -2,6 +2,7 @@
 body{
 	padding-top:61px;
 }
+
 .bs-docs-sidenav > li:first-child > a {
     border-radius: 6px 6px 0 0;
 }
@@ -29,11 +30,17 @@ body{
 
 
 @media (max-width: 979px) {
-	body{
+/*	body{
 		padding-top:0;
-	}
+	}*/
 	.navbar-fixed-top .navbar-inner, .navbar-fixed-bottom .navbar-inner {
 	    padding: 0px;
 	}
 }
 
+
+.nav-stacked.affix{
+	background-color:#fff;
+  top: 0px; /* Set the top position of pinned element */
+	padding-top:20px;
+}

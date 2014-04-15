@@ -1,7 +1,11 @@
 <% if @order_item.order_amount==0 %>
 	$("#product_<%= @order_item.product.id %>").removeClass("product_is_bye")
 	$("#drop<%= @order_item.product.id %>").html("<i class='car'></i>")
+	$("#buy_button_<%= @order_item.product.id %>").html("购买");
 <% else %>
 	$("#product_<%= @order_item.product.id %>").addClass("product_is_bye")
 	$("#drop<%= @order_item.product.id %>").html("<%= @order_item.order_amount %>")
+	$("#buy_button_<%= @order_item.product.id %>").html("<%= @order_item.order_amount %> 斤");
 <% end %>
+
+<%= @order.state %>

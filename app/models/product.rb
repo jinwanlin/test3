@@ -4,13 +4,17 @@ class Product < ActiveRecord::Base
   store :order_spid, coder: JSON
   
   serialize :amounts, Array
-  attr_accessible :des, :name, :series, :cost, :sn, :aliases, :amounts, :classify, :no, :type, :state, :unit, :market_sort, :market_area, :order_total, :order_detail, :order_spid, :market_area, :market_sort, :pinyin, :optional_amounts
+  attr_accessible :des, :name, :series, :cost, :sn, :aliases, :amounts, :classify, :no, :type, :state, :unit, :market_sort, :market_area, :order_total, :order_detail, :order_spid, :market_area, :market_sort, :pinyin, :optional_amounts, :experience, :save_time
   
   PRODUCT_TYPES = ['', 'Vegetable', 'Fruit', 'Meat', 'Fish', 'Agri']
-  UNIT= '斤'
-  AMOUNTS1 = [0, 1, 2, 3, 4, 5, 6, 7, 10, 12, 15, 20, 25, 30]
-  AMOUNTS2 = [0, 2, 5, 7, 10, 12, 15, 20, 25, 30, 35, 40]
-  AMOUNTS3 = [0, 5, 10, 15, 20, 25, 30, 35, 40]
+  
+  #作料： 香葱、蒜米、香芹、香椿芽
+  AMOUNTS1 = [0.5, 1, 2, 3, 4, 5, 6, 7, 10, 12, 15, 20]
+  #普通菜
+  AMOUNTS2 =      [1, 2, 3, 4, 5, 6, 7, 10, 12, 15, 20, 25, 30]
+  #大个菜：冬瓜、南瓜
+  AMOUNTS3 = [5, 10, 15, 20, 25, 30, 35, 40, 50, 60]
+  
   MARKET_AREA = {"xiaocai"=>"小菜豆芽区", 
                  "nangua"=>"南瓜西芹区", 
                  "yangcong"=>"洋葱山药区", 
@@ -73,7 +77,7 @@ class Product < ActiveRecord::Base
         when 1 then AMOUNTS1
         when 2 then AMOUNTS2
         when 3 then AMOUNTS3
-        else AMOUNTS1
+        else AMOUNTS2
       end
     end
   end
@@ -113,7 +117,7 @@ class Product < ActiveRecord::Base
   end
   
   # 卖价，不同的人看到不同的卖价
-  def sales_price(level=4)
+  def sales_price(level=3)
     # return nil if prices.empty?
     return nil unless cost.present?
     return nil if cost < 0.01
@@ -128,10 +132,12 @@ class Product < ActiveRecord::Base
     if cost<1
       level = level + 2
     elsif 1 <= cost && cost <2
-      
+      level = level + 1
     elsif 2 <= cost && cost <3
+      
+    elsif 3 <= cost && cost <4
       level = level - 1
-    elsif 3 <= cost
+    elsif 4 <= cost
       level = level - 2
     end
       
@@ -257,6 +263,7 @@ class Product < ActiveRecord::Base
   # 重置两个字段
   def reset_order_detail_and_order_spid
     self.order_detail = Hash.new
+    self.order_detail[0.5] = 0
     self.order_detail[1] = 0
     self.order_detail[2] = 0
     self.order_detail[3] = 0
@@ -271,6 +278,7 @@ class Product < ActiveRecord::Base
     self.order_detail[25] = 0
 
     self.order_spid = Hash.new
+    self.order_spid[0.5] = 0
     self.order_spid[1] = 0
     self.order_spid[2] = 0
     self.order_spid[5] = 0
@@ -280,6 +288,8 @@ class Product < ActiveRecord::Base
   
   def update_order_detail(order_amount)
     case order_amount
+      when 0.5
+        self.order_detail[0.5] += 1
       when 1
         self.order_detail[1] += 1
       when 2
@@ -309,6 +319,8 @@ class Product < ActiveRecord::Base
   
   def update_order_spid(order_amount)
     case order_amount
+      when 0.5
+        self.order_spid[0.5] += 1
       when 1
         self.order_spid[1] += 1
       when 2

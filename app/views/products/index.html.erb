@@ -1,129 +1,90 @@
-<div class="btn-group pull-right" >
-	<a href="/products/sortable" class="btn">分类排序</a>
-	<a href="/products/sortable_market" class="btn">市场区域分</a>
-	<a href="/products/export" class="btn">导出</a>
+<div class="row">
+	<div class="span12">
+<% if current_user.freezed? %>
+<div class="alert">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    账号已冻结，暂时不能下订单，请电话联系管理员：158-1084-5422
 </div>
+<% end %>
 
-<form action="/products" class="bs-docs-example form-inline">
-	<select name="state[]" style="width:55px;" multiple="multiple" size=3>
-			<option value="up" <%= "selected='selected'" if @states.include? 'up' %>>上架</option>
-			<option value="down" <%= "selected='selected'" if @states.include? 'down' %>>下架</option>
-			<option value="file" <%= "selected='selected'" if @states.include? 'file' %>>归档</option>
-	</select>
-	<select name="optional_amounts" style="width:150px;" class="price_input">
-			<option value="" >请选择AMOUNTS</option>
-			<option value="1" <%= "selected" if params[:optional_amounts] == "1" %>>AMOUNTS1</option>
-			<option value="2" <%= "selected" if params[:optional_amounts] == "2" %>>AMOUNTS2</option>
-			<option value="3" <%= "selected" if params[:optional_amounts] == "3" %>>AMOUNTS3</option>
-	</select>
-	<label class="checkbox search_form" name="state[]">
-    <input type="checkbox"  value="true" <%= "checked='checked'" if params[:edit_price] %>  name="edit_price"> 编辑价格
-  </label>
-	<label class="checkbox search_form" name="state[]">
-    <input type="checkbox"  value="true" <%= "checked='checked'" if params[:show_img] %>  name="show_img"> 图片
-  </label>
-	<label class="checkbox search_form" name="state[]">
-    <input type="checkbox"  value="true" <%= "checked='checked'" if params[:show_price] %>  name="show_price"> 卖价
-  </label>
-	
-	<input type="submit" value="查询" class='btn'>
-	</form>
-<table width="100%" class="table">
-	<% tabindex = 0 %>
-	<% Product::MARKET_AREA.each do |key, val| %>
-	<% tabindex = tabindex+1%>
-	
+<table width="100%" class="table products" style="margin-bottom:300px;">
 		<tr>
-			<td colspan="4" style="padding-top:30px;"><%= val %></td>
-		<% list = @products.where(market_area: key).order(:pinyin) %>
-		<% list.each_with_index do |product, index| %>
-		  <tr id="product_<%= product.id %>" class="<%= 'info' if product.down? %> <%= 'error' if product.file? %>  <%#= 'product_is_bye' if (order_amount = order_amount(@order, product)) > 0 %>">
+		<% last_shengmu = "" %>
+		<% @predicts.each do |predict| %>
+			
+		
+		  <tr a="<%= predict.id %>" id="product_<%= predict.product.id %>" class="<%= 'product_is_bye' if predict.order_amount > 0 %>">
+				<% if params[:order]=='pinyin' %>
+				<td class="shengmu" width="10">
+					<% shengmu = predict.product.pinyin[0] %>
+					<% if shengmu!=last_shengmu %>
+						<%= last_shengmu = shengmu %>
+					<% end %>
+				</td>
+				<% end %>
 		    <td>
-					<%= image_tag product.attachments.first.source.url(:thumb) if(params[:show_img] && !product.attachments.empty?) %>
-					<%#= product.sn %> 
-					<a href="/products/<%= product.id %>"><%= product.product_name %></a>
-					<%= link_to sanitize('<i class="icon-edit"></i>'), edit_product_path(product), target: '_blank' %>
-					<% if params[:optional_amounts].present? %>
-					<form action="/products/<%= product.id %>/update_product" class="bs-docs-example form-inline" data-remote="true" method="put" >
-						<select name="product[optional_amounts]" style="width:120px;" class="price_input">
-								<option value="1" <%= "selected" if product.optional_amounts == 1 %>>AMOUNTS1</option>
-								<option value="2" <%= "selected" if product.optional_amounts == 2 %>>AMOUNTS2</option>
-								<option value="3" <%= "selected" if product.optional_amounts == 3 %>>AMOUNTS3</option>
-						</select>
-					</form>
-					<% end %>
+					<img src="<%= predict.product.attachments.empty? ? '/assets/missing.jpg' : predict.product.attachments.first.source.url(:thumb) %>" class="product_img <%= 'hide' unless current_user.show_product_img %>" style="width:100px; height:75px;">
+					<div class="product_name"><%= predict.product.product_name %></div>
 					</td>
-					<td>
-
-					<form novalidate="novalidate" method="post" style="margin:0;" data-remote="true" class="today simple_form form-horizontal pull-left <%= params[:edit_price] ? 'show' : 'hide' %>" action="/prices" accept-charset="UTF-8">
-					    <input type="hidden" value="<%= product.id %>" name="price[product_id]" >
-					    <input type="hidden" value="<%= Date.today %>" name="price[date]" >
-					    <input type="number" name="price[actual_cost]" tabIndex="<%= (tabindex * 100) + index + 1 %>" placeholder="今天" style="width:45px;" class="price_input numeric float optional pull-left" value="<%= Price.where(product_id: product, date: Date.today).first.try(:actual_cost) if params[:edit_price] %>" on>
-					</form>
-					
-					
+				<td>
+					<%= price_format(predict.product.sales_price(current_user.level)) if current_user %><span class="unit">￥/<%= predict.product.unit %></span>
 				</td>
 				<td>
-					<% if params[:show_price] %>
-					<%= price_format(product.sales_price(current_user.level)) if current_user %><span class="unit">￥/<%= product.unit %></span>
+					<% unless current_user.freezed? %>
+					
+					<div class="btn-group">
+            <button id="buy_button_<%= predict.product_id %>" data-toggle="dropdown" class="btn btn-success dropdown-toggle buy_btn <%= "hide" if @last_order.try(:confirmed?) && predict.order_amount == 0 %> " <%= "disabled='disabled'" if @last_order.try(:confirmed?) %> >
+							<% if 0 < predict.order_amount && predict.order_amount < 1 %>
+								<%= "#{predict.order_amount} #{predict.product.unit}" %>
+							<% elsif 1 <= predict.order_amount %>
+								<%= "#{predict.order_amount.to_i} #{predict.product.unit}" %>
+							<% else %>
+								购买
+							<% end %>
+						</button>
+            <ul class="dropdown-menu amounts_ul" style="margin-left: -1px;" product_id="<%= predict.product_id %>">
+              <li amount="0">
+								<a href="javascript:void(0);">取消</a>
+							</li>
+              <li class="divider"></li>
+							<% predict.product.get_amounts.each do |amount| %>
+							  <li amount="<%= amount %>" class="<%= 'active' if amount==predict.order_amount %>">
+									<a href="javascript:void(0);" ><%= amount %> 斤</a>
+								</li>
+							<% end %>
+            </ul>
+          </div>
+					
 					<% end %>
-				</td>
-				<td>
-					<form action="/products/<%= product.id %>/update_product" class="bs-docs-example form-inline pull-left" data-remote="true" method="put" >
-						<select name="product[type]" style="width:65px;" class="price_input">
-								<option value="Vegetable" <%= "selected" if product.type == 'Vegetable' %>>蔬菜</option>
-								<option value="Fruit" <%= "selected" if product.type == 'Fruit' %>>水果</option>
-								<option value="Meat" <%= "selected" if product.type == 'Meat' %>>肉</option>
-						</select>
-					</form>
-					
-					<div class="btn-group options" >
-						<a data-remote="true" id="bt_up_<%= product.id %>" class="btn btn-small <%= 'disabled' if product.up? %>" href="/products/<%= product.id %>/to_up">上架</a>
-						<a data-remote="true" id="bt_down_<%= product.id %>" class="btn btn-small <%= 'disabled' if product.down? %>" href="/products/<%= product.id %>/to_down">下架</a>
-						<a data-remote="true" id="bt_file_<%= product.id %>" class="btn btn-small <%= 'disabled' if product.file? %>" href="/products/<%= product.id %>/to_file">归档</a>
-					</div>
 				</td>
 		  </tr>
-		<% end %>
-		
 	<% end %>
 </table>
-<%#= will_paginate @products %>
+
+<div id="order_oprate" class=" <%= 'hide' if current_user.freezed? %> ">
+	<table>
+			<tr>
+				<td>
+					<a href="/orders/<%= @last_order.try(:id) %>" class="btn btn-info hide" style="width:28px; <%= 'display:none;' if !@last_order.try(:pending?) && !@last_order.try(:confirmed?) %>" id="order_show">查看订单</a>
+				</td>
+			</tr>
+
+			<tr>
+				<td>
+					<a href="/orders/<%= @last_order.try(:id) %>/submit" class="btn btn-danger " style="width:28px; margin:10px 0; <%= 'display:none;' if !@last_order.try(:pending?) %>" data-remote="true" id="order_submit">确认订单</a>
+					<a href="/orders/<%= @last_order.try(:id) %>/continue_buy" class="btn btn-success" style="width:28px; margin:10px 0; <%= 'display:none;' if !@last_order.try(:confirmed?) %>" data-remote="true" id="order_edit" >修改订单</a>
+					<a href="/orders/auto_make_order" class="btn btn-primary" style="width:28px; margin:10px 0; <%= 'display:none;' if @last_order.try(:pending?) || @last_order.try(:confirmed?) || current_user.orders.where(state: 'done').empty? %>" id="order_auto">自动下单</a>
+				</td>
+			</tr>
+
+			<tr>
+				<td>
+					<a href="/orders/<%= @last_order.try(:id) %>/cancel?return=products" class="btn btn-warning hide" style="width:28px; <%= 'display:none;' if !@last_order.try(:pending?) && !@last_order.try(:confirmed?) %>" remote="true" data-confirm="确定要取消？" id="order_cancle">取消订单</a>
+				</td>
+			</tr>
+	</table>
+</div>
 
 
-<script type="text/javascript">
-	$(function(){
-		
-		// $("#before_yestorday").change(function(){
-		// 	if ($("#before_yestorday").is(":checked")) { 
-		// 		$(".before_yestorday").show();
-		// 	}else{
-		// 		$(".before_yestorday").hide();
-		// 	}
-		// });
-		// 
-		// $("#yestorday").change(function(){
-		// 	if ($(this).is(":checked")) { 
-		// 		$(".yestorday").show();
-		// 	}else{
-		// 		$(".yestorday").hide();
-		// 	}
-		// });
-		// 
-		// $("#today").change(function(){
-		// 	if ($(this).is(":checked")) { 
-		// 		$(".today").show();
-		// 	}else{
-		// 		$(".today").hide();
-		// 	}
-		// });
-		// 
-		// $(".search_form").change(function(){
-		// 	$(this).closest('form').submit();
-		// });
-		
-		
-	})
-	
-	
-</script>
+	</div>
+</div>

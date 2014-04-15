@@ -1,4 +1,7 @@
-<div class="navbar navbar-fixed-top">
+<div class="container">
+<div class="row">
+
+<div class="navbar navbar-fixed-top" style="position:absolute;">
   <div class="navbar-inner">
     <div class="container">
 			<button data-target=".nav-collapse" data-toggle="collapse" class="btn btn-navbar" type="button">
@@ -10,21 +13,45 @@
       <a class="brand" href="/">微菜</a>
       <div class="container nav-collapse">
 				
+        
+				
+				
         <ul class="nav">
-          <li><%= link_to "蔬菜", products_path(type: 'Vegetable')  %></li>
+          <li class=" <%= 'active' if controller.controller_name == 'products' %>">
+						<%= link_to "首页", products_path(type: 'Vegetable')  %>
+					</li>
           <!-- <li><%= link_to "水果", products_path(type: 'Fruit')  %></li>
           <li><%= link_to "肉禽蛋", products_path(type: 'Meat')  %></li>
           <li><%= link_to "水产", products_path(type: 'Fish')  %></li>
           <li><%= link_to "粮油", products_path(type: 'Agri')  %></li>
           <li><%= link_to_function "调味品", "javascript:void(0)" %></li>
-						 -->
+					-->
+						
+					
+					
+          <li class=" <%= 'active' if controller.controller_name == 'orders' %>">
+						<a  href="/orders" >订单</a>
+					</li>
+          <li class=" <%= 'active' if controller.controller_name == 'payments' %>">
+						<%= link_to "账单", payments_path %>
+					</li>
         </ul>
 				
-        <ul class="nav">
-          <li><%= link_to "用户", users_path %></li>
-          <li><%= link_to "订单", orders_path %></li>
+				
+        <ul class="nav" style="margin-left: 120px;">
+					<% if can? :destroy, Product %>
+          <li><%= link_to "商品列表", list_products_path %></li>
+					<% end %>
+					
+					<% if can? :manage, Product %>
           <li><%= link_to "DM单", print_dm_products_path %></li>
+					<% end %>
+					
+					<% if can? :destroy, User %>
+          <li><%= link_to "用户", users_path %></li>
+					<% end %>
         </ul>
+				
 				
         <ul class="nav pull-right">
 					<% if current_user %>
@@ -42,4 +69,6 @@
       </div>
     </div>
   </div>
+</div>
+</div>
 </div>

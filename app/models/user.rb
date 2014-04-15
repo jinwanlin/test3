@@ -1,6 +1,6 @@
 # encoding: utf-8
 class User < ActiveRecord::Base
-  attr_accessible :county, :house, :latitude, :longitude, :name, :password, :phone, :street, :string, :towns, :validate_code, :token, :state, :desc, :level, :baidu_user_id
+  attr_accessible :county, :house, :latitude, :longitude, :name, :password, :phone, :street, :string, :towns, :validate_code, :token, :state, :desc, :level, :baidu_user_id, :role, :show_product_img
   
   validates :phone, :presence => true, uniqueness: true
   
@@ -38,8 +38,8 @@ class User < ActiveRecord::Base
   end
   
   def admin?
-    # role == "admin"
-    ["18628405091", "15810845422"].include? phone
+    role == "admin"
+    # ["18628405091", "15810845422"].include? phone
   end
   
   def state_

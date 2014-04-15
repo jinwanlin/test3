@@ -18,6 +18,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string :role
       t.string :baidu_user_id
       t.text :desc
+      t.boolean :show_product_img
       
       t.timestamps
     end

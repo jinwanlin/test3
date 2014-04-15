@@ -38,3 +38,69 @@ ul.order-total-info li{
 	margin-left:30px;
 }
 
+textarea{
+	height:50px;
+}
+
+.product_search.affix {
+    top: 41px;
+}
+.product_search {
+    width: 258px;
+
+}
+.bs-docs-sidenav.affix {
+    top: 35px;
+}
+.nav-tabs li.active a {
+	background-color:#F3F3F3;
+}
+table.products tr td{
+	vertical-align:middle;
+	text-align:left;
+}
+.product_img{
+	margin:3px 10px;
+}
+.buy_btn{
+	width:60px;
+	text-align:center;
+}
+.table td.shengmu{
+	border-top: 1px solid #fff;
+	background-color:#fff;
+}
+#order_oprate{
+	position:fixed;
+	top:200px;
+	right:25px; 
+}
+#order_oprate table tr td{
+	height:50px;
+}
+
+.hidden{
+	display:block;
+}
+
+#order_oprate:hover .btn{
+	display:block;
+}
+
+.product_name{
+	line-height:30px;
+	display:inline-block;
+}
+.orders_table tr td{
+	line-height:30px;
+}
+
+.progress{
+	margin-bottom:10px;
+}
+.progress_text{
+	margin-bottom:80px;
+}
+.progress_text div{
+	text-align:center;
+}

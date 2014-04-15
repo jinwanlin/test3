@@ -23,11 +23,24 @@
 	</tr>
 </table>
 
-
-<form class="form-inline" action="/users/<%= @user.id %>/recharge" method="post">
-  <input type="text" class="input-small" name="recharge[amount]" placeholder="充值金额">
-  <button type="submit" class="btn">充值</button>
+<form method="post" class="simple_form form-horizontal" action="/users/<%= @user.id %>/recharge" accept-charset="UTF-8">
+	<div class="control-group string optional user_name">
+		<label for="user_name" class="string optional control-label">充值金额</label>
+		<div class="controls">
+			<input type="text" value="" name="payment[amount]" id="user_name" class="string optional" autocomplete="off">
+		</div>
+	</div>
+	
+	<div class="control-group text optional user_desc">
+		<label for="user_desc" class="text optional control-label">备注</label>
+		<div class="controls"><textarea rows="5" name="payment[desc]" id="user_desc" value="" class="text optional span6"></textarea></div>
+	</div>
+	
+	<div class="control-group text optional user_desc">
+		<div class="controls"><input type="submit" class="btn" value="充值"></div>
+  </div>
 </form>
+
 <%= render 'payments/payment' %>
 
 

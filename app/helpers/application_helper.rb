@@ -21,4 +21,24 @@ module ApplicationHelper
     arr
   end
   
+  def flash_class(level)
+    case level
+      when :notice then "alert alert-info"
+      when :success then "alert alert-success"
+      when :error then "alert alert-error"
+      when :alert then "alert alert-error"
+    end
+  end
+  
+  def date_str(date)
+    days = Date.today - date
+    case days
+      when 0 then "今天"
+      when 1 then "昨天"
+      when 2 then "前天"
+      else date.to_s
+    end
+    
+  end
+  
 end

@@ -23,7 +23,7 @@ class OrderItemsController < ApplicationController
   def create
     # order
     @order = current_user.orders.last
-    if @order && (@order.pending? || @order.open?)
+    if @order && (@order.pending? || @order.confirmed?)
       @order.continue_buy if @order.confirmed?      
     else
       @order = current_user.orders.create
@@ -35,6 +35,9 @@ class OrderItemsController < ApplicationController
     else
       product = Product.find_by_name params[:product_name]
     end
+    # 
+    # p params[:order_item][:order_amount]
+    # p product.id
     
     # order_item
     @order_item = @order.order_items.where(product_id: product).first
@@ -47,6 +50,12 @@ class OrderItemsController < ApplicationController
       @order_item.cost = product.cost
     end
     
+
+    date = Date.today
+    date = date-1.days if Time.new.hour < 3 # 凌晨3点前任然显示昨天的价格
+    
+    predict = Predict.where(user_id: current_user).where(date: date).where(product_id: product).first
+    predict.update_attributes order_amount: params[:order_item][:order_amount] if predict
 
     respond_to do |format|
       if @order_item.order_amount==0 ? @order_item.destroy : @order_item.save
@@ -72,6 +81,18 @@ class OrderItemsController < ApplicationController
         format.json { render json: @order_item.errors, status: :unprocessable_entity }
       end
     end
+  end
+  
+  def edit_amount
+    @order_item = OrderItem.find(params[:id])
+  end
+  
+  def save_amount
+    @order_item = OrderItem.find(params[:id])
+    @order_item.update_attributes order_amount: params[:order_item][:order_amount]
+    
+    predict = Predict.where(user_id: current_user).where(product_id: @order_item.product).first
+    predict.update_attributes order_amount: params[:order_item][:order_amount] if predict
   end
 
   def destroy

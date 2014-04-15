@@ -10,7 +10,7 @@ class Order < ActiveRecord::Base
   after_destroy :destroy_order
   
   
-   STATES = {"pending" => '待提交', "confirmed" => '待打印订单', "shiping" => '待打印出库单', "baled" => '待装车', "truck" => '配送中', "signed" => "已送达", "done" => '交易成功', "canceled" => '已取消'}
+  STATES = {"pending" => '待提交', "confirmed" => '待打印订单', "shiping" => '待打印出库单', "baled" => '待装车', "truck" => '配送中', "signed" => "已送达", "done" => '交易成功', "canceled" => '已取消'}
   # pending/confirmed/shiping/baled/truck/signed/done/canceled
   state_machine initial: :pending do
     
@@ -110,6 +110,13 @@ class Order < ActiveRecord::Base
     formart(total)
   end
   
+  
+  def state_index
+    Order::STATES.to_a.each_with_index do |s, index|
+      return index if s[0] == state
+    end
+  end
+  
   private
   def generate_order_no
     begin
@@ -147,5 +154,6 @@ class Order < ActiveRecord::Base
     Predict.where(user_id: user).update_all order_amount: 0
     Predict.update_user user
   end
+
 end
 

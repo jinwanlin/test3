@@ -9,16 +9,28 @@ Test5::Application.routes.draw do
   match '/weicai.apk', :to => redirect('/weicai_1.1.apk')
   
   resources :ships
-  resources :bills
+  
+
+  resources :payments do
+    collection do
+      post 'list'
+    end
+  end
 
 
-  resources :order_items
+  resources :order_items do
+    member do
+      get "edit_amount"
+      post "save_amount"
+    end
+  end
   resources :settings
 
 
   resources :orders do
     collection do
       get 'print_order'
+      get 'auto_make_order'
     end
     member do
       get 'submit'
@@ -61,6 +73,7 @@ Test5::Application.routes.draw do
   resources :prices
   resources :products do
     collection do
+      get 'list'
       get 'search'
       get 'export'
       get 'sortable'

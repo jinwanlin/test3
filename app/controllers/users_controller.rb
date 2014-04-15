@@ -2,7 +2,7 @@
 class UsersController < ApplicationController
   load_and_authorize_resource class: 'User'
   
-  before_filter :find_user, only: [:update, :show, :edit, :destroy, :active, :frost, :recharge]
+  before_filter :find_user, only: [:show, :edit, :update, :destroy, :active, :frost, :recharge]
   
   def index
     @users = User
@@ -12,7 +12,6 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
   end
 
   def new
@@ -20,7 +19,6 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find(params[:id])
   end
 
   def create
@@ -29,13 +27,17 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user = User.find(params[:id])
     @user.update_attributes(params[:user])
-    redirect_to user_path(@user)
+
+    respond_to do |format|
+      format.html {redirect_to user_path(@user)}
+      format.js { render nothing: true }
+    end
+    
+    
   end
 
   def destroy
-    @user = User.find(params[:id])
     @user.destroy
     redirect_to users_url
   end
@@ -52,12 +54,16 @@ class UsersController < ApplicationController
   
   # 充值
   def recharge
-    payment = Recharge.create(params[:recharge].merge operator: current_user, payer: @user, amount: params[:recharge][:amount])
+    payment = Recharge.create(params[:payment].merge operator: current_user, payer: @user)
     redirect_to user_path(@user)
   end
   
   private
   def find_user
-    @user = User.find(params[:id])
+    if current_user.admin?
+      @user = User.find(params[:id])
+    else
+      @user = current_user
+    end
   end
 end

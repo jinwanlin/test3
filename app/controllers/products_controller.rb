@@ -4,7 +4,52 @@ class ProductsController < ApplicationController
   
   before_filter :find_product, only: [:update, :show, :edit, :destroy, :to_up, :to_down, :to_file, :change_type]
   
+  
   def index
+      date = Date.today
+      date = date-1.days if Time.new.hour < 3 # 凌晨3点前任然显示昨天的价格
+      
+      # @products = Product.order(:id)
+      # @products = @products.where(type: params[:type]) if params[:type].present?
+      
+      @predicts = find_predicts(date)
+      if @predicts.empty?
+        Predict.update_user current_user
+        @predicts = find_predicts(date)
+      end
+      
+      if params[:searchKey].present?
+          SearchHistory.where(keywords: params[:searchKey], user_id: current_user).delete_all
+          @search_history = SearchHistory.create keywords: params[:searchKey], user: current_user, has_result: (@predicts.size>0 ? "true" : "false")
+      end
+    
+    @last_order = current_user.orders.where(state: ['pending', 'confirmed']).first if current_user
+    render layout: "products_layout"
+  end
+  
+  
+  def find_predicts(date)
+    @predicts = Predict.where(user_id: current_user).where(date: date)
+    @predicts = @predicts.joins(:product).where("products.type = ?", params[:type]) if params[:type].present?
+    @predicts = @predicts.joins(:product).where("products.classify = ?", params[:classify]) if params[:classify].present?
+    @predicts = @predicts.joins(:product).where("products.name like ?", "%#{params[:searchKey]}%") if params[:searchKey].present?
+    
+    params[:order] ||= 'bought'
+    if params[:order] == 'pinyin'
+      @predicts = @predicts.joins(:product).order("products.pinyin")
+    elsif params[:order] == 'price_asc'
+      @predicts = @predicts.joins(:product).order("products.cost")
+    elsif params[:order] == 'price_desc'
+      @predicts = @predicts.joins(:product).order("products.cost DESC")
+    else #bought
+      @predicts = @predicts.joins(:product).order("order_times DESC").order("products.pinyin")
+    end
+    @predicts
+  end
+  
+  
+  
+  def list
     params[:type] ||= 'Vegetable'
     @states = params[:state] || ['up', 'down']
     
@@ -12,7 +57,6 @@ class ProductsController < ApplicationController
     @products = @products.where(type: params[:type]) if params[:type].present?
     @products = @products.where(optional_amounts: params[:optional_amounts]) if params[:optional_amounts].present?
     @products = @products.order("cost") #.paginate(:page => @page, :per_page => 5)
-    @order = current_user.orders.where(state: ['pending', 'confirmed']).first if current_user
   end
   
   def sortable
