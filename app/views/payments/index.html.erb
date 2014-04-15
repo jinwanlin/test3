@@ -1,0 +1,20 @@
+<table class="table table-striped">
+  <tr>
+		<th>创建时间</th>
+		<th>操作者</th>
+		<th>金额</th>
+		<th>余额</th>
+		<th>订单</th>
+		<th>备注</th>
+	</tr>
+	<% @payments.each do |payment| %>
+		<tr>
+			<td><%= payment.created_at.strftime("%F %T") %></td>
+			<td><%= link_to payment.operator.name, payment.operator if payment.operator %></td>
+			<td><%= price_format payment.amount %></td>
+			<td><%= price_format payment.overage %></td>
+			<td><%= link_to payment.order.try(:sn), payment.order if payment.order %></td>
+			<td><%= payment.desc_ %></td>
+		</tr>
+	<% end %>
+</table>

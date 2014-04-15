@@ -1,0 +1,55 @@
+<div class="row">
+		<div id="myScrollspy" class="span12">
+
+			<div class="container" style="height:100px;">
+				<!--  data-spy="affix" -->
+			<div   class="container nav-stacked affix-top" data-offset-top="41" style="z-index:100000; ">
+				
+			<form action="/products" class="bs-docs-example  pull-right" style="margin: 0; position:static; height:30px;">
+			  <div class="input-append" style="margin-bottom:0px; "  id="search_div">
+					<input type="text" value="" name="searchKey" id="searchKey" except_current_company="false" class="required valid span2" autocomplete="off"  placeholder="请输入关键字...">
+					<!-- <ul class="typeahead dropdown-menu" id="history" style="position:relative; display:none;">
+						<% search_histories = SearchHistory.where(user_id: current_user, has_result: 'true') %>
+						<% search_histories.each do |history| %>
+							<li data-value="<%= history.keywords %>"><a href="javascript:void(0);" ><%= history.keywords %></a></li>
+						<% end %>
+					</ul> -->
+					
+			    <button class="btn" type="submit">搜索</button>
+					<input type="submit" value="搜索" class='btn' style="display:none;">
+			  </div>
+			</form>
+
+		<ul class="nav nav-tabs " style="margin-bottom:0px;">
+			<li class="<%= 'active' unless params[:classify].present? %>"><a href="/products">全部</a></li>
+			<% Vegetable::CLASSIFY.each do |key, val| %>
+			<li class="<%= 'active' if params[:classify] == key %>"><a href="/products?classify=<%= key %>"><%= val %></a></li>
+			<% end %>
+		</ul>
+		<div style="background-color:#F3F3F3; border:1px solid #DDDDDD; border-top:0; padding:10px;">
+			
+			<form action="/users/<%= current_user.id %>" class="bs-docs-example form-inline" data-remote="true" method="post" style="margin:0">
+				<input type="hidden" value="put" name="_method">
+				<input type="hidden"  value="false" name="user[show_product_img]"  />
+				<label class="checkbox search_form pull-right" >
+			    <input type="checkbox"  value="true"  id="show_product_img" name="user[show_product_img]" <%= "checked='checked'" if current_user.show_product_img %>> 显示图片
+			  </label>
+				
+		    <div class="btn-group" style="margin-right:10px;">
+			    <a class="btn btn-small <%= 'active' if params[:order]=='bought' %>" href="<%= url_for(params.merge order: 'bought') %>" title="最近七天评论订购量">订购习惯</a>
+			    <a class="btn btn-small <%= 'active' if params[:order]=='pinyin' %>" href="<%= url_for(params.merge order: 'pinyin') %>">名称</a>
+			    <a class="btn btn-small <%= 'active' if params[:order]=='price_asc' %>" href="<%= url_for(params.merge order: 'price_asc') %>" title="价格从低到高">价格 <i class="icon-arrow-up"></i></a>
+			    <a class="btn btn-small <%= 'active' if params[:order]=='price_desc' %>" href="<%= url_for(params.merge order: 'price_desc') %>" title="价格从高到低">价格 <i class="icon-arrow-down"></i></a>
+		    </div>
+				
+			</form>
+			
+
+			
+			</div>
+
+			
+						</div>
+		</div>
+		</div>
+</div>

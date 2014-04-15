@@ -1,0 +1,9 @@
+<form action="/order_items/<%= @order_item.id %>/save_amount" style="margin-bottom: 0px; width:200px;" data-remote="true" method="post">
+	<select name="order_item[order_amount]" style="width:70px; margin-bottom: 0px;">
+		<% @order_item.product.get_amounts.each do |amount| %>
+			<option value="<%= amount %>"><%= amount %><%= @order_item.product.unit %></option>
+		<% end %>
+	</select>
+	<%= submit_tag '保存', class: 'btn btn-success' %>
+	<%= submit_tag '取消', class: 'btn' %>
+</form>

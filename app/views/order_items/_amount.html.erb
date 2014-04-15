@@ -1,0 +1,2 @@
+		<%= "#{order_item_user.order_amount} #{order_item_user.product.unit}" %>
+		<%= link_to '', edit_amount_order_item_path(order_item_user), class: 'icon-edit', remote: "true", title: '修改' if order_item_user.order.pending? %>

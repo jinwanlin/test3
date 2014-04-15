@@ -1,0 +1,82 @@
+
+
+<div class="row">
+	<div class="span8">
+		
+		<% unless @order.canceled? %>
+    	<div class="progress">
+				<% state_index = @order.state_index %>
+				<% if state_index >= 0 %>
+					<div class="bar bar-info" style="width: 25%;"></div>
+				<% end %>
+			
+				<% if state_index >= 1 %>
+					<div class="bar bar-success" style="width: 25%;"></div>
+				<% end %>
+			
+				<% if state_index >= 2 %>
+					<div class="bar bar-warning" style="width: 25%;"></div>
+				<% end %>
+			
+	    	<% if state_index >= 6 %>
+					<div class="bar bar-danger" style="width: 25%;"></div>
+				<% end %>
+	    </div>
+		<% end %>
+		
+	    <div class="progress_text">
+					<div class="pull-left" style="width: 25%;">挑选商品</div>
+					<div class="pull-left" style="width: 25%;">确认订单</div>
+					<div class="pull-left" style="width: 25%;">分拣配送</div>
+					<div class="pull-left" style="width: 25%;">订单完成</div>
+	    </div>
+		
+		
+		<div style="height:24px;">
+			<div>
+				<div class="pull-right">订购日期：<%= @order.created_at.strftime('%Y-%m-%d').to_s %></div>
+				<div>订单编号：<%= @order.sn %> <span class="text-error"><%= order_state @order.state %></span></div>
+			</div>
+		</div>
+		
+		
+			<table class="table">
+			  <tr>
+			    <th>商品</th>
+					<th>单价</th>
+			    <th width="200">订购量</th>
+					<% unless @order.pending? || @order.confirmed? %>
+			    	<th>出货量</th>
+					<% end %>
+			    <th>订单金额</th>
+					<% unless @order.pending? || @order.confirmed? %>
+						<th>交易金额</th>
+					<% end %>
+					<th></th>
+			  </tr>
+			<%= render partial: "order_items/order_item_user", collection: @order.order_items %>
+			</table>
+		
+		<div class="pull-left">
+			<%= link_to '提交订单', 	submit_order_path(@order), class: 'btn btn-success' if @order.pending? %>
+			<%= link_to '继续购买', 	continue_buy_order_path(@order), class: 'btn btn-success' if @order.confirmed? %>
+			<%= link_to '取消', 			cancel_order_path(@order), class: 'btn btn-warning' unless @order.done? %>
+		</div>
+		
+		
+		
+			<p>
+				<ul  class="nav nav-pills pull-right order-total-info">
+					<li>订购合计：<span style="color:red" id="order_sum"><%= price_format @order.order_sum %></li>
+					<% unless @order.pending? || @order.confirmed? %>
+						<li>出库合计：<span id="order_ship_sum" style="color:red"><%= price_format @order.ship_sum %></li>
+					<% end %>
+				</ul>
+			<br/>
+			</p>
+		
+
+		</div>
+	
+</div>
+

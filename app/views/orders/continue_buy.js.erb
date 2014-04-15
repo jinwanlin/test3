@@ -1,0 +1,11 @@
+<% if @error_msg %>
+	alert("<%= @error_msg %>")
+	window.location.reload();
+<% else %>
+	$("#order_edit").css("display", "none");
+	$("#order_submit").css("display", "block");
+
+	$(".products tr .buy_btn").removeAttr("disabled");
+
+	$(".products .buy_btn").not('.product_is_bye .buy_btn').removeClass("hide");
+<% end %>
