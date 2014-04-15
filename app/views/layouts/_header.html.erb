@@ -55,7 +55,7 @@
 				
         <ul class="nav pull-right">
 					<% if current_user %>
-	          <li><%= link_to current_user.phone, current_user %></li>
+	          <li><%= link_to current_user.phone, "javascript:void(0)" %></li>
 						<li>
 							<%= link_to sign_out_sessions_path, method: 'delete', rel: "nofollow", :"data-confirm" => "确定要退出吗？", title: '退出' do %>
 								<i class="icon-off"></i>
