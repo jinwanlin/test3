@@ -1,6 +1,7 @@
 # encoding: utf-8
 class ApplicationController < ActionController::Base
   before_filter :authenticate_user 
+  
   # skip_before_filter :authenticate_user!, only: [:current_user]
   
 

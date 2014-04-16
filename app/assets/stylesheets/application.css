@@ -104,3 +104,13 @@ table.products tr td{
 .progress_text div{
 	text-align:center;
 }
+.product_id{
+	display:inline-block;
+/* width:25px;*/
+	padding-left:5px;
+}
+.shengmu{
+	display:inline-block;
+	width:15px;
+}
+

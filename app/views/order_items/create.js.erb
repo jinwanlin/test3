@@ -8,4 +8,15 @@
 	$("#buy_button_<%= @order_item.product.id %>").html("<%= @order_item.order_amount %> 斤");
 <% end %>
 
-<%= @order.state %>
+<% if @order %>
+	$("#order_oprate").show();
+	$("#order_submit").show();
+	
+	$("#order_show").attr("href", "/orders/<%= @order.id %>")
+	$("#order_submit").attr("href", "/orders/<%= @order.id %>/submit")
+	$("#order_edit").attr("href", "/orders/<%= @order.id %>/continue_buy")
+	$("#order_cancle").attr("href", "/orders/<%= @order.id %>/cancel?return=products")
+	
+<% else %>
+	$("#order_oprate").hide();
+<% end %>

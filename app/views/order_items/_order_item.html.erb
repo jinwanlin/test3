@@ -9,7 +9,7 @@ end
 %>
 
 <tr id="order_item_<%= order_item.id %>" class="<%= tr_class %>">
-	<td><%= order_item.product.sn %></td>
+	<td><%= order_item.product.id %></td>
 	<td>
 		<%#= "2#{order_item.product.id.to_s.rjust(6, '0')}#{order_item.order_amount.to_s.rjust(3, '0')}#{rand(99).to_s.rjust(2, '0')}0" %>
 		<%= link_to order_item.product.product_name, order_item.product %>

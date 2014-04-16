@@ -3,26 +3,24 @@
 <div class="row">
 	<div class="span8">
 		
-		<% unless @order.canceled? %>
     	<div class="progress">
 				<% state_index = @order.state_index %>
-				<% if state_index >= 0 %>
+				<% if state_index >= 0 && state_index != 7 %>
 					<div class="bar bar-info" style="width: 25%;"></div>
 				<% end %>
 			
-				<% if state_index >= 1 %>
+				<% if state_index >= 1  && state_index != 7 %>
 					<div class="bar bar-success" style="width: 25%;"></div>
 				<% end %>
 			
-				<% if state_index >= 2 %>
+				<% if state_index >= 2  && state_index != 7 %>
 					<div class="bar bar-warning" style="width: 25%;"></div>
 				<% end %>
 			
-	    	<% if state_index >= 6 %>
+	    	<% if state_index >= 6  && state_index != 7 %>
 					<div class="bar bar-danger" style="width: 25%;"></div>
 				<% end %>
 	    </div>
-		<% end %>
 		
 	    <div class="progress_text">
 					<div class="pull-left" style="width: 25%;">挑选商品</div>
@@ -58,9 +56,9 @@
 			</table>
 		
 		<div class="pull-left">
-			<%= link_to '提交订单', 	submit_order_path(@order), class: 'btn btn-success' if @order.pending? %>
-			<%= link_to '继续购买', 	continue_buy_order_path(@order), class: 'btn btn-success' if @order.confirmed? %>
-			<%= link_to '取消', 			cancel_order_path(@order), class: 'btn btn-warning' unless @order.done? %>
+			<%= link_to '确认订单', 	submit_order_path(@order), class: 'btn btn-success' if @order.pending? %>
+			<%= link_to '修改订单', 	continue_buy_order_path(@order), class: 'btn btn-success' if @order.confirmed? %>
+			<%= link_to '取消订单', 			cancel_order_path(@order), class: 'btn btn-warning' unless @order.done? || @order.canceled? %>
 		</div>
 		
 		

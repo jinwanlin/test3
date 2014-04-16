@@ -1,31 +1,32 @@
 # encoding: utf-8
 class ProductsController < ApplicationController
+  load_and_authorize_resource class: 'Product'
   skip_before_filter :authenticate_user, only: [:search]
-  
   
   before_filter :find_product, only: [:update, :show, :edit, :destroy, :to_up, :to_down, :to_file, :change_type]
   
   
   def index
-      date = Date.today
-      date = date-1.days if Time.new.hour < 3 # 凌晨3点前任然显示昨天的价格
+        date = Date.today
+        date = date-1.days if Time.new.hour < 3 # 凌晨3点前任然显示昨天的价格
       
-      # @products = Product.order(:id)
-      # @products = @products.where(type: params[:type]) if params[:type].present?
+        # @products = Product.order(:id)
+        # @products = @products.where(type: params[:type]) if params[:type].present?
       
-      @predicts = find_predicts(date)
-      if @predicts.empty? && !params[:searchKey].present?
-        Predict.update_user current_user
         @predicts = find_predicts(date)
-      end
+        if @predicts.empty? && !params[:searchKey].present?
+          Predict.update_user current_user
+          @predicts = find_predicts(date)
+        end
       
-      if params[:searchKey].present?
-          SearchHistory.where(keywords: params[:searchKey], user_id: current_user).delete_all
-          @search_history = SearchHistory.create keywords: params[:searchKey], user: current_user, has_result: (@predicts.size>0 ? "true" : "false")
-      end
+        if params[:searchKey].present?
+            SearchHistory.where(keywords: params[:searchKey], user_id: current_user).delete_all
+            @search_history = SearchHistory.create keywords: params[:searchKey], user: current_user, has_result: (@predicts.size>0 ? "true" : "false")
+        end
     
-    @last_order = current_user.orders.where(state: ['pending', 'confirmed']).first if current_user
-    render layout: "products_layout"
+      @last_order = current_user.orders.where(state: ['pending', 'confirmed']).first if current_user
+      render layout: "products_layout"
+    
   end
   
   
@@ -198,7 +199,7 @@ class ProductsController < ApplicationController
       sn = product.sn # 编号
       id = product.id # 货号
       if sn != ""
-        content += "PLU	#{sn}	#{id}		3	#{price},#{price_point}	0,0	0,0	#{print_type}	11	0	0	0	0	9	#{product.product_name}								0	0	0	0	0	0	0	0	0	0	0	0	0,0	0,0	0	127	0,0	0,0	0,0	0	127	0,0	0,0	0,0	0	127	0,0	0,0	0,0	0	127	0,0	0,0	0,0	0	0	0	0	0	0	0	\n"
+        content += "PLU	#{id}	#{id}		3	#{price},#{price_point}	0,0	0,0	#{print_type}	11	0	0	0	0	9	#{product.product_name}								0	0	0	0	0	0	0	0	0	0	0	0	0,0	0,0	0	127	0,0	0,0	0,0	0	127	0,0	0,0	0,0	0	127	0,0	0,0	0,0	0	127	0,0	0,0	0,0	0	0	0	0	0	0	0	\n"
       end
     end
     content += "END	PLU \n"
