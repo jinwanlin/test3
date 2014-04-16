@@ -41,7 +41,7 @@ $(function(){
 
 	$("#searchKey").focus(function() {
 		if($("#searchKey").val() == ""){
-			$("#history").css("display", "block");
+			$("#history").show();
 
 		}
 	});
@@ -53,8 +53,7 @@ $(function(){
 	
 	$("#searchKey").keyup(function(event) {
 		if($("#searchKey").val() == ""){
-			$("#history").css("display", "block");
-			cc();
+			$("#history").show();
 		}else{
 			t=setTimeout("hidden()",100);  //休眠300毫秒再执行这行 
 		}
@@ -63,15 +62,12 @@ $(function(){
 	$("#history li a").click(function(){
 		key = $(this).html();
 		$("#searchKey").val(key)
+		$(this).closest('form').submit();
 	})
-	
-
-
 	
 })
 
-
 function hidden(){
-	$("#history").css("display", "none");
+	$("#history").hide();
 }
 

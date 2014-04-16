@@ -1,6 +1,8 @@
 # encoding: utf-8
 class ApplicationController < ActionController::Base
-  before_filter :authenticate_user
+  before_filter :authenticate_user 
+  # skip_before_filter :authenticate_user!, only: [:current_user]
+  
 
   def authenticate_user
     current_user
@@ -19,6 +21,7 @@ class ApplicationController < ActionController::Base
       token = cookies[:token] ? cookies[:token] : params[:token]
       @current_user = User.find_by_token(token) if token.present?
     end
+    
     @current_user
   end
   

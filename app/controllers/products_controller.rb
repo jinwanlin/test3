@@ -1,6 +1,7 @@
 # encoding: utf-8
 class ProductsController < ApplicationController
-  load_and_authorize_resource class: 'Product'
+  skip_before_filter :authenticate_user, only: [:search]
+  
   
   before_filter :find_product, only: [:update, :show, :edit, :destroy, :to_up, :to_down, :to_file, :change_type]
   
@@ -13,7 +14,7 @@ class ProductsController < ApplicationController
       # @products = @products.where(type: params[:type]) if params[:type].present?
       
       @predicts = find_predicts(date)
-      if @predicts.empty?
+      if @predicts.empty? && !params[:searchKey].present?
         Predict.update_user current_user
         @predicts = find_predicts(date)
       end
@@ -154,12 +155,12 @@ class ProductsController < ApplicationController
   
   def search
     products = Product.where(type: 'Vegetable', state: 'up')
-    products = products.where("name LIKE ?", "%#{params[:query]}%")
+    products = products.where("name LIKE :query OR aliases LIKE :query", query: "%#{params[:query]}%")
+    
     names = Array.new
     products.each do |product|
       names << product.product_name
     end
-    # products.pluck(:product_name).compact.to_s
     render :json =>  names.to_s
   end
   

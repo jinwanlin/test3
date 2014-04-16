@@ -6,18 +6,29 @@
 			<div   class="container nav-stacked affix-top" data-offset-top="41" style="z-index:100000; ">
 				
 			<form action="/products" class="bs-docs-example  pull-right" style="margin: 0; position:static; height:30px;">
-			  <div class="input-append" style="margin-bottom:0px; "  id="search_div">
-					<input type="text" value="" name="searchKey" id="searchKey" except_current_company="false" class="required valid span2" autocomplete="off"  placeholder="请输入关键字...">
-					<!-- <ul class="typeahead dropdown-menu" id="history" style="position:relative; display:none;">
-						<% search_histories = SearchHistory.where(user_id: current_user, has_result: 'true') %>
+			  <div class="input-append btn-group	" style="margin-bottom:0px; "  id="search_div">
+					
+          
+					<input type="text" value="" name="searchKey" id="searchKey" except_current_company="false" class="required valid span2" autocomplete="off"  placeholder="请输入关键字..." style="width:148px;">
+
+					<% search_histories = SearchHistory.where(user_id: current_user, has_result: 'true').order("id desc") %>
+					<% unless search_histories.empty?  %>
+          <ul class="dropdown-menu" id="history" style="" class="">
 						<% search_histories.each do |history| %>
-							<li data-value="<%= history.keywords %>"><a href="javascript:void(0);" ><%= history.keywords %></a></li>
+            <li><a href="#"><%= history.keywords %></a></li>
 						<% end %>
-					</ul> -->
+          </ul>
+					<% end %>
+					
+					
 					
 			    <button class="btn" type="submit">搜索</button>
 					<input type="submit" value="搜索" class='btn' style="display:none;">
-			  </div>
+					
+          
+        </div>
+				
+				
 			</form>
 
 		<ul class="nav nav-tabs " style="margin-bottom:0px;">

@@ -5,8 +5,12 @@ Test5::Application.routes.draw do
 
   resources :search_histories
 
-  match '/apk', :to => redirect('/weicai_1.1.apk')
-  match '/weicai.apk', :to => redirect('/weicai_1.1.apk')
+  # match '/apk', :to => redirect('/weicai_1.1.apk')
+  # match '/weicai.apk', :to => redirect('/weicai_1.1.apk')
+  
+  match '/apk' => 'api::versions#apk'
+  match '/weicai.apk' => 'api::versions#apk'
+  
   
   resources :ships
   
