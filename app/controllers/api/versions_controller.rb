@@ -11,10 +11,17 @@ module Api
       redirect_to "/#{apk_name}"
     end
     
-    def apk_name()  
-       Dir.entries("./public").each do |sub|  
-         return sub if sub.include? ".apk"
-       end
+    def apk_name() 
+      if Socket.gethostname == "AY131203213614306c1aZ"
+        public_dir = "/home/jinwanlin/test3/public"
+      else
+        public_dir = "/Users/jinwanlin/workspace/test3/public"
+      end
+     
+      Dir.entries(public_dir).each do |sub|  
+        return sub if sub.include? ".apk"
+      end
+      
       return nil   
     end  
      
