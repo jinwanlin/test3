@@ -39,6 +39,8 @@
 		<% list.each_with_index do |product, index| %>
 		  <tr id="product_<%= product.id %>" class="<%= 'info' if product.down? %> <%= 'error' if product.file? %>  <%#= 'product_is_bye' if (order_amount = order_amount(@order, product)) > 0 %>">
 		    <td>
+					<span style="width:10px; display:inline-block;"><%= product.pinyin.at(0) %></span>
+					
 					<%= image_tag product.attachments.first.source.url(:thumb) if(params[:show_img] && !product.attachments.empty?) %>
 					<%#= product.sn %> 
 					<a href="/products/<%= product.id %>"><%= product.product_name %></a>
