@@ -21,7 +21,6 @@ module Api
       Dir.entries(public_dir).each do |sub|  
         return sub if sub.include? ".apk"
       end
-      
       return nil   
     end  
      
