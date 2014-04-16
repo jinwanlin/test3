@@ -166,10 +166,17 @@ class ProductsController < ApplicationController
   
   def to_up
     @product.to_up
+
+    today = Date.today
+    User.all.each do |user|
+      order_ids = Order.where(user_id: user).where(:state => ['shiping', 'baled', 'truck', 'signed', 'done']).where("created_at > ?", today-8.days).where("created_at < ?", today+1.days).pluck(:id)
+      Predict.update_product_user(user, today, order_ids, @product)
+    end
   end
   
   def to_down
     @product.to_down
+    Predict.where(product_id: @product, order_amount: 0).delete_all
   end
   
   def to_file
