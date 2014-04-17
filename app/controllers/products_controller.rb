@@ -1,7 +1,7 @@
 # encoding: utf-8
 class ProductsController < ApplicationController
   load_and_authorize_resource class: 'Product'
-  skip_before_filter :authenticate_user, only: [:search]
+  # skip_before_filter :authenticate_user!, only: :search
   
   before_filter :find_product, only: [:update, :show, :edit, :destroy, :to_up, :to_down, :to_file, :change_type]
   

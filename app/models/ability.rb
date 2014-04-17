@@ -17,7 +17,7 @@ class Ability
       can :manage, User
       cannot [:destroy], User
       
-      can :read, Product
+      can [:read, :search], Product
       cannot [:show, :destroy], Product
       
       can :read, Price
