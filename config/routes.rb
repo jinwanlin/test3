@@ -82,6 +82,7 @@ Test5::Application.routes.draw do
       get 'export'
       get 'sortable'
       get 'sortable_market'
+      get 'sortable_print'
       post 'update_sn'
       post "update_market"
       get 'print_dm'

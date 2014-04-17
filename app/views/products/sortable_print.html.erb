@@ -1,0 +1,31 @@
+<link rel="stylesheet" href="/assets/jquery-ui.css">
+<link rel="stylesheet" href="/assets/products_print.css">
+<style>
+ul.sortable_print{
+	float:left;
+}
+ul.sortable_print li{
+	list-style:none;
+	padding:10px;
+	line-height:25px;
+}
+
+</style>
+
+		<ul class="sortable_print" style="">
+				<li>
+						<% @products.each_with_index do |product, index| %>
+								<div>
+									<span class="shengmu"><%= shengmu = product.pinyin[0] %></span>
+									<%= product.product_name %>
+									<span class="product_id"><%= product.id %></span>
+								</div>
+								<% if (index+1) % 35 == 0 %>
+												</li>
+										</ul>
+										<ul class="sortable_print" style="">
+												<li>
+								<% end %>
+						<% end %>
+				</li>
+		</ul>

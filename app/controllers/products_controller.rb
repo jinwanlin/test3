@@ -66,6 +66,12 @@ class ProductsController < ApplicationController
     @products = Product.where(type: params[:type]).where(state: 'up')
   end
   
+  def sortable_print
+    params[:type] ||= 'Vegetable'
+    @products = Product.where(type: params[:type]).where("state in (?)", ['up', 'down']).order("pinyin")
+  end
+  
+  
   def sortable_market
     params[:type] ||= 'Vegetable'
     @products = Product.where(type: params[:type]).where(state: 'up')
