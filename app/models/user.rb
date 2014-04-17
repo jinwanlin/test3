@@ -2,7 +2,7 @@
 class User < ActiveRecord::Base
   attr_accessible :county, :house, :latitude, :longitude, :name, :password, :phone, :street, :string, :towns, :validate_code, :token, :state, :desc, :level, :baidu_user_id, :role, :show_product_img
   
-  validates :phone, :password, :presence => true, uniqueness: true
+  validates :phone, :presence => true, uniqueness: true
   
   has_many :orders
   has_many :payments, foreign_key: 'payer_id', :order => 'id DESC'
