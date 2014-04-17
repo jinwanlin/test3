@@ -22,6 +22,7 @@
 		<th>订单金额</th>
 		<th>出货金额</th>
 		<th>利润</th>
+		<th>毛利率</th>
 		<th></th>
   </tr>
 
@@ -37,6 +38,7 @@
 		<td><%= price_format order.order_sum %></td>
 		<td><%= price_format order.ship_sum %></td>
 		<td><%= price_format order.profit  %></td>
+		<td><%= "#{((order.profit / order.cost)*100).to_i }%" if order.cost>0 %></td>
     <td>
 			<%= link_to '', order, method: :delete, data: { confirm: 'Are you sure?' }, class: 'icon-trash', title: '删除' unless order.done? %>
 		</td>

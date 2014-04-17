@@ -15,7 +15,7 @@ class Ability
       cannot [:destroy], Company
       
       can :manage, User
-      cannot [:destroy], User
+      cannot [:show, :destroy, :recharge], User
       
       can [:read, :search], Product
       cannot [:show, :destroy], Product
@@ -31,6 +31,7 @@ class Ability
       can :read, Ship
       
       can :read, Payment
+      
       can :read, Pay
       can :read, Recharge
       can :read, Refund

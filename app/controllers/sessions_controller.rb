@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
   
   # 登录
   def new
-    
+    redirect_to products_path if current_user
   end
   
   # 登录

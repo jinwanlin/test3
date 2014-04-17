@@ -199,7 +199,7 @@ Test5::Application.routes.draw do
   
 
   
-  root :to => 'products#index'
+  root :to => 'sessions#new'
 end
 
 

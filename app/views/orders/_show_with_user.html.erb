@@ -58,7 +58,7 @@
 		<div class="pull-left">
 			<%= link_to '确认订单', 	submit_order_path(@order), class: 'btn btn-success' if @order.pending? %>
 			<%= link_to '修改订单', 	continue_buy_order_path(@order), class: 'btn btn-success' if @order.confirmed? %>
-			<%= link_to '取消订单', 			cancel_order_path(@order), class: 'btn btn-warning' unless @order.done? || @order.canceled? %>
+			<%= link_to '取消订单', 	cancel_order_path(@order), class: 'btn btn-warning' if @order.pending? || @order.confirmed? %>
 		</div>
 		
 		
