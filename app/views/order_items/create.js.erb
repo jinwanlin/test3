@@ -5,7 +5,7 @@
 <% else %>
 	$("#product_<%= @order_item.product.id %>").addClass("product_is_bye")
 	$("#drop<%= @order_item.product.id %>").html("<%= @order_item.order_amount %>")
-	$("#buy_button_<%= @order_item.product.id %>").html("<%= @order_item.order_amount %> 斤");
+	$("#buy_button_<%= @order_item.product.id %>").html("<%= @order_item.order_amount > 1 ? @order_item.order_amount.to_i : @order_item.order_amount %> 斤");
 <% end %>
 
 <% if @order %>
