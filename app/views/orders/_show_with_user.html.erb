@@ -58,14 +58,11 @@
 			<%= link_to '修改订单', 	continue_buy_order_path(@order), class: 'btn btn-success' if @order.confirmed? %>
 			<%= link_to '取消订单', 	cancel_order_path(@order), class: 'btn btn-warning' if @order.pending? || @order.confirmed? %>
 		</div>
-		
-		
-		
 			<p>
 				<ul  class="nav nav-pills pull-right order-total-info">
-					<li>订购合计：<span style="color:red" id="order_sum"><%= price_format @order.order_sum %></li>
+					<li>订购合计：<span style="color:red" id="order_sum"><%= price_format @order.order_sum %></span></li>
 					<% unless @order.pending? || @order.confirmed? %>
-						<li>出库合计：<span id="order_ship_sum" style="color:red"><%= price_format @order.ship_sum %></li>
+						<li>出库合计：<span id="order_ship_sum" style="color:red"><%= price_format @order.ship_sum %></span></li>
 					<% end %>
 				</ul>
 			<br/>

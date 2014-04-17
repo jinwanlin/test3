@@ -1,17 +1,17 @@
 <style>
-body{
+.signin_bg{
 	background:url('/assets/signin_bg.jpg') no-repeat  scroll center 60px #fff;
 	height:500px;
 }
 
 </style>
 <div class="row">
-	<div class="span9">
+	<div class="span7 signin_bg">
 	</div>
-	<div class="span3">
-		<%= simple_form_for User.new, url: sessions_path, html: {class: ' well'} do |f| %>
-			<%= f.input :phone, label: "手机号" %>
-			<%= f.input :password, label: "密码" %>
+	<div class="span5">
+		<%= simple_form_for User.new, url: sessions_path, html: {class: ' well span3', style: 'margin-left:-40px;'} do |f| %>
+			<%= f.input :phone, label: "手机号", input_html: {class: 'required'} %>
+			<%= f.input :password, label: "密码", input_html: {class: 'required'} %>
 		  <%= f.submit '登录', class: 'btn btn-success' %>
 		<% end %>
 </div>
