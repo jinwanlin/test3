@@ -43,14 +43,18 @@
 							<% end %>
 						</button>
             <ul class="dropdown-menu amounts_ul" style="margin-left: -1px;" product_id="<%= predict.product_id %>">
-              <li amount="0">
-								<a href="javascript:void(0);">取消</a>
-							</li>
-              <li class="divider"></li>
+              <!--  -->
 							<% predict.product.get_amounts.each do |amount| %>
-							  <li amount="<%= amount %>" class="<%= 'active' if amount==predict.order_amount %>">
-									<a href="javascript:void(0);" ><%= amount %> 斤</a>
-								</li>
+							<% if amount == 0 %>
+									<li amount="0">
+										<a href="javascript:void(0);">取消</a>
+									</li>
+		              <li class="divider"></li>
+								<% else %>
+								  <li amount="<%= amount %>" class="<%= 'product_is_bye' if amount==predict.order_amount %>">
+										<a href="javascript:void(0);" ><%= amount %> 斤</a>
+									</li>
+								<% end %>
 							<% end %>
             </ul>
           </div>

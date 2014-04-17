@@ -65,7 +65,7 @@ class User < ActiveRecord::Base
   end
   
   def set_default
-    self.level = 4
+    self.level = 3
   end
   
 
