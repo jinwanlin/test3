@@ -50,5 +50,13 @@ scheduler.in '2h' do
   end
 end
 
+scheduler.in '4h' do
+  #更新用户订购预测
+  Product.do_order_total
+end
+
+
+
+
 # scheduler.join
   # let the current thread join the scheduler thread

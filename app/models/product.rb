@@ -269,7 +269,14 @@ class Product < ActiveRecord::Base
         end
       end
       
-      product.order_total = product.order_detail.values.inject{|sum,x| sum + x }
+      # product.order_total = product.order_detail.values.inject{|sum,x| sum + x }
+      
+      order_total = 0
+      Product.find(50).order_detail.each do |k,v|
+        sum = order_total + k*v
+      end
+      product.order_total = order_total
+        
       product.save
     end
   end
@@ -327,10 +334,11 @@ class Product < ActiveRecord::Base
       when 20
         self.order_detail[20] += 1
       when 25
-        self.order_detail[5] += 1
+        self.order_detail[25] += 1
     end
   end
   
+  # 分包重量
   def update_order_spid(order_amount)
     case order_amount
       when 0.5
@@ -372,3 +380,4 @@ class Product < ActiveRecord::Base
   end
   
 end
+
