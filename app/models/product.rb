@@ -254,7 +254,6 @@ class Product < ActiveRecord::Base
   
   
 
-
   # 统计未分拣货物
   def self.do_order_total
     Product.all.each do |product|

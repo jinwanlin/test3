@@ -18,7 +18,7 @@ class CreateProducts < ActiveRecord::Migration
       t.float :cost, :null => false, :default => 0.0 # 当前平均成本
       t.text :experience
       t.text :des
-      t.integer :order_total
+      t.float :order_total
       t.text :order_detail
       t.text :order_spid
       t.string :pinyin
