@@ -268,9 +268,7 @@ class Product < ActiveRecord::Base
           product.update_order_detail(item.order_amount)
         end
       end
-      
-      # product.order_total = product.order_detail.values.inject{|sum,x| sum + x }
-      
+
       order_total = 0
       product.order_detail.each do |k, v|
         order_total = order_total + k * v
@@ -297,6 +295,11 @@ class Product < ActiveRecord::Base
     self.order_detail[15] = 0
     self.order_detail[20] = 0
     self.order_detail[25] = 0
+    self.order_detail[30] = 0
+    self.order_detail[35] = 0
+    self.order_detail[40] = 0
+    self.order_detail[50] = 0
+    self.order_detail[60] = 0
 
     self.order_spid = Hash.new
     self.order_spid[0.5] = 0
@@ -305,6 +308,7 @@ class Product < ActiveRecord::Base
     self.order_spid[5] = 0
     self.order_spid[10] = 0
     self.order_spid[20] = 0
+    self.order_spid[30] = 0
   end
   
   def update_order_detail(order_amount)
@@ -335,6 +339,8 @@ class Product < ActiveRecord::Base
         self.order_detail[20] += 1
       when 25
         self.order_detail[25] += 1
+      when 30
+        self.order_detail[30] += 1
     end
   end
   
@@ -372,6 +378,19 @@ class Product < ActiveRecord::Base
         self.order_spid[20] += 1
       when 25
         self.order_spid[5] += 1
+      when 30
+        self.order_spid[30] += 1
+      when 35
+        self.order_spid[30] += 1
+        self.order_spid[5] += 1
+      when 40
+        self.order_spid[30] += 1
+        self.order_spid[10] += 1
+      when 50
+        self.order_spid[30] += 1
+        self.order_spid[20] += 1
+      when 60
+        self.order_spid[30] += 2
     end
   end
   
