@@ -98,8 +98,8 @@ class ProductsController < ApplicationController
     else
       params[:product][:amounts] = nil
     end
+    @product = Product.new(params[:product])
     @product.attachments << Attachment.new(:source => params[:attachment]) unless params[:attachment].blank?
-    @product = Product.new(options: params[:product])
     @product.save
     
     redirect_to @product
