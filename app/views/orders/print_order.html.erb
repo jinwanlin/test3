@@ -56,7 +56,10 @@ $(function(){
 			<td style="border-top-width:0"></td>
 		<% end %>
 	
-		<td><%= order_item.product.product_name %></td>
+		<td>
+			<%= order_item.id if order.state_index<3 %>
+			<%= order_item.product.product_name %>
+		</td>
 		<td><%= price_format order_item.price %> 元/斤</td>
 		<td><%= order_item.order_amount %> 斤 </td>
 		<td><%= "#{price_format order_item.ship_amount} 斤" if order_item.ship_amount>0 %></td>
