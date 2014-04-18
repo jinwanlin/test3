@@ -260,7 +260,7 @@ class Product < ActiveRecord::Base
     Product.all.each do |product|
       product.reset_order_detail_and_order_spid
       
-      orderItems = OrderItem.where(product_id: p)
+      orderItems = OrderItem.where(product_id: product)
       orderItems = orderItems.joins(:order).where("orders.state = 'shiping' ")
       unless orderItems.empty?
         orderItems.each do |item|
