@@ -57,7 +57,7 @@ $(function(){
 		<% end %>
 	
 		<td>
-			<%= order_item.id if order.state_index<3 %>
+			<%= order_item.product.id if order.state_index<3 %>
 			<%= order_item.product.product_name %>
 		</td>
 		<td><%= price_format order_item.price %> 元/斤</td>
