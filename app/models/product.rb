@@ -272,8 +272,8 @@ class Product < ActiveRecord::Base
       # product.order_total = product.order_detail.values.inject{|sum,x| sum + x }
       
       order_total = 0
-      Product.find(50).order_detail.each do |k,v|
-        sum = order_total + k*v
+      product.order_detail.each do |k, v|
+        order_total = order_total + k * v
       end
       product.order_total = order_total
         
