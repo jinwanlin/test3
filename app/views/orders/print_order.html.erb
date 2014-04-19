@@ -44,10 +44,13 @@ $(function(){
 			<th class='alnright'>金额</th>
 		</tr>
 		
-		<% order.order_items.each_with_index do |order_item, index| %>
+		<% list = order.order_items %>
+		<% list[0...(list.length+1)/2].each_with_index do |order_item, index| %>
 		<tr>
 			<td>
-				<%= order_item.product.id if order.state_index<3 %>
+				<% if order.state_index<3 %>
+					<%= order_item.product.id  %>
+				<% end %>
 				<%= order_item.product.product_name %>
 			</td>
 			<td><%= price_format order_item.price %> 元/斤</td>
@@ -69,10 +72,12 @@ $(function(){
 			<th class='alnright'>金额</th>
 		</tr>
 		
-		<% order.order_items.each_with_index do |order_item, index| %>
+		<% list[(list.length+1)/2..-1].each_with_index do |order_item, index| %>
 		<tr>
 			<td>
-				<%= order_item.product.id if order.state_index<3 %>
+				<% if order.state_index<3 %>
+					<%= order_item.product.id  %>
+				<% end %>
 				<%= order_item.product.product_name %>
 			</td>
 			<td><%= price_format order_item.price %> 元/斤</td>
