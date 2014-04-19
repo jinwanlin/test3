@@ -37,7 +37,7 @@ $(function(){
 <div style="">
 
 	<% last_shengmu = "" %>
-	<% list = order.order_items %>
+	<% list = order.order_items.order("pinyin") %>
 	<table class="table pull-left" style="font-size:12px; margin:20px 0;  width:48%;">
 	  <tr>
 			<% if order.state_index<3 %>
