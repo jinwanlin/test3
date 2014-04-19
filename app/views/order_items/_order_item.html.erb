@@ -1,8 +1,8 @@
 <% 
 unless @order.pending? || @order.confirmed?
-	if (a = order_item.ship_amount - order_item.order_amount) > 1
+	if (a = order_item.ship_amount - order_item.order_amount) > 0.5
 		tr_class = 'error'
-	elsif (b = order_item.order_amount - order_item.ship_amount) > 1
+	elsif (b = order_item.order_amount - order_item.ship_amount) > 0.5
 		tr_class = 'info'
 	end
 end
