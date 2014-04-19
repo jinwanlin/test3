@@ -36,6 +36,7 @@ $(function(){
 	</div>
 <div style="">
 
+	<% order_amount_total = 0 %>
 	<% last_shengmu = "" %>
 	<% list = OrderItem.where(order_id: order).joins(:product).order("products.pinyin") %>
 	<table class="table pull-left" style="font-size:12px; margin:20px 0;  width:48%;">
@@ -53,6 +54,7 @@ $(function(){
 			<th class='alnright'>金额</th>
 		</tr>
 		<% list[0...(list.length+1)/2].each_with_index do |order_item, index| %>
+		<% order_amount_total = order_amount_total + order_item.ship_amount %>
 		<tr>
 			<% if order.state_index<3 %>
 				<td>
@@ -95,6 +97,7 @@ $(function(){
 		</tr>
 		
 		<% list[(list.length+1)/2..-1].each_with_index do |order_item, index| %>
+		<% order_amount_total = order_amount_total + order_item.ship_amount %>
 		<tr>
 			<% if order.state_index<3 %>
 				<td>
@@ -128,6 +131,13 @@ $(function(){
 			<div class="pull-left">
 				服务电话：156-5771-5360
 			</div>
+			
+			<div class="pull-right">
+				共<%= list.size %>种商品
+				<!-- ，<%= price_format order_amount_total %>斤。 -->
+			</div>
+			
+			
 <!-- 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 			网址：http://www.caicai.co -->
 		</div>
