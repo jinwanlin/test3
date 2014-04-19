@@ -86,7 +86,7 @@ class ProductsController < ApplicationController
   end
 
   def new
-    @product = Product.new
+    @product = Vegetable.new
   end
 
   def edit

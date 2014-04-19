@@ -6,7 +6,12 @@ class Product < ActiveRecord::Base
   serialize :amounts, Array
   attr_accessible :des, :name, :series, :cost, :sn, :aliases, :amounts, :classify, :no, :type, :state, :unit, :market_sort, :market_area, :order_total, :order_detail, :order_spid, :market_area, :market_sort, :pinyin, :optional_amounts, :experience, :save_time
   
-  PRODUCT_TYPES = ['', 'Vegetable', 'Fruit', 'Meat', 'Fish', 'Agri']
+  PRODUCT_TYPES = {'Vegetable'=>'蔬菜', 
+                   'Fruit'=>'水果', 
+                   'Meat'=>'肉', 
+                   'Fish'=>'水产', 
+                   'Agri'=>'禽蛋'
+                 }
   
   #作料： 香葱、蒜米、香芹、香椿芽
   AMOUNTS1 = [0, 0.5, 1, 2, 3, 4, 5, 6, 7, 10, 12, 15, 20]
