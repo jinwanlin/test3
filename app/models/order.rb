@@ -94,7 +94,7 @@ class Order < ActiveRecord::Base
 
   # 利润
   def profit
-    sum_ = self.shiping? ? ship_sum : order_sum
+    sum_ = state_index<3 ? order_sum : ship_sum
     sum_ - cost
   end
   
