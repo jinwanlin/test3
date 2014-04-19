@@ -1,6 +1,6 @@
 class OrderItem < ActiveRecord::Base
 
-  attr_accessible :product_id, :order_amount, :order_id, :ship_amount
+  attr_accessible :product_id, :order_amount, :order_id, :ship_amount, :price
   
   belongs_to :order
   belongs_to :product
