@@ -56,7 +56,11 @@
 								<%#= product.market_sort.to_s.rjust(2, '0') %>
 								<span style="width:10px; display:inline-block;"><%= product.pinyin.at(0) %></span>
 								<%= product.product_name %>
-								<span style="color:red;"><%= "#{product.order_total>=1 ? product.order_total.to_i : product.order_total}#{product.unit}" if product.order_total > 0 %></span>
+								<span style="color:red;">
+									<% if product.order_total && product.order_total > 0 %>
+										<%= "#{product.order_total>=1 ? product.order_total.to_i : product.order_total}#{product.unit}" %>
+									<% end %>
+								</span>
 							</li>
 						<% end %>
 					</ul>
