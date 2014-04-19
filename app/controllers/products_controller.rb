@@ -100,9 +100,11 @@ class ProductsController < ApplicationController
     end
     @product = Product.new(params[:product])
     @product.attachments << Attachment.new(:source => params[:attachment]) unless params[:attachment].blank?
-    @product.save
-    
-    redirect_to @product
+    if @product.save
+      redirect_to @product
+    else
+      render action: "new"
+    end
   end
 
   def update
