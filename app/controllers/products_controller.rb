@@ -75,7 +75,6 @@ class ProductsController < ApplicationController
   def sortable_market
     params[:type] ||= 'Vegetable'
     @products = Product.where(type: params[:type]).where(state: 'up')
-    Product.do_order_total
   end
   
   def print_dm
