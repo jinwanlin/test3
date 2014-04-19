@@ -9,9 +9,10 @@
 	<%= simple_form_for @order.order_items.build, html: {class: 'form-horizontal'} do |f| %>
 		<%= f.hidden_field :order_id %>
 		<div class="modal-body" style="min-height:260px;">
-			<%= f.input :product, label: '<abbr title="required">*</abbr> 商品名称' do %>
+			<!-- <%= f.input :product, label: '<abbr title="required">*</abbr> 商品名称' do %>
 				<%= text_field_tag "product_name", "", class: 'required', id: 'product_search', autocomplete: 'off' %>
-			<% end %>
+			<% end %> -->
+			<%= f.input :product_id, label: '商品ID', input_html: {class: 'required'} %>
 			<%= f.input :order_amount, label: '数量', input_html: {class: 'required'} %>
 			<%#= f.input :order_amount, label: '数量', :collection => Product::AMOUNTS, input_html: {class: 'required'} %>
 		</div>

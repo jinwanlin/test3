@@ -67,7 +67,7 @@
 				</td>
 				<td>
 					<% if params[:show_price] %>
-					<%= price_format(product.sales_price(current_user.level)) if current_user %><span class="unit">￥/<%= product.unit %></span>
+					<%= price_format(product.sales_price(current_user.level)) if current_user %><span class="unit">￥/<%= product.unit ? product.unit : '斤' %></span>
 					<% end %>
 				</td>
 				<td>

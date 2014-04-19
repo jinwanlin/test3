@@ -23,6 +23,10 @@ class OrderItemsController < ApplicationController
   def create
     # order
     @order = current_user.orders.last
+    if current_user.admin? && params[:order_item][:order_id].present?
+      @order = Order.find(params[:order_item][:order_id])
+    end
+    
     if @order && (@order.pending? || @order.confirmed?)
       @order.continue_buy if @order.confirmed?      
     else
@@ -32,8 +36,8 @@ class OrderItemsController < ApplicationController
     # product
     if params[:order_item][:product_id].present?
       product = Product.find params[:order_item][:product_id]
-    else
-      product = Product.find_by_name params[:product_name]
+    # else
+    #   product = Product.find_by_name params[:product_name]
     end
     # 
     # p params[:order_item][:order_amount]
