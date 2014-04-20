@@ -127,7 +127,6 @@ class Order < ActiveRecord::Base
   
   def do_done
     Pay.create order: self, payer: user, operator: nil, amount: -1*ship_sum
-    Product.do_order_total
   end
   
   def do_print_order
@@ -141,17 +140,14 @@ class Order < ActiveRecord::Base
   
     Predict.where(user_id: user).update_all order_amount: 0
     Predict.update_user user
-    Product.do_order_total
   end
   
   def do_print_ship
-    Product.do_order_total
   end
   
   def do_cancel
     Predict.where(user_id: user).update_all order_amount: 0
     Predict.update_user user
-    Product.do_order_total
   end
   
   def formart(money)
