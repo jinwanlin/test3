@@ -326,7 +326,7 @@ class Product < ActiveRecord::Base
       when 3 
         self.order_detail[3] += 1
       when 4
-        self.order_detail[2] += 1
+        self.order_detail[4] += 1
       when 5
         self.order_detail[5] += 1
       when 6
