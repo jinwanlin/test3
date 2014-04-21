@@ -25,9 +25,9 @@ end
 	<td class="ship_amount"><%= price_format order_item.ship_amount %></td>
 	<td>
 		<% if tr_class == "error" %>
-			<div style="color:red;"><%= "多#{a}斤" %></div>
+			<div style="color:red;"><%= "多#{price_format a}斤" %></div>
 		<% elsif tr_class == "info" %>
-			<div style="color:blue;"><%= "差#{b}斤" %></div>
+			<div style="color:blue;"><%= "差#{price_format b}斤" %></div>
 		<% end %>
 	</td>
 	<% end %>
