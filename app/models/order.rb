@@ -1,6 +1,6 @@
 # encoding: utf-8
 class Order < ActiveRecord::Base
-  attr_accessible :product_id, :order_amount, :sn, :sum, :cost, :state
+  attr_accessible :product_id, :order_amount, :sn, :sum, :cost, :state, :user_id
   
   has_many :order_items, dependent: :destroy
   belongs_to :user

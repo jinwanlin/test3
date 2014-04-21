@@ -39,16 +39,23 @@ ul.sortable_print li{
 <div style="overflow:hidden;">
 		<ul class="sortable_print" style="">
 				<li>
+						<% is_print_zero = false %>
 						<% @predicts.each_with_index do |predict, index| %>
 							<% product = predict.product %>
+							
+							<% if predict.order_times == 0 && !is_print_zero %>
+								<div style="border-top:1px solid red;">
+								<% is_print_zero = true %>
+							<% else %>
 								<div>
+							<% end %>
 									<span class="product_id"><%= product.id %></span>
 									<%= product.product_name %>
 									
-<!-- 									<span class="shengmu"><%#= predict.order_times %></span>
-									<%= product.unit %> -->
+ 									<span class="shengmu"><%#= predict.order_times %></span>
+									<span class="pull-right"><%= product.unit %></span>
 									
-									<%= product.sales_price(@user.level) %><span style="font-size:12px;">元/斤</span>
+									<%#= product.sales_price(@user.level) %>
 								</div>
 								
 								<% if (index+1) % 33 == 0 %>
@@ -58,7 +65,15 @@ ul.sortable_print li{
 												<li>
 								<% end %>
 						<% end %>
+						<div>
+							<img src="/assets/weixin_no.jpg" style="width:130px;">
+						</div>
 				</li>
 		</ul>
 </div>
+
+<div style="padding:0 20px;">
+	备注：填写数量后，可拍照发送到微信账号（15810845422），让客服为您下单。
+</div>
+		
 </div>

@@ -8,6 +8,12 @@
 	<%= submit_tag '查询', class: 'btn btn-small' %>
 <% end %>
 
+<% if user %>
+<form action="/orders?order[user_id]=<%= user.id %>" method="post" >
+<input type="submit" class="btn btn-success" value="创建订单">
+</form>
+<% end %>
+
 <form action="/orders/print_order" >
 	
 <table class="table">
@@ -25,7 +31,7 @@
 		<th>毛利率</th>
 		<th></th>
   </tr>
-
+<% @orders = orders if @orders.nil? %>
 <% @orders.each do |order| %>
   <tr>
     <td style="width:30px;">

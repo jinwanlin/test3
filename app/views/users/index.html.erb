@@ -31,9 +31,9 @@
 
 <% @users.each do |user| %>
   <tr>
-    <td><%= user.name %></td>
-		<td><%= link_to '订购菜单', user_buy_list_print_products_path(user_id: user, type: 'Vegetable') %>
-    <td><%= link_to user.phone, user  %></td>
+    <td><%= link_to user.name, user %></td>
+		<td><%= link_to '订购菜单', user_buy_list_print_products_path(user_id: user, type: 'Vegetable') %></td>
+    <td><%= user.phone %></td>
     <td><%= price_format user.overage %></td>
     <td><%= user.validate_code %></td>
     <td><%= user.state_ %></td>

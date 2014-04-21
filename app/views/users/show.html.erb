@@ -1,3 +1,8 @@
+<div class="pull-right">
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Back', users_path %>
+</div>
+
 <table class="table table-bordered table-condensed">
 	<tr>
 		<th width=100>店铺名</th>
@@ -23,27 +28,23 @@
 	</tr>
 </table>
 
-<form method="post" class="simple_form form-horizontal" action="/users/<%= @user.id %>/recharge" accept-charset="UTF-8">
-	<div class="control-group string optional user_name">
-		<label for="user_name" class="string optional control-label">充值金额</label>
-		<div class="controls">
-			<input type="text" value="" name="payment[amount]" id="user_name" class="string optional" autocomplete="off">
-		</div>
-	</div>
-	
-	<div class="control-group text optional user_desc">
-		<label for="user_desc" class="text optional control-label">备注</label>
-		<div class="controls"><textarea rows="5" name="payment[desc]" id="user_desc" value="" class="text optional span6"></textarea></div>
-	</div>
-	
-	<div class="control-group text optional user_desc">
-		<div class="controls"><input type="submit" class="btn" value="充值"></div>
+
+<div style="margin-bottom: 18px;" class="tabbable">
+  <ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#tab1">订单</a></li>
+    <li class=""><a data-toggle="tab" href="#tab2">充值</a></li>
+  </ul>
+  <div style="padding-bottom: 9px; border-bottom: 1px solid #ddd;" class="tab-content">
+    <div id="tab1" class="tab-pane active">
+			<%= render '/orders/orders_admin', orders: Order.where(user_id: @user), user: @user %>
+    </div>
+    <div id="tab2" class="tab-pane">
+			<%= render 'payment_tab', user: @user %>
+    </div>
   </div>
-</form>
-
-<%= render 'payments/payment' %>
+</div>
 
 
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+
+

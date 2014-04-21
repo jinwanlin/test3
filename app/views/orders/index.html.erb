@@ -1,5 +1,5 @@
 <% if current_user.admin? %>
-		<%= render 'orders_admin'%>
+		<%= render 'orders_admin', user: nil %>
 <% else %>
 		<%= render 'orders_user'%>
 <% end %>
