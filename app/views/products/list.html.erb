@@ -30,7 +30,7 @@
 	
 	<input type="submit" value="查询" class='btn'>
 	</form>
-<table width="100%" class="table">
+<table width="100%" class="table products">
 	<% tabindex = 0 %>
 	<% Product::MARKET_AREA.each do |key, val| %>
 	<% tabindex = tabindex+1%>
@@ -72,13 +72,10 @@
 				</td>
 				<td id="product_<%= product.id %>_price">
 					
-					<%= product.sales_price current_user.level %>
-					
 					<% if params[:show_price] %>
-						
-						<div class="btn-group btn-group-vertical">
+					<div class="btn-group btn-group-vertical">
 							<a class="btn btn-mini" href="/products/<%= product.id %>/change_price?price_name=price_1&function=plus" data-remote="true" ><i class="icon-chevron-up"></i></a>
-							<a class="btn price_text price_1" href="#">
+							<a class="btn price_text price_1" href="javascript:void(0)">
 								<%= price_format(product.price_1) %>
 							</a>
 							<a class="btn btn-mini" href="/products/<%= product.id %>/change_price?price_name=price_1&function=minus" data-remote="true" ><i class="icon-chevron-down"></i></a>
@@ -87,7 +84,7 @@
 						
 						<div class="btn-group btn-group-vertical">
 							<a class="btn btn-mini" href="/products/<%= product.id %>/change_price?price_name=price_2&function=plus" data-remote="true" ><i class="icon-chevron-up"></i></a>
-							<a class="btn price_text price_2" href="#">
+							<a class="btn price_text price_2" href="javascript:void(0)">
 								<%= price_format(product.price_2) if current_user %>
 							</a>
 							<a class="btn btn-mini" href="/products/<%= product.id %>/change_price?price_name=price_2&function=minus" data-remote="true" ><i class="icon-chevron-down"></i></a>
@@ -96,7 +93,7 @@
 						
 						<div class="btn-group btn-group-vertical">
 							<a class="btn btn-mini" href="/products/<%= product.id %>/change_price?price_name=price_3&function=plus" data-remote="true" ><i class="icon-chevron-up"></i></a>
-							<a class="btn price_text price_3" href="#">
+							<a class="btn price_text price_3" href="javascript:void(0)">
 								<%= price_format(product.price_3) if current_user %>
 							</a>
 							<a class="btn btn-mini" href="/products/<%= product.id %>/change_price?price_name=price_3&function=minus" data-remote="true" ><i class="icon-chevron-down"></i></a>
