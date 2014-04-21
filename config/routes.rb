@@ -86,6 +86,7 @@ Test5::Application.routes.draw do
       post 'update_sn'
       post "update_market"
       get 'print_dm'
+      get 'user_buy_list_print'
     end
     member do
       get 'to_up'
@@ -94,6 +95,7 @@ Test5::Application.routes.draw do
       put 'upload_file'
       put 'update_product'
       delete 'delete_attachment'
+      get 'change_price'
     end
   end
     

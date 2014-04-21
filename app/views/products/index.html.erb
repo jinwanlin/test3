@@ -23,6 +23,8 @@
 				</td>
 				<% end %>
 		    <td>
+
+					<%= predict.order_times %>
 					<img src="<%= predict.product.attachments.empty? ? '/assets/missing.jpg' : predict.product.attachments.first.source.url(:thumb) %>" class="product_img <%= 'hide' unless current_user.show_product_img %>" style="width:100px; height:75px;">
 					<div class="product_name"><%= predict.product.product_name %></div>
 					</td>

@@ -13,10 +13,10 @@ class ProductsController < ApplicationController
         # @products = Product.order(:id)
         # @products = @products.where(type: params[:type]) if params[:type].present?
       
-        @predicts = find_predicts(date)
+        @predicts = find_predicts(date, current_user)
         if @predicts.empty? && !params[:searchKey].present?
           Predict.update_user current_user
-          @predicts = find_predicts(date)
+          @predicts = find_predicts(date, current_user)
         end
       
         if params[:searchKey].present?
@@ -30,8 +30,8 @@ class ProductsController < ApplicationController
   end
   
   
-  def find_predicts(date)
-    @predicts = Predict.where(user_id: current_user).where(date: date)
+  def find_predicts(date, user)
+    @predicts = Predict.where(user_id: user).where(date: date)
     @predicts = @predicts.joins(:product).where("products.type = ?", params[:type]) if params[:type].present?
     @predicts = @predicts.joins(:product).where("products.classify = ?", params[:classify]) if params[:classify].present?
     @predicts = @predicts.joins(:product).where("products.name like ?", "%#{params[:searchKey]}%") if params[:searchKey].present?
@@ -47,6 +47,16 @@ class ProductsController < ApplicationController
       @predicts = @predicts.joins(:product).order("order_times DESC").order("products.pinyin")
     end
     @predicts
+  end
+  
+  def user_buy_list_print
+    @user = User.find(params[:user_id])
+    
+    @predicts = find_predicts(Date.today, @user)
+    if @predicts.empty?
+      Predict.update_user user
+      @predicts = find_predicts(date, @user)
+    end
   end
   
   
@@ -116,6 +126,34 @@ class ProductsController < ApplicationController
     end
     @product.update_attributes(params[:product])
     redirect_to @product
+  end
+  
+  def change_price
+    # http://lvh.me:3000/products/97/change_price?price_name=price_1&function=minus
+    
+    @product = Product.find(params[:id])
+    if params[:price_name] == 'price_1'
+      if params[:function] == 'plus'
+        @product.price_1 = @product.price_1+0.05
+      elsif params[:function] == 'minus'
+        @product.price_1 = @product.price_1-0.05
+      end
+    elsif params[:price_name] == 'price_2'
+      if params[:function] == 'plus'
+        @product.price_2 = @product.price_2+0.05
+      elsif params[:function] == 'minus'
+        @product.price_2 = @product.price_2-0.05
+      end
+    elsif params[:price_name] == 'price_3'
+      if params[:function] == 'plus'
+        @product.price_3 = @product.price_3+0.05
+      elsif params[:function] == 'minus'
+        @product.price_3 = @product.price_3-0.05
+      end
+    end
+    @product.save
+    
+    
   end
   
   def update_product

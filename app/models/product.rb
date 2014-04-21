@@ -122,10 +122,10 @@ class Product < ActiveRecord::Base
   end
   
   # 卖价，不同的人看到不同的卖价
-  def sales_price(level=3)
+  def sales_price(level=1)
     # return nil if prices.empty?
-    return nil unless cost.present?
-    return nil if cost < 0.01
+    # return nil unless cost.present?
+    # return nil if cost < 0.01
     
     # profit_1 = (level-1)/3
     # remainder = level%3 == 0 ? 3 : level%3
@@ -136,18 +136,37 @@ class Product < ActiveRecord::Base
     # cost = prices.last.forecast_cost
     
     
-    if cost<1
-      level = level + 2
-    elsif 1 <= cost && cost <2
-      level = level + 1
-    elsif 2 <= cost && cost <3
-      
-    elsif 3 <= cost && cost <4
-      level = level - 1
-    elsif 4 <= cost
-      level = level - 2
+    # if cost<1
+    #   level = level + 2
+    # elsif 1 <= cost && cost <2
+    #   level = level + 1
+    # elsif 2 <= cost && cost <3
+    #   
+    # elsif 3 <= cost && cost <4
+    #   level = level - 1
+    # elsif 4 <= cost
+    #   level = level - 2
+    # end
+    # price = cost*(level * 0.05 + 1)
+    p level
+    
+    price = 0
+    if 0 < level && level <10
+      price = price_1
+      price = price_2 if level > series
+    elsif 10 <= level && level <20
+      price = price_2
+      price = price_3 if level > series
     end
-    price = cost*(level * 0.05 + 1)
+    
+    p price
+    
+    # Product.all.each do |product|
+    #   product.price_1 = product.cost
+    #   product.price_2 = product.cost
+    #   product.price_3 = product.cost
+    #   product.save
+    # end
     
     
     # if cost<1
@@ -161,6 +180,10 @@ class Product < ActiveRecord::Base
     # elsif 4 <= cost
     #   price = price + 0.6
     # end
+    
+    # ActiveRecord::Migration.add_column :products, :price_1, :float, :default => 0, :null => false
+    # ActiveRecord::Migration.add_column :products, :price_2, :float, :default => 0, :null => false
+    # ActiveRecord::Migration.add_column :products, :price_3, :float, :default => 0, :null => false
     
     
     

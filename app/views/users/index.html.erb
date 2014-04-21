@@ -19,8 +19,9 @@
 
 <table class="table table-striped">
   <tr>
-    <th>手机号</th>
     <th>店铺名</th>
+    <th></th>
+    <th>手机号</th>
     <th>余额</th>
     <th>验证码</th>
     <th>状态</th>
@@ -30,8 +31,9 @@
 
 <% @users.each do |user| %>
   <tr>
-    <td><%= link_to user.phone, user  %></td>
     <td><%= user.name %></td>
+		<td><%= link_to '订购菜单', user_buy_list_print_products_path(user_id: user, type: 'Vegetable') %>
+    <td><%= link_to user.phone, user  %></td>
     <td><%= price_format user.overage %></td>
     <td><%= user.validate_code %></td>
     <td><%= user.state_ %></td>

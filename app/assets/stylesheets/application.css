@@ -114,3 +114,9 @@ table.products tr td{
 	width:15px;
 }
 
+
+.price_text, .price_text:hover{
+	border:0;
+	background:none;
+	cursor: default;
+}
