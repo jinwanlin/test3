@@ -59,7 +59,7 @@
 					</td>
 					<td>
 					<% prices = Price.where(product_id: product).limit(4).order("id desc") %>
-					<% prices.each do |price| %>
+					<% prices.reverse.each do |price| %>
 						<div><%= price.actual_cost %></div>
 					<% end %>
 					

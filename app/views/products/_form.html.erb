@@ -8,6 +8,7 @@
 		<%= f.input :name, label: '商品名称' %>
 	<% end %>
 	<%= f.input :aliases, label: '别名', input_html: {class: 'required'} %>
+	<%= f.input :float_amount, label: '出库误差' %>
 
 	<%= f.input :classify, label: '蔬菜分类', :collection => Vegetable::CLASSIFY, :label_method => :last, :value_method => :first, :prompt => false %>
 	<%= f.input :market_area, label: '市场区域', :collection => Product::MARKET_AREA, :label_method => :last, :value_method => :first, :prompt => false %>

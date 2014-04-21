@@ -429,3 +429,4 @@ class Product < ActiveRecord::Base
   
 end
 
+# ActiveRecord::Migration.change_column :products, :float_amount, :float, :default => 0.5, :null => false
