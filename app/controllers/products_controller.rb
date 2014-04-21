@@ -134,21 +134,21 @@ class ProductsController < ApplicationController
     @product = Product.find(params[:id])
     if params[:price_name] == 'price_1'
       if params[:function] == 'plus'
-        @product.price_1 = @product.price_1+0.05
+        @product.price_1 = @product.price_1+0.1
       elsif params[:function] == 'minus'
-        @product.price_1 = @product.price_1-0.05
+        @product.price_1 = @product.price_1-0.1
       end
     elsif params[:price_name] == 'price_2'
       if params[:function] == 'plus'
-        @product.price_2 = @product.price_2+0.05
+        @product.price_2 = @product.price_2+0.1
       elsif params[:function] == 'minus'
-        @product.price_2 = @product.price_2-0.05
+        @product.price_2 = @product.price_2-0.1
       end
     elsif params[:price_name] == 'price_3'
       if params[:function] == 'plus'
-        @product.price_3 = @product.price_3+0.05
+        @product.price_3 = @product.price_3+0.1
       elsif params[:function] == 'minus'
-        @product.price_3 = @product.price_3-0.05
+        @product.price_3 = @product.price_3-0.1
       end
     end
     @product.save
