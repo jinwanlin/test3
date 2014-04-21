@@ -36,12 +36,9 @@ class OrderItemsController < ApplicationController
     # product
     if params[:order_item][:product_id].present?
       product = Product.find params[:order_item][:product_id]
-    # else
-    #   product = Product.find_by_name params[:product_name]
+    else
+      product = Product.find_by_name params[:product_name]
     end
-    # 
-    # p params[:order_item][:order_amount]
-    # p product.id
     
     # order_item
     @order_item = @order.order_items.where(product_id: product).first

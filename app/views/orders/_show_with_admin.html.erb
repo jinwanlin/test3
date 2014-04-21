@@ -39,7 +39,7 @@
 		</ul>
 		<br/>
 </p>
-		<%= render "order_items/form" if !@order.baled? && !@order.done? %>
+		<%= render "order_items/form", order: @order if !@order.baled? && !@order.done? %>
 
 		<p class="pull-right">
 			<%= link_to '提交订单', 	submit_order_path(@order), class: 'btn btn-success' if @order.pending? %>
