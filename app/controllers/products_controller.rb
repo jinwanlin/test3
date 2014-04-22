@@ -54,7 +54,7 @@ class ProductsController < ApplicationController
     
     @predicts = find_predicts(Date.today, @user)
     if @predicts.empty?
-      Predict.update_user user
+      Predict.update_user @user
       @predicts = find_predicts(date, @user)
     end
   end
