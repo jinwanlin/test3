@@ -129,8 +129,6 @@ class ProductsController < ApplicationController
   end
   
   def change_price
-    # http://lvh.me:3000/products/97/change_price?price_name=price_1&function=minus
-    
     @product = Product.find(params[:id])
     if params[:price_name] == 'price_1'
       if params[:function] == 'plus'
@@ -152,8 +150,25 @@ class ProductsController < ApplicationController
       end
     end
     @product.save
+  end
+  
+  def change_all_price
+    @product = Product.find(params[:id])
+    if params[:function] == 'plus'
+      @product.price_1 = @product.price_1+0.1
+      @product.price_2 = @product.price_2+0.1
+      @product.price_3 = @product.price_3+0.1
+    elsif params[:function] == 'minus'
+      @product.price_1 = @product.price_1-0.1
+      @product.price_2 = @product.price_2-0.1
+      @product.price_3 = @product.price_3-0.1
+    end
     
+    @product.price_1 = @product.price_1.round(1)
+    @product.price_2 = @product.price_2.round(1)
+    @product.price_3 = @product.price_3.round(1)
     
+    @product.save
   end
   
   def update_product

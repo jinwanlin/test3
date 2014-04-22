@@ -71,8 +71,10 @@
 					</form>
 				</td>
 				<td id="product_<%= product.id %>_price">
-					
 					<% if params[:show_price] %>
+					
+					<%= product.cost %>
+					
 					<div class="btn-group btn-group-vertical">
 							<a class="btn btn-mini" href="/products/<%= product.id %>/change_price?price_name=price_1&function=plus" data-remote="true" ><i class="icon-chevron-up"></i></a>
 							<a class="btn price_text price_1" href="javascript:void(0)">
@@ -100,6 +102,17 @@
             </div>
 						
 						<span class="unit">元/<%= product.unit ? product.unit : '斤' %></span>
+						
+						
+						
+						<div class="btn-group btn-group-vertical">
+							<a class="btn btn-mini" href="/products/<%= product.id %>/change_all_price?function=plus" data-remote="true" ><i class="icon-chevron-up"></i></a>
+							<a class="btn price_text" href="javascript:void(0)">
+								&nbsp;
+							</a>
+							<a class="btn btn-mini" href="/products/<%= product.id %>/change_all_price?function=minus" data-remote="true" ><i class="icon-chevron-down"></i></a>
+            </div>
+						
 						
 					<% end %>
 				</td>
