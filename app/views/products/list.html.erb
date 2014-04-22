@@ -108,11 +108,11 @@
 						<div class="btn-group btn-group-vertical">
 							<a class="btn btn-mini" href="/products/<%= product.id %>/change_all_price?function=plus" data-remote="true" ><i class="icon-chevron-up"></i></a>
 							<a class="btn price_text" href="javascript:void(0)">
-								&nbsp;
+								<% zhangjia = product.price_1 - product.cost %>
+								最低涨价：<span style="<%= 'color:red;' if zhangjia <= 0 %>"><%= price_format zhangjia %></span>
 							</a>
 							<a class="btn btn-mini" href="/products/<%= product.id %>/change_all_price?function=minus" data-remote="true" ><i class="icon-chevron-down"></i></a>
             </div>
-						
 						
 					<% end %>
 				</td>
