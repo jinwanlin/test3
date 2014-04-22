@@ -32,7 +32,10 @@
 <% @users.each do |user| %>
   <tr>
     <td><%= link_to user.name, user %></td>
-		<td><%= link_to '订购菜单', user_buy_list_print_products_path(user_id: user, type: 'Vegetable') %></td>
+		<td>
+			<%= link_to '订购菜单', user_buy_list_print_products_path(user_id: user, type: 'Vegetable') %>
+			<%= link_to '订购习惯', user_buy_list_print_products_path(user_id: user, type: 'Vegetable', admin: true) %>
+		</td>
     <td><%= user.phone %></td>
     <td><%= price_format user.overage %></td>
     <td><%= user.validate_code %></td>

@@ -50,13 +50,17 @@ ul.sortable_print li{
 							<% else %>
 								<div>
 							<% end %>
-									<span class="product_id"><%= product.id %></span>
+									<span class="product_id">
+											<%= params[:admin] ? predict.order_times : product.id %>
+									</span>
+									
 									<%= product.product_name %>
 									
- 									<span class="shengmu"><%#= predict.order_times %></span>
-									<span class="pull-right"><%= product.unit %></span>
+ 									<span class="shengmu">
+										<%= predict.average_amount.to_i if params[:admin]%>
+									</span>
 									
-									<%#= product.sales_price(@user.level) %>
+									<span class="pull-right"><%= product.unit %></span>
 								</div>
 								
 								<% if (index+1) % 33 == 0 %>
