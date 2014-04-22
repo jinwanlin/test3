@@ -48,16 +48,20 @@ ul.sortable_print li{
 								<div style="border-top:1px solid red;">
 								<% is_print_zero = true %>
 							<% else %>
-								<div>
+								<div style="<%= 'background-color: #aaa;' if predict.product.save_time > 1 %>">
 							<% end %>
 									<span class="product_id">
 											<%= params[:admin] ? predict.order_times : product.id %>
 									</span>
 									
-									<%= product.product_name %>
+									<% if params[:admin] %>
+										<%= link_to product.product_name, edit_product_path(product) %>
+									<% else %>
+										<%= product.product_name %>
+									<% end %>
 									
  									<span class="shengmu">
-										<%= predict.average_amount.to_i if params[:admin]%>
+										<%= predict.average_amount.to_i if params[:admin] %>
 									</span>
 									
 									<span class="pull-right"><%= product.unit %></span>
