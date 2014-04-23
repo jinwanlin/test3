@@ -34,7 +34,7 @@
 			<li>成本：<span style="color:red"><%= price_format @order.cost %></li>
 			<% if @order.ship_sum > 0 %>
 				<li>利润：<span id="order_profit" style="color:red"><%= price_format @order.profit %></li>
-				<li>毛利率：<span id="order_profit" style="color:red"><%= "#{((@order.profit / @order.cost)*100).to_i} %" if @order.cost>0 %></li>
+				<li>毛利率：<span id="order_profit" style="color:red"><%= "#{((@order.profit / @order.ship_sum)*100).to_i} %" if @order.cost>0 %></li>
 			<% end %>
 		</ul>
 		<br/>
