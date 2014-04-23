@@ -8,7 +8,8 @@ class Vegetable < Product
               "beans" => "豆荚类", 
               "ginger_garlic" => "辣椒葱姜蒜", 
               "mushroom" => "菌类", 
-              "water_lettuce" => "水生菜类"}
+              "water_lettuce" => "水生菜类", 
+              "fish" => "鱼"}
   
   def self.model_name
     Product.model_name
