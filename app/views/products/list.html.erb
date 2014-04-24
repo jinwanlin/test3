@@ -73,16 +73,25 @@
 				<td id="product_<%= product.id %>_price">
 					<% if params[:show_price] %>
 					
-					<%= product.cost %>
 					
-					<div class="btn-group btn-group-vertical">
+					
+						<div class="btn-group btn-group-vertical">
+							<a class="btn btn-mini" href="/products/<%= product.id %>/change_price_cq?price_name=price_1&function=plus" data-remote="true" ><i class="icon-chevron-up"></i></a>
+							<a class="btn price_text price_cq" href="javascript:void(0)">
+								<%= price_format(product.price_cq) %>
+							</a>
+							<a class="btn btn-mini" href="/products/<%= product.id %>/change_price_cq?price_name=price_1&function=minus" data-remote="true" ><i class="icon-chevron-down"></i></a>
+            </div>
+						
+						<%= product.cost %>
+						
+						<div class="btn-group btn-group-vertical">
 							<a class="btn btn-mini" href="/products/<%= product.id %>/change_price?price_name=price_1&function=plus" data-remote="true" ><i class="icon-chevron-up"></i></a>
 							<a class="btn price_text price_1" href="javascript:void(0)">
 								<%= price_format(product.price_1) %>
 							</a>
 							<a class="btn btn-mini" href="/products/<%= product.id %>/change_price?price_name=price_1&function=minus" data-remote="true" ><i class="icon-chevron-down"></i></a>
             </div>
-						
 						
 						<div class="btn-group btn-group-vertical">
 							<a class="btn btn-mini" href="/products/<%= product.id %>/change_price?price_name=price_2&function=plus" data-remote="true" ><i class="icon-chevron-up"></i></a>

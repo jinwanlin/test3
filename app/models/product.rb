@@ -4,7 +4,7 @@ class Product < ActiveRecord::Base
   store :order_spid, coder: JSON
   
   serialize :amounts, Array
-  attr_accessible :des, :name, :series, :cost, :sn, :aliases, :amounts, :classify, :no, :type, :state, :unit, :market_sort, :market_area, :order_total, :order_detail, :order_spid, :market_area, :market_sort, :pinyin, :optional_amounts, :experience, :save_time, :price_1, :price_2, :price_3, :float_amount
+  attr_accessible :des, :name, :series, :cost, :sn, :aliases, :amounts, :classify, :no, :type, :state, :unit, :market_sort, :market_area, :order_total, :order_detail, :order_spid, :market_area, :market_sort, :pinyin, :optional_amounts, :experience, :save_time, :price_1, :price_2, :price_3, :float_amount, :price_cq
   
   PRODUCT_TYPES = {'Vegetable'=>'蔬菜', 
                    'Fruit'=>'水果', 
@@ -122,7 +122,17 @@ class Product < ActiveRecord::Base
   end
   
   # 卖价，不同的人看到不同的卖价
-  def sales_price(level=1)
+  def sales_price(level=1, user=nil)
+    
+    if user && user.id == 11
+      return price_cq
+    end
+    # ActiveRecord::Migration.add_column :products, :price_cq, :float, :default => 0, :null => false
+    
+    # Product.all.each do |product|
+    #   product.update_attributes price_cq: product.price_1
+    # end
+    
     # return nil if prices.empty?
     # return nil unless cost.present?
     # return nil if cost < 0.01

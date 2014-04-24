@@ -97,6 +97,7 @@ Test5::Application.routes.draw do
       delete 'delete_attachment'
       get 'change_price'
       get 'change_all_price'
+      get 'change_price_cq'
     end
   end
     

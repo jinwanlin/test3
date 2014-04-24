@@ -152,6 +152,16 @@ class ProductsController < ApplicationController
     @product.save
   end
   
+  def change_price_cq
+    @product = Product.find(params[:id])
+    if params[:function] == 'plus'
+      @product.price_cq = @product.price_cq+0.1
+    elsif params[:function] == 'minus'
+      @product.price_cq = @product.price_cq-0.1
+    end
+    @product.save
+  end
+  
   def change_all_price
     @product = Product.find(params[:id])
     if params[:function] == 'plus'
