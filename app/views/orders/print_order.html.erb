@@ -71,10 +71,10 @@ $(function(){
 			<td><%= order_item.product.id  %></td>
 			<td><%= order_item.product.product_name %></td>
 			<% if 3 <= order.state_index %>
-				<td><%= price_format order_item.price %> 元/斤</td>
+				<td><%= price_format order_item.price %> 元/<%= order_item.product.unit %></td>
 			<% end %>
-			<td><%= order_item.order_amount >= 1 ? order_item.order_amount.to_i : order_item.order_amount %> 斤 </td>
-			<td><%= "#{price_format order_item.ship_amount} 斤" if order_item.ship_amount>0 %></td>
+			<td><%= order_item.order_amount >= 1 ? order_item.order_amount.to_i : order_item.order_amount %> <%= order_item.product.unit %> </td>
+			<td><%= "#{price_format order_item.ship_amount} #{order_item.product.unit}" if order_item.ship_amount>0 %></td>
 			<td class='alnright'><%= "#{price_format order_item.ship_sum}" if order_item.ship_sum>0 %></td>
 			</tr>
 		<% end %>
@@ -111,10 +111,10 @@ $(function(){
 			<td><%= order_item.product.id  %></td>
 			<td><%= order_item.product.product_name %></td>
 			<% if 3 <= order.state_index %>
-				<td><%= price_format order_item.price %> 元/斤</td>
+				<td><%= price_format order_item.price %> 元/<%= order_item.product.unit %></td>
 			<% end %>
-			<td><%= order_item.order_amount >= 1 ? order_item.order_amount.to_i : order_item.order_amount %> 斤 </td>
-			<td><%= "#{price_format order_item.ship_amount} 斤" if order_item.ship_amount>0 %></td>
+			<td><%= order_item.order_amount >= 1 ? order_item.order_amount.to_i : order_item.order_amount %> <%= order_item.product.unit %> </td>
+			<td><%= "#{price_format order_item.ship_amount} #{order_item.product.unit}" if order_item.ship_amount>0 %></td>
 			<td class='alnright'><%= "#{price_format order_item.ship_sum}" if order_item.ship_sum>0 %></td>
 			</tr>
 		<% end %>
@@ -132,7 +132,6 @@ $(function(){
 			
 			<div class="pull-right">
 				共<%= list.size %>种商品
-				<!-- ，<%= price_format order_amount_total %>斤。 -->
 			</div>
 			
 			

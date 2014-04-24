@@ -19,6 +19,14 @@ class OrderItem < ActiveRecord::Base
     formart(ship_amount * cost)
   end
   
+  # def reset_cost
+  #   cost_sum = cost * ship_sum
+  # 
+  #   Price.where(product_id: product).where("updated_at < ?", this.updated_at).order("id desc").first
+  #   updated_at
+  #   
+  # end
+  
   private
   
   # 订单明细总计
