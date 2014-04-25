@@ -60,24 +60,25 @@ ul.sortable_print li{
 										<%= product.product_name %>
 									<% end %>
 									
- 									<span class="shengmu">
+									
+									
+									<% 
+									price = predict.product.sales_price(1, @user)
+									order_item = OrderItem.where(product_id: predict.product).joins(:order).where("orders.user_id = ?", @user).last
+									%>
+									
+									<% if price && order_item %>
+										<% pp = price - order_item.price %>
+ 									<span class="shengmu" style="color:<%= pp > 0 ? 'red' : 'green' %>;">
 										<%#= predict.average_amount.to_i if params[:admin] %>
 										
-										<% 
-										price = predict.product.sales_price(1, @user)
-										order_item = OrderItem.where(product_id: predict.product).joins(:order).where("orders.user_id = ?", @user).last
-										%>
-										
-										<% if price && order_item %>
-											
-											<% pp = price - order_item.price %>
 											<% if pp<-0.01 || pp>0.01 %>
-												<span style="color:<%= pp > 0 ? 'red' : 'green' %>;"><%= pp > 0 ? '涨' : '降' %><%= price_format pp  %></span>
+												<%= pp > 0 ? '涨' : '降' %>
+												<%= price_format pp  %>
 													<%#= price_format price %>
 											<% end %>
-										
-										<% end %>
 									</span>
+										<% end %>
 									
 									<span class="pull-right"><%= product.unit %></span>
 								</div>
