@@ -19,32 +19,32 @@ class OrderItem < ActiveRecord::Base
     formart(ship_amount * cost)
   end
   
-  def self.reset_all_cost
-    OrderItem.all.each do |order_item|
-      order_item.reset_cost
-    end
-  end
-  
-  def reset_cost
-    # price = Price.where(product_id: product).where("updated_at < ?", this.updated_at).order("id desc").first
-    # this.update_attributes cost_sum: (cost * ship_sum)
-    
-    
-      str = "#{created_at.year}-#{created_at.month}-#{created_at.day + 1}"
-      date = Date.parse str
-      # p date
-      price = Price.where(product_id: product).where("date <= ?", date).order("id").last
-      # p price
-      if price
-        update_attributes cost: price.actual_cost 
-      # else
-      #   p "========#{id}"
-      end
-      
-      update_attributes cost_sum: (cost * ship_amount)
-      
-    
-  end
+  # def self.reset_all_cost
+  #   OrderItem.all.each do |order_item|
+  #     order_item.reset_cost
+  #   end
+  # end
+  # 
+  # def reset_cost
+  #   # price = Price.where(product_id: product).where("updated_at < ?", this.updated_at).order("id desc").first
+  #   # this.update_attributes cost_sum: (cost * ship_sum)
+  #   
+  #   
+  #     str = "#{created_at.year}-#{created_at.month}-#{created_at.day + 1}"
+  #     date = Date.parse str
+  #     # p date
+  #     price = Price.where(product_id: product).where("date <= ?", date).order("id").last
+  #     # p price
+  #     if price
+  #       update_attributes cost: price.actual_cost 
+  #     # else
+  #     #   p "========#{id}"
+  #     end
+  #     
+  #     update_attributes cost_sum: (cost * ship_amount)
+  #     
+  #   
+  # end
   
   # def aaaa
   #   

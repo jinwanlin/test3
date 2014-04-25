@@ -48,7 +48,7 @@ ul.sortable_print li{
 								<div style="border-top:1px solid red;">
 								<% is_print_zero = true %>
 							<% else %>
-								<div style="<%= 'background-color: #aaa;' if predict.product.save_time > 1 %>">
+								<div style="<%= 'background-color: #aaa;' if (predict.product.save_time > 1 && params[:admin]) %>">
 							<% end %>
 									<span class="product_id">
 											<%= params[:admin] ? predict.order_times : product.id %>
@@ -62,6 +62,23 @@ ul.sortable_print li{
 									
  									<span class="shengmu">
 										<%= predict.average_amount.to_i if params[:admin] %>
+										
+
+										<% 
+										order_item_1  = OrderItem.where(product_id: predict.product).joins(:order).where("orders.user_id = ?", params[:user_id].to_i).first 
+										order_item_2  = OrderItem.where(product_id: predict.product).joins(:order).where("orders.user_id = ?", params[:user_id].to_i).limit(2).last
+										%>
+										
+										<% if order_item_1 && order_item_2 && pp !=0 %>
+										
+											<% pp = order_item_2.cost - order_item_1.cost %>
+											<% if pp!=0 %>
+											<span style="color:<%= pp > 0 ? 'red' : 'green' %>;">
+												<%= price_format pp  %>
+											</span>
+											<% end %>
+										
+										<% end %>
 									</span>
 									
 									<span class="pull-right"><%= product.unit %></span>
