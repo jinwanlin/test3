@@ -73,10 +73,10 @@ ul.sortable_print li{
 											<% pp = price - order_item.price %>
 											<% if pp!=0 %>
 												<span style="color:<%= pp > 0 ? 'red' : 'green' %>;">
-													<%= price_format order_item.price %>
-													<%#= price_format pp  %>
+													<%#= price_format order_item.price %>
+													<%= price_format pp  %>
 												</span>
-													<%= price_format price %>
+													<%#= price_format price %>
 												
 											<% end %>
 										
