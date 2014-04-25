@@ -43,7 +43,7 @@ $(function(){
 	<% else %>
 		<% list = OrderItem.where(order_id: order).joins(:product).order("products.id") %>
 	<% end %>
-	<table class="table pull-left" style="font-size:12px; margin:20px 0;  width:49%;">
+	<table class="table pull-left" style="font-size:12px; margin:20px 0;  width:49%; border:1px solid #eee;">
 	  <tr>
 			<% if order.state_index<3 %>
 				<th></th>
@@ -82,7 +82,7 @@ $(function(){
 	</table>
 	
 	
-	<table class="table pull-right" style="font-size:12px; margin:20px 0; width:49%;">
+	<table class="table  pull-right" style="font-size:12px; margin:20px 0; width:49%; border:1px solid #eee;">
 	  <tr>
 			<% if order.state_index < 3 %>
 				<th></th>
