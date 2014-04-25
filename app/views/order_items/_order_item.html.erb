@@ -20,9 +20,13 @@ end
 		<%#= price_format order_item.product.cost %>
 		<%= price_format order_item.price %> <%= "元/#{order_item.product.unit}" %>
 	</td>
+	<td>
+		<%= price_format order_item.cost %>
+	</td>
 	<td><%= "#{order_item.order_amount} #{order_item.product.unit}" %></td>
 	<% unless @order.pending? || @order.confirmed? %>
 	<td class="ship_amount"><%= price_format order_item.ship_amount %></td>
+	<td ><%= price_format order_item.cost_sum %></td>
 	<td>
 		<% if tr_class == "error" %>
 			<div style="color:red;"><%= "多#{price_format a}斤" %></div>

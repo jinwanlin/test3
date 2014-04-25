@@ -11,9 +11,11 @@
 		    <th>商品ID</th>
 		    <th>商品</th>
 				<th>单价</th>
+				<th>成本</th>
 		    <th>订购量</th>
 				<% unless @order.pending? || @order.confirmed? %>
 		    	<th>出货量</th>
+		    	<th>成本</th>
 					<th></th>
 				<% end %>
 		    <th>订单金额</th>
