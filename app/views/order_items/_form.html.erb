@@ -1,5 +1,5 @@
 <form novalidate="novalidate" method="post" id="new_order_item" class="simple_form form-horizontal" action="/order_items" accept-charset="UTF-8">
-	<div style="margin:0;padding:0;display:inline">
+	<div style="margin:0;padding:0;display:inline-block;">
 	<input type="hidden" value="<%= order.id %>" name="order_item[order_id]" id="order_item_order_id">
 	
 	<input type="text" value="" name="product_name" id="product_search" class="required span1" autocomplete="off" placeholder="商品名称">
@@ -7,4 +7,5 @@
 	<input type="text" value="" step="any" name="order_item[order_amount]" id="order_item_order_amount" autocomplete="off"  class="span1 numeric float optional required" placeholder="数量">
 	
 	<input type="submit" value="保存" name="commit" class="btn btn-primary">
+</div>
 </form>
