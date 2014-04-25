@@ -61,7 +61,7 @@ ul.sortable_print li{
 									<% end %>
 									
  									<span class="shengmu">
-										<%= predict.average_amount.to_i if params[:admin] %>
+										<%#= predict.average_amount.to_i if params[:admin] %>
 										
 										<% 
 										price = predict.product.sales_price(1, @user)
@@ -72,10 +72,12 @@ ul.sortable_print li{
 											
 											<% pp = price - order_item.cost %>
 											<% if pp!=0 %>
-											<span style="color:<%= pp > 0 ? 'red' : 'green' %>;">
-												<%= price_format pp  %>
-											</span>
-												<%= order_item.id %>
+												<span style="color:<%= pp > 0 ? 'red' : 'green' %>;">
+													<%= order_item.cost %>
+													<%= price %>
+													<%#= price_format pp  %>
+												</span>
+												
 											<% end %>
 										
 										<% end %>
