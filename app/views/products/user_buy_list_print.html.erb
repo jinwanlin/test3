@@ -67,7 +67,7 @@ ul.sortable_print li{
 									order_item = OrderItem.where(product_id: predict.product).joins(:order).where("orders.user_id = ?", @user).last
 									%>
 									
-									<% if price && order_item %>
+									<% if price && order_item && params[:admin] %>
 										<% pp = price - order_item.price %>
  									<span class="shengmu" style="color:<%= pp > 0 ? 'red' : 'green' %>;">
 										<%#= predict.average_amount.to_i if params[:admin] %>
