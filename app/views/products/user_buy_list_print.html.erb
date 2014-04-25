@@ -71,7 +71,7 @@ ul.sortable_print li{
 										<% if price && order_item %>
 											
 											<% pp = price - order_item.price %>
-											<% if pp<0.01 || pp>0.01 %>
+											<% if pp<-0.01 || pp>0.01 %>
 												<span style="color:<%= pp > 0 ? 'red' : 'green' %>;">
 													<%#= price_format order_item.price %>
 													<%= pp > 0 ? '涨' : '降' %>
