@@ -1,6 +1,6 @@
 class OrderItem < ActiveRecord::Base
 
-  attr_accessible :product_id, :order_amount, :order_id, :ship_amount, :price, :cost, :cost_sum
+  attr_accessible :product_id, :order_amount, :order_id, :ship_amount, :price, :cost, :cost_sum, :ship_sum
   
   belongs_to :order
   belongs_to :product
@@ -45,6 +45,15 @@ class OrderItem < ActiveRecord::Base
       
     
   end
+  
+  # def aaaa
+  #   
+  #   Order.find(98).order_items.each do |item|
+  #     order_item = OrderItem.where(order_id: 97).where(product_id: item.product).first
+  #     item.update_attributes ship_sum: order_item.ship_sum
+  #   end
+  #   
+  # end
   
   
   
