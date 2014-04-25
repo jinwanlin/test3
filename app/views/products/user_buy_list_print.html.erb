@@ -48,7 +48,7 @@ ul.sortable_print li{
 								<div style="border-top:1px solid red;">
 								<% is_print_zero = true %>
 							<% else %>
-								<div style="<%= 'background-color: #aaa;' if (predict.product.save_time > 1 && params[:admin]) %>">
+								<div style="<%#= 'background-color: #aaa;' if (predict.product.save_time > 1 && params[:admin]) %>">
 							<% end %>
 									<span class="product_id">
 											<%= params[:admin] ? predict.order_times : product.id %>
