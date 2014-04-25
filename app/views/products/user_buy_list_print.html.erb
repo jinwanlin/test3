@@ -63,15 +63,14 @@ ul.sortable_print li{
  									<span class="shengmu">
 										<%= predict.average_amount.to_i if params[:admin] %>
 										
-
 										<% 
-										order_item_1  = OrderItem.where(product_id: predict.product).joins(:order).where("orders.user_id = ?", params[:user_id].to_i).first 
-										order_item_2  = OrderItem.where(product_id: predict.product).joins(:order).where("orders.user_id = ?", params[:user_id].to_i).limit(2).last
+										price = predict.product.sales_price(1, @user)
+										order_item  = OrderItem.where(product_id: predict.product).joins(:order).where("orders.user_id = ?", params[:user_id].to_i).first 
 										%>
 										
-										<% if order_item_1 && order_item_2 && pp !=0 %>
-										
-											<% pp = order_item_2.cost - order_item_1.cost %>
+										<% if price && order_item %>
+											
+											<% pp = price - order_item.cost %>
 											<% if pp!=0 %>
 											<span style="color:<%= pp > 0 ? 'red' : 'green' %>;">
 												<%= price_format pp  %>
