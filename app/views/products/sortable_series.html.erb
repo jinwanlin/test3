@@ -1,0 +1,91 @@
+<link rel="stylesheet" href="/assets/jquery-ui.css">
+<link rel="stylesheet" href="/assets/products_print.css">
+<style>
+.connectedSortable li{
+	font-size:14px;
+}
+
+#head td div {
+    width: 140px;
+}
+.connectedSortable{
+	width:120px;
+}
+
+</style>
+<script src="/assets/jquery-ui.js"></script>
+  <script>
+	
+	
+	$(function() {
+			<% p keys = %w{0 1 2 3 4 5 6 7 8 9} %>
+			keys = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+			
+			$('<%= sanitize "#"+keys.join(",#") %>').sortable({
+	        connectWith: '.connectedSortable',
+	        placeholder: 'placeholder',
+	        stop: function() {
+						for (var i=0; i<keys.length; i++) {
+							list = $('#'+keys[i]+' li');
+							
+							ids = new Array(list.length);
+							$.each(list,function(j, n) {
+								ids[j] = $(n).attr("product_id")
+							});
+							
+							if(list.length > 0){
+								$.ajax({
+									type: "POST",
+									url: "/products/update_series",
+									data: { "series": keys[i], "ids": ids }
+								})
+							}
+						}
+	        }
+	    }).disableSelection();
+	});
+	
+	
+	
+	
+  </script>
+	<table>
+		<tr id="print-title">
+			<td colspan="10"><div>涨价次序</div></td>
+		</tr>
+		
+		<tr id="head">
+			<% %w{0 1 2 3 4 5 6 7 8 9}.each do |index| %>
+				<td>
+					<div style="text-align:center;">
+						<%= index %>
+					</div>
+				</td>
+			<% end %>
+		</tr>
+		
+		<tr>
+			<% %w{0 1 2 3 4 5 6 7 8 9}.each do |index| %>
+				<% p index %>
+				<% list = @products.where(series: index).order(:classify) %>
+				<td valign="top" style="height:1500px;">
+					<ul id="<%= index %>" class="connectedSortable">
+						<% list.each do |product| %>
+							<li class="ui-state-default" classify="<%= product.series %>" product_id="<%= product.id %>">
+								<div class="pull-left">
+									<%= product.product_name %>
+								</div>
+							</li>
+						<% end %>
+					</ul>
+				</td>
+			<% end %>
+		</tr>
+	</table>
+		
+
+ 
+
+	
+ 
+

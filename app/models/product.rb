@@ -124,9 +124,9 @@ class Product < ActiveRecord::Base
   # 卖价，不同的人看到不同的卖价
   def sales_price(level=1, user=nil)
     
-    if user && user.id == 11
-      return price_cq
-    end
+    # if user && user.id == 11
+    #   return price_cq
+    # end
     # ActiveRecord::Migration.add_column :products, :price_cq, :float, :default => 0, :null => false
     
     # Product.all.each do |product|
@@ -160,13 +160,24 @@ class Product < ActiveRecord::Base
     # price = cost*(level * 0.05 + 1)
     # p level
     
+    # level: [0...9]
+    # series: [0...9]
+    
     price = 0
-    if 0 < level && level <10
-      price = price_1
-      price = price_2 if level > series
-    elsif 10 <= level && level <20
-      price = price_2
-      price = price_3 if level > series
+    if 0<=level && level<10
+      level = level%10
+      if level >= series
+        price = price_2
+      else
+        price = price_1
+      end
+    elsif 10<=level && level<20
+      level = level%10
+      if level >= series
+        price = price_3
+      else
+        price = price_2
+      end
     end
     
     # p price

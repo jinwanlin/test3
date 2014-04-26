@@ -76,6 +76,12 @@ class ProductsController < ApplicationController
     @products = Product.where(type: params[:type]).where(state: 'up')
   end
   
+  
+  def sortable_series
+    params[:type] ||= 'Vegetable'
+    @products = Product.where(type: params[:type]).where(state: 'up')
+  end
+  
   def sortable_print
     params[:type] ||= 'Vegetable'
     @products = Product.where(type: params[:type]).where("state in (?)", ['up', 'down']).order("pinyin")
@@ -205,6 +211,17 @@ class ProductsController < ApplicationController
       params[:ids].each_with_index do |id, index| 
         product = Product.find(id)
         product.update_attributes no: (index+1), classify: params[:classify], sn: product.generate_product_sn(index, params[:classify])
+      end
+    end
+    render nothing: true
+  end
+  
+
+  def update_series
+    if params[:ids].present?
+      params[:ids].each do |id| 
+        product = Product.find(id)
+        product.update_attributes series: params[:series]
       end
     end
     render nothing: true
