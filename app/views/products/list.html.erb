@@ -123,6 +123,14 @@
 							<a class="btn btn-mini" href="/products/<%= product.id %>/change_all_price?function=minus" data-remote="true" ><i class="icon-chevron-down"></i></a>
             </div>
 						
+						<% a = product.price_2-product.price_cq %>
+						<% if a <-0.01 || a>0.01 %>
+							<% if a>0.01 %>
+								<span style="color:red;">还需加<%= price_format a.abs %></span>
+							<% elsif a<-0.01 %>
+								<span style="color:blue;">还需减<%= price_format a.abs %></span>
+							<% end %>
+						<% end %>
 					<% end %>
 				</td>
 				<td>
