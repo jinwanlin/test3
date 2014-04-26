@@ -55,11 +55,11 @@ class OrderItem < ActiveRecord::Base
   # end
   
   
-  # def method_name
-  #   Order.find(100).order_items.each do |order_item|
-  #     order_item.update_attributes price: order_item.product.sales_price(9, nil)
-  #   end
-  # end
+  def method_name
+    Order.find(100).order_items.each do |order_item|
+      order_item.update_attributes price: order_item.product.sales_price(9, nil)
+    end
+  end
   
   
   private
