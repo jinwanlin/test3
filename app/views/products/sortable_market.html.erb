@@ -57,8 +57,20 @@
 								<span style="width:10px; display:inline-block;"><%= product.pinyin.at(0) %></span>
 								<%= product.product_name %>
 								<span style="color:red; float:right;">
-									<% if product.order_total && product.order_total > 0 %>
+									
+									<!-- <% if product.order_total && product.order_total > 0 %>
 										<%= "#{product.order_total>=1 ? product.order_total.to_i : product.order_total}#{product.unit}" %>
+									<% end %> -->
+										
+									<%
+										order_items = OrderItem.joins(:order).where("orders.state='shiping'").where(product_id: product)
+										order_total = 0
+										order_items.each do |order_item|
+											order_total = order_total + order_item.order_amount
+										end
+									%>
+									<% if order_total > 0  %>
+										<%= "#{order_total>=1 ? order_total.to_i : order_total}#{product.unit}" %>
 									<% end %>
 								</span>
 							</li>

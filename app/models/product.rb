@@ -307,26 +307,28 @@ class Product < ActiveRecord::Base
 
   # 统计未分拣货物
   def self.do_order_total
-    Product.all.each do |product|
-      product.reset_order_detail_and_order_spid
-      
-      orderItems = OrderItem.where(product_id: product)
-      orderItems = orderItems.joins(:order).where("orders.state = 'shiping' ")
-      unless orderItems.empty?
-        orderItems.each do |item|
-          product.update_order_spid(item.order_amount)
-          product.update_order_detail(item.order_amount)
-        end
-      end
-
-      order_total = 0
-      product.order_detail.each do |k, v|
-        order_total = order_total + k * v
-      end
-      product.order_total = order_total
-        
-      product.save
-    end
+    # Product.all.each do |product|
+    #   product.reset_order_detail_and_order_spid
+    #   
+    #   orderItems = OrderItem.where(product_id: product)
+    #   orderItems = orderItems.joins(:order).where("orders.state = 'shiping' ")
+    #   unless orderItems.empty?
+    #     orderItems.each do |item|
+    #       product.update_order_spid(item.order_amount)
+    #       product.update_order_detail(item.order_amount)
+    #     end
+    #   end
+    # 
+    #   order_total = 0
+    #   product.order_detail.each do |k, v|
+    #     order_total = order_total + k * v
+    #   end
+    #   product.order_total = order_total
+    #     
+    #   product.save
+    # end
+    
+    
   end
   
   # 重置两个字段
