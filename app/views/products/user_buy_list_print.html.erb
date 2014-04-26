@@ -61,7 +61,7 @@ ul.sortable_print li{
 									<% end %>
 									
 									<% 
-									price = predict.product.sales_price(1, @user)
+									price = predict.product.sales_price(@user.level, @user)
 									order_item = OrderItem.where(product_id: predict.product).joins(:order).where("orders.user_id = ?", @user).last
 									%>
 									

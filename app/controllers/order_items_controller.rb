@@ -21,16 +21,17 @@ class OrderItemsController < ApplicationController
 
 
   def create
+    
     # order
-    @order = current_user.orders.last
     if current_user.admin? && params[:order_item][:order_id].present?
       @order = Order.find(params[:order_item][:order_id])
-    end
-    
-    if @order && (@order.pending? || @order.confirmed?)
-      @order.continue_buy if @order.confirmed?      
     else
-      @order = current_user.orders.create
+      @order = current_user.orders.last
+      if @order && (@order.pending? || @order.confirmed?)
+        @order.continue_buy if @order.confirmed?      
+      else
+        @order = current_user.orders.create
+      end
     end
     
     # product
