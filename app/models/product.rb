@@ -23,7 +23,6 @@ class Product < ActiveRecord::Base
   MARKET_AREA = {"xiaocai"=>"小菜豆芽区", 
                  "nangua"=>"南瓜西芹区", 
                  "yangcong"=>"洋葱山药区", 
-                 "tudou"=>"土豆大葱区", 
                  "huanggua"=>"黄瓜番茄区", 
                  "jiangsuan"=>"姜蒜区", 
                  "hongsu"=>"萝卜红薯区", 
