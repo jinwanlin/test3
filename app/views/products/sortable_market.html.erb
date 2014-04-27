@@ -55,6 +55,9 @@
 							<li class="ui-state-default" classify="<%= product.classify %>" product_id="<%= product.id %>">
 								<%#= product.market_sort.to_s.rjust(2, '0') %>
 								<span style="width:10px; display:inline-block;"><%= product.pinyin.at(0) %></span>
+								
+								<span class="product_id"><%= product.id %></span>
+								
 								<%= product.product_name %>
 								<span style="color:red; float:right;">
 									

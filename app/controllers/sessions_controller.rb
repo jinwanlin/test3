@@ -5,7 +5,13 @@ class SessionsController < ApplicationController
   
   # 登录
   def new
-    redirect_to products_path if current_user
+    if current_user
+      if current_user.admin?
+        redirect_to list_products_path
+      else
+        redirect_to products_path
+      end
+    end
   end
   
   # 登录
