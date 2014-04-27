@@ -9,7 +9,7 @@ body{
 }
 .connectedSortable {
 	list-style-type: none;
-	width:155px;
+	width:130px;
 	margin:0; 
 	padding:0; 
 	height:100%; 
@@ -49,6 +49,6 @@ body{
 	font-size:16px;
 }
 #head td div{
-	width:175px;
+	width:150px;
 	font-size:14px;
 }

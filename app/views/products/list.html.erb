@@ -1,8 +1,10 @@
 <div class="btn-group pull-right" >
 	<a href="/products/new" class="btn">添加</a>
 	<a href="/products/sortable" class="btn">分类排序</a>
-	<a href="/products/sortable_print" class="btn">条码表</a>
-	<a href="/products/sortable_market" class="btn">市场区域分</a>
+	
+<!-- 	<a href="/products/sortable_print" class="btn">条码表</a>
+	 -->
+	<a href="/products/sortable_market" class="btn">采购表</a>
 	<a href="/products/sortable_series" class="btn">涨价次序</a>
 	<a href="/products/export" class="btn">导出</a>
 </div>
@@ -76,13 +78,13 @@
 					
 					
 					
-						<div class="btn-group btn-group-vertical">
+						<!-- <div class="btn-group btn-group-vertical">
 							<a class="btn btn-mini" href="/products/<%= product.id %>/change_price_cq?price_name=price_1&function=plus" data-remote="true" ><i class="icon-chevron-up"></i></a>
 							<a class="btn price_text price_cq" href="javascript:void(0)">
 								<%= price_format(product.price_cq) %>
 							</a>
 							<a class="btn btn-mini" href="/products/<%= product.id %>/change_price_cq?price_name=price_1&function=minus" data-remote="true" ><i class="icon-chevron-down"></i></a>
-            </div>
+            </div> -->
 						
 						<%= product.cost %>
 						
@@ -124,14 +126,14 @@
 							<a class="btn btn-mini" href="/products/<%= product.id %>/change_all_price?function=minus" data-remote="true" ><i class="icon-chevron-down"></i></a>
             </div>
 						
-						<% a = product.price_2-product.price_cq %>
+						<!-- <% a = product.price_2-product.price_cq %>
 						<% if a <-0.01 || a>0.01 %>
 							<% if a>0.01 %>
 								<span style="color:red;">还需加<%= price_format a.abs %></span>
 							<% elsif a<-0.01 %>
 								<span style="color:blue;">还需减<%= price_format a.abs %></span>
 							<% end %>
-						<% end %>
+						<% end %> -->
 					<% end %>
 				</td>
 				<td>
