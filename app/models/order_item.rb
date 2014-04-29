@@ -23,7 +23,7 @@ class OrderItem < ActiveRecord::Base
   
   
   def self.reset_all_cost
-    Order.find(100).order_items.each do |order_item|
+    Order.find(103).order_items.each do |order_item|
       order_item.reset_cost
     end
   end
