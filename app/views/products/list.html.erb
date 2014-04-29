@@ -37,6 +37,9 @@
 	<label class="checkbox search_form" name="state[]">
     <input type="checkbox"  value="true" <%= "checked='checked'" if params[:show_img] %>  name="show_img"> 图片
   </label>
+	<label class="checkbox search_form" name="state[]">
+    <input type="checkbox"  value="true" <%= "checked='checked'" if params[:show_experience] %>  name="show_experience"> 采购要点
+  </label>
 	
 	<input type="submit" value="查询" class='btn'>
 	</form>
@@ -159,6 +162,8 @@
 							<% end %>
 						<% end %> -->
 					<% end %>
+					
+					<%= product.experience if params[:show_experience].present? %>
 				</td>
 				<td>
 					<% if params[:edit_type].present? %>
