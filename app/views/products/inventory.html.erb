@@ -1,0 +1,71 @@
+<link rel="stylesheet" href="/assets/jquery-ui.css">
+<link rel="stylesheet" href="/assets/products_print.css">
+<style>
+.connectedSortable li{
+	cursor:	default;
+}
+form{
+	margin:0;
+}
+</style>
+
+
+<div style="overflow:hidden; width:1220px; border:1px solid #fff;">
+
+	<table>
+		<tr id="print-title">
+			<td colspan="6"><div>库存</div></td>
+		</tr>
+		<tr id="head">
+			<% Product::MARKET_AREA.each do |key, val| %>
+				<td>
+					<div style="text-align:center;">
+						<%= val %>
+					</div>
+				</td>
+			<% end %>
+		</tr>
+		<tr>
+			<% Product::MARKET_AREA.each do |key, val| %>
+				<%  @height = @products.where(market_area: "xiaocai").size*26 %>
+				<% list = @products.where(market_area: key).order(:pinyin) %>
+				<td valign="top" style="height:<%= @height %>px;">
+					<ul id="<%= key %>" class="connectedSortable">
+						<% list.each do |product| %>
+							<li class="ui-state-default" classify="<%= product.classify %>" product_id="<%= product.id %>">
+								<%#= product.market_sort.to_s.rjust(2, '0') %>
+								<span style="width:10px; display:inline-block;"><%= product.pinyin.at(0) %></span>
+								
+								
+								<%= product.product_name %>
+								<span style="color:red; float:right;">
+									
+									<!-- <% if product.order_total && product.order_total > 0 %>
+										<%= "#{product.order_total>=1 ? product.order_total.to_i : product.order_total}#{product.unit}" %>
+									<% end %> -->
+										<form action="/products/<%= product.id %>" method="put" data-remote="true">
+											<input type="text" name="product[inventory]" style="width:40px; margin:0; padding:0;" class="inventory" value="<%= product.inventory >1 ? product.inventory.to_i : product.inventory if product.inventory>0 %>" />
+										</form>
+										
+										<!-- ActiveRecord::Migration.add_column :products, :inventory, :float, :default => 0, :null => false
+										ActiveRecord::Migration.add_column :products, :need_stock, :boolean, default: false, :null => false
+				 -->						
+									<!-- <%
+										order_items = OrderItem.joins(:order).where("orders.state='shiping'").where(product_id: product)
+										order_total = 0
+										order_items.each do |order_item|
+											order_total = order_total + order_item.order_amount
+										end
+									%>
+									<% if order_total > 0  %>
+										<%= "#{order_total>=1 ? order_total.to_i : order_total}#{product.unit}" %>
+									<% end %> -->
+								</span>
+							</li>
+						<% end %>
+					</ul>
+				</td>
+			<% end %>
+		</tr>
+	</table>
+</div>

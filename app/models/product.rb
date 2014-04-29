@@ -4,7 +4,7 @@ class Product < ActiveRecord::Base
   store :order_spid, coder: JSON
   
   serialize :amounts, Array
-  attr_accessible :des, :name, :series, :cost, :sn, :aliases, :amounts, :classify, :no, :type, :state, :unit, :market_sort, :market_area, :order_total, :order_detail, :order_spid, :market_area, :market_sort, :pinyin, :optional_amounts, :experience, :save_time, :price_1, :price_2, :price_3, :float_amount, :price_cq
+  attr_accessible :des, :name, :series, :cost, :sn, :aliases, :amounts, :classify, :no, :type, :state, :unit, :market_sort, :market_area, :order_total, :order_detail, :order_spid, :market_area, :market_sort, :pinyin, :optional_amounts, :experience, :save_time, :price_1, :price_2, :price_3, :float_amount, :price_cq, :inventory, :need_stock
   
   PRODUCT_TYPES = {'Vegetable'=>'蔬菜', 
                    'Fruit'=>'水果', 
@@ -162,22 +162,24 @@ class Product < ActiveRecord::Base
     # level: [0...9]
     # series: [0...9]
     
-    price = 0
-    if 0<=level && level<10
-      level = level%10
-      if level >= series
-        price = price_2
-      else
-        price = price_1
-      end
-    elsif 10<=level && level<20
-      level = level%10
-      if level >= series
-        price = price_3
-      else
-        price = price_2
-      end
-    end
+    # price = 0
+    # if 0<=level && level<10
+    #   level = level%10
+    #   if level >= series
+    #     price = price_2
+    #   else
+    #     price = price_1
+    #   end
+    # elsif 10<=level && level<20
+    #   level = level%10
+    #   if level >= series
+    #     price = price_3
+    #   else
+    #     price = price_2
+    #   end
+    # end
+    
+    price = price_2
     
     # p price
     

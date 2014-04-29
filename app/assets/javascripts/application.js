@@ -20,7 +20,7 @@
 
 
 $(function(){
-	$(".price_input").blur(function(){
+	$(".price_input, .inventory, .need_stock").blur(function(){
 		$(this).closest('form').submit();
 	})
 	

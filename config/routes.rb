@@ -89,6 +89,7 @@ Test5::Application.routes.draw do
       post "update_series"
       get 'print_dm'
       get 'user_buy_list_print'
+      get 'inventory'
     end
     member do
       get 'to_up'

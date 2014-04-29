@@ -12,7 +12,7 @@
 
 	<%= f.input :classify, label: '蔬菜分类', :collection => Vegetable::CLASSIFY, :label_method => :last, :value_method => :first, :prompt => false %>
 	<%= f.input :market_area, label: '市场区域', :collection => Product::MARKET_AREA, :label_method => :last, :value_method => :first, :prompt => false %>
-	
+	<%= f.input :need_stock, label: '需要备货', input_html: {class: 'required'} %>
 	<%= f.input :save_time, label: '保存时间', input_html: {class: 'required'} %>
 	<%= f.input :series, label: '涨价次序', input_html: {class: 'required'} %>
 	<%= f.input :unit, label: '单位', input_html: {class: 'required'} %>

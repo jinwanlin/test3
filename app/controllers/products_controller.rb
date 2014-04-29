@@ -76,6 +76,11 @@ class ProductsController < ApplicationController
     @products = Product.where(type: params[:type]).where(state: 'up')
   end
   
+  def inventory
+    params[:type] ||= 'Vegetable'
+    @products = Product.where(type: params[:type]).where(state: 'up')
+  end
+  
   
   def sortable_series
     params[:type] ||= 'Vegetable'
@@ -131,7 +136,13 @@ class ProductsController < ApplicationController
       params[:product][:amounts] = nil
     end
     @product.update_attributes(params[:product])
-    redirect_to @product
+    
+    respond_to do |format|
+      format.html {redirect_to @product}
+      format.js {render nothing: true}
+    end
+    
+    
   end
   
   def change_price

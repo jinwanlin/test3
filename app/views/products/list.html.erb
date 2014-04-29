@@ -5,6 +5,7 @@
 <!-- 	<a href="/products/sortable_print" class="btn">条码表</a>
 	 -->
 	<a href="/products/sortable_market" class="btn">采购表</a>
+	<a href="/products/inventory" class="btn">库存</a>
 	<a href="/products/sortable_series" class="btn">涨价次序</a>
 	<a href="/products/export" class="btn">导出</a>
 </div>
@@ -22,13 +23,19 @@
 			<option value="3" <%= "selected" if params[:optional_amounts] == "3" %>>AMOUNTS3</option>
 	</select>
 	<label class="checkbox search_form" name="state[]">
-    <input type="checkbox"  value="true" <%= "checked='checked'" if params[:edit_price] %>  name="edit_price"> 编辑价格
-  </label>
-	<label class="checkbox search_form" name="state[]">
-    <input type="checkbox"  value="true" <%= "checked='checked'" if params[:show_img] %>  name="show_img"> 图片
+    <input type="checkbox"  value="true" <%= "checked='checked'" if params[:edit_price] %>  name="edit_price"> 进价
   </label>
 	<label class="checkbox search_form" name="state[]">
     <input type="checkbox"  value="true" <%= "checked='checked'" if params[:show_price] %>  name="show_price"> 卖价
+  </label>
+	<label class="checkbox search_form">
+    <input type="checkbox"  value="true" <%= "checked='checked'" if params[:edit_type] %>  name="edit_type"> 类型
+  </label>
+	<label class="checkbox search_form">
+    <input type="checkbox"  value="true" <%= "checked='checked'" if params[:need_stock] %>  name="need_stock"> 备货
+  </label>
+	<label class="checkbox search_form" name="state[]">
+    <input type="checkbox"  value="true" <%= "checked='checked'" if params[:show_img] %>  name="show_img"> 图片
   </label>
 	
 	<input type="submit" value="查询" class='btn'>
@@ -49,6 +56,9 @@
 					<%= image_tag product.attachments.first.source.url(:thumb) if(params[:show_img] && !product.attachments.empty?) %>
 					<%#= product.sn %> 
 					<a href="/products/<%= product.id %>"><%= product.product_name %></a>
+					
+
+					
 					<%= link_to sanitize('<i class="icon-edit"></i>'), edit_product_path(product), target: '_blank' %>
 					<% if params[:optional_amounts].present? %>
 					<form action="/products/<%= product.id %>/update_product" class="bs-docs-example form-inline" data-remote="true" method="put" >
@@ -59,11 +69,25 @@
 						</select>
 					</form>
 					<% end %>
+					
+					<% if params[:need_stock].present? %>
+					<form action="/products/<%= product.id %>" method="put" data-remote="true" style="float:right;">
+						<label class="checkbox search_form">
+						<input type="checkbox" value="1" name="product[need_stock]" class="boolean optional required need_stock" <%= "checked='checked'" if product.need_stock %>> 需要备货
+					  </label>
+					</form>
+					<% end %>
+					
+					
+					
 					</td>
 					<td>
-					<% prices = Price.where(product_id: product).limit(4).order("id desc") %>
-					<% prices.reverse.each do |price| %>
-						<div><%= price.actual_cost %></div>
+						
+					<% if params[:edit_price].present? || params[:show_price].present? %>
+						<% prices = Price.where(product_id: product).limit(4).order("id desc") %>
+						<% prices.reverse.each do |price| %>
+							<div><%= price.actual_cost %></div>
+						<% end %>
 					<% end %>
 					
 
@@ -86,45 +110,45 @@
 							<a class="btn btn-mini" href="/products/<%= product.id %>/change_price_cq?price_name=price_1&function=minus" data-remote="true" ><i class="icon-chevron-down"></i></a>
             </div> -->
 						
-						<%= product.cost %>
+						均价 <%= product.cost %>
 						
-						<div class="btn-group btn-group-vertical">
+						<!-- <div class="btn-group btn-group-vertical">
 							<a class="btn btn-mini" href="/products/<%= product.id %>/change_price?price_name=price_1&function=plus" data-remote="true" ><i class="icon-chevron-up"></i></a>
 							<a class="btn price_text price_1" href="javascript:void(0)">
 								<%= price_format(product.price_1) %>
 							</a>
 							<a class="btn btn-mini" href="/products/<%= product.id %>/change_price?price_name=price_1&function=minus" data-remote="true" ><i class="icon-chevron-down"></i></a>
-            </div>
+            </div> -->
 						
 						<div class="btn-group btn-group-vertical">
 							<a class="btn btn-mini" href="/products/<%= product.id %>/change_price?price_name=price_2&function=plus" data-remote="true" ><i class="icon-chevron-up"></i></a>
 							<a class="btn price_text price_2" href="javascript:void(0)">
-								<%= price_format(product.price_2) if current_user %>
+								<%= price_format(product.price_2) if current_user %> <%#= "元/#{product.unit ? product.unit : '斤'}" %>
 							</a>
 							<a class="btn btn-mini" href="/products/<%= product.id %>/change_price?price_name=price_2&function=minus" data-remote="true" ><i class="icon-chevron-down"></i></a>
             </div>
 						
 						
-						<div class="btn-group btn-group-vertical">
+						<!-- <div class="btn-group btn-group-vertical">
 							<a class="btn btn-mini" href="/products/<%= product.id %>/change_price?price_name=price_3&function=plus" data-remote="true" ><i class="icon-chevron-up"></i></a>
 							<a class="btn price_text price_3" href="javascript:void(0)">
 								<%= price_format(product.price_3) if current_user %>
 							</a>
 							<a class="btn btn-mini" href="/products/<%= product.id %>/change_price?price_name=price_3&function=minus" data-remote="true" ><i class="icon-chevron-down"></i></a>
-            </div>
+            </div> -->
 						
-						<span class="unit">元/<%= product.unit ? product.unit : '斤' %></span>
+						<!-- <span class="unit">元/<%= product.unit ? product.unit : '斤' %></span> -->
+						<% zhangjia = product.price_2 - product.cost %>
+						<span style="<%= 'color:red;' if zhangjia <= 0 %>"><%= price_format zhangjia %></span>
 						
-						
-						
-						<div class="btn-group btn-group-vertical">
+						<!-- <div class="btn-group btn-group-vertical">
 							<a class="btn btn-mini" href="/products/<%= product.id %>/change_all_price?function=plus" data-remote="true" ><i class="icon-chevron-up"></i></a>
 							<a class="btn price_text" href="javascript:void(0)">
 								<% zhangjia = product.price_1 - product.cost %>
 								最低涨价：<span style="<%= 'color:red;' if zhangjia <= 0 %>"><%= price_format zhangjia %></span>
 							</a>
 							<a class="btn btn-mini" href="/products/<%= product.id %>/change_all_price?function=minus" data-remote="true" ><i class="icon-chevron-down"></i></a>
-            </div>
+            </div> -->
 						
 						<!-- <% a = product.price_2-product.price_cq %>
 						<% if a <-0.01 || a>0.01 %>
@@ -137,6 +161,7 @@
 					<% end %>
 				</td>
 				<td>
+					<% if params[:edit_type].present? %>
 					<form action="/products/<%= product.id %>/update_product" class="bs-docs-example form-inline pull-left" data-remote="true" method="put" >
 						<select name="product[type]" style="width:65px;" class="price_input">
 								<option value="Vegetable" <%= "selected" if product.type == 'Vegetable' %>>蔬菜</option>
@@ -144,13 +169,21 @@
 								<option value="Meat" <%= "selected" if product.type == 'Meat' %>>肉</option>
 						</select>
 					</form>
+					<% end %>
 					
 					<div class="btn-group options" >
 						<a data-remote="true" id="bt_up_<%= product.id %>" class="btn btn-small <%= 'disabled' if product.up? %>" href="/products/<%= product.id %>/to_up">上架</a>
 						<a data-remote="true" id="bt_down_<%= product.id %>" class="btn btn-small <%= 'disabled' if product.down? %>" href="/products/<%= product.id %>/to_down">下架</a>
 						<a data-remote="true" id="bt_file_<%= product.id %>" class="btn btn-small <%= 'disabled' if product.file? %>" href="/products/<%= product.id %>/to_file">归档</a>
 					</div>
+					
+					
+
+					
+					
+					
 				</td>
+					
 		  </tr>
 		<% end %>
 		
