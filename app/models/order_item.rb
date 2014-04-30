@@ -22,9 +22,10 @@ class OrderItem < ActiveRecord::Base
   def reset_cost
     # price = Price.where(product_id: product).where("updated_at < ?", this.updated_at).order("id desc").first
     # this.update_attributes cost_sum: (cost * ship_sum)
-      str = "#{created_at.year}-#{created_at.month}-#{created_at.day + 1}"
+      str = "#{created_at.year}-#{created_at.month}-#{created_at.day}"
       p str
       date = Date.parse str
+      date = date + 1.days
       # p date
       price = Price.where(product_id: product).where("date <= ?", date).order("id").last
       # p price
