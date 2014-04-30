@@ -45,6 +45,7 @@ Test5::Application.routes.draw do
       get 'done'
       get 'cancel'
       get 'print'
+      get 'reset_cost'
     end
   end
 

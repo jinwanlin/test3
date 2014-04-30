@@ -19,15 +19,6 @@ class OrderItem < ActiveRecord::Base
     formart(ship_amount * cost)
   end
   
-  
-  
-  
-  def self.reset_all_cost
-    Order.find(103).order_items.each do |order_item|
-      order_item.reset_cost
-    end
-  end
-  
   def reset_cost
     # price = Price.where(product_id: product).where("updated_at < ?", this.updated_at).order("id desc").first
     # this.update_attributes cost_sum: (cost * ship_sum)

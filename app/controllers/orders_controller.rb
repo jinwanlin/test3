@@ -2,7 +2,7 @@
 class OrdersController < ApplicationController
   load_and_authorize_resource class: 'Order'
   
-  before_filter :find_order, only: [:show ,:edit, :update, :destroy, :submit,  :continue_buy,  :print_ship,  :loading,  :sign,  :done,  :cancel]
+  before_filter :find_order, only: [:show ,:edit, :update, :destroy, :submit,  :continue_buy,  :print_ship,  :loading,  :sign,  :done,  :cancel, :reset_cost]
   
   
   def index
@@ -40,6 +40,10 @@ class OrdersController < ApplicationController
     redirect_to orders_path
   end
 
+  def reset_cost
+    @order.reset_cost
+    redirect_to orders_path
+  end
   
   def auto_make_order
     @order = current_user.orders.create

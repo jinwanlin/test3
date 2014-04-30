@@ -49,6 +49,7 @@
 		<td><%= "#{((order.profit / order.ship_sum)*100).to_i }%" if order.cost>0 %></td>
     <td>
 			<%= link_to '', order, method: :delete, data: { confirm: 'Are you sure?' }, class: 'icon-trash', title: '删除' unless order.done? %>
+			<%= link_to '重新计算利润', reset_cost_order_path(order) %>
 		</td>
   </tr>
 <% end %>

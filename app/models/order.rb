@@ -118,6 +118,12 @@ class Order < ActiveRecord::Base
     end
   end
   
+  def reset_cost
+    order_items.each do |order_item|
+      order_item.reset_cost
+    end
+  end
+  
   private
   def generate_order_no
     begin
