@@ -23,6 +23,7 @@ class OrderItem < ActiveRecord::Base
     # price = Price.where(product_id: product).where("updated_at < ?", this.updated_at).order("id desc").first
     # this.update_attributes cost_sum: (cost * ship_sum)
       str = "#{created_at.year}-#{created_at.month}-#{created_at.day + 1}"
+      p str
       date = Date.parse str
       # p date
       price = Price.where(product_id: product).where("date <= ?", date).order("id").last
