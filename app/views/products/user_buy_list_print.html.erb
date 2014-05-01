@@ -90,7 +90,7 @@ ul.sortable_print li{
 									</span>
 										<% end %>
 									<%= " #{predict.product.sales_price(@user.level, @user)}元"  if params[:price].present? %>
-									<span class="pull-right"><%= product.unit %></span>
+									<span class="pull-right"><%= product.order_unit %></span>
 								</div>
 								
 								<% if (index+1) % 33 == 0 %>
