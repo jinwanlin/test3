@@ -40,73 +40,67 @@ ul.sortable_print li{
 </div>
 <div style="overflow:hidden;">
 		<ul class="sortable_print" style="">
+			<% Vegetable::CLASSIFY.each do |key, val| %>
+				<% list = @predicts.joins(:product).where('products.classify = ?', key) %>
+				<% next if list.empty? %>
 				<li>
-					
-						<% last_classify = "leaf" %>
-						<% @predicts.each_with_index do |predict, index| %>
-							
-								<% product = predict.product %>
-							
-								<% classify = predict.product.classify %>
-								<% if classify!=last_classify %>
-									<div style="text-align:center; color:red;"><%= Vegetable::CLASSIFY["#{predict.product.classify}"] %></div>
-									</li>
-									<li>
-									<% last_classify = classify %>
-								<% end %>
-							
+					<div style="text-align:center; color:red;"><%= val %></div>
+					<% list.each_with_index do |predict, index| %>
+							<% product = predict.product %>
 							<div style="">
-									<span class="product_id">
-											<%= params[:admin] ? predict.order_times : product.id %>
-									</span>
-									
-									<% if params[:admin] %>
-										<%= link_to product.product_name, edit_product_path(product) %>
-									<% else %>
-										<%= product.product_name %>
-									<% end %>
-									
-									<% 
-									price = predict.product.sales_price(@user.level, @user)
-									
-									# 老订单
-									order_item_1 = OrderItem.where(product_id: predict.product).joins(:order).where("orders.user_id = ?", @user).order("id desc").limit(2).last
-									price_1 = order_item_1.price if order_item_1
-									
-									# 新订单
-									order_item_2 = OrderItem.where(product_id: predict.product).joins(:order).where("orders.user_id = ?", @user).order("id desc").limit(2).first
-									price_2 = order_item_2.price if order_item_2
-									
-									%>
-									
-									<% if price && price_1 && price_2 && params[:admin] %>
-										<% pp = price - price_2 %>
- 									<span class="shengmu" style="color:<%= pp > 0 ? 'red' : 'green' %>;">
-										<%#= predict.average_amount.to_i if params[:admin] %>
-											<% if pp<-0.01 || pp>0.01 %>
-												<%= pp > 0 ? '涨' : '降' %>
-												<%= price_format pp  %>
-													<%#= price_format price %>
-													
-													<span style="display:none;">
-														order_item_1.order.id : <%= order_item_1.order.id %>
-																											order_item_2.order.id : <%= order_item_2.order.id %>
-																										</span>
-											<% end %>
-									</span>
-										<% end %>
-									<%= " #{predict.product.sales_price(@user.level, @user)}元"  if params[:price].present? %>
-									<span class="pull-right"><%= product.order_unit %></span>
-								</div>
+								<span class="product_id">
+										<%= params[:admin] ? predict.order_times : product.id %>
+								</span>
 								
-								<% if (index+1) % 25 == 0 %>
-												</li>
-										</ul>
-										<ul class="sortable_print" style="">
-												<li>
+								<% if params[:admin] %>
+									<%= link_to product.product_name, edit_product_path(product) %>
+								<% else %>
+									<%= product.product_name %>
 								<% end %>
-						<% end %>
+								
+								<% 
+								price = predict.product.sales_price(@user.level, @user)
+								
+								# 老订单
+								order_item_1 = OrderItem.where(product_id: predict.product).joins(:order).where("orders.user_id = ?", @user).order("id desc").limit(2).last
+								price_1 = order_item_1.price if order_item_1
+								
+								# 新订单
+								order_item_2 = OrderItem.where(product_id: predict.product).joins(:order).where("orders.user_id = ?", @user).order("id desc").limit(2).first
+								price_2 = order_item_2.price if order_item_2
+								
+								%>
+								
+								<% if price && price_1 && price_2 && params[:admin] %>
+									<% pp = price - price_2 %>
+								<span class="shengmu" style="color:<%= pp > 0 ? 'red' : 'green' %>;">
+									<%#= predict.average_amount.to_i if params[:admin] %>
+										<% if pp<-0.01 || pp>0.01 %>
+											<%= pp > 0 ? '涨' : '降' %>
+											<%= price_format pp  %>
+												<%#= price_format price %>
+												
+												<span style="display:none;">
+													order_item_1.order.id : <%= order_item_1.order.id %>
+																										order_item_2.order.id : <%= order_item_2.order.id %>
+																									</span>
+										<% end %>
+								</span>
+									<% end %>
+								<%= " #{predict.product.sales_price(@user.level, @user)}元"  if params[:price].present? %>
+								<span class="pull-right"><%= product.order_unit %></span>
+							</div>
+							
+							<% if (index+1) % 25 == 0 %>
+											</li>
+									</ul>
+									<ul class="sortable_print" style="">
+											<li>
+							<% end %>
+					<% end %>
+					
 				</li>
+			<% end %>
 				<% if params[:show_weixin].present? %>
 				<li>
 					<div style="">
