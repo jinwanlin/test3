@@ -107,12 +107,14 @@ ul.sortable_print li{
 								<% end %>
 						<% end %>
 				</li>
+				<% if params[:show_weixin].present? %>
 				<li>
 					<div style="">
 						<img src="/assets/weixin_no.jpg" style="width:130px; padding:10px; text-align:center;">
 						填写数量后，可拍照发送到微信账号15810845422，让客服为您下单。
 					</div>
 				</li>
+				<% end %>
 		</ul>
 </div>
 		
