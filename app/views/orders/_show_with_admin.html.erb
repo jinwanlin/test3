@@ -21,6 +21,7 @@
 		    <th>订单金额</th>
 				<% unless @order.pending? || @order.confirmed? %>
 					<th>交易金额</th>
+					<th>利润</th>
 				<% end %>
 				<th></th>
 		  </tr>

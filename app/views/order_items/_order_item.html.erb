@@ -42,6 +42,7 @@ end
 		<%= price_format order_item.ship_sum if order_item.ship_sum > 0 %>
 		<%#= price_format order_item.cost_sum if order_item.cost_sum > 0 %>
 	</td>
+	<td><%= price_format(order_item.ship_sum - order_item.cost_sum) %></td>
 	<% end %>
 	
   <td>
