@@ -12,7 +12,7 @@ ul.sortable_print{
 }
 ul.sortable_print li{
 	list-style:none;
-	padding:10px;
+	padding:10px 10px 0 10px;
 	line-height:26px;
 	border:1px solid #aaa;
 }
@@ -41,19 +41,21 @@ ul.sortable_print li{
 <div style="overflow:hidden;">
 		<ul class="sortable_print" style="">
 				<li>
+					
 						<% last_classify = "leaf" %>
 						<% @predicts.each_with_index do |predict, index| %>
-							<% product = predict.product %>
 							
-							<% classify = predict.product.classify %>
-							<% if classify!=last_classify %>
-								<div style="border-top:1px solid red;">
-								<% last_classify = classify %>
-							<% else %>
-								<div style="<%#= 'background-color: #aaa;' if (predict.product.save_time > 1 && params[:admin]) %>">
-							<% end %>
+								<% product = predict.product %>
 							
+								<% classify = predict.product.classify %>
+								<% if classify!=last_classify %>
+									<div style="text-align:center; color:red;"><%= Vegetable::CLASSIFY["#{predict.product.classify}"] %></div>
+									</li>
+									<li>
+									<% last_classify = classify %>
+								<% end %>
 							
+							<div style="">
 									<span class="product_id">
 											<%= params[:admin] ? predict.order_times : product.id %>
 									</span>
@@ -97,7 +99,7 @@ ul.sortable_print li{
 									<span class="pull-right"><%= product.order_unit %></span>
 								</div>
 								
-								<% if (index+1) % 33 == 0 %>
+								<% if (index+1) % 30 == 0 %>
 												</li>
 										</ul>
 										<ul class="sortable_print" style="">
