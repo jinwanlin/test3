@@ -40,10 +40,12 @@ ul.sortable_print li{
 </div>
 <div style="overflow:hidden;">
 		<ul class="sortable_print" style="">
+			<% total = 0 %>
 			<% Vegetable::CLASSIFY.each do |key, val| %>
 				<% list = @predicts.joins(:product).where('products.classify = ?', key) %>
 				<% next if list.empty? %>
 				<li>
+					<% total = total+1 %>
 					<div style="text-align:center; color:red;"><%= val %></div>
 					<% list.each_with_index do |predict, index| %>
 							<% product = predict.product %>
@@ -91,14 +93,14 @@ ul.sortable_print li{
 								<span class="pull-right"><%= product.order_unit %></span>
 							</div>
 							
-							<% if (index+1) % 25 == 0 %>
+							<% total = total+1 %>
+							<% if total % 24 == 0 %>
 											</li>
 									</ul>
 									<ul class="sortable_print" style="">
 											<li>
 							<% end %>
 					<% end %>
-					
 				</li>
 			<% end %>
 				<% if params[:show_weixin].present? %>
