@@ -43,6 +43,8 @@ class ProductsController < ApplicationController
       @predicts = @predicts.joins(:product).order("products.cost")
     elsif params[:order] == 'price_desc'
       @predicts = @predicts.joins(:product).order("products.cost DESC")
+    elsif params[:order] == 'classify'
+      @predicts = @predicts.joins(:product).order("products.classify")
     else #bought
       @predicts = @predicts.joins(:product).order("order_times DESC").order("products.pinyin")
     end
@@ -57,6 +59,7 @@ class ProductsController < ApplicationController
       Predict.update_user @user
       @predicts = find_predicts(Date.today, @user)
     end
+    @predicts = @predicts.where("order_times > 0 ")
   end
   
   

@@ -33,23 +33,27 @@ ul.sortable_print li{
 <div class="print_outline">
 
 <div style="padding:10px 50px;">
-	<div class="pull-left"></div>
-	<div class="pull-right">日期：<span style=" width:80px;"><%#= Date.today %></span></div>
-	<div style="text-align:center; font-size:20px;"><%= @user.name %><span style="font-size:14px;">（采购单）</span></div>
+	<div style=" width:150px; position:absolute; left:500px;">日期：<span ><%#= Date.today %></span></div>
+	<div style="text-align:center; font-size:20px;">
+		<%= @user.name %><span style="font-size:14px;">（采购单）</span>
+	</div>
 </div>
 <div style="overflow:hidden;">
 		<ul class="sortable_print" style="">
 				<li>
-						<% is_print_zero = false %>
+						<% last_classify = "leaf" %>
 						<% @predicts.each_with_index do |predict, index| %>
 							<% product = predict.product %>
 							
-							<% if predict.order_times == 0 && !is_print_zero %>
+							<% classify = predict.product.classify %>
+							<% if classify!=last_classify %>
 								<div style="border-top:1px solid red;">
-								<% is_print_zero = true %>
+								<% last_classify = classify %>
 							<% else %>
 								<div style="<%#= 'background-color: #aaa;' if (predict.product.save_time > 1 && params[:admin]) %>">
 							<% end %>
+							
+							
 									<span class="product_id">
 											<%= params[:admin] ? predict.order_times : product.id %>
 									</span>
