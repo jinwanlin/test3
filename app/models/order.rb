@@ -79,7 +79,6 @@ class Order < ActiveRecord::Base
   def ship_sum_amount
     total = 0.0
     order_items.each do |item|
-      next if item.product.id == 385 || item.product.id == 386
       total += item.ship_sum 
     end
     (total * 100).round / 100.0
@@ -89,7 +88,6 @@ class Order < ActiveRecord::Base
   def total_cost
     total = 0.0
     order_items.each do |item|
-      next if item.product.id == 385 || item.product.id == 386
       total += item.cost_sum
     end
     (total * 100).round / 100.0
