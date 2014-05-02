@@ -64,7 +64,7 @@ class Order < ActiveRecord::Base
     end
   end
   
-  def profit_sum
+  def self.profit_sum
     sum = 0
     Order.all.each do |order|
       sum = sum + order.profit
