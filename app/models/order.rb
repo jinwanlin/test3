@@ -64,6 +64,14 @@ class Order < ActiveRecord::Base
     end
   end
   
+  def profit_sum
+    sum = 0
+    Order.all.each do |order|
+      sum = sum + order.profit
+    end
+    p "总利润：#{sum}"
+  end
+  
 
   
   # 订单金额
