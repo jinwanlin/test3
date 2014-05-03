@@ -1,16 +1,10 @@
 <% if params[:from_orders] %>
-order_item_764
 	$("#order_item_<%= @order_item.id %>").remove();
-	setTimeout("insert()",500);
+	$('#order_items').append('<%= j render(partial: 'order_items/order_item', object: @order_item) %>')
 	
 	$("#order_item_product_id").val("");
 	$("#order_item_product_id").focus();
 	$("#order_item_order_amount").val("");
-	
-	function insert(){
-		alert(3)
-		$('#order_items').append('<%= j render(partial: 'order_items/order_item', object: @order_item) %>')
-	}
 <% else %>
 	<% if @order_item.order_amount==0 %>
 		$("#product_<%= @order_item.product.id %>").removeClass("product_is_bye")
