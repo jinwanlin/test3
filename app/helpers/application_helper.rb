@@ -6,6 +6,10 @@ module ApplicationHelper
     sprintf('%.2f', (price * 100).round / 100.0) if price
   end
   
+  def phone_format(phone)
+    phone.insert(3, '-').insert(8, '-')
+  end
+  
   # 冒泡排序
   def getSort(arr)
     len = arr.length
