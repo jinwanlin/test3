@@ -46,6 +46,6 @@ end
 	<% end %>
 	
   <td>
-		<%= link_to '', order_item, method: :delete, data: { confirm: 'Are you sure?' }, class: 'icon-trash', title: '删除' unless order_item.order.done? %>
+		<%= link_to '', order_item, method: :delete, remote: true, data: { confirm: 'Are you sure?' }, class: 'icon-trash', title: '删除' unless order_item.order.done? %>
 	</td>
 </tr>

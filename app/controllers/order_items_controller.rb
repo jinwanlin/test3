@@ -104,6 +104,7 @@ class OrderItemsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to @order_item.order }
       format.json { head :no_content }
+      format.js
     end
   end
 end

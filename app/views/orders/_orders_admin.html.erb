@@ -39,7 +39,10 @@
 			<label class="checkbox" style="width: 45px;"><input type="checkbox" class="order_box" name="order_id[]" value="<%= order.id %>" ></label>
     </td>
 		<td><%= order.created_at.strftime('%Y-%m-%d').to_s %></td>
-		<td><%= link_to order.sn, order %></td>
+		<td>
+			<%= link_to order.sn, order %> 
+			<a href="/orders/print_order?order_id[]=<%= order.id %>"><i class="icon-print"></i></a>
+		</td>
 		<td><%= link_to order.user.name, order.user %></td>
 		<td><%= order.user.phone %></td>
 		<td><%= order_state order.state %></td>

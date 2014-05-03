@@ -130,7 +130,7 @@ class OrdersController < ApplicationController
   
   def print_ship
     @order.print_ship
-    redirect_to @order
+    redirect_to print_order_orders_path(:"order_id[]" => @order)
   end
   
   def loading

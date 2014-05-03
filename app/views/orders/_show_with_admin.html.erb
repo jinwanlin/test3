@@ -6,7 +6,7 @@
 	<div class="span8">
 		<%#= barcode 'ANUJ', :height => 100, :width => 400, :margin => 100, :xoff => 20, :yoff => 40 %> 
 		<%= link_to '取消', 			cancel_order_path(@order), class: 'btn btn-success' unless @order.done? %>
-		<table class="table">
+		<table class="table" id="order_items">
 		  <tr>
 		    <th>商品ID</th>
 		    <th>商品</th>

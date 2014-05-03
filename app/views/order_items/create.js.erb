@@ -1,22 +1,32 @@
-<% if @order_item.order_amount==0 %>
-	$("#product_<%= @order_item.product.id %>").removeClass("product_is_bye")
-	$("#drop<%= @order_item.product.id %>").html("<i class='car'></i>")
-	$("#buy_button_<%= @order_item.product.id %>").html("购买");
+<% if params[:from_orders] %>
+order_item_764
+	$("#order_item_<%= @order_item.id %>").remove();
+	$('#order_items').append('<%= j render(partial: 'order_items/order_item', object: @order_item) %>')
+	$("#order_item_product_id").val("");
+	$("#order_item_product_id").focus();
+	$("#order_item_order_amount").val("");
 <% else %>
-	$("#product_<%= @order_item.product.id %>").addClass("product_is_bye")
-	$("#drop<%= @order_item.product.id %>").html("<%= @order_item.order_amount %>")
-	$("#buy_button_<%= @order_item.product.id %>").html("<%= @order_item.order_amount > 1 ? @order_item.order_amount.to_i : @order_item.order_amount %> 斤");
+	<% if @order_item.order_amount==0 %>
+		$("#product_<%= @order_item.product.id %>").removeClass("product_is_bye")
+		$("#drop<%= @order_item.product.id %>").html("<i class='car'></i>")
+		$("#buy_button_<%= @order_item.product.id %>").html("购买");
+	<% else %>
+		$("#product_<%= @order_item.product.id %>").addClass("product_is_bye")
+		$("#drop<%= @order_item.product.id %>").html("<%= @order_item.order_amount %>")
+		$("#buy_button_<%= @order_item.product.id %>").html("<%= @order_item.order_amount > 1 ? @order_item.order_amount.to_i : @order_item.order_amount %> 斤");
+	<% end %>
+
+	<% if @order %>
+		$("#order_oprate").show();
+		$("#order_submit").show();
+	
+		$("#order_show").attr("href", "/orders/<%= @order.id %>")
+		$("#order_submit").attr("href", "/orders/<%= @order.id %>/submit")
+		$("#order_edit").attr("href", "/orders/<%= @order.id %>/continue_buy")
+		$("#order_cancle").attr("href", "/orders/<%= @order.id %>/cancel?return=products")
+	
+	<% else %>
+		$("#order_oprate").hide();
+	<% end %>
 <% end %>
 
-<% if @order %>
-	$("#order_oprate").show();
-	$("#order_submit").show();
-	
-	$("#order_show").attr("href", "/orders/<%= @order.id %>")
-	$("#order_submit").attr("href", "/orders/<%= @order.id %>/submit")
-	$("#order_edit").attr("href", "/orders/<%= @order.id %>/continue_buy")
-	$("#order_cancle").attr("href", "/orders/<%= @order.id %>/cancel?return=products")
-	
-<% else %>
-	$("#order_oprate").hide();
-<% end %>
