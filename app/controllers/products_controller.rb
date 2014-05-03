@@ -59,7 +59,8 @@ class ProductsController < ApplicationController
       Predict.update_user @user
       @predicts = find_predicts(Date.today, @user)
     end
-    @predicts = @predicts.where("order_times > 0 ")
+    
+    @predicts = @predicts.where("order_times > 0 ") if @user.orders.size > 0
   end
   
   

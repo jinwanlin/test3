@@ -11,7 +11,7 @@ class Predict < ActiveRecord::Base
   def self.update_user(user)
     today = Date.today
     
-    order_ids = Order.where(user_id: user).where(:state => ['shiping', 'baled', 'truck', 'signed', 'done']).where("created_at > ?", today-8.days).where("created_at < ?", today+1.days).pluck(:id)
+    order_ids = Order.where(user_id: user).where(:state => ['shiping', 'baled', 'truck', 'signed', 'done']).where("created_at > ?", today-30.days).where("created_at < ?", today+1.days).pluck(:id)
     Product.where(state: 'up').each do |product|
       update_product_user(user, today, order_ids, product)
     end
