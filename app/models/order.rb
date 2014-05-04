@@ -1,6 +1,6 @@
 # encoding: utf-8
 class Order < ActiveRecord::Base
-  attr_accessible :product_id, :order_amount, :sn, :sum, :cost, :state, :user_id
+  attr_accessible :product_id, :order_amount, :sn, :sum, :cost, :state, :user_id, :delivery_date
   
   has_many :order_items, dependent: :destroy
   belongs_to :user
@@ -157,6 +157,7 @@ class Order < ActiveRecord::Base
   end
   
   def do_print_ship
+    self.update_attributes delivery_date: Date.today
   end
   
   def do_cancel
