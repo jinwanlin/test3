@@ -33,6 +33,11 @@
 	    }).disableSelection();
 	});
   </script>
+	<style>
+	.container{
+		width:1220px;
+	}
+	</style>
 	<table>
 		<tr id="print-title">
 			<td colspan="6"><div>买菜用</div></td>
@@ -53,6 +58,14 @@
 				<td valign="top" style="height:<%= @height %>px;">
 					<ul id="<%= key %>" class="connectedSortable">
 						<% list.each do |product| %>
+							<%
+								order_items = OrderItem.joins(:order).where("orders.state='shiping'").where(product_id: product)
+								order_total = 0
+								order_items.each do |order_item|
+									order_total = order_total + order_item.order_amount
+								end
+								next if params[:only_buy].present? && order_total==0
+							%>
 							<li class="ui-state-default" classify="<%= product.classify %>" product_id="<%= product.id %>">
 								<%#= product.market_sort.to_s.rjust(2, '0') %>
 								<span style="width:10px; display:inline-block;"><%= product.pinyin.at(0) %></span>
@@ -66,13 +79,7 @@
 										<%= "#{product.order_total>=1 ? product.order_total.to_i : product.order_total}#{product.unit}" %>
 									<% end %> -->
 										
-									<%
-										order_items = OrderItem.joins(:order).where("orders.state='shiping'").where(product_id: product)
-										order_total = 0
-										order_items.each do |order_item|
-											order_total = order_total + order_item.order_amount
-										end
-									%>
+
 									<% if order_total > 0  %>
 										<%= "#{order_total>=1 ? order_total.to_i : order_total}#{product.unit}" %>
 									<% end %>
