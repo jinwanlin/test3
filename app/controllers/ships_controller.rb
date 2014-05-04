@@ -21,7 +21,7 @@ class ShipsController < ApplicationController
     
     order_item = Order.find(params[:ship][:order_id]).order_items.where(product_id: product).first if product
     
-    if amount && product && order_item
+    if amount && product
       @ship = Ship.new(params[:ship])
       @ship.amount = amount
       @ship.product = product

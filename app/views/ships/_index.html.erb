@@ -1,5 +1,5 @@
 <table id="ships" class="table">
-	<%= render partial: "ships/ship", collection: @order.ships %>
+	<%= render partial: "ships/ship", collection: @order.ships.where("order_item_id is not null") %>
 </table>
 
 <% unless @order.pending? || @order.confirmed? %>
@@ -17,3 +17,7 @@
 	<% end %>
 	
 <% end %>
+
+<table id="ships_error" class="table">
+	<%= render partial: "ships/ship", collection: @order.ships.where(order_item_id: nil) %>
+</table>

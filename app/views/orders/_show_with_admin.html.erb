@@ -53,6 +53,7 @@
 			<%= link_to '装车', 			loading_order_path(@order), class: 'btn btn-success' if @order.baled? %>
 			<%= link_to '签收', 			sign_order_path(@order), class: 'btn btn-success' if @order.truck? %>
 			<%= link_to '完工', 			done_order_path(@order), class: 'btn btn-success' if @order.signed? %>
+			<%= "警告：分拣了没订购的商品。" if @order.ships.where(order_item_id: nil).size > 0 %>
 		</p>
 	</div>
 	<div class="span4 ships_div" id="ships_div">

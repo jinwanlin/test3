@@ -41,33 +41,34 @@ class OrderItemsController < ApplicationController
       product = Product.find_by_name params[:product_name]
     end
     
+    
     # order_item
-    @order_item = @order.order_items.where(product_id: product).first
-    if @order_item
-      @order_item.order_amount = params[:order_item][:order_amount]
+    @old_order_item = @order.order_items.where(product_id: product).first
+    if @old_order_item
+      # @order_item.order_amount = params[:order_item][:order_amount]
     else
       @order_item = @order.order_items.new(params[:order_item])
       @order_item.product = product
       @order_item.price = product.sales_price(@order_item.order.user.level)
       @order_item.cost = product.cost
+      
+      date = Date.today
+      date = date-1.days if Time.new.hour < 3 # 凌晨3点前任然显示昨天的价格
+    
+      predict = Predict.where(user_id: current_user).where(date: date).where(product_id: product).first
+      predict.update_attributes order_amount: params[:order_item][:order_amount] if predict
     end
     
-
-    date = Date.today
-    date = date-1.days if Time.new.hour < 3 # 凌晨3点前任然显示昨天的价格
     
-    predict = Predict.where(user_id: current_user).where(date: date).where(product_id: product).first
-    predict.update_attributes order_amount: params[:order_item][:order_amount] if predict
-
+    
     respond_to do |format|
-      if @order_item.order_amount==0 ? @order_item.destroy : @order_item.save
-        format.html { redirect_to @order }
-        format.js
-        format.json
-      else
-        format.js
-        format.json
+      unless @old_order_item
+        @order_item.order_amount==0 ? @order_item.destroy : @order_item.save
       end
+      
+      format.html { redirect_to @order }
+      format.js
+      format.json
     end
   end
 
