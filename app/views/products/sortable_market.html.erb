@@ -62,6 +62,7 @@
 								order_items = OrderItem.joins(:order).where("orders.state='shiping'").where(product_id: product)
 								order_total = 0
 								order_items.each do |order_item|
+									next if order_item.ship_amount > 0
 									order_total = order_total + order_item.order_amount
 								end
 								next if params[:only_buy].present? && order_total==0
@@ -70,7 +71,7 @@
 								<%#= product.market_sort.to_s.rjust(2, '0') %>
 								<span style="width:10px; display:inline-block;"><%= product.pinyin.at(0) %></span>
 								
-								<span class="product_id"><%= product.id %></span>
+								<span class=""><%= product.id %></span>
 								
 								<%= product.product_name %>
 								<span style="color:red; float:right;">

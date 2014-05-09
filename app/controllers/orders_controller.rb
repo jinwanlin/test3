@@ -7,7 +7,8 @@ class OrdersController < ApplicationController
   
   def index
     if current_user.admin?
-      @orders = Order
+      states = params[:state] || ["pending", "confirmed", "shiping", "baled", "truck", "signed"]
+      @orders = Order.where(:state => states)
     else
       @orders = Order.where(user_id: current_user)
     end
