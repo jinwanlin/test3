@@ -97,7 +97,7 @@
 
 					<form novalidate="novalidate" method="post" style="margin:0;" data-remote="true" class="today simple_form form-horizontal pull-left <%= params[:edit_price] ? 'show' : 'hide' %>" action="/prices" accept-charset="UTF-8">
 					    <input type="hidden" value="<%= product.id %>" name="price[product_id]" >
-					    <input type="hidden" value="<%= Date.today %>" name="price[date]" >
+					    <input type="hidden" class="price_date" value="<%= Date.today %>" name="price[date]" >
 					    <input type="text" autocomplete="off" name="price[actual_cost]" tabIndex="<%= (tabindex * 100) + index + 1 %>" placeholder="今天" style="width:45px;" class="price_input numeric float optional pull-left" value="<%= Price.where(product_id: product, date: Date.today).first.try(:actual_cost) if params[:edit_price] %>" on>
 					</form>
 				</td>
