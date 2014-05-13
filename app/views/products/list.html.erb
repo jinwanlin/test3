@@ -173,20 +173,18 @@
 
 				<% if params[:order_count] %>
 				<td>
-					<div>
-						<% order_count = OrderCount.where(product_id: product).where(date: Date.today).first %>
-						<%= order_count ? order_count.amount : 0 %>
-						
-						<% order_count = OrderCount.where(product_id: product).where(date: (Date.today-1.days)).first %>
-						<%= order_count ? order_count.amount : 0 %>
-						
-						<% order_count = OrderCount.where(product_id: product).where(date: (Date.today-2.days)).first %>
-						<%= order_count ? order_count.amount : 0 %>
-						
-						<% order_count = OrderCount.where(product_id: product).where(date: (Date.today-3.days)).first %>
-						<%= order_count ? order_count.amount : 0 %>
-						
-						
+					
+					<div class="btn-group">
+						<% [Date.today, (Date.today-1.days), (Date.today-2.days), (Date.today-3.days)].each do |da| %>
+							<% order_count = OrderCount.where(product_id: product).where(date: da).first %>
+							<button class="btn" style="width:50px;">
+							<% if order_count %>
+								<%= order_count.amount>1 ? order_count.amount.to_i : order_count.amount %>
+							<% else %>
+								0
+							<% end %>
+							</button>
+						<% end %>
 					</div>
 				</td>
 				<% end %>
