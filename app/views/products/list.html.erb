@@ -58,7 +58,7 @@
 		<tr>
 			<td colspan="4" style="padding-top:30px;"><%= val %></td>
 		<% list = @products.where(market_area: key) %>
-		<% list = params[:order_times].present? ? list.order(:order_times) : list.order(:pinyin) %>
+		<% list = params[:order_times].present? ? list.order("order_times desc") : list.order(:pinyin) %>
 		
 		<% list.each_with_index do |product, index| %>
 		  <tr id="product_<%= product.id %>" class="<%= 'info' if product.down? %> <%= 'error' if product.file? %>  <%#= 'product_is_bye' if (order_amount = order_amount(@order, product)) > 0 %>">
