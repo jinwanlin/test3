@@ -73,7 +73,7 @@ class ProductsController < ApplicationController
     @products = @products.where(type: params[:type]) if params[:type].present?
     @products = @products.where(optional_amounts: params[:optional_amounts]) if params[:optional_amounts].present?
     
-    if params[:order_times].present?
+    if params[:reset_order_times].present?
       Product.update_all order_times: 0
       Order.where("delivery_date >= ?", Date.today-6.days).each do |order|
         order.order_items.each do |order_item|
@@ -82,7 +82,6 @@ class ProductsController < ApplicationController
         end
       end
     end
-     
     
 #    @products = @products.order("pinyin") #.paginate(:page => @page, :per_page => 5)
   end

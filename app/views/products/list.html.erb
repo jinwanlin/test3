@@ -41,12 +41,18 @@
 	<label class="checkbox search_form" name="state[]">
     <input type="checkbox"  value="true" <%= "checked='checked'" if params[:show_experience] %>  name="show_experience"> 采购要点
   </label>
-	<label class="checkbox search_form">
-    <input type="checkbox"  value="true" <%= "checked='checked'" if params[:order_count] %>  name="order_count"> 订购统计
-  </label>
-	<label class="checkbox search_form">
-    <input type="checkbox"  value="true" <%= "checked='checked'" if params[:order_times] %>  name="order_times"> 按订购统计排序
-  </label>
+	
+	<div>
+		<label class="checkbox search_form">
+	    <input type="checkbox"  value="true" <%= "checked='checked'" if params[:order_count] %>  name="order_count"> 订购统计
+	  </label>
+		<label class="checkbox search_form">
+	    <input type="checkbox"  value="true" <%= "checked='checked'" if params[:order_times] %>  name="order_times"> 按订购统计排序
+	  </label>
+		<label class="checkbox search_form">
+	    <input type="checkbox"  value="true" <%= "checked='checked'" if params[:reset_order_times] %>  name="reset_order_times"> 重新计算订购统计
+	  </label>
+	</div>
 	
 	<input type="submit" value="查询" class='btn'>
 	</form>
