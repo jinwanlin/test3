@@ -13,20 +13,10 @@ end
 	<td>
 		<%#= "2#{order_item.product.id.to_s.rjust(6, '0')}#{order_item.order_amount.to_s.rjust(3, '0')}#{rand(99).to_s.rjust(2, '0')}0" %>
 		<%= link_to order_item.product.product_name, order_item.product %>
-	
-	
-	</td>
-	<td>
-		<%#= price_format order_item.product.cost %>
-		<%= price_format order_item.price %> <%= "元/#{order_item.product.unit}" %>
-	</td>
-	<td>
-		<%= price_format order_item.cost %>
 	</td>
 	<td><%= order_item.order_amount>=1 ? order_item.order_amount.to_i : order_item.order_amount %> <%= order_item.product.unit %></td>
 	<% unless @order.pending? || @order.confirmed? %>
 	<td class="ship_amount"><%= price_format order_item.ship_amount %></td>
-	<td ><%= price_format order_item.cost_sum %></td>
 	<td>
 		<% if tr_class == "error" %>
 			<div style="color:red;"><%= "多#{price_format a}斤" %></div>
@@ -35,7 +25,8 @@ end
 		<% end %>
 	</td>
 	<% end %>
-	
+	<td><%= price_format order_item.price %> <%= "元/#{order_item.product.unit}" %></td>
+	<td><%= price_format order_item.cost %></td>
 	<td><%= price_format order_item.order_sum %></td>
 	<% unless @order.pending? || @order.confirmed? %>
 	<td class="ship_sum">
