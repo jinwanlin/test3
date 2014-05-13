@@ -23,6 +23,7 @@ class CreateProducts < ActiveRecord::Migration
       t.text :order_spid
       t.string :pinyin
       t.integer :save_time #保鲜时间
+      t.integer :order_times #最近7天订购次数
       
       t.timestamps
     end

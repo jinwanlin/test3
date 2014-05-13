@@ -72,7 +72,19 @@ class ProductsController < ApplicationController
     @products = Product.where("state in (?)", @states)
     @products = @products.where(type: params[:type]) if params[:type].present?
     @products = @products.where(optional_amounts: params[:optional_amounts]) if params[:optional_amounts].present?
-    @products = @products.order("pinyin") #.paginate(:page => @page, :per_page => 5)
+    
+    if params[:order_times].present?
+      Product.update_all order_times: 0
+      Order.where("delivery_date >= ?", Date.today-6.days).each do |order|
+        order.order_items.each do |order_item|
+          product = order_item.product
+          product.update_attributes order_times: (product.order_times + 1)
+        end
+      end
+    end
+     
+    
+#    @products = @products.order("pinyin") #.paginate(:page => @page, :per_page => 5)
   end
   
   def sortable
