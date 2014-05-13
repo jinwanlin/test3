@@ -181,7 +181,7 @@
 				<td>
 					
 					<div class="btn-group">
-						<% [Date.today, (Date.today-1.days), (Date.today-2.days), (Date.today-3.days), (Date.today-4.days), (Date.today-5.days), (Date.today-6.days)].each do |da| %>
+						<% [(Date.today-6.days), (Date.today-5.days), (Date.today-4.days), (Date.today-3.days), (Date.today-2.days), (Date.today-1.days), Date.today].each do |da| %>
 							<% order_count = OrderCount.where(product_id: product).where(date: da).first %>
 							<button class="btn" style="width:50px;">
 							<% if order_count %>
