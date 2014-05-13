@@ -23,7 +23,7 @@ end
 	<td>
 		<%= price_format order_item.cost %>
 	</td>
-	<td><%= "#{order_item.order_amount} #{order_item.product.unit}" %></td>
+	<td><%= order_item.order_amount>=1 ? order_item.order_amount.to_i : order_item.order_amount %> <%= order_item.product.unit %></td>
 	<% unless @order.pending? || @order.confirmed? %>
 	<td class="ship_amount"><%= price_format order_item.ship_amount %></td>
 	<td ><%= price_format order_item.cost_sum %></td>

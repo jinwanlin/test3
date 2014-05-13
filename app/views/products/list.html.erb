@@ -17,12 +17,12 @@
 			<option value="down" <%= "selected='selected'" if @states.include? 'down' %>>下架</option>
 			<option value="file" <%= "selected='selected'" if @states.include? 'file' %>>归档</option>
 	</select>
-	<select name="optional_amounts" style="width:150px;" class="price_input">
+	<!-- <select name="optional_amounts" style="width:150px;" class="price_input">
 			<option value="" >请选择AMOUNTS</option>
 			<option value="1" <%= "selected" if params[:optional_amounts] == "1" %>>AMOUNTS1</option>
 			<option value="2" <%= "selected" if params[:optional_amounts] == "2" %>>AMOUNTS2</option>
 			<option value="3" <%= "selected" if params[:optional_amounts] == "3" %>>AMOUNTS3</option>
-	</select>
+	</select> -->
 	<label class="checkbox search_form" name="state[]">
     <input type="checkbox"  value="true" <%= "checked='checked'" if params[:edit_price] %>  name="edit_price"> 进价
   </label>
