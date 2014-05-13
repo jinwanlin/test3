@@ -1,5 +1,8 @@
 Test5::Application.routes.draw do
 
+  resources :order_counts
+
+
   resources :companies
 
 

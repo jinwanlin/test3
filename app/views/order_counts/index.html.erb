@@ -1,0 +1,25 @@
+<h1>Listing order_counts</h1>
+
+<table>
+  <tr>
+    <th>Product</th>
+    <th>Date</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @order_counts.each do |order_count| %>
+  <tr>
+    <td><%= order_count.product %></td>
+    <td><%= order_count.date %></td>
+    <td><%= link_to 'Show', order_count %></td>
+    <td><%= link_to 'Edit', edit_order_count_path(order_count) %></td>
+    <td><%= link_to 'Destroy', order_count, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Order count', new_order_count_path %>
