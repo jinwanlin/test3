@@ -107,7 +107,6 @@
 							<div><%= price.actual_cost %></div>
 						<% end %>
 					<% end %>
-					
 
 					<form novalidate="novalidate" method="post" style="margin:0;" data-remote="true" class="today simple_form form-horizontal pull-left <%= params[:edit_price] ? 'show' : 'hide' %>" action="/prices" accept-charset="UTF-8">
 					    <input type="hidden" value="<%= product.id %>" name="price[product_id]" >

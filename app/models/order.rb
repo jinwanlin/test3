@@ -141,7 +141,7 @@ class Order < ActiveRecord::Base
   
   def do_done
     Pay.create order: self, payer: user, operator: nil, amount: -1*ship_sum
-    OrderCount.count(order)
+    OrderCount.count(self)
   end
   
   def do_print_order
