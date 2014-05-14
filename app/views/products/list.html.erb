@@ -15,13 +15,13 @@
 <form action="/products/list" class="bs-docs-example form-inline">
 	<div>
 		<label class="checkbox search_form" name="state[]">
-	    <input type="checkbox"  value="true" <%= "checked='checked'" if @states.include? 'up' %>  name="state[]"> 上架
+	    <input type="checkbox"  value="up" <%= "checked='checked'" if @states.include? 'up' %>  name="state[]"> 上架
 	  </label>
 		<label class="checkbox search_form" name="state[]">
-	    <input type="checkbox"  value="true" <%= "checked='checked'" if @states.include? 'down' %>  name="state[]"> 下架
+	    <input type="checkbox"  value="down" <%= "checked='checked'" if @states.include? 'down' %>  name="state[]"> 下架
 	  </label>
 		<label class="checkbox search_form">
-	    <input type="checkbox"  value="true" <%= "checked='checked'" if @states.include? 'file' %>  name="state[]"> 归档
+	    <input type="checkbox"  value="file" <%= "checked='checked'" if @states.include? 'file' %>  name="state[]"> 归档
 	  </label>
 	</div>
 	
