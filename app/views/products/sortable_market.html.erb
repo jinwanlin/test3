@@ -54,7 +54,8 @@
 		<tr>
 			<% Product::MARKET_AREA.each do |key, val| %>
 				<%  @height = @products.where(market_area: "xiaocai").size*25 %>
-				<% list = @products.where(market_area: key).order(:pinyin) %>
+				<% list = @products.where(market_area: key) %>
+				<% list = params[:order_times].present? ? list.order("order_times desc") : list.order("pinyin") %>
 				<td valign="top" style="height:<%= @height %>px;">
 					<ul id="<%= key %>" class="connectedSortable">
 						<% list.each do |product| %>

@@ -5,6 +5,7 @@
 <!-- 	<a href="/products/sortable_print" class="btn">条码表</a>
 	 -->
 	<a href="/products/sortable_market" class="btn">采购表(全部)</a>
+	<a href="/products/sortable_market?order_times=true" class="btn">采购表(全部,订购频率排序)</a>
 	<a href="/products/sortable_market?only_buy=true" class="btn">采购表(仅需采购)</a>
 	<a href="/products/inventory" class="btn">库存</a>
 	<a href="/products/sortable_series" class="btn">涨价次序</a>
@@ -12,11 +13,18 @@
 </div>
 
 <form action="/products/list" class="bs-docs-example form-inline">
-	<select name="state[]" style="width:55px;" multiple="multiple" size=3>
-			<option value="up" <%= "selected='selected'" if @states.include? 'up' %>>上架</option>
-			<option value="down" <%= "selected='selected'" if @states.include? 'down' %>>下架</option>
-			<option value="file" <%= "selected='selected'" if @states.include? 'file' %>>归档</option>
-	</select>
+	<div>
+		<label class="checkbox search_form" name="state[]">
+	    <input type="checkbox"  value="true" <%= "checked='checked'" if @states.include? 'up' %>  name="state[]"> 上架
+	  </label>
+		<label class="checkbox search_form" name="state[]">
+	    <input type="checkbox"  value="true" <%= "checked='checked'" if @states.include? 'down' %>  name="state[]"> 下架
+	  </label>
+		<label class="checkbox search_form">
+	    <input type="checkbox"  value="true" <%= "checked='checked'" if @states.include? 'file' %>  name="state[]"> 归档
+	  </label>
+	</div>
+	
 	<!-- <select name="optional_amounts" style="width:150px;" class="price_input">
 			<option value="" >请选择AMOUNTS</option>
 			<option value="1" <%= "selected" if params[:optional_amounts] == "1" %>>AMOUNTS1</option>
