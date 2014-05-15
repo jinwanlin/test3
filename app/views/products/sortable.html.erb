@@ -64,10 +64,12 @@
 		</tr>
 		
 		<tr>
+			<% total = 0 %>
 			<% Vegetable::CLASSIFY.each do |key, val| %>
 			<% p key %>
 				<%  @height = 20*25 %>
 				<% list = @products.where(classify: key).order(:pinyin) %>
+				<% total = total + list.size %>
 				<td valign="top" style="height:<%= @height %>px;">
 					<ul id="<%= key %>" class="connectedSortable">
 						<% list.each_with_index do |product, index| %>
@@ -120,7 +122,12 @@
 		</tr>
 	</table>
 		
-
+<% unless params[:show_price].present? %>
+					<div style="" total="<%= total %>">
+						<img src="/assets/weixin_no.jpg" style="width:130px; padding:10px; text-align:center;">
+						填写数量后，可拍照发送到微信账号15810845422，让客服为您下单。
+					</div>
+<% end %>
  
 
 	
