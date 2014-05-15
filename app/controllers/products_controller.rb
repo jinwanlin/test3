@@ -168,18 +168,21 @@ class ProductsController < ApplicationController
       elsif params[:function] == 'minus'
         @product.price_1 = @product.price_1-0.1
       end
+      @product.price_1 = @product.price_1.round(1)
     elsif params[:price_name] == 'price_2'
       if params[:function] == 'plus'
         @product.price_2 = @product.price_2+0.1
       elsif params[:function] == 'minus'
         @product.price_2 = @product.price_2-0.1
       end
+      @product.price_2 = @product.price_2.round(1)
     elsif params[:price_name] == 'price_3'
       if params[:function] == 'plus'
         @product.price_3 = @product.price_3+0.1
       elsif params[:function] == 'minus'
         @product.price_3 = @product.price_3-0.1
       end
+      @product.price_3 = @product.price_3.round(1)
     end
     @product.save
   end
