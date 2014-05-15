@@ -1,5 +1,5 @@
 body{
-	padding-top:40px;
+	padding-top:0px;
 }
 .navbar{
 	display:none;
@@ -43,8 +43,8 @@ body{
 }
 
 #head{
-	position:fixed;
-	margin-top:-22px;
+/*	position:fixed;
+	margin-top:-22px;*/
 	background-color:#fff;
 	font-size:16px;
 }
