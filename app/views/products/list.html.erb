@@ -1,15 +1,26 @@
-<div class="btn-group pull-right" >
-	<a href="/products/new" class="btn">添加</a>
-	<a href="/products/sortable" class="btn">分类排序</a>
-	
-<!-- 	<a href="/products/sortable_print" class="btn">条码表</a>
-	 -->
-	<a href="/products/sortable_market" class="btn">采购表(全部)</a>
-	<a href="/products/sortable_market?order_times=true" class="btn">采购表(全部,订购频率排序)</a>
-	<a href="/products/sortable_market?only_buy=true" class="btn">采购表(仅需采购)</a>
-	<a href="/products/inventory" class="btn">库存</a>
-	<a href="/products/sortable_series" class="btn">涨价次序</a>
-	<a href="/products/export" class="btn">导出</a>
+<div class="pull-right">
+	<div class="btn-group pull-right">
+		<a href="/products/sortable" class="btn">新客户采购单</a>
+		<a href="/products/sortable?show_price=true" class="btn">新客户价格表</a>
+	</div>
+	<div style="clear:both; height:5px;"></div>
+
+	<div class="btn-group pull-right" >
+		<a href="/products/sortable_market" class="btn">采购表(全部)</a>
+		<a href="/products/sortable_market?order_times=true" class="btn">采购表(全部,订购频率排序)</a>
+		<a href="/products/sortable_market?only_buy=true" class="btn">采购表(仅需采购)</a>
+		<a href="/products/inventory" class="btn">库存</a>
+	</div>
+	<div style="clear:both; height:5px;"></div>
+
+	<div class="btn-group pull-right">
+			<a href="/products/new" class="btn">添加商品</a>
+		<!-- 	<a href="/products/sortable_print" class="btn">条码表</a>
+			<a href="/products/sortable_series" class="btn">涨价次序</a>
+						 -->
+			<a href="/products/export" class="btn">导出到条码称</a>
+	</div>
+	<div style="clear:both; height:5px;"></div>
 </div>
 
 <form action="/products/list" class="bs-docs-example form-inline">

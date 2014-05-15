@@ -78,7 +78,15 @@
 									<%= product.product_name %>
 								</div>
 
-								<span class="pull-right"><%= product.order_unit %></span>
+								<span class="pull-right">
+									<% if params[:show_price].present? %>
+										<%= product.sales_price(1, nil) %><%= product.unit %>
+									<% else %>
+										<%= product.order_unit %>
+									<% end %>
+									
+									
+								</span>
 								<!-- <% product.order_spid.each do |key, value| %>
 								<% next if value==0 %>
 									<div class="pull-left" style="font-size:12px; line-height:12px; padding: 0 2px;">
