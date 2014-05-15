@@ -11,8 +11,8 @@
 	
 	
 	$(function() {
-			<% p keys = params[:type].constantize::CLASSIFY.keys.push('nil') %>
-			keys = <%= sanitize params[:type].constantize::CLASSIFY.keys.push('nil').to_s %>
+			<% p keys = params[:type].constantize::CLASSIFY.keys %>
+			keys = <%= sanitize params[:type].constantize::CLASSIFY.keys.to_s %>
 			
 			$('<%= sanitize "#"+keys.join(",#") %>').sortable({
 	        connectWith: '.connectedSortable',
@@ -54,7 +54,6 @@
 					</div>
 				</td>
 			<% end %>
-			<td><div style="text-align:center;">未分类</td></td>
 		</tr>
 		
 		<tr>
@@ -85,7 +84,7 @@
 				</td>
 			<% end %>
 			
-			<% list = @products.where(classify: 'nil') %>
+			<!-- <% list = @products.where(classify: 'nil') %>
 			<td valign="top" style="height:<%= @height %>px;">
 				<ul id="nil" class="connectedSortable">
 					<% list.each do |product| %>
@@ -94,7 +93,7 @@
 						</li>
 					<% end %>
 				</ul>
-			</td>
+			</td> -->
 			
 		</tr>
 	</table>
