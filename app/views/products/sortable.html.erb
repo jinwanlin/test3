@@ -44,13 +44,20 @@
   </script>
 	<table>
 		<tr id="print-title">
-			<td colspan="6"><div>称重打码用</div></td>
+			<!-- <td colspan="6"><div>称重打码用</div></td> -->
 		</tr>
 		<tr id="head">
 			<% Vegetable::CLASSIFY.each do |key, val| %>
+				<% if key == "leaf" %>
+					<td>
+						<div style="text-align:center;">
+							<%= val %>
+						</div>
+					</td>
+				<% end %>
 				<td>
 					<div style="text-align:center;">
-						<%= Vegetable.classify_index key %> <%= val %>
+						<%= val %>
 					</div>
 				</td>
 			<% end %>
@@ -59,26 +66,33 @@
 		<tr>
 			<% Vegetable::CLASSIFY.each do |key, val| %>
 			<% p key %>
-				<%  @height = @products.where(classify: 'leaf').size*25 %>
+				<%  @height = 25*25 %>
 				<% list = @products.where(classify: key).order(:pinyin) %>
 				<td valign="top" style="height:<%= @height %>px;">
 					<ul id="<%= key %>" class="connectedSortable">
-						<% list.each do |product| %>
+						<% list.each_with_index do |product, index| %>
 							<li class="ui-state-default" classify="<%= product.classify %>" product_id="<%= product.id %>">
 								<div class="pull-left">
 									<span class="shengmu"><%= shengmu = product.pinyin[0] %></span>
+									<!-- <span class="product_id"><%= product.id %></span> -->
 									<%= product.product_name %>
-									<span class="product_id"><%= product.id %></span>
-									
 								</div>
-								<% product.order_spid.each do |key, value| %>
+
+								<span class="pull-right"><%= product.order_unit %></span>
+								<!-- <% product.order_spid.each do |key, value| %>
 								<% next if value==0 %>
 									<div class="pull-left" style="font-size:12px; line-height:12px; padding: 0 2px;">
 											<div><%= "#{key}#{product.unit}" %></div>
 											<div style="color:red;"><%= value %>包</div>
 									</div>
-								<% end %>
+								<% end %> -->
 							</li>
+							<% if index == 25 %>
+								</ul>
+							</td>
+							<td valign="top" style="height:<%= @height %>px;">
+								<ul class="connectedSortable ui-sortable">
+							<% end %>
 						<% end %>
 					</ul>
 				</td>
