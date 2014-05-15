@@ -66,7 +66,7 @@
 		<tr>
 			<% Vegetable::CLASSIFY.each do |key, val| %>
 			<% p key %>
-				<%  @height = 25*25 %>
+				<%  @height = 20*25 %>
 				<% list = @products.where(classify: key).order(:pinyin) %>
 				<td valign="top" style="height:<%= @height %>px;">
 					<ul id="<%= key %>" class="connectedSortable">
@@ -95,7 +95,7 @@
 									</div>
 								<% end %> -->
 							</li>
-							<% if index == 24 %>
+							<% if index == 19 %>
 								</ul>
 							</td>
 							<td valign="top" style="height:<%= @height %>px;">
