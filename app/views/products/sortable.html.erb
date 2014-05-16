@@ -1,4 +1,4 @@
-<div style="width: 1180px;">
+<div style="width: 1100px; padding-right:40px">
 <div>
 	<img src="/assets/logo_2.png" class="pull-left" style="width:80px; padding:10px 10px 10px 50px;">
 	
@@ -6,6 +6,10 @@
 		<div class="pull-right">
 				<img src="/assets/weixin_no.jpg" style="width:100px; padding:5px; text-align:center;" class="pull-left">
 				<div class="pull-right" style="height:100px;"><br /><br />填写数量后，可拍照发送到微信账号<br />158-1084-5422，让客服为您下单。</div>
+		</div>
+	<% else %>
+		<div class="pull-right">
+				<div class="pull-right" style="height:100px; font-size:15px; padding-top:20px;">安卓手机客户端下载地址：<br />http://115.28.160.65/apk</div>
 		</div>
 	<% end %>
 	
@@ -88,14 +92,14 @@
 						<% list.each_with_index do |product, index| %>
 							<li class="ui-state-default" classify="<%= product.classify %>" product_id="<%= product.id %>">
 								<div class="pull-left">
-									<span class="shengmu"><%= shengmu = product.pinyin[0] %></span>
+									<!-- <span class="shengmu"><%= shengmu = product.pinyin[0] %></span> -->
 									<!-- <span class="product_id"><%= product.id %></span> -->
 									<%= product.product_name %>
 								</div>
 
 								<span class="pull-right">
 									<% if params[:show_price].present? %>
-										<%= product.sales_price(1, nil) %><%= product.unit %>
+										<%= product.sales_price(1, nil) %><span style="font-size:12px;"><%= "元/#{product.unit}" %></span>
 									<% else %>
 										<%= product.order_unit %>
 									<% end %>
