@@ -139,6 +139,7 @@ class Order < ActiveRecord::Base
       total = total + order_item.ship_amount * (order_item.product.sales_price - order_item.product.cost)
     end
     p total
+    p total / ship_sum
   end
   
   private
