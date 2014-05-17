@@ -177,7 +177,13 @@
 						
 						<!-- <span class="unit">元/<%= product.unit ? product.unit : '斤' %></span> -->
 						<% zhangjia = product.price_2 - product.cost %>
-						<span style="<%= 'color:red;' if zhangjia <= 0 %>"><%= price_format zhangjia %></span>
+						<span style="<%= 'color:red;' if zhangjia <= 0 %>">平均<%= price_format zhangjia %></span>
+						
+						
+						<% unless product.prices.empty? %>
+						<% zhangjia = product.price_2 - product.prices.last.actual_cost  %>
+						<span style="<%= 'color:red;' if zhangjia <= 0 %>">今日<%= price_format zhangjia %></span>
+						<% end %>
 						
 						<!-- <div class="btn-group btn-group-vertical">
 							<a class="btn btn-mini" href="/products/<%= product.id %>/change_all_price?function=plus" data-remote="true" ><i class="icon-chevron-up"></i></a>
