@@ -1,6 +1,6 @@
 # encoding: utf-8
 class Order < ActiveRecord::Base
-  attr_accessible :product_id, :order_amount, :sn, :sum, :cost, :state, :user_id, :delivery_date
+  attr_accessible :product_id, :order_amount, :sn, :sum, :cost, :state, :user_id, :delivery_date, :ship_amount_total
   
   has_many :order_items, dependent: :destroy
   belongs_to :user
@@ -127,24 +127,27 @@ class Order < ActiveRecord::Base
   end
   
   def reset_cost
+    ship_amount_total = 0
     order_items.each do |order_item|
       order_item.reset_cost
+      ship_amount_total = ship_amount_total + order_item.ship_amount
     end
+    self.update_attributes ship_amount_total: ship_amount_total
   end
   
   # 测试新价格在老订单上获取的利润
   def new_price
     total = 0
-    amount_total = 0
+    ship_amount_total = 0
     order_items.each do |order_item|
       total = total + order_item.ship_amount * (order_item.product.sales_price - order_item.product.cost)
-      amount_total = amount_total + order_item.ship_amount
+      ship_amount_total = ship_amount_total + order_item.ship_amount
     end
     p "毛利：#{total}"
     p "毛利率：#{total / ship_sum}"
     
-    p "出货总量：#{amount_total}"
-    p "平均每斤利润：#{total/amount_total}"
+    p "出货总重量：#{ship_amount_total}"
+    p "平均每斤利润：#{total/ship_amount_total}"
     nil
   end
   
@@ -174,7 +177,12 @@ class Order < ActiveRecord::Base
   end
   
   def do_print_ship
-    self.update_attributes delivery_date: Date.today
+    ship_amount_total = 0
+    order_items.each do |order_item|
+      ship_amount_total = ship_amount_total + order_item.ship_amount
+    end
+    
+    self.update_attributes delivery_date: Date.today, ship_amount_total: ship_amount_total
   end
   
   def do_cancel
