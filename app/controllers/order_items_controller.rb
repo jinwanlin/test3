@@ -50,7 +50,7 @@ class OrderItemsController < ApplicationController
       @order_item = @order.order_items.new(params[:order_item])
       @order_item.product = product
       @order_item.price = product.sales_price(@order_item.order.user.level)
-      @order_item.cost = product.cost
+      @order_item.cost = product.prices.last.actual_cost unless product.prices.empty? 
       
       date = Date.today
       date = date-1.days if Time.new.hour < 3 # 凌晨3点前任然显示昨天的价格
