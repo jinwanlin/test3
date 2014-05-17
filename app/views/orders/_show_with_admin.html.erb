@@ -37,12 +37,8 @@
 			<% if @order.ship_sum > 0 %>
 				<li>毛利：<span id="order_profit" style="color:red"><%= price_format @order.profit %></li>
 				<li>毛利率：<span id="" style="color:red"><%= "#{((@order.profit / @order.ship_sum)*100).to_i} %" if @order.cost>0 %></li>
-				
-				<li>出货总重量：<span id="" style="color:red"><%= order.ship_amount_total %></li>
+				<li>出货总重量：<span id="" style="color:red"><%= @order.ship_amount_total %></li>
 				<li>平均每斤利润：<span id="" style="color:red"><%= "#{((@order.profit / @order.ship_amount_total)*100).to_i} %" if @order.cost>0 %></li>
-					
-					
-					
 			<% end %>
 		</ul>
 		<br/>
