@@ -132,6 +132,15 @@ class Order < ActiveRecord::Base
     end
   end
   
+  # 测试新价格在老订单上获取的利润
+  def new_price
+    total = 0
+    order_items.each do |order_item|
+      total = total + order_item.ship_amount * (order_item.product.sales_price - order_item.product.cost)
+    end
+    p total
+  end
+  
   private
   def generate_order_no
     begin
