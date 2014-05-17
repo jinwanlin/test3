@@ -135,11 +135,17 @@ class Order < ActiveRecord::Base
   # 测试新价格在老订单上获取的利润
   def new_price
     total = 0
+    amount_total = 0
     order_items.each do |order_item|
       total = total + order_item.ship_amount * (order_item.product.sales_price - order_item.product.cost)
+      amount_total = amount_total + order_item.ship_amount
     end
-    p total
-    p total / ship_sum
+    p "毛利：#{total}"
+    p "毛利率：#{total / ship_sum}"
+    
+    p "出货总量：#{amount_total}"
+    p "平均每斤利润：#{total/amount_total}"
+    nil
   end
   
   private
