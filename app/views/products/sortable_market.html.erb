@@ -83,7 +83,7 @@
 										
 
 									<% if order_total > 0  %>
-										<%= "#{order_total>=1 ? order_total.to_i : order_total}#{product.unit}" %>
+										<%= "#{order_total%1==0 ? order_total.to_i : order_total}#{product.unit}" %>
 									<% end %>
 								</span>
 							</li>

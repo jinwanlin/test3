@@ -14,7 +14,7 @@ end
 		<%#= "2#{order_item.product.id.to_s.rjust(6, '0')}#{order_item.order_amount.to_s.rjust(3, '0')}#{rand(99).to_s.rjust(2, '0')}0" %>
 		<%= link_to order_item.product.product_name, order_item.product %>
 	</td>
-	<td><%= order_item.order_amount%1==0 ? order_item.order_amount.to_i : order_item.order_amount %> <%= order_item.product.unit %></td>
+	<td><%= order_item.order_amount%1==0 ? order_item.order_amount.to_i : order_item.order_amount %> <%= order_item.product.order_unit %></td>
 	<% unless @order.pending? || @order.confirmed? %>
 	<td class="ship_amount"><%= price_format order_item.ship_amount %></td>
 	<td>
