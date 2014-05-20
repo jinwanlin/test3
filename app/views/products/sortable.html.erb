@@ -4,8 +4,8 @@
 	
 	<% unless params[:show_price].present? %>
 		<div class="pull-right">
-				<img src="/assets/weixin_no.jpg" style="width:100px; padding:5px; text-align:center;" class="pull-left">
-				<div class="pull-right" style="height:100px;"><br /><br />填写数量后，可拍照发送到微信账号<br />158-1084-5422，让客服为您下单。</div>
+				<img src="/assets/weixin_no.jpg" style="width:100px; padding:5px; text-align:center;" style="display:block;" class="pull-left">
+				<div class="pull-right" style="height:100px;"><br /><br />扫描添加微信好友<br />填写数量后，拍照发微信给我。</div>
 		</div>
 	<% else %>
 		<div class="pull-right">
@@ -138,10 +138,15 @@
 			
 		</tr>
 	</table>
+	<div style="padding:0 5px;">
 	<div class="pull-right" style="margin-top:10px;">
 		共<%= total %>种蔬菜
 	</div>
 
+	<div class="pull-left">
+		<h4>订购电话：158-1084-5422</h4>
+	</div>
+</div>
 
 	
  
