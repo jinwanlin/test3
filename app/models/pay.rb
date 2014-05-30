@@ -1,7 +1,7 @@
 # encoding: utf-8
 # 付款
 class Pay < Payment
-  attr_accessible :order, :order_id, :summary
+  attr_accessible :order, :order_id, :summary, :created_at
 
   validates :amount, :numericality => {:less_than  => 0}
   
