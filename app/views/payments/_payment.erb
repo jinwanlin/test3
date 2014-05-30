@@ -16,7 +16,7 @@
 			<td><%= link_to payment.order.try(:sn), payment.order if payment.order %></td>
 			<td>
 				<%= payment.desc_ %>
-				<a href="javascript:void(0);" class="icon-edit" data-remote="true" title="修改" onclick="alert(1)" ></a>
+				<a href="javascript:void(0);" class="icon-edit" data-remote="true" title="修改" id="<%= payment.id %>" ></a>
 			</td>
 		</tr>
 	<% end %>
